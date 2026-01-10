@@ -1,368 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BRBR — My Story, Your Hope</title>
-  <meta name="description" content="BRBR Project — a storytelling-driven mission to say NO to bullying, abuse, and silence. My story becomes support for young people." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8">
+  <title>Barbour BRBR – Global Youth. Global Hope.</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <!-- Animated background -->
-  <div class="bg">
-    <div class="bg__glow bg__glow--1"></div>
-    <div class="bg__glow bg__glow--2"></div>
-    <div class="bg__grid"></div>
-    <div class="bg__noise"></div>
-  </div>
 
-  <!-- Top bar -->
-  <header class="topbar">
-    <div class="brand">
-      <span class="brand__dot"></span>
-      <div class="brand__text">
-        <div class="brand__title">BRBR</div>
-        <div class="brand__subtitle">My Story, Your Hope</div>
-      </div>
-    </div>
-
-    <button class="menuBtn" id="menuBtn" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-  </header>
-
-  <!-- Layout -->
-  <div class="layout">
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-      <div class="profileCard">
-        <div class="profileCard__imgWrap">
-          <img src="avatar.jpg" alt="BRBR Founder" class="avatar">
-          <div class="profileCard__ring"></div>
-        </div>
-        <div class="profileCard__name">Barbour (BRBR)</div>
-        <div class="profileCard__tag">Turning silence into strength.</div>
-
-        <div class="profileCard__ctaRow">
-          <a class="btn btn--primary" href="#get-brbr">Get BRBR</a>
-          <a class="btn btn--ghost" href="#story">My Story</a>
-        </div>
-
-        <div class="miniLinks">
-          <a class="miniLinks__item" target="_blank" rel="noreferrer" href="https://linktr.ee/barbourbrbr">Linktree</a>
-          <a class="miniLinks__item" target="_blank" rel="noreferrer" href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1">PancakeSwap</a>
-          <a class="miniLinks__item" target="_blank" rel="noreferrer" href="https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1#cards">BscScan</a>
-        </div>
-      </div>
-
-      <nav class="nav">
-        <a class="nav__link" href="#mission">Mission</a>
-        <a class="nav__link" href="#story">Animated Story</a>
-        <a class="nav__link" href="#help">Help & Resources</a>
-        <a class="nav__link" href="#association">Youth Association</a>
-        <a class="nav__link" href="#get-brbr">Buy BRBR</a>
-        <a class="nav__link" href="#contact">Contact</a>
-      </nav>
-
-      <div class="sidebarFooter">
-        <div class="pill">Official email</div>
-        <a class="copyRow" href="mailto:contact@barbourbrbr.xyz" id="emailLink">
-          <span>contact@barbourbrbr.xyz</span>
-        </a>
-        <button class="copyBtn" id="copyEmail">Copy email</button>
-      </div>
-    </aside>
-
-    <!-- Main -->
-    <main class="main">
-      <!-- HERO -->
-      <section class="hero" id="top">
-        <div class="hero__left">
-          <div class="badge">
-            <span class="badge__dot"></span>
-            <span>BRBR Project</span>
-          </div>
-
-          <h1 class="hero__title">
-            My story becomes a <span class="accent">safe voice</span> for others.
-          </h1>
-
-          <p class="hero__desc">
-            BRBR is built from a real personal journey: bullying, silence, fear, and healing.
-            The goal is to transform pain into support — for young people worldwide.
-          </p>
-
-          <div class="hero__buttons">
-            <a class="btn btn--primary btn--big" href="#story">Watch the story panels</a>
-            <a class="btn btn--ghost btn--big" href="#help">Get help resources</a>
-          </div>
-
-          <div class="tokenBox" id="get-brbr">
-            <div class="tokenBox__top">
-              <div class="tokenBox__title">BRBR Token</div>
-              <div class="tokenBox__chip">BSC</div>
-            </div>
-
-            <div class="tokenBox__row">
-              <div class="tokenBox__label">Contract</div>
-              <div class="tokenBox__value" id="contract">
-                0xf97522ABEf762d28729E073019343b72C6e8D2C1
-              </div>
-              <button class="copyBtn copyBtn--small" id="copyContract">Copy</button>
-            </div>
-
-            <div class="tokenBox__actions">
-              <a class="btn btn--primary" target="_blank" rel="noreferrer"
-                 href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1">
-                PancakeSwap
-              </a>
-              <a class="btn btn--ghost" target="_blank" rel="noreferrer"
-                 href="https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1#cards">
-                BscScan
-              </a>
-              <a class="btn btn--ghost" target="_blank" rel="noreferrer"
-                 href="https://linktr.ee/barbourbrbr">
-                Linktree
-              </a>
-            </div>
-
-            <div class="tokenBox__note">
-              Always verify the contract on BscScan before any swap.
-            </div>
-          </div>
-        </div>
-
-        <div class="hero__right">
-          <div class="comicPreview">
-            <div class="comicPreview__header">
-              <div class="comicPreview__title">“My Animated Life” — Episode 1</div>
-              <div class="comicPreview__subtitle">Silence vs Bullying • Fear of saying “No” • Hope</div>
-            </div>
-
-            <button class="comicPreview__imgBtn" id="openComic" aria-label="Open comic image">
-              <img src="assets/comic.jpg" alt="BRBR comic board" class="comicPreview__img">
-              <div class="comicPreview__overlay">
-                <div class="comicPreview__overlayText">Click to view full size</div>
-              </div>
-            </button>
-
-            <div class="comicPreview__grid">
-              <div class="infoCard">
-                <div class="infoCard__title">Stop bullying</div>
-                <div class="infoCard__text">Teach kids safety, boundaries, and how to ask for help.</div>
-              </div>
-              <div class="infoCard">
-                <div class="infoCard__title">Stop abuse</div>
-                <div class="infoCard__text">No sexual abuse, no power abuse. Protect children.</div>
-              </div>
-              <div class="infoCard">
-                <div class="infoCard__title">Build support</div>
-                <div class="infoCard__text">Resources, community, and future association projects.</div>
-              </div>
-              <div class="infoCard">
-                <div class="infoCard__title">Share the story</div>
-                <div class="infoCard__text">Animated series based on real scenes of life.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- MISSION -->
-      <section class="section" id="mission">
-        <div class="section__head">
-          <h2 class="section__title">Mission</h2>
-          <p class="section__subtitle">
-            Children deserve a safer world: no bullying, no abuse, no silence.
-          </p>
-        </div>
-
-        <div class="cards3">
-          <article class="card">
-            <h3>Say NO to bullying</h3>
-            <p>
-              Emotional bullying, school harassment, humiliation — we bring awareness and tools to respond early.
-            </p>
-          </article>
-
-          <article class="card">
-            <h3>Say NO to abuse</h3>
-            <p>
-              Sexual abuse, power abuse, manipulation — we support prevention and safe reporting.
-            </p>
-          </article>
-
-          <article class="card">
-            <h3>Support youth worldwide</h3>
-            <p>
-              Create a real network: stories, resources, help contacts, and a future association.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <!-- STORY -->
-      <section class="section" id="story">
-        <div class="section__head">
-          <h2 class="section__title">Animated Story</h2>
-          <p class="section__subtitle">
-            Each episode is a real scene. We transform truth into animation to help others feel less alone.
-          </p>
-        </div>
-
-        <div class="timeline">
-          <div class="timeline__line"></div>
-
-          <div class="timeline__item">
-            <div class="timeline__dot"></div>
-            <div class="timeline__content">
-              <h3>Episode 1 — Silence vs Bullying</h3>
-              <p>
-                A shy kid. Brown eyes. Fear of saying “no”. Fear of hurting others. Silence in front of bullying.
-              </p>
-              <div class="pillRow">
-                <span class="pill">Bullying</span>
-                <span class="pill">Fear</span>
-                <span class="pill">Silence</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="timeline__item">
-            <div class="timeline__dot"></div>
-            <div class="timeline__content">
-              <h3>Episode 2 — The Abuse of Power</h3>
-              <p>
-                When adults misuse authority. The child feels trapped. We show the truth — and solutions.
-              </p>
-              <div class="pillRow">
-                <span class="pill">Power abuse</span>
-                <span class="pill">Boundaries</span>
-                <span class="pill">Protection</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="timeline__item">
-            <div class="timeline__dot"></div>
-            <div class="timeline__content">
-              <h3>Episode 3 — Hope & Healing</h3>
-              <p>
-                Growth begins when you are heard. We encourage help, support, and safe community.
-              </p>
-              <div class="pillRow">
-                <span class="pill">Hope</span>
-                <span class="pill">Healing</span>
-                <span class="pill">Community</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- HELP -->
-      <section class="section" id="help">
-        <div class="section__head">
-          <h2 class="section__title">Help & Resources</h2>
-          <p class="section__subtitle">
-            If you’re in danger or suffering abuse/bullying, seek help immediately in your country.
-          </p>
-        </div>
-
-        <div class="callout">
-          <div class="callout__title">Important</div>
-          <div class="callout__text">
-            This website is not a replacement for emergency services. If someone is in immediate danger, call local emergency numbers.
-          </div>
-        </div>
-
-        <div class="cards2">
-          <article class="card">
-            <h3>What we provide</h3>
-            <ul class="list">
-              <li>Awareness content and educational stories</li>
-              <li>Guides: boundaries, reporting, and support</li>
-              <li>Future community + association initiatives</li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <h3>What you can do today</h3>
-            <ul class="list">
-              <li>Talk to a trusted adult or professional</li>
-              <li>Document incidents (dates, messages)</li>
-              <li>Reach out to local support organizations</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <!-- ASSOCIATION -->
-      <section class="section" id="association">
-        <div class="section__head">
-          <h2 class="section__title">Youth Association (Coming Soon)</h2>
-          <p class="section__subtitle">
-            The long-term vision: real actions, real support, real projects.
-          </p>
-        </div>
-
-        <div class="card">
-          <h3>Planned initiatives</h3>
-          <div class="grid4">
-            <div class="miniCard">Workshops in schools</div>
-            <div class="miniCard">Mentorship & guidance</div>
-            <div class="miniCard">Family support content</div>
-            <div class="miniCard">Global awareness campaigns</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- CONTACT -->
-      <section class="section" id="contact">
-        <div class="section__head">
-          <h2 class="section__title">Contact</h2>
-          <p class="section__subtitle">For collaboration, press, or support, reach out.</p>
-        </div>
-
-        <div class="contactCard">
-          <div class="contactCard__left">
-            <div class="contactCard__label">Email</div>
-            <a class="contactCard__email" href="mailto:contact@barbourbrbr.xyz">contact@barbourbrbr.xyz</a>
-            <div class="contactCard__hint">If you don’t receive emails yet, check your domain email forwarding settings.</div>
-          </div>
-
-          <div class="contactCard__right">
-            <a class="btn btn--primary" target="_blank" rel="noreferrer" href="https://linktr.ee/barbourbrbr">Open Linktree</a>
-            <a class="btn btn--ghost" target="_blank" rel="noreferrer" href="https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1#cards">Verify Contract</a>
-          </div>
-        </div>
-      </section>
-
-      <footer class="footer">
-        <div>© <span id="year"></span> BRBR Project — My Story, Your Hope.</div>
-        <div class="footer__links">
-          <a target="_blank" rel="noreferrer" href="https://linktr.ee/barbourbrbr">Linktree</a>
-          <a target="_blank" rel="noreferrer" href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1">PancakeSwap</a>
-          <a target="_blank" rel="noreferrer" href="https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1#cards">BscScan</a>
-        </div>
-      </footer>
-    </main>
-  </div>
-
-  <!-- Modal (comic zoom) -->
-  <div class="modal" id="modal" aria-hidden="true">
-    <div class="modal__backdrop" id="modalClose"></div>
-    <div class="modal__content" role="dialog" aria-modal="true" aria-label="Comic viewer">
-      <button class="modal__x" id="modalX" aria-label="Close">✕</button>
-      <img src="assets/comic.jpg" alt="BRBR comic full view" class="modal__img">
+<section class="hero">
+  <div class="overlay">
+    <img src="avatar.jpg" class="avatar" alt="Founder">
+    <h1>GLOBAL YOUTH.<br>GLOBAL HOPE.</h1>
+    <p>Turning silence into strength.</p>
+    <div class="buttons">
+      <a href="#story">Watch the Story</a>
+      <a href="#token" class="primary">Discover BRBR</a>
     </div>
   </div>
+</section>
 
-  <script src="script.js"></script>
+<section id="story" class="story">
+  <h2>The Silence of Fear</h2>
+  <p>
+    A child afraid to speak.  
+    A silence that lasted years.  
+    Until courage broke the chain.
+  </p>
+</section>
+
+<section id="token" class="token">
+  <img src="brbr-logo.png" class="token-logo">
+  <h2>BARBOUR BRBR</h2>
+  <p>Empowering the future, defiantly.</p>
+  <p class="small">
+    Anti-Bullying • Mental Health • Youth Development
+  </p>
+
+  <div class="links">
+    <a href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1">PancakeSwap</a>
+    <a href="https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1">BscScan</a>
+    <a href="https://linktr.ee/barbourbrbr">Linktree</a>
+  </div>
+</section>
+
+<footer>
+  <p>© Barbour BRBR — Courage. Compassion. Community.</p>
+  <p>contact@barbourbrbr.xyz</p>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
