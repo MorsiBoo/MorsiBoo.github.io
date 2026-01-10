@@ -1,51 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Barbour BRBR – Global Youth. Global Hope.</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Barbour BRBR — Global Youth. Global Hope.</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<section class="hero">
-  <div class="overlay">
-    <img src="avatar.jpg" class="avatar" alt="Founder">
-    <h1>GLOBAL YOUTH.<br>GLOBAL HOPE.</h1>
-    <p>Turning silence into strength.</p>
-    <div class="buttons">
-      <a href="#story">Watch the Story</a>
-      <a href="#token" class="primary">Discover BRBR</a>
+<!-- HERO WITH VIDEO BACKGROUND -->
+<header class="hero" id="top">
+  <video class="hero-video" autoplay muted loop playsinline preload="auto">
+    <source src="assets/hero.mp4" type="video/mp4">
+  </video>
+
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <img src="assets/avatar.jpg" class="avatar" alt="Barbour BRBR Founder">
+    <h1>GLOBAL YOUTH.<br><span>GLOBAL HOPE.</span></h1>
+    <p class="subtitle">Turn silence into strength. Break the chain. Build hope.</p>
+
+    <div class="cta">
+      <a class="btn" href="#story">Watch the Story</a>
+      <a class="btn primary" href="#token">Buy / Explore BRBR</a>
+    </div>
+
+    <div class="quick-links">
+      <a href="https://linktr.ee/barbourbrbr" target="_blank" rel="noopener">Linktree</a>
+      <a href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener">PancakeSwap</a>
+      <a href="https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener">BscScan</a>
+    </div>
+  </div>
+</header>
+
+<!-- STORY SECTION -->
+<section id="story" class="section story">
+  <div class="container">
+    <h2>The Silence of Fear</h2>
+    <p class="lead">
+      Barbour BRBR is born from a real story — the kind many kids live in silence.
+      Bullying, humiliation, abuse of power… until courage breaks the chain.
+    </p>
+
+    <div class="story-grid">
+      <div class="card">
+        <h3>1) Bullying in Silence</h3>
+        <p>A child afraid to speak, afraid to disturb, afraid to say “no”.</p>
+      </div>
+      <div class="card">
+        <h3>2) Fear & Isolation</h3>
+        <p>When pain becomes routine, and your voice disappears.</p>
+      </div>
+      <div class="card">
+        <h3>3) Hope & Faith</h3>
+        <p>Believing one day justice comes — and choosing to become the solution.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="story" class="story">
-  <h2>The Silence of Fear</h2>
-  <p>
-    A child afraid to speak.  
-    A silence that lasted years.  
-    Until courage broke the chain.
-  </p>
-</section>
+<!-- TOKEN REVEAL -->
+<section id="token" class="section token">
+  <div class="container">
+    <div class="token-row">
+      <img src="assets/brbr-logo.png" class="token-logo" alt="BRBR Token Logo">
+      <div>
+        <h2>BARBOUR BRBR</h2>
+        <p class="lead">
+          <strong>Empowering the future, defiantly.</strong><br>
+          Anti-Bullying • Mental Health Support • Youth Development
+        </p>
+        <div class="pill-row">
+          <span class="pill">Courage</span>
+          <span class="pill">Compassion</span>
+          <span class="pill">Community</span>
+        </div>
 
-<section id="token" class="token">
-  <img src="brbr-logo.png" class="token-logo">
-  <h2>BARBOUR BRBR</h2>
-  <p>Empowering the future, defiantly.</p>
-  <p class="small">
-    Anti-Bullying • Mental Health • Youth Development
-  </p>
+        <div class="cta">
+          <a class="btn primary" target="_blank" rel="noopener"
+             href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1">
+            Open PancakeSwap
+          </a>
+          <a class="btn" target="_blank" rel="noopener"
+             href="https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1">
+            Verify on BscScan
+          </a>
+        </div>
 
-  <div class="links">
-    <a href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1">PancakeSwap</a>
-    <a href="https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1">BscScan</a>
-    <a href="https://linktr.ee/barbourbrbr">Linktree</a>
+        <p class="tiny">Token address: 0xf97522ABEf762d28729E073019343b72C6e8D2C1</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<footer>
-  <p>© Barbour BRBR — Courage. Compassion. Community.</p>
-  <p>contact@barbourbrbr.xyz</p>
+<!-- ASSOCIATION / DONATE PAGE LINK -->
+<section id="association" class="section association">
+  <div class="container">
+    <h2>Youth Association (Coming Next)</h2>
+    <p class="lead">
+      Our goal: build a global safe space for youth — resources, stories, support, and real help.
+    </p>
+    <a class="btn primary" href="association.html">Open Association Page</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p>© Barbour BRBR — Global Youth. Global Hope.</p>
+    <p>Contact: <a href="mailto:contact@barbourbrbr.xyz">contact@barbourbrbr.xyz</a></p>
+  </div>
 </footer>
 
 <script src="script.js"></script>
