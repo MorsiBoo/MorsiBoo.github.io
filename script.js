@@ -1,20 +1,64 @@
-// === CONFIGURATION OFFICIELLE BRBR ===
-const LINKS = {
-  pancakeswap: "https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1",
-  bscscan: "https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1",
-  linktree: "https://linktr.ee/barbourbrbr" // Lien mis à jour
-};
+const sidebar = document.getElementById("sidebar");
+const menuBtn = document.getElementById("menuBtn");
 
-// Injection des liens
-document.getElementById("btnPancake").href = LINKS.pancakeswap;
-document.getElementById("btnBscscan").href = LINKS.bscscan;
-document.getElementById("btnLinktree").href = LINKS.linktree;
+menuBtn?.addEventListener("click", () => {
+  sidebar.classList.toggle("isOpen");
+});
 
-// Animation pour éviter la page blanche
-document.addEventListener("DOMContentLoaded", () => {
-    document.body.style.opacity = "1";
-    // Force l'affichage même si le scroll ne bouge pas
-    setTimeout(() => {
-        document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
-    }, 500);
+document.querySelectorAll(".nav__link").forEach(a => {
+  a.addEventListener("click", () => {
+    sidebar.classList.remove("isOpen");
+  });
+});
+
+// Year
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Copy helpers
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+const copyContractBtn = document.getElementById("copyContract");
+copyContractBtn?.addEventListener("click", async () => {
+  const contract = document.getElementById("contract")?.textContent?.trim() || "";
+  const ok = await copyText(contract);
+  copyContractBtn.textContent = ok ? "Copied" : "Copy failed";
+  setTimeout(() => (copyContractBtn.textContent = "Copy"), 1200);
+});
+
+const copyEmailBtn = document.getElementById("copyEmail");
+copyEmailBtn?.addEventListener("click", async () => {
+  const email = "contact@barbourbrbr.xyz";
+  const ok = await copyText(email);
+  copyEmailBtn.textContent = ok ? "Copied" : "Copy failed";
+  setTimeout(() => (copyEmailBtn.textContent = "Copy email"), 1200);
+});
+
+// Modal (comic zoom)
+const modal = document.getElementById("modal");
+const openComic = document.getElementById("openComic");
+const modalClose = document.getElementById("modalClose");
+const modalX = document.getElementById("modalX");
+
+function openModal() {
+  modal.classList.add("isOpen");
+  modal.setAttribute("aria-hidden", "false");
+}
+function closeModal() {
+  modal.classList.remove("isOpen");
+  modal.setAttribute("aria-hidden", "true");
+}
+
+openComic?.addEventListener("click", openModal);
+modalClose?.addEventListener("click", closeModal);
+modalX?.addEventListener("click", closeModal);
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeModal();
 });
