@@ -3,63 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BRBR - Mon Histoire, Votre Espoir</title>
+    <title>BRBR - L'Odyssée de l'Espoir</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header class="hero-section reveal">
-        <div class="profile-container">
-            <img src="TON_IMAGE_PETIT_GARCON.jpg" alt="Moi enfant" class="profile-img">
-            <h1>BRBR : Mon Histoire, Votre Espoir</h1>
-            <p class="tagline">De l'ombre du silence à la lumière de l'entraide.</p>
+    <div class="animated-bg"></div>
+
+    <header class="main-header">
+        <div class="glass-card">
+            <img src="votre-photo-enfant.jpg" alt="Moi enfant" class="avatar-3d">
+            <h1>Projet BRBR</h1>
+            <p>Transformer le silence en une voix pour le monde.</p>
+            <div class="links-row">
+                <a id="btnLinktree" href="https://linktr.ee/barbourbrbr" target="_blank" class="glass-btn">Linktree</a>
+                <a id="btnPancake" target="_blank" class="glass-btn primary">Acheter BRBR</a>
+            </div>
         </div>
     </header>
 
-    <nav class="links-bar reveal">
-        <a id="btnPancake" target="_blank" class="btn">PancakeSwap</a>
-        <a id="btnBscscan" target="_blank" class="btn">BscScan</a>
-        <a id="btnLinktree" target="_blank" class="btn">Linktree</a>
-    </nav>
-
-    <section class="story-section reveal">
-        <h2>La Série Animée : "Le Silence de l'Innocence"</h2>
-        <div class="video-grid">
-            <div class="video-card">
-                <div class="video-placeholder">Épisode 1</div>
-                <h3>La peur de dire "Non"</h3>
-                <p>Comment la timidité m'a empêché de parler face au harcèlement à l'école.</p>
-            </div>
-            <div class="video-card">
-                <div class="video-placeholder">Épisode 2</div>
-                <h3>Le poids du silence</h3>
-                <p>Face à l'abus de pouvoir, j'ai choisi de croire que Dieu paiera un jour.</p>
+    <main class="timeline-container">
+        <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <span class="chapter-number">01</span>
+                <h2>L'Ombre du Silence</h2>
+                <p>Petit, avec mes cheveux bruns et ma timidité, j'avais peur de déranger. Face au harcèlement à l'école, je restais muet, pensant que Dieu s'en chargerait un jour.</p>
+                <div class="scene-placeholder">Visualiser en 3D : L'enfant dans la cour</div>
             </div>
         </div>
-    </section>
 
-    <section class="cause-section reveal">
-        <h2>Mes Engagements pour les Jeunes</h2>
-        <div class="cause-grid">
-            <div class="cause-item">
-                <h3>Non au Harcèlement</h3>
-                <p>Protéger les enfants à l'école et surveiller pour éviter les drames.</p>
-            </div>
-            <div class="cause-item">
-                <h3>Non aux Abus</h3>
-                <p>Lutte contre l'abus de pouvoir et les abus sexuels.</p>
-            </div>
-            <div class="cause-item">
-                <h3>Paix & Famille</h3>
-                <p>Contre les guerres et la division des familles. Pour un monde épanoui.</p>
+        <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <span class="chapter-number">02</span>
+                <h2>Dire NON à l'Abus</h2>
+                <p>Abus de pouvoir, harcèlement moral... J'ai compris que mon silence était ma prison. Aujourd'hui, je brise ces chaînes pour protéger les autres enfants.</p>
             </div>
         </div>
-    </section>
 
-    <footer>
-        <p>&copy; <span id="year"></span> Projet BRBR. Ne jamais perdre espoir.</p>
-    </footer>
+        <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <span class="chapter-number">03</span>
+                <h2>L'Union BRBR</h2>
+                <p>Soutenir les jeunes du monde entier, lutter contre la division des familles et les guerres. Créons un monde épanoui ensemble.</p>
+                <a href="#association" class="link-text">Rejoindre l'Asso →</a>
+            </div>
+        </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
