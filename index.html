@@ -1,27 +1,66 @@
-// === OFFICIAL BRBR LINKS ===
-const LINKS = {
-  pancakeswap: "https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1",
-  bscscan: "https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1",
-  linktree: "https://linktr.ee/BRBR"
-};
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRBR - Mon Histoire, Votre Espoir</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
 
-// Inject links
-document.getElementById("btnPancake").href = LINKS.pancakeswap;
-document.getElementById("btnBscscan").href = LINKS.bscscan;
-document.getElementById("btnLinktree").href = LINKS.linktree;
+    <header class="hero-section reveal">
+        <div class="profile-container">
+            <img src="TON_IMAGE_PETIT_GARCON.jpg" alt="Moi enfant" class="profile-img">
+            <h1>BRBR : Mon Histoire, Votre Espoir</h1>
+            <p class="tagline">De l'ombre du silence à la lumière de l'entraide.</p>
+        </div>
+    </header>
 
-// Footer year
-document.getElementById("year").textContent = new Date().getFullYear();
+    <nav class="links-bar reveal">
+        <a id="btnPancake" target="_blank" class="btn">PancakeSwap</a>
+        <a id="btnBscscan" target="_blank" class="btn">BscScan</a>
+        <a id="btnLinktree" target="_blank" class="btn">Linktree</a>
+    </nav>
 
-// Reveal animations
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add("visible");
-  });
-});
-document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+    <section class="story-section reveal">
+        <h2>La Série Animée : "Le Silence de l'Innocence"</h2>
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="video-placeholder">Épisode 1</div>
+                <h3>La peur de dire "Non"</h3>
+                <p>Comment la timidité m'a empêché de parler face au harcèlement à l'école.</p>
+            </div>
+            <div class="video-card">
+                <div class="video-placeholder">Épisode 2</div>
+                <h3>Le poids du silence</h3>
+                <p>Face à l'abus de pouvoir, j'ai choisi de croire que Dieu paiera un jour.</p>
+            </div>
+        </div>
+    </section>
 
-// Modal logic
-const modal = document.getElementById("modal");
-document.getElementById("openModalBtn")?.addEventListener("click", () => modal.style.display = "flex");
-document.getElementById("closeModalBtn")?.addEventListener("click", () => modal.style.display = "none");
+    <section class="cause-section reveal">
+        <h2>Mes Engagements pour les Jeunes</h2>
+        <div class="cause-grid">
+            <div class="cause-item">
+                <h3>Non au Harcèlement</h3>
+                <p>Protéger les enfants à l'école et surveiller pour éviter les drames.</p>
+            </div>
+            <div class="cause-item">
+                <h3>Non aux Abus</h3>
+                <p>Lutte contre l'abus de pouvoir et les abus sexuels.</p>
+            </div>
+            <div class="cause-item">
+                <h3>Paix & Famille</h3>
+                <p>Contre les guerres et la division des familles. Pour un monde épanoui.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; <span id="year"></span> Projet BRBR. Ne jamais perdre espoir.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
