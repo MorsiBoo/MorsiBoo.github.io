@@ -29,19 +29,32 @@
   </nav>
 
   <!-- HERO (video background) -->
-  <header class="hero" id="top">
-    <video class="hero-bg" autoplay muted loop playsinline preload="auto">
-      <source src="assets/hero.mp4" type="video/mp4" />
-    </video>
+  <section class="hero">
 
-    <div class="hero-overlay"></div>
-    <canvas id="particles"></canvas>
+  <video id="heroVideo"
+         class="hero-video"
+         autoplay
+         muted
+         loop
+         playsinline
+         preload="auto">
+    <source src="assets/hero-web.mp4" type="video/mp4">
+  </video>
 
-    <div class="hero-content">      
-    
-    <button class="sound-toggle" id="soundToggle" aria-label="Toggle sound">
-  🔇 Sound: OFF
-</button>
+  <div class="overlay"></div>
+
+  <div class="hero-content fade-in">
+    <h1>
+      GLOBAL YOUTH.<br>
+      <span>GLOBAL HOPE.</span>
+    </h1>
+
+    <p>Turn silence into strength. Break the chain. Build hope.</p>
+
+    <button id="soundToggle">🔊 Sound</button>
+  </div>
+
+</section>
 
  
       <!-- logo.mp4 = small logo animation (NOT background) -->
