@@ -1,20 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Barbour BRBR — Global Youth. Global Hope.</title>
-  <meta name="description" content="Barbour BRBR — Anti-Bullying • Mental Health Support • Youth Development" />
+
   <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="Barbour BRBR — Anti-Bullying, Mental Health Support, Youth Development. Courage. Compassion. Community." />
 </head>
 
 <body>
   <!-- NAV -->
   <nav class="nav">
-    <a class="brand" href="#top">
-      <span class="dot"></span>
-      <span>BARBOUR BRBR</span>
-    </a>
+    <div class="nav-left">
+      <a class="brand" href="#top">
+        <span class="brand-dot"></span>
+        <span>BARBOUR BRBR</span>
+      </a>
+    </div>
 
     <div class="nav-right">
       <a class="nav-link" href="#story">Story</a>
@@ -24,17 +27,20 @@
     </div>
   </nav>
 
-  <!-- HERO (BACKGROUND VIDEO) -->
+  <!-- HERO (video background) -->
   <header class="hero" id="top">
     <video class="hero-bg" autoplay muted loop playsinline preload="auto">
       <source src="assets/hero.mp4" type="video/mp4" />
     </video>
+
     <div class="hero-overlay"></div>
 
     <div class="hero-content">
-      <!-- Avatar -->
-      <div class="avatar">
-        <img src="assets/avatar.jpg" alt="BRBR Avatar" />
+      <!-- logo.mp4 = small logo animation (NOT background) -->
+      <div class="logo-wrap" aria-label="BRBR Logo Animation">
+        <video class="logo-video" autoplay muted loop playsinline preload="auto">
+          <source src="assets/logo.mp4" type="video/mp4" />
+        </video>
       </div>
 
       <h1 class="headline">
@@ -48,47 +54,61 @@
 
       <div class="cta-row">
         <a class="btn primary" href="#story">Watch the Story</a>
-        <a class="btn ghost" href="#token">Explore BRBR</a>
+        <a class="btn ghost" target="_blank" rel="noopener"
+           href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1">
+          Buy / Explore BRBR
+        </a>
       </div>
 
-      <div class="quick-links">
-        <a href="https://linktr.ee/barbourbrbr" target="_blank" rel="noopener">Linktree</a>
-        <a href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener">PancakeSwap</a>
-        <a href="https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1#cards" target="_blank" rel="noopener">BscScan</a>
+      <div class="mini-links">
+        <a target="_blank" rel="noopener" href="https://linktr.ee/barbourbrbr">Linktree</a>
+        <span>•</span>
+        <a target="_blank" rel="noopener"
+           href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1">
+          PancakeSwap
+        </a>
+        <span>•</span>
+        <a target="_blank" rel="noopener"
+           href="https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1#cards">
+          BscScan
+        </a>
       </div>
 
-      <a class="scroll" href="#story">↓ Continue</a>
+      <div class="scroll-hint">Scroll ↓</div>
     </div>
   </header>
 
   <!-- STORY -->
   <section class="section" id="story">
-    <div class="container">
-      <div class="section-title">
+    <div class="container split">
+      <div class="panel">
         <h2>The Silence of Fear</h2>
-        <p>
-          Barbour BRBR is born from a real story — the kind many kids live in silence.
-          Bullying. Fear. Isolation. And the strength to rise.
+        <p class="lead">
+          Barbour BRBR is born from a real story — the kind many kids live in silence:
+          bullying, humiliation, abuse of power… until courage becomes a choice.
         </p>
+
+        <div class="cards">
+          <div class="card">
+            <h3>1) Bullying in Silence</h3>
+            <p>When you’re scared to speak, scared to disturb, scared to say “no”.</p>
+          </div>
+          <div class="card">
+            <h3>2) Fear & Isolation</h3>
+            <p>When pain becomes routine, and your voice disappears.</p>
+          </div>
+          <div class="card">
+            <h3>3) Hope & Faith</h3>
+            <p>Believing one day justice comes — and choosing to become the solution.</p>
+          </div>
+        </div>
+
+        <a class="btn primary" href="#token">Continue → Token Reveal</a>
       </div>
 
-      <div class="grid">
-        <div class="card">
-          <h3>1) Bullying in Silence</h3>
-          <p>A child afraid to speak… afraid to disturb… afraid to say “no”.</p>
-        </div>
-        <div class="card">
-          <h3>2) Fear & Isolation</h3>
-          <p>When pain becomes routine, and your voice disappears.</p>
-        </div>
-        <div class="card">
-          <h3>3) Hope & Faith</h3>
-          <p>Believing one day justice comes — and choosing to become the solution.</p>
-        </div>
-      </div>
-
-      <div class="story-visual">
-        <img src="assets/story.png" alt="BRBR story visual" />
+      <div class="visual">
+        <img src="assets/story.png" alt="BRBR Story Visual" />
+        <div class="visual-glow"></div>
       </div>
     </div>
   </section>
@@ -98,14 +118,9 @@
     <div class="container">
       <div class="token-top">
         <h2>BARBOUR BRBR: Empowering the Future, Defiantly.</h2>
-        <p class="lead">Anti-Bullying • Mental Health Support • Youth Development</p>
-      </div>
-
-      <!-- logo.mp4 here (NOT background) -->
-      <div class="logo-reveal">
-        <video class="logo-video" autoplay muted loop playsinline preload="auto">
-          <source src="assets/logo.mp4" type="video/mp4" />
-        </video>
+        <p class="lead">
+          Anti-Bullying • Mental Health Support • Youth Development
+        </p>
       </div>
 
       <div class="pill-row">
@@ -115,45 +130,58 @@
       </div>
 
       <div class="token-actions">
-        <a class="btn primary" href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener">
+        <a class="btn primary" target="_blank" rel="noopener"
+           href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1">
           Open PancakeSwap
         </a>
-        <a class="btn ghost" href="https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1#cards" target="_blank" rel="noopener">
+
+        <a class="btn ghost" target="_blank" rel="noopener"
+           href="https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1#cards">
           Verify on BscScan
         </a>
       </div>
 
-      <p class="addr">
-        Token address:
-        <span>0xf97522ABEf762d28729E073019343b72C6e8D2C1</span>
+      <div class="copybox">
+        <div class="copyline">
+          <span class="label">Token address</span>
+          <code id="tokenAddress">0xf97522ABEf762d28729E073019343b72C6e8D2C1</code>
+        </div>
+        <button class="copybtn" id="copyBtn" type="button">Copy</button>
+      </div>
+
+      <p class="tiny">
+        Built for good: a community-driven project supporting youth worldwide.
       </p>
     </div>
   </section>
 
-  <!-- HELP -->
+  <!-- HELP / RESOURCES -->
   <section class="section" id="help">
     <div class="container">
-      <div class="section-title">
-        <h2>Support & Youth Help (Coming Next)</h2>
-        <p>
-          The goal: build a global safe space for youth — resources, stories, support,
-          and real help. If you need help, you are not alone.
-        </p>
+      <h2>Supportive Web. Real Help.</h2>
+      <p class="lead">
+        This is a safe place for stories, support, and action. If you’re living bullying,
+        moral harassment, family violence, or abuse — you are not alone.
+      </p>
+
+      <div class="cards three">
+        <div class="card">
+          <h3>Share Your Story</h3>
+          <p>Anonymous stories coming next. Your voice matters.</p>
+        </div>
+        <div class="card">
+          <h3>Youth Association (Coming)</h3>
+          <p>A global space for resources, support, and real help.</p>
+        </div>
+        <div class="card">
+          <h3>Build Hope</h3>
+          <p>Turn pain into strength. Help someone else stand up.</p>
+        </div>
       </div>
 
-      <div class="grid">
-        <div class="card">
-          <h3>Stop Bullying</h3>
-          <p>We promote awareness, prevention, and safe reporting.</p>
-        </div>
-        <div class="card">
-          <h3>Mental Health Support</h3>
-          <p>We push for access to listening, guidance, and protection.</p>
-        </div>
-        <div class="card">
-          <h3>Youth Association</h3>
-          <p>We will structure the association step-by-step and transparently.</p>
-        </div>
+      <div class="cta-row">
+        <a class="btn primary" target="_blank" rel="noopener" href="https://linktr.ee/barbourbrbr">Open Linktree</a>
+        <a class="btn ghost" href="#contact">Contact</a>
       </div>
     </div>
   </section>
@@ -162,13 +190,21 @@
   <footer class="footer" id="contact">
     <div class="container footer-inner">
       <div>
-        <strong>Barbour BRBR</strong>
-        <div class="muted">Global Youth. Global Hope.</div>
+        <div class="footer-title">BARBOUR BRBR</div>
+        <div class="footer-sub">Global Youth. Global Hope.</div>
       </div>
 
       <div class="footer-links">
+        <a target="_blank" rel="noopener" href="https://linktr.ee/barbourbrbr">Linktree</a>
+        <a target="_blank" rel="noopener"
+           href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1">PancakeSwap</a>
+        <a target="_blank" rel="noopener"
+           href="https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1#cards">BscScan</a>
+      </div>
+
+      <div class="footer-contact">
         <a href="mailto:contact@barbourbrbr.xyz">contact@barbourbrbr.xyz</a>
-        <a href="https://linktr.ee/barbourbrbr" target="_blank" rel="noopener">Linktree</a>
+        <div class="tiny">© <span id="year"></span> Barbour BRBR</div>
       </div>
     </div>
   </footer>
