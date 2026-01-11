@@ -30,28 +30,25 @@
 
 <body data-page="home">
   <!-- Ambient / SFX (autoplay blocked until user gesture — handled in JS) -->
-  <audio id="aud-ambience" preload="auto" loop>
-    <source src="assets/ambience.mp3" type="audio/mpeg" />
-    <source src="assets/atmosphere-sound-effect.mp3" type="audio/mpeg" />
-  </audio>
+ <audio id="aud-ambience" preload="auto" loop>
+  <source src="assets/atmosphere-sound-effect.mp3" type="audio/mpeg" />
+</audio>
 
-  <audio id="aud-click" preload="auto">
-    <source src="assets/click.mp3" type="audio/mpeg" />
-    <source src="assets/Click.mp3" type="audio/mpeg" />
-  </audio>
+<audio id="aud-click" preload="auto">
+  <source src="assets/Click.mp3" type="audio/mpeg" />
+</audio>
 
-  <audio id="aud-whoosh" preload="auto">
-    <source src="assets/whoosh.mp3" type="audio/mpeg" />
-  </audio>
+<audio id="aud-whoosh" preload="auto">
+  <source src="assets/whoosh.mp3" type="audio/mpeg" />
+</audio>
 
-  <audio id="aud-hit" preload="auto">
-    <source src="assets/hit.mp3" type="audio/mpeg" />
-  </audio>
+<audio id="aud-hit" preload="auto">
+  <source src="assets/hit.mp3" type="audio/mpeg" />
+</audio>
 
-  <audio id="aud-stinger" preload="auto">
-    <source src="assets/stinger.mp3" type="audio/mpeg" />
-    <source src="assets/Hero.m4a" type="audio/mp4" />
-  </audio>
+<audio id="aud-stinger" preload="auto">
+  <source src="assets/Hero.m4a" type="audio/mp4" />
+</audio>
 
   <!-- Cinematic background layers -->
   <div class="bg">
@@ -222,9 +219,11 @@
 
           <div class="tokenmedia card reveal">
             <div class="tokenmedia__title">BRBR Logo (Cinematic Loop)</div>
-            <video id="logoVideo" class="tokenmedia__video" muted playsinline preload="auto" poster="assets/story.png">
-              <source src="assets/logo-web.mp4" type="video/mp4" />
-            </video>
+            <video id="logoVideo" class="tokenmedia__video"
+       autoplay muted loop playsinline
+       preload="auto" poster="assets/story.png">
+  <source src="assets/logo-web.mp4" type="video/mp4" />
+</video>
             <div class="tokenmedia__hint">Scroll into view → cinematic hit</div>
           </div>
         </div>
