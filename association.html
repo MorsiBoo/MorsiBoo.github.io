@@ -1,94 +1,92 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BRBR — Association</title>
+  <meta name="theme-color" content="#05070c" />
+  <meta name="color-scheme" content="dark" />
+  <title>BRBR Association — Supportive Web</title>
+  <meta name="description" content="Association (coming): resources, support and action. BARBOUR BRBR." />
   <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
 </head>
-<body class="no-audio">
-  <div class="bg">
-    <video class="bgVideo" autoplay muted loop playsinline preload="auto" poster="assets/story.png">
+
+<body data-page="association">
+  <div class="bg bg--lite">
+    <video class="bg__video" autoplay muted loop playsinline preload="auto" poster="assets/story.png">
       <source src="assets/hero-web.mp4" type="video/mp4" />
     </video>
-    <div class="bgOverlay"></div>
-    <div class="grain"></div>
+    <div class="bg__vignette"></div>
+    <div class="bg__scanlines"></div>
+    <canvas id="particles" class="bg__particles" aria-hidden="true"></canvas>
   </div>
 
   <header class="topbar">
-    <a href="legal.html" class="navLink">Legal</a>
-    <a class="brand" href="index.html">
-      <span class="brandDot"></span>
-      <span class="brandText">BARBOUR <b>BRBR</b></span>
+    <a class="brand sfx" data-sfx="click" href="index.html">
+      <span class="brand__dot"></span>
+      <span class="brand__name">BARBOUR <b>BRBR</b></span>
     </a>
+
     <nav class="nav">
-      <a href="index.html#mission" class="navLink">Mission</a>
-      <a href="whitepaper.html" class="navLink">Whitepaper</a>
+      <a class="nav__link sfx" data-sfx="click" href="index.html#story">Story</a>
+      <a class="nav__link sfx" data-sfx="click" href="index.html#token">Token</a>
+      <a class="nav__link sfx" data-sfx="click" href="index.html#roadmap">Roadmap</a>
+      <a class="nav__link sfx" data-sfx="click" href="whitepaper.html">Whitepaper</a>
+      <a class="nav__link is-active sfx" data-sfx="click" href="association.html">Association</a>
+
+      <div class="nav__actions">
+        <button id="soundToggle" class="iconbtn sfx" data-sfx="click" type="button" aria-pressed="false">
+          <span class="iconbtn__icon" aria-hidden="true">🔇</span>
+          <span class="iconbtn__text">Sound</span>
+        </button>
+        <a class="pill sfx" data-sfx="click" href="https://linktr.ee/barbourbrbr" target="_blank" rel="noopener noreferrer">Linktree</a>
+      </div>
     </nav>
-    <div class="topActions">
-      <a class="pill small" href="index.html" data-click>← Back</a>
-      <a class="pill small" href="#" data-link="linktree" data-click>Contact</a>
-    </div>
   </header>
 
-  <main class="page">
+  <main>
     <section class="section">
-      <div class="card glass reveal is-visible">
-        <h1 class="sectionTitle">Youth Association (Coming)</h1>
-        <p class="muted">
-          BRBR aims to support a positive ecosystem: awareness, resources, and partnerships.
-          The association page will list verified contacts, help resources, and community actions.
-        </p>
+      <div class="container grid2">
+        <div class="card reveal">
+          <div class="chip">SUPPORTIVE WEB</div>
+          <h1 class="h1">Real Help. Real Community.</h1>
+          <p class="p">
+            Cette page présente l’intention “Association / Resources hub” (progressive rollout).
+            BRBR reste un <b>meme coin</b> — l’objectif ici est la communauté, la sensibilisation et un web plus sûr.
+          </p>
 
-        <div class="featureGrid" style="margin-top:16px">
-          <div class="feature">
-            <h3>Resources</h3>
-            <p>Trusted links, contacts, and support information (coming).</p>
+          <div class="cards3">
+            <div class="miniCard reveal">
+              <div class="miniCard__title">Share Your Story (Coming)</div>
+              <div class="miniCard__text">Espace pour témoignages (avec règles anti-abus & modération).</div>
+            </div>
+            <div class="miniCard reveal">
+              <div class="miniCard__title">Resources (Coming)</div>
+              <div class="miniCard__text">Liens utiles, guides, numéros d’aide (selon pays).</div>
+            </div>
+            <div class="miniCard reveal">
+              <div class="miniCard__title">Community Actions</div>
+              <div class="miniCard__text">Campagnes et reporting public basé sur actions réelles.</div>
+            </div>
           </div>
-          <div class="feature">
-            <h3>Partnerships</h3>
-            <p>Organizations, creators, and community initiatives.</p>
+
+          <div class="row reveal">
+            <a class="btn btn--primary sfx" data-sfx="click" href="index.html#token">Back to Token</a>
+            <a class="btn btn--ghost sfx" data-sfx="click" href="whitepaper.html">Open Whitepaper</a>
           </div>
-          <div class="feature">
-            <h3>Action</h3>
-            <p>Campaigns and awareness — story → hope.</p>
+
+          <div class="note reveal">
+            Contact: <span id="contactEmail"></span>
+            <button id="copyEmail" class="mini sfx" data-sfx="click" type="button">Copy</button>
           </div>
         </div>
 
-        <p class="tiny muted" style="margin-top:14px">
-          If you want to help build this, contact us via Linktree.
-        </p>
-
-        <div class="inlineCtas">
-          <a class="pill primary" href="#" data-link="linktree" data-click>Open Linktree</a>
-          <a class="pill" href="#" data-link="bscscan" data-click>Transparency (BscScan)</a>
-          <a class="pill" href="#" data-link="pancakeswap" data-click>Buy BRBR</a>
+        <div class="poster reveal">
+          <img src="assets/avatar.jpg" alt="BRBR visual" loading="lazy" />
+          <div class="poster__glow" aria-hidden="true"></div>
         </div>
       </div>
     </section>
   </main>
-
-  <audio id="clickSfx" src="assets/Click.mp3" preload="auto"></audio>
-  <script>
-    const BRBR_LINKS = {
-      linktree: "https://linktr.ee/barbourbrbr",
-      pancakeswap: "https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc",
-      bscscan: "https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1"
-    };
-    const clickSfx = document.getElementById("clickSfx");
-    const safePlay = (a)=>{ try{ a.currentTime=0; a.play().catch(()=>{});}catch(e){} };
-
-    document.addEventListener("click", (e)=>{
-      const dc = e.target.closest("[data-click]");
-      if (dc && clickSfx) safePlay(clickSfx);
-
-      const a = e.target.closest("a[data-link]");
-      if (!a) return;
-      e.preventDefault();
-      const key = a.getAttribute("data-link");
-      const url = BRBR_LINKS[key];
-      if (url) window.open(url,"_blank","noopener,noreferrer");
-    });
-  </script>
 </body>
 </html>
