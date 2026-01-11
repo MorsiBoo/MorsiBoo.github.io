@@ -3,94 +3,91 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BRBR — Youth Association</title>
-  <meta name="description" content="BRBR Youth Association (Coming). Support resources, stories, and real help." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+  <title>BRBR — Association</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+<body class="no-audio">
+  <div class="bg">
+    <video class="bgVideo" autoplay muted loop playsinline preload="auto" poster="assets/story.png">
+      <source src="assets/hero-web.mp4" type="video/mp4" />
+    </video>
+    <div class="bgOverlay"></div>
+    <div class="grain"></div>
+  </div>
 
-<body class="page">
-  <video class="bg-video" autoplay muted loop playsinline preload="auto">
-    <source src="assets/hero-web.mp4" type="video/mp4" />
-  </video>
-  <div class="bg-vignette"></div>
-  <canvas id="particles" class="particles" aria-hidden="true"></canvas>
-
-  <audio id="trailerAudio" src="assets/Hero.m4a" preload="auto" loop></audio>
-  <audio id="ambienceAudio" src="assets/atmosphere-sound-effect.mp3" preload="auto" loop></audio>
-  <audio id="uiClick" src="assets/Click.mp3" preload="auto"></audio>
-
-  <header class="header">
-    <div class="brand">
-      <span class="dot"></span>
-      <span class="brand-name">BARBOUR BRBR</span>
-    </div>
-
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <span class="brandDot"></span>
+      <span class="brandText">BARBOUR <b>BRBR</b></span>
+    </a>
     <nav class="nav">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="association.html" class="nav-link is-active">Association</a>
-      <a href="whitepaper.html" class="nav-link">Whitepaper</a>
+      <a href="index.html#mission" class="navLink">Mission</a>
+      <a href="whitepaper.html" class="navLink">Whitepaper</a>
     </nav>
-
-    <button id="soundToggle" class="sound-toggle" aria-label="Toggle sound" title="Sound">
-      <span class="sound-ic" aria-hidden="true"></span>
-      <span class="sound-txt">SOUND OFF</span>
-    </button>
+    <div class="topActions">
+      <a class="pill small" href="index.html" data-click>← Back</a>
+      <a class="pill small" href="#" data-link="linktree" data-click>Contact</a>
+    </div>
   </header>
 
-  <main>
-    <section class="page-hero">
-      <div class="page-inner">
-        <div class="kicker reveal">Supportive Web. Real Help.</div>
-        <h1 class="page-title reveal">Youth Association <span class="green">(Coming)</span></h1>
-        <p class="page-sub reveal">
-          A future space for resources, support, and action — for young people facing bullying, harassment,
-          family violence, or abuse. You are not alone.
+  <main class="page">
+    <section class="section">
+      <div class="card glass reveal is-visible">
+        <h1 class="sectionTitle">Youth Association (Coming)</h1>
+        <p class="muted">
+          BRBR aims to support a positive ecosystem: awareness, resources, and partnerships.
+          The association page will list verified contacts, help resources, and community actions.
         </p>
 
-        <div class="page-grid">
-          <div class="card reveal">
-            <h3>Share Your Story</h3>
-            <p>Anonymous stories (coming). Your voice matters — your experience can help others.</p>
+        <div class="featureGrid" style="margin-top:16px">
+          <div class="feature">
+            <h3>Resources</h3>
+            <p>Trusted links, contacts, and support information (coming).</p>
           </div>
-          <div class="card reveal">
-            <h3>Resources & Guidance</h3>
-            <p>Practical steps, safe contacts, and support pathways. Real help, clear options.</p>
+          <div class="feature">
+            <h3>Partnerships</h3>
+            <p>Organizations, creators, and community initiatives.</p>
           </div>
-          <div class="card reveal">
-            <h3>Community Action</h3>
-            <p>Positive initiatives, mentoring, awareness campaigns, and partnerships.</p>
+          <div class="feature">
+            <h3>Action</h3>
+            <p>Campaigns and awareness — story → hope.</p>
           </div>
         </div>
 
-        <div class="page-actions reveal">
-          <a class="btn btn-primary" href="index.html#links" data-click>Open Linktree</a>
-          <a class="btn btn-ghost" href="whitepaper.html" data-click>Read Whitepaper</a>
-        </div>
+        <p class="tiny muted" style="margin-top:14px">
+          If you want to help build this, contact us via Linktree.
+        </p>
 
-        <div class="disclaimer reveal">
-          <b>Note:</b> BRBR is a <b>memecoin community project</b>. Association features are a roadmap initiative.
+        <div class="inlineCtas">
+          <a class="pill primary" href="#" data-link="linktree" data-click>Open Linktree</a>
+          <a class="pill" href="#" data-link="bscscan" data-click>Transparency (BscScan)</a>
+          <a class="pill" href="#" data-link="pancakeswap" data-click>Buy BRBR</a>
         </div>
       </div>
     </section>
-
-    <footer class="footer footer-page">
-      <div class="foot-left">BARBOUR BRBR<br><span>Global Youth. Global Hope.</span></div>
-      <div class="foot-right">© <span id="year"></span> BRBR</div>
-    </footer>
   </main>
 
-  <div id="soundGate" class="sound-gate">
-    <div class="sound-gate-inner">
-      <div class="sound-gate-title">Enable Trailer Sound?</div>
-      <div class="sound-gate-sub">Click once to unlock audio (browser policy).</div>
-      <button class="btn btn-primary" id="soundGateBtn" data-click>Enable Sound</button>
-      <button class="btn btn-ghost" id="soundGateSkip" data-click>Keep Silent</button>
-    </div>
-  </div>
+  <audio id="clickSfx" src="assets/Click.mp3" preload="auto"></audio>
+  <script>
+    const BRBR_LINKS = {
+      linktree: "https://linktr.ee/barbourbrbr",
+      pancakeswap: "https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc",
+      bscscan: "https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1"
+    };
+    const clickSfx = document.getElementById("clickSfx");
+    const safePlay = (a)=>{ try{ a.currentTime=0; a.play().catch(()=>{});}catch(e){} };
 
-  <script src="script.js"></script>
+    document.addEventListener("click", (e)=>{
+      const dc = e.target.closest("[data-click]");
+      if (dc && clickSfx) safePlay(clickSfx);
+
+      const a = e.target.closest("a[data-link]");
+      if (!a) return;
+      e.preventDefault();
+      const key = a.getAttribute("data-link");
+      const url = BRBR_LINKS[key];
+      if (url) window.open(url,"_blank","noopener,noreferrer");
+    });
+  </script>
 </body>
 </html>
