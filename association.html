@@ -1,92 +1,143 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#05070c" />
-  <meta name="color-scheme" content="dark" />
-  <title>BRBR Association — Supportive Web</title>
-  <meta name="description" content="Association (coming): resources, support and action. BARBOUR BRBR." />
+  <meta name="theme-color" content="#0b0f13" />
+  <title>Association — BARBOUR BRBR</title>
+  <meta name="description" content="BARBOUR BRBR Association — community-first mission, supportive web, awareness, and long-term impact." />
+  <link rel="canonical" href="https://barbourbrbr.xyz/association.html" />
   <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
 </head>
-
-<body data-page="association">
-  <div class="bg bg--lite">
-    <video class="bg__video" autoplay muted loop playsinline preload="auto" poster="assets/story.png">
-      <source src="assets/hero-web.mp4" type="video/mp4" />
-    </video>
-    <div class="bg__vignette"></div>
-    <div class="bg__scanlines"></div>
-    <canvas id="particles" class="bg__particles" aria-hidden="true"></canvas>
-  </div>
+<body>
+  <canvas id="fxCanvas" aria-hidden="true"></canvas>
 
   <header class="topbar">
-    <a class="brand sfx" data-sfx="click" href="index.html">
-      <span class="brand__dot"></span>
-      <span class="brand__name">BARBOUR <b>BRBR</b></span>
-    </a>
+    <div class="topbar__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__dot"></span>
+        <span class="brand__name">BARBOUR BRBR</span>
+      </a>
 
-    <nav class="nav">
-      <a class="nav__link sfx" data-sfx="click" href="index.html#story">Story</a>
-      <a class="nav__link sfx" data-sfx="click" href="index.html#token">Token</a>
-      <a class="nav__link sfx" data-sfx="click" href="index.html#roadmap">Roadmap</a>
-      <a class="nav__link sfx" data-sfx="click" href="whitepaper.html">Whitepaper</a>
-      <a class="nav__link is-active sfx" data-sfx="click" href="association.html">Association</a>
+      <nav class="nav" id="nav">
+        <a class="nav__link" href="index.html#story">Story</a>
+        <a class="nav__link" href="index.html#token">Token</a>
+        <a class="nav__link" href="index.html#roadmap">Roadmap</a>
+        <a class="nav__link" href="whitepaper.html">Whitepaper</a>
+        <a class="nav__pill" href="https://linktr.ee/barbourbrbr" target="_blank" rel="noopener noreferrer">Linktree</a>
+      </nav>
 
-      <div class="nav__actions">
-        <button id="soundToggle" class="iconbtn sfx" data-sfx="click" type="button" aria-pressed="false">
-          <span class="iconbtn__icon" aria-hidden="true">🔇</span>
-          <span class="iconbtn__text">Sound</span>
+      <div class="topbar__actions">
+        <button class="btn btn--ghost btn--sm" id="trailerBtn" type="button" aria-pressed="true">
+          <span class="icon">🎬</span> Trailer
         </button>
-        <a class="pill sfx" data-sfx="click" href="https://linktr.ee/barbourbrbr" target="_blank" rel="noopener noreferrer">Linktree</a>
+        <button class="btn btn--ghost btn--sm" id="soundBtn" type="button" aria-pressed="false">
+          <span class="icon" id="soundIcon">🔇</span>
+          <span id="soundLabel">Sound</span>
+        </button>
+        <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" type="button">
+          <span></span><span></span><span></span>
+        </button>
       </div>
-    </nav>
+    </div>
   </header>
 
-  <main>
+  <main class="page container">
     <section class="section">
-      <div class="container grid2">
-        <div class="card reveal">
-          <div class="chip">SUPPORTIVE WEB</div>
-          <h1 class="h1">Real Help. Real Community.</h1>
-          <p class="p">
-            Cette page présente l’intention “Association / Resources hub” (progressive rollout).
-            BRBR reste un <b>meme coin</b> — l’objectif ici est la communauté, la sensibilisation et un web plus sûr.
+      <div class="section__head reveal">
+        <div class="section__kicker">ASSOCIATION (COMING)</div>
+        <h1 class="section__title">Supportive Web. Real Help.</h1>
+        <p class="section__subtitle">
+          The association direction is a long-term mission concept: a global space for resources,
+          awareness, and community-driven support — developed progressively and responsibly.
+        </p>
+      </div>
+
+      <div class="grid2">
+        <div class="card glass reveal">
+          <div class="card__kicker">MISSION</div>
+          <p class="card__text">
+            BRBR aims to create a supportive web experience: educational resources, awareness initiatives,
+            and safe community action. The goal is to reduce isolation and promote real help.
           </p>
 
-          <div class="cards3">
-            <div class="miniCard reveal">
-              <div class="miniCard__title">Share Your Story (Coming)</div>
-              <div class="miniCard__text">Espace pour témoignages (avec règles anti-abus & modération).</div>
-            </div>
-            <div class="miniCard reveal">
-              <div class="miniCard__title">Resources (Coming)</div>
-              <div class="miniCard__text">Liens utiles, guides, numéros d’aide (selon pays).</div>
-            </div>
-            <div class="miniCard reveal">
-              <div class="miniCard__title">Community Actions</div>
-              <div class="miniCard__text">Campagnes et reporting public basé sur actions réelles.</div>
-            </div>
+          <div class="divider"></div>
+
+          <div class="card__kicker">COMMUNITY-FIRST PRINCIPLES</div>
+          <ul>
+            <li><strong>Transparency:</strong> public milestones and verifiable updates.</li>
+            <li><strong>Safety:</strong> anti-scam education, privacy-first approach, respectful community guidelines.</li>
+            <li><strong>Impact:</strong> awareness and partnerships (progressive rollout).</li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <div class="card__kicker">CONTACT</div>
+          <p class="card__text">
+            Official email: <strong>contact@barbourbrbr.xyz</strong>
+          </p>
+
+          <div class="row row--wrap">
+            <a class="btn btn--primary" href="index.html#contact">Contact</a>
+            <a class="btn btn--secondary" href="whitepaper.html">Read Whitepaper</a>
           </div>
 
-          <div class="row reveal">
-            <a class="btn btn--primary sfx" data-sfx="click" href="index.html#token">Back to Token</a>
-            <a class="btn btn--ghost sfx" data-sfx="click" href="whitepaper.html">Open Whitepaper</a>
-          </div>
-
-          <div class="note reveal">
-            Contact: <span id="contactEmail"></span>
-            <button id="copyEmail" class="mini sfx" data-sfx="click" type="button">Copy</button>
+          <div class="fineprint">
+            Note: This page is informational. Any future association structure depends on legal feasibility and community direction.
           </div>
         </div>
 
-        <div class="poster reveal">
-          <img src="assets/avatar.jpg" alt="BRBR visual" loading="lazy" />
-          <div class="poster__glow" aria-hidden="true"></div>
+        <div class="card glass reveal">
+          <div class="card__kicker">OFFICIAL LINKS</div>
+          <p class="card__text">
+            Linktree:
+            <a href="https://linktr.ee/barbourbrbr" target="_blank" rel="noopener noreferrer">linktr.ee/barbourbrbr</a><br/>
+            BscScan:
+            <a href="https://bscscan.com/token/0xf97522ABEf762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener noreferrer">Token Explorer</a><br/>
+            PancakeSwap:
+            <a href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc"
+               target="_blank" rel="noopener noreferrer">Buy BRBR</a>
+          </p>
+
+          <div class="divider"></div>
+
+          <div class="card__kicker">SECURITY</div>
+          <p class="card__text">
+            Independent scan:
+            <a href="https://solidityscan.com/qs-report/53401f2de52031ca97d7a95a0b6f036f/5e136bbf32d12b9e/b2cf7d75f955f937"
+               target="_blank" rel="noopener noreferrer">SolidityScan report</a>.
+          </p>
+
+          <div class="fineprint">
+            Always verify official sources. Never share your seed phrase.
+          </div>
         </div>
+      </div>
+
+      <div class="row reveal">
+        <a class="btn btn--primary" href="index.html">← Back to Home</a>
+        <a class="btn btn--ghost" href="terms.html">Terms</a>
+        <a class="btn btn--ghost" href="privacy.html">Privacy</a>
       </div>
     </section>
   </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div>
+        <div class="footer__brand"><span class="brand__dot"></span><strong>BARBOUR BRBR</strong></div>
+        <div class="footer__muted">Global Youth. Global Hope.</div>
+      </div>
+      <div class="footer__links">
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <div class="footer__muted">© <span id="year"></span> BARBOUR BRBR. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
 </body>
 </html>
