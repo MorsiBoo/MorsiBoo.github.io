@@ -1,6 +1,29 @@
 // =======================
 //  BRBR LINKS (REAL)
 // =======================
+// =======================
+//  CONTACT EMAIL (ANTI-SPAM)
+//  Replace if needed
+// =======================
+const EMAIL_USER = "contact";
+const EMAIL_DOMAIN = "barbourbrbr.xyz";
+const CONTACT_EMAIL = `${EMAIL_USER}@${EMAIL_DOMAIN}`;
+
+// Render as "contact [at] domain" to reduce scraping
+function mountEmail() {
+  const shown = `${EMAIL_USER} [at] ${EMAIL_DOMAIN}`;
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  const emailText = document.getElementById("emailText");
+  if (emailText) emailText.textContent = shown;
+
+  document.querySelectorAll("[data-email]").forEach(el => {
+    el.setAttribute("href", `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("BRBR — Contact")}`);
+  });
+}
+mountEmail();
+
 const BRBR_LINKS = {
   linktree: "https://linktr.ee/barbourbrbr",
   pancakeswap: "https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc",
