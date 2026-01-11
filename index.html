@@ -55,6 +55,16 @@
   </div>
 
 </section>
+  <script>
+const video = document.getElementById('heroVideo');
+const btn = document.getElementById('soundToggle');
+
+btn.addEventListener('click', () => {
+  video.muted = !video.muted;
+  btn.textContent = video.muted ? '🔊 Sound' : '🔇 Mute';
+});
+</script>
+
 
  
       <!-- logo.mp4 = small logo animation (NOT background) -->
