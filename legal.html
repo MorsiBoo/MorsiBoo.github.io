@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BRBR — Legal / Copyright</title>
+  <meta name="copyright" content="© 2026 Barbour BRBR. All rights reserved.">
+  <meta name="referrer" content="no-referrer">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="no-audio">
+  <div class="bg">
+    <video class="bgVideo" autoplay muted loop playsinline preload="auto" poster="assets/story.png">
+      <source src="assets/hero-web.mp4" type="video/mp4" />
+    </video>
+    <div class="bgOverlay"></div>
+    <div class="grain"></div>
+  </div>
+
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <span class="brandDot"></span>
+      <span class="brandText">BARBOUR <b>BRBR</b></span>
+    </a>
+    <div class="topActions">
+      <a class="pill small" href="index.html" data-click>← Back</a>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="section">
+      <div class="card glass reveal is-visible">
+        <h1 class="sectionTitle">Legal / Copyright</h1>
+
+        <p class="muted">
+          All content on this website (texts, visuals, logo animation, videos, audio, design, and brand elements) is protected.
+          Unauthorized reproduction, distribution, or reuse is prohibited without written permission.
+        </p>
+
+        <h2 class="sectionTitle" style="margin-top:18px">Ownership</h2>
+        <p class="muted">
+          © <span id="year"></span> Barbour BRBR. All rights reserved.
+        </p>
+
+        <h2 class="sectionTitle" style="margin-top:18px">Meme Coin Disclaimer</h2>
+        <p class="muted">
+          BRBR is a BSC meme coin / community token. Crypto assets are volatile and risky. This website is not financial advice.
+        </p>
+
+        <h2 class="sectionTitle" style="margin-top:18px">Contact</h2>
+        <p class="muted">
+          Email: <b><span id="emailText"></span></b>
+        </p>
+
+        <div class="inlineCtas">
+          <a class="pill primary" href="#" data-email data-click>Contact by email</a>
+          <a class="pill" href="#" data-link="linktree" data-click>Linktree</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <audio id="clickSfx" src="assets/Click.mp3" preload="auto"></audio>
+
+  <script>
+    // YEAR
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // LINKS
+    const BRBR_LINKS = {
+      linktree: "https://linktr.ee/barbourbrbr",
+      pancakeswap: "https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc",
+      bscscan: "https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1"
+    };
+
+    // EMAIL (CHANGE IF NEEDED)
+    const EMAIL_USER = "contact";
+    const EMAIL_DOMAIN = "barbourbrbr.xyz";
+    const CONTACT_EMAIL = `${EMAIL_USER}@${EMAIL_DOMAIN}`;
+    const shown = `${EMAIL_USER} [at] ${EMAIL_DOMAIN}`;
+
+    // Render protected email
+    document.getElementById("emailText").textContent = shown;
+    document.querySelectorAll("[data-email]").forEach(el=>{
+      el.setAttribute("href", `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("BRBR — Contact")}`);
+    });
+
+    // Click sound
+    const clickSfx = document.getElementById("clickSfx");
+    const safePlay = (a)=>{ try{ a.currentTime=0; a.play().catch(()=>{});}catch(e){} };
+
+    document.addEventListener("click",(e)=>{
+      const dc = e.target.closest("[data-click]");
+      if (dc && clickSfx) safePlay(clickSfx);
+
+      const a = e.target.closest("a[data-link]");
+      if (!a) return;
+      e.preventDefault();
+      const key = a.getAttribute("data-link");
+      const url = BRBR_LINKS[key];
+      if (url) window.open(url,"_blank","noopener,noreferrer");
+    });
+  </script>
+</body>
+</html>
