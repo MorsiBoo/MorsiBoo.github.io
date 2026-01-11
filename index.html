@@ -3,204 +3,240 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#070a0f" />
-  <title>BARBOUR BRBR — Global Youth. Global Hope.</title>
-  <meta name="description" content="BARBOUR BRBR — a community memecoin inspired by resilience: Supportive Web. Real help. Global Youth. Global Hope." />
+  <meta name="theme-color" content="#07110b" />
+  <title>Barbour BRBR — Global Youth. Global Hope.</title>
+  <meta name="description" content="BRBR is a BSC meme coin inspired by resilience. Global Youth. Global Hope." />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://pancakeswap.finance" crossorigin>
+  <link rel="preconnect" href="https://bscscan.com" crossorigin>
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Social preview (optional) -->
+  <meta property="og:title" content="Barbour BRBR — Global Youth. Global Hope." />
+  <meta property="og:description" content="A BSC meme coin inspired by resilience. Break the chain. Build hope." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/story.png" />
 </head>
 
-<body>
-  <!-- CINEMATIC BACKGROUND VIDEO -->
-  <video id="bgVideo" class="bg-video" autoplay muted loop playsinline preload="auto">
-    <source src="assets/hero-web.mp4" type="video/mp4" />
-  </video>
-  <div class="bg-vignette"></div>
-  <canvas id="particles" class="particles" aria-hidden="true"></canvas>
+<body class="no-audio">
+  <!-- CINEMATIC BACKDROP LAYERS -->
+  <div class="bg">
+    <video id="heroVideo" class="bgVideo"
+      autoplay muted loop playsinline preload="auto"
+      poster="assets/story.png">
+      <source src="assets/hero-web.mp4" type="video/mp4" />
+    </video>
+    <div class="bgOverlay"></div>
+    <div class="grain"></div>
+    <canvas id="particles"></canvas>
+  </div>
 
-  <!-- AUDIO LAYERS (start after user gesture) -->
-  <audio id="trailerAudio" src="assets/Hero.m4a" preload="auto" loop></audio>
-  <audio id="ambienceAudio" src="assets/atmosphere-sound-effect.mp3" preload="auto" loop></audio>
-  <audio id="uiClick" src="assets/Click.mp3" preload="auto"></audio>
-
-  <!-- HEADER -->
-  <header class="header">
-    <div class="brand">
-      <span class="dot"></span>
-      <span class="brand-name">BARBOUR BRBR</span>
-    </div>
+  <!-- TOP NAV -->
+  <header class="topbar">
+    <a class="brand" href="#top">
+      <span class="brandDot"></span>
+      <span class="brandText">BARBOUR <b>BRBR</b></span>
+    </a>
 
     <nav class="nav">
-      <a href="index.html" class="nav-link is-active">Home</a>
-      <a href="association.html" class="nav-link">Association</a>
-      <a href="whitepaper.html" class="nav-link">Whitepaper</a>
+      <a href="#story" class="navLink">Story</a>
+      <a href="#token" class="navLink">Token</a>
+      <a href="#mission" class="navLink">Mission</a>
+      <a href="whitepaper.html" class="navLink">Whitepaper</a>
+      <a href="association.html" class="navLink">Association</a>
     </nav>
 
-    <button id="soundToggle" class="sound-toggle" aria-label="Toggle sound" title="Sound">
-      <span class="sound-ic" aria-hidden="true"></span>
-      <span class="sound-txt">SOUND OFF</span>
-    </button>
+    <div class="topActions">
+      <!-- Sound toggle -->
+      <button id="soundToggle" class="iconBtn" aria-label="Toggle sound" title="Mute / Unmute" data-click>
+        <span class="icon" id="soundIcon">🔇</span>
+      </button>
+      <a class="pill small" href="#" data-link="pancakeswap" data-click>Buy</a>
+    </div>
   </header>
 
   <!-- HERO -->
-  <main>
+  <main id="top" class="page">
     <section class="hero">
-      <div class="hero-inner">
-        <div class="hero-left">
-          <div class="kicker reveal">Supportive Web. Real Help.</div>
-
-          <h1 class="hero-title reveal">
-            <span class="white">GLOBAL YOUTH.</span><br />
-            <span class="green">GLOBAL HOPE.</span>
-          </h1>
-
-          <p class="hero-sub reveal">
-            Turn silence into strength. Break the chain. Build hope.
-          </p>
-
-          <div class="hero-cta reveal">
-            <a class="btn btn-primary" href="#story" data-click>
-              Watch the Story
-            </a>
-            <a class="btn btn-ghost" href="#token" data-click>
-              Buy / Explore BRBR
-            </a>
-          </div>
-
-          <div class="hero-links reveal">
-            <a class="mini" href="#links" data-click>Linktree</a>
-            <span class="sep">•</span>
-            <a class="mini" href="#links" data-click>PancakeSwap</a>
-            <span class="sep">•</span>
-            <a class="mini" href="#links" data-click>BscScan</a>
-          </div>
-
-          <div class="scroll-hint reveal" aria-hidden="true">Scroll ↓</div>
+      <div class="heroInner">
+        <div class="heroKicker reveal">
+          <span class="tag neon">Supportive Web</span>
+          <span class="tag">BSC Meme Coin</span>
+          <span class="tag">Trailer Mode</span>
         </div>
 
-        <!-- Optional cinematic “orb” / logo placeholder -->
-        <div class="hero-right reveal">
-          <div class="orb">
-            <div class="orb-ring"></div>
-            <div class="orb-glow"></div>
-          </div>
+        <h1 class="heroTitle reveal">
+          GLOBAL YOUTH.<br/>
+          <span class="glow">GLOBAL HOPE.</span>
+        </h1>
+
+        <p class="heroSub reveal">
+          Turn silence into strength. Break the chain. Build hope.
+          <span class="subNote">BRBR is a community meme coin on BSC.</span>
+        </p>
+
+        <div class="heroCtas reveal">
+          <button id="trailerBtn" class="pill primary" data-click>
+            ▶ Watch the Story (Trailer Mode)
+          </button>
+          <a class="pill" href="#" data-link="pancakeswap" data-click>Buy / Explore BRBR</a>
+        </div>
+
+        <div class="heroLinks reveal">
+          <a class="mini" href="#" data-link="linktree" data-click>Linktree</a>
+          <span class="sep">•</span>
+          <a class="mini" href="#" data-link="pancakeswap" data-click>PancakeSwap</a>
+          <span class="sep">•</span>
+          <a class="mini" href="#" data-link="bscscan" data-click>BscScan</a>
+        </div>
+
+        <div class="scrollHint">
+          <span class="scrollDot"></span>
+          <span>Scroll</span>
         </div>
       </div>
     </section>
 
     <!-- STORY -->
     <section id="story" class="section">
-      <div class="section-inner">
-        <div class="section-head reveal">
-          <h2 class="section-title">The Silence of Fear</h2>
-          <p class="section-sub">
-            A story inspired by real silence — the kind many kids live in… until courage becomes a choice.
+      <div class="grid2">
+        <div class="card glass reveal">
+          <h2 class="sectionTitle">The Silence of Fear</h2>
+          <p class="muted">
+            A story inspired by real emotions — where many kids live in silence:
+            bullying, moral harassment, abuse of power… until courage becomes a choice.
           </p>
-        </div>
 
-        <div class="story-grid">
-          <div class="story-cards">
-            <div class="card reveal">
+          <div class="storySteps">
+            <div class="step reveal">
               <h3>Silence</h3>
               <p>Afraid to speak, afraid to disturb, afraid to say “no”.</p>
             </div>
-            <div class="card reveal">
+            <div class="step reveal">
               <h3>Isolation</h3>
-              <p>When fear becomes routine, your voice disappears.</p>
+              <p>When pain becomes routine, your voice disappears.</p>
             </div>
-            <div class="card reveal">
+            <div class="step reveal">
               <h3>Faith</h3>
-              <p>One day justice comes — and choosing to act becomes the solution.</p>
+              <p>One day justice comes — and choosing to become the solution.</p>
             </div>
-
-            <a class="btn btn-primary reveal" href="#token" data-click>
-              Continue → Token Reveal
-            </a>
           </div>
 
-          <div class="story-poster reveal">
-            <img src="assets/story.png" alt="The Silence of Fear poster" loading="lazy" />
-            <div class="poster-glow"></div>
+          <div class="inlineCtas">
+            <a class="pill" href="#token" data-click>Continue → Token Reveal</a>
+            <a class="pill ghost" href="association.html" data-click>Support the Mission</a>
+          </div>
+        </div>
+
+        <div class="posterCard reveal">
+          <img src="assets/story.png" alt="The Silence of Fear poster" class="posterImg"/>
+          <div class="posterOverlay">
+            <div class="posterTitle">THE SILENCE OF FEAR</div>
+            <div class="posterSub">From story → to action.</div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- TOKEN REVEAL -->
-    <section id="token" class="section section-token">
-      <div class="section-inner">
-        <div class="token-grid">
-          <div class="token-left">
-            <h2 class="section-title reveal">BREAK THE CHAIN.<br><span class="green">BUILD HOPE.</span></h2>
-            <p class="section-sub reveal">
-              BARBOUR BRBR is a <b>community memecoin</b> inspired by resilience. A supportive web, real help,
-              and a global message: youth empowerment.
-            </p>
+    <section id="token" class="section">
+      <div class="grid2">
+        <div class="card glass reveal">
+          <h2 class="sectionTitle">Token Reveal</h2>
+          <p class="muted">
+            BRBR is a <b>meme coin</b> on BSC — community-driven, built for visibility, storytelling and impact.
+          </p>
 
-            <div class="token-actions reveal">
-              <a class="btn btn-primary" href="#links" data-click>Explore BRBR</a>
-              <a class="btn btn-ghost" href="whitepaper.html" data-click>Read Whitepaper</a>
+          <div class="tokenStats reveal">
+            <div class="stat">
+              <div class="statLabel">Chain</div>
+              <div class="statVal">BSC</div>
             </div>
-
-            <div class="disclaimer reveal">
-              <b>Disclaimer:</b> This is a memecoin project. No financial advice. Do your own research.
+            <div class="stat">
+              <div class="statLabel">Type</div>
+              <div class="statVal">Meme Coin</div>
             </div>
-          </div>
-
-          <div class="token-right reveal">
-            <!-- LOGO VIDEO PANEL -->
-            <div class="video-panel">
-              <video id="logoVideo" class="logo-video" autoplay muted loop playsinline preload="metadata">
-                <source src="assets/logo-web.mp4" type="video/mp4" />
-              </video>
-              <div class="video-overlay">
-                <div class="tag">BRBR TOKEN • Cinematic Reveal</div>
-                <button class="btn btn-mini" id="replayLogo" data-click>Replay</button>
-              </div>
+            <div class="stat">
+              <div class="statLabel">Explorers</div>
+              <div class="statVal">BscScan</div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- LINKS -->
-    <section id="links" class="section section-links">
-      <div class="section-inner">
-        <div class="links-head reveal">
-          <h2 class="section-title">Supportive Web. Real Help.</h2>
-          <p class="section-sub">
-            Quick links to explore the project and community resources.
+          <div class="inlineCtas">
+            <a class="pill primary" href="#" data-link="pancakeswap" data-click>Buy on PancakeSwap</a>
+            <a class="pill" href="#" data-link="bscscan" data-click>View on BscScan</a>
+          </div>
+
+          <p class="tiny muted">
+            ⚠️ Not financial advice. Crypto is risky. BRBR is a meme coin / community token.
           </p>
         </div>
 
-        <div class="links-row">
-          <a class="pill reveal" href="#" data-click>Open Linktree</a>
-          <a class="pill reveal" href="#" data-click>PancakeSwap</a>
-          <a class="pill reveal" href="#" data-click>BscScan</a>
-          <a class="pill reveal" href="association.html" data-click>Youth Association</a>
-          <a class="pill reveal" href="whitepaper.html" data-click>Whitepaper</a>
+        <div class="logoReveal reveal">
+          <div class="logoFrame">
+            <video id="logoVideo" class="logoVideo" autoplay muted loop playsinline preload="metadata">
+              <source src="assets/logo-web.mp4" type="video/mp4" />
+            </video>
+            <div class="logoFX"></div>
+          </div>
+          <div class="logoCaption">
+            <div class="logoCaptionTitle">BRBR — Cinematic Identity</div>
+            <div class="logoCaptionSub">Glows • Hex lines • Trailer energy</div>
+          </div>
         </div>
-
-        <footer class="footer">
-          <div class="foot-left">BARBOUR BRBR<br><span>Global Youth. Global Hope.</span></div>
-          <div class="foot-right">© <span id="year"></span> BRBR</div>
-        </footer>
       </div>
     </section>
+
+    <!-- MISSION -->
+    <section id="mission" class="section">
+      <div class="card glass reveal">
+        <h2 class="sectionTitle">Supportive Web. Real Help.</h2>
+        <p class="muted">
+          A safe place for stories, support, and action. If you’re living bullying, harassment, family violence or abuse —
+          you are not alone.
+        </p>
+
+        <div class="featureGrid">
+          <div class="feature reveal">
+            <h3>Share Your Story</h3>
+            <p>Anonymous stories coming next. Your voice matters.</p>
+          </div>
+          <div class="feature reveal">
+            <h3>Youth Association (Coming)</h3>
+            <p>A global space for resources, support, and real help.</p>
+          </div>
+          <div class="feature reveal">
+            <h3>Build Hope</h3>
+            <p>Community-driven visibility + partnerships + action.</p>
+          </div>
+        </div>
+
+        <div class="inlineCtas">
+          <a class="pill primary" href="#" data-link="linktree" data-click>Open Linktree</a>
+          <a class="pill" href="whitepaper.html" data-click>Read Whitepaper</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footerLeft">
+        <div class="footerBrand">BARBOUR <b>BRBR</b></div>
+        <div class="tiny muted">Global Youth. Global Hope.</div>
+      </div>
+
+      <div class="footerLinks">
+        <a href="#" data-link="linktree" data-click>Linktree</a>
+        <a href="#" data-link="pancakeswap" data-click>PancakeSwap</a>
+        <a href="#" data-link="bscscan" data-click>BscScan</a>
+      </div>
+    </footer>
   </main>
 
-  <!-- USER-GESTURE AUDIO PROMPT (hidden after click) -->
-  <div id="soundGate" class="sound-gate">
-    <div class="sound-gate-inner">
-      <div class="sound-gate-title">Enable Trailer Sound?</div>
-      <div class="sound-gate-sub">Browsers block autoplay audio. Click once to start cinematic sound.</div>
-      <button class="btn btn-primary" id="soundGateBtn" data-click>Enable Sound</button>
-      <button class="btn btn-ghost" id="soundGateSkip" data-click>Keep Silent</button>
-    </div>
-  </div>
+  <!-- AUDIO (autoplay blocked by browsers; enabled on Trailer Mode / first interaction) -->
+  <audio id="ambience" src="assets/atmosphere-sound-effect.mp3" preload="auto" loop></audio>
+  <audio id="clickSfx" src="assets/Click.mp3" preload="auto"></audio>
+  <audio id="heroAudio" src="assets/Hero.m4a" preload="auto"></audio>
 
   <script src="script.js"></script>
 </body>
