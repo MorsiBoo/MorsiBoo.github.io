@@ -1,100 +1,143 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BRBR — Whitepaper</title>
+  <meta name="theme-color" content="#05070c" />
+  <meta name="color-scheme" content="dark" />
+  <title>BRBR Whitepaper — BARBOUR BRBR</title>
+  <meta name="description" content="Whitepaper BRBR — Vision, token, sécurité, roadmap, gouvernance." />
   <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
 </head>
-<body class="no-audio">
-  <div class="bg">
-    <video class="bgVideo" autoplay muted loop playsinline preload="auto" poster="assets/story.png">
+
+<body data-page="whitepaper">
+  <div class="bg bg--lite">
+    <video class="bg__video" autoplay muted loop playsinline preload="auto" poster="assets/story.png">
       <source src="assets/hero-web.mp4" type="video/mp4" />
     </video>
-    <div class="bgOverlay"></div>
-    <div class="grain"></div>
+    <div class="bg__vignette"></div>
+    <div class="bg__scanlines"></div>
+    <canvas id="particles" class="bg__particles" aria-hidden="true"></canvas>
   </div>
 
   <header class="topbar">
-    <a href="legal.html" class="navLink">Legal</a>
-    <a class="brand" href="index.html">
-      <span class="brandDot"></span>
-      <span class="brandText">BARBOUR <b>BRBR</b></span>
+    <a class="brand sfx" data-sfx="click" href="index.html">
+      <span class="brand__dot"></span>
+      <span class="brand__name">BARBOUR <b>BRBR</b></span>
     </a>
+
     <nav class="nav">
-      <a href="index.html#story" class="navLink">Story</a>
-      <a href="index.html#token" class="navLink">Token</a>
-      <a href="association.html" class="navLink">Association</a>
+      <a class="nav__link sfx" data-sfx="click" href="index.html#story">Story</a>
+      <a class="nav__link sfx" data-sfx="click" href="index.html#token">Token</a>
+      <a class="nav__link sfx" data-sfx="click" href="index.html#roadmap">Roadmap</a>
+      <a class="nav__link is-active sfx" data-sfx="click" href="whitepaper.html">Whitepaper</a>
+      <a class="nav__link sfx" data-sfx="click" href="association.html">Association</a>
+
+      <div class="nav__actions">
+        <button id="soundToggle" class="iconbtn sfx" data-sfx="click" type="button" aria-pressed="false">
+          <span class="iconbtn__icon" aria-hidden="true">🔇</span>
+          <span class="iconbtn__text">Sound</span>
+        </button>
+        <a class="pill sfx" data-sfx="click" href="https://linktr.ee/barbourbrbr" target="_blank" rel="noopener noreferrer">Linktree</a>
+      </div>
     </nav>
-    <div class="topActions">
-      <a class="pill small" href="index.html" data-click>← Back</a>
-      <a class="pill small" href="#" data-link="pancakeswap" data-click>Buy</a>
-    </div>
   </header>
 
-  <main class="page">
-    <section class="section">
-      <div class="card glass reveal is-visible">
-        <h1 class="sectionTitle">Whitepaper (Lite)</h1>
-        <p class="muted">
-          BRBR is a <b>BSC meme coin</b> inspired by resilience and storytelling.
-          This document explains the vision, the narrative, and the community focus.
-        </p>
+  <main>
+    <section class="section section--tight">
+      <div class="container">
+        <div class="head reveal">
+          <div class="chip">WHITEPAPER</div>
+          <h1 class="h1">BRBR — Meme coin, community mission</h1>
+          <p class="p">
+            Ce document est une présentation claire du projet. BRBR est un <b>meme coin</b>.
+            Le site et ce whitepaper sont <b>informatifs</b> (pas de conseil financier).
+          </p>
+        </div>
 
-        <h2 class="sectionTitle" style="margin-top:18px">1) What is BRBR?</h2>
-        <p class="muted">
-          BRBR is a community meme coin on BSC. The goal is visibility, culture, and a supportive web movement.
-          We use story-driven content (cinematic trailers, characters, short films) to unify the community.
-        </p>
+        <div class="doc card reveal">
+          <h2 class="h2">1) Vision</h2>
+          <p class="p">
+            Construire une présence web “supportive” et une communauté qui transforme l’attention en actions utiles :
+            sensibilisation, ressources, et initiatives progressives (selon l’avancée réelle).
+          </p>
 
-        <h2 class="sectionTitle" style="margin-top:18px">2) Mission</h2>
-        <p class="muted">
-          “Global Youth. Global Hope.” — amplify voices, encourage courage, and build a positive community.
-        </p>
+          <h2 class="h2">2) Le Token (BRBR)</h2>
+          <ul class="list">
+            <li><b>Réseau :</b> BNB Smart Chain (BSC)</li>
+            <li><b>Nature :</b> Meme coin communautaire</li>
+            <li><b>Contrat :</b> 0xf97522ABEf762d28729E073019343b72C6e8D2C1</li>
+            <li><b>Trading :</b> PancakeSwap (lien officiel sur la home)</li>
+          </ul>
 
-        <h2 class="sectionTitle" style="margin-top:18px">3) Utility & Roadmap (Coming)</h2>
-        <ul class="muted">
-          <li>Story hub + content drops</li>
-          <li>Supportive web resources (association page + partners)</li>
-          <li>Community quests + meme campaigns</li>
-          <li>Transparency links (BscScan + DEX)</li>
-        </ul>
+          <h2 class="h2">3) Sécurité & “Community Ownership” (approche)</h2>
+          <p class="p">
+            “Ownership for the community” = réduire les points de contrôle, verrouiller la confiance par des actes vérifiables,
+            et documenter chaque étape (proof-based).
+          </p>
+          <ul class="list">
+            <li><b>Supply :</b> objectif de stabilité (pas de modification arbitraire)</li>
+            <li><b>Pas de promesses irréalistes :</b> on publie uniquement ce qui est vérifiable et effectué</li>
+            <li><b>Étapes publiques (quand exécutées) :</b> renounce ownership / lock LP / reporting</li>
+          </ul>
 
-        <h2 class="sectionTitle" style="margin-top:18px">4) Disclaimer</h2>
-        <p class="tiny muted">
-          BRBR is a meme coin. Crypto assets are volatile and risky. This is not financial advice.
-        </p>
+          <div class="note">
+            Conseil : quand tu fais “renounce ownership”, ajoute la TX hash ici et sur la homepage.
+          </div>
 
-        <div class="inlineCtas">
-          <a class="pill primary" href="#" data-link="pancakeswap" data-click>Buy on PancakeSwap</a>
-          <a class="pill" href="#" data-link="bscscan" data-click>View on BscScan</a>
-          <a class="pill" href="#" data-link="linktree" data-click>Linktree</a>
+          <h2 class="h2">4) Roadmap (stratégique)</h2>
+          <div class="timeline timeline--doc">
+            <div class="step reveal">
+              <div class="step__num">01</div>
+              <div class="step__body">
+                <div class="step__title">Launch Presence</div>
+                <div class="step__text">Site, story, identité, liens officiels, trailer mode UX, règles communauté.</div>
+              </div>
+            </div>
+            <div class="step reveal">
+              <div class="step__num">02</div>
+              <div class="step__body">
+                <div class="step__title">Trust & Proof</div>
+                <div class="step__text">Documentation, preuves publiques (ownership/LP), clarification token & objectifs.</div>
+              </div>
+            </div>
+            <div class="step reveal">
+              <div class="step__num">03</div>
+              <div class="step__body">
+                <div class="step__title">Community Governance</div>
+                <div class="step__text">Propositions, votes, transparence, règles anti-abus, direction pilotée communauté.</div>
+              </div>
+            </div>
+            <div class="step reveal">
+              <div class="step__num">04</div>
+              <div class="step__body">
+                <div class="step__title">Supportive Web Rollout</div>
+                <div class="step__text">Ressources, partenariats, reporting public, itérations basées sur résultats.</div>
+              </div>
+            </div>
+          </div>
+
+          <h2 class="h2">5) Liens officiels</h2>
+          <p class="p">
+            <a class="textlink" target="_blank" rel="noopener noreferrer"
+               href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc">PancakeSwap</a>
+            <span class="sep">•</span>
+            <a class="textlink" target="_blank" rel="noopener noreferrer"
+               href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1">BscScan</a>
+            <span class="sep">•</span>
+            <a class="textlink" target="_blank" rel="noopener noreferrer"
+               href="https://linktr.ee/barbourbrbr">Linktree</a>
+          </p>
+
+          <h2 class="h2">6) Contact</h2>
+          <p class="p">
+            Email: <span id="contactEmail"></span>
+            <button id="copyEmail" class="mini sfx" data-sfx="click" type="button">Copy</button>
+          </p>
         </div>
       </div>
     </section>
   </main>
-
-  <audio id="clickSfx" src="assets/Click.mp3" preload="auto"></audio>
-  <script>
-    const BRBR_LINKS = {
-      linktree: "https://linktr.ee/barbourbrbr",
-      pancakeswap: "https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc",
-      bscscan: "https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1"
-    };
-    const clickSfx = document.getElementById("clickSfx");
-    const safePlay = (a)=>{ try{ a.currentTime=0; a.play().catch(()=>{});}catch(e){} };
-
-    document.addEventListener("click", (e)=>{
-      const dc = e.target.closest("[data-click]");
-      if (dc && clickSfx) safePlay(clickSfx);
-
-      const a = e.target.closest("a[data-link]");
-      if (!a) return;
-      e.preventDefault();
-      const key = a.getAttribute("data-link");
-      const url = BRBR_LINKS[key];
-      if (url) window.open(url,"_blank","noopener,noreferrer");
-    });
-  </script>
 </body>
 </html>
