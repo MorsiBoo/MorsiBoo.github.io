@@ -70,4 +70,17 @@
 .btn.primary{
   border: 1px solid rgba(0,255,136,0.45);
   background: rgba(0,255,136,0.12);
+  /* LOGO VIDEO (NOT BACKGROUND) */
+.logo-video {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: contain;
+  margin-bottom: 14px;
+  background: transparent;
+
+  /* glow effect */
+  box-shadow: 0 0 30px rgba(0,255,160,0.35);
+}
+
 }
