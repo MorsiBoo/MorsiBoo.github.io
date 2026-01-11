@@ -1,61 +1,121 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BRBR Whitepaper</title>
-  <style>
-    body{font-family:Arial, sans-serif; margin:40px; color:#111}
-    h1{margin:0 0 8px}
-    h2{margin-top:28px}
-    .muted{color:#555}
-    .box{border:1px solid #ddd; padding:14px; border-radius:10px; background:#fafafa}
-    code{background:#f3f3f3; padding:2px 6px; border-radius:6px}
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BRBR — Whitepaper</title>
+  <meta name="description" content="BRBR memecoin: purpose, vision, roadmap, community, and disclaimers." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
 
-<h1>BARBOUR BRBR (BRBR)</h1>
-<p class="muted">Whitepaper — Global Youth. Global Hope.</p>
+<body class="page">
+  <video class="bg-video" autoplay muted loop playsinline preload="auto">
+    <source src="assets/hero-web.mp4" type="video/mp4" />
+  </video>
+  <div class="bg-vignette"></div>
+  <canvas id="particles" class="particles" aria-hidden="true"></canvas>
 
-<div class="box">
-  <strong>Mission:</strong> Anti-Bullying • Mental Health Support • Youth Development<br>
-  <strong>Core values:</strong> Courage • Compassion • Community
-</div>
+  <audio id="trailerAudio" src="assets/Hero.m4a" preload="auto" loop></audio>
+  <audio id="ambienceAudio" src="assets/atmosphere-sound-effect.mp3" preload="auto" loop></audio>
+  <audio id="uiClick" src="assets/Click.mp3" preload="auto"></audio>
 
-<h2>1. Vision</h2>
-<p>
-Barbour BRBR is a global movement born from silence and transformed into strength.
-The project exists to fight bullying, moral harassment, abuse, and fear — while empowering youth
-worldwide through story, support, education, and community.
-</p>
+  <header class="header">
+    <div class="brand">
+      <span class="dot"></span>
+      <span class="brand-name">BARBOUR BRBR</span>
+    </div>
 
-<h2>2. Why it matters</h2>
-<ul>
-  <li>Bullying destroys confidence and mental health.</li>
-  <li>Many victims stay silent due to fear, shame, or lack of support.</li>
-  <li>BRBR turns a real-life story into a global message: speak up, rebuild, help others.</li>
-</ul>
+    <nav class="nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="association.html" class="nav-link">Association</a>
+      <a href="whitepaper.html" class="nav-link is-active">Whitepaper</a>
+    </nav>
 
-<h2>3. The Token (BRBR)</h2>
-<p>
-BRBR is deployed on the BNB Smart Chain for accessibility and transparency.
-It aims to connect a community around real impact.
-</p>
+    <button id="soundToggle" class="sound-toggle" aria-label="Toggle sound" title="Sound">
+      <span class="sound-ic" aria-hidden="true"></span>
+      <span class="sound-txt">SOUND OFF</span>
+    </button>
+  </header>
 
-<p><strong>Token address:</strong><br>
-<code>0xf97522ABEf762d28729E073019343b72C6e8D2C1</code>
-</p>
+  <main>
+    <section class="page-hero">
+      <div class="page-inner">
+        <div class="kicker reveal">BARBOUR BRBR • Whitepaper</div>
+        <h1 class="page-title reveal">Global Youth. <span class="green">Global Hope.</span></h1>
+        <p class="page-sub reveal">
+          BRBR is a <b>community memecoin</b> built around a cinematic narrative: turning silence into strength.
+          This document explains vision, values, and roadmap.
+        </p>
 
-<h2>4. Links</h2>
-<ul>
-  <li>PancakeSwap: pancakeswap.finance</li>
-  <li>BscScan: bscscan.com</li>
-  <li>Linktree: linktr.ee/barbourbrbr</li>
-</ul>
+        <div class="paper">
+          <div class="paper-card reveal">
+            <h2>1) What is BRBR?</h2>
+            <p>
+              BRBR is a <b>memecoin</b> designed to unify a community around a message of resilience and youth empowerment.
+              The branding emphasizes “Supportive Web. Real Help.” through future features and partnerships.
+            </p>
+          </div>
 
-<h2>5. Contact</h2>
-<p>contact@barbourbrbr.xyz</p>
+          <div class="paper-card reveal">
+            <h2>2) Mission & Values</h2>
+            <ul>
+              <li><b>Awareness:</b> bring visibility to bullying, harassment, and silent suffering.</li>
+              <li><b>Community:</b> a global network that supports and amplifies positive action.</li>
+              <li><b>Hope:</b> transform fear into courage — “Break the chain. Build hope.”</li>
+            </ul>
+          </div>
 
+          <div class="paper-card reveal">
+            <h2>3) Utility (Roadmap)</h2>
+            <p>
+              BRBR’s long-term ambition is a “Supportive Web” layer: resource hubs, story sharing, and community events.
+              These features are roadmap-based and may evolve with community feedback.
+            </p>
+          </div>
+
+          <div class="paper-card reveal">
+            <h2>4) Roadmap (High-Level)</h2>
+            <ol>
+              <li><b>Phase 1:</b> Launch website + cinematic story + community growth</li>
+              <li><b>Phase 2:</b> Partnerships + association page + resources hub</li>
+              <li><b>Phase 3:</b> Global campaigns + story platform + expanded support initiatives</li>
+            </ol>
+          </div>
+
+          <div class="paper-card reveal">
+            <h2>5) Disclaimer</h2>
+            <p>
+              BRBR is a <b>memecoin</b>. This document is for information only and is <b>not financial advice</b>.
+              Crypto assets are volatile; you can lose all your funds. Always do your own research.
+            </p>
+          </div>
+        </div>
+
+        <div class="page-actions reveal">
+          <a class="btn btn-primary" href="index.html#token" data-click>Back to Token Reveal</a>
+          <a class="btn btn-ghost" href="index.html#links" data-click>Links</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer footer-page">
+      <div class="foot-left">BARBOUR BRBR<br><span>Global Youth. Global Hope.</span></div>
+      <div class="foot-right">© <span id="year"></span> BRBR</div>
+    </footer>
+  </main>
+
+  <div id="soundGate" class="sound-gate">
+    <div class="sound-gate-inner">
+      <div class="sound-gate-title">Enable Trailer Sound?</div>
+      <div class="sound-gate-sub">Click once to unlock audio (browser policy).</div>
+      <button class="btn btn-primary" id="soundGateBtn" data-click>Enable Sound</button>
+      <button class="btn btn-ghost" id="soundGateSkip" data-click>Keep Silent</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
