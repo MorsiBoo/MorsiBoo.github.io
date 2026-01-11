@@ -1,244 +1,400 @@
-// =======================
-//  BRBR LINKS (REAL)
-// =======================
-// =======================
-//  CONTACT EMAIL (ANTI-SPAM)
-//  Replace if needed
-// =======================
-const EMAIL_USER = "contact";
-const EMAIL_DOMAIN = "barbourbrbr.xyz";
-const CONTACT_EMAIL = `${EMAIL_USER}@${EMAIL_DOMAIN}`;
+(() => {
+  "use strict";
 
-// Render as "contact [at] domain" to reduce scraping
-function mountEmail() {
-  const shown = `${EMAIL_USER} [at] ${EMAIL_DOMAIN}`;
-  const yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+  const $ = (sel, root = document) => root.querySelector(sel);
 
-  const emailText = document.getElementById("emailText");
-  if (emailText) emailText.textContent = shown;
+  const LINKS = {
+    pancakeswap: "https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc",
+    bscscan: "https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1",
+    linktree: "https://linktr.ee/barbourbrbr"
+  };
 
-  document.querySelectorAll("[data-email]").forEach(el => {
-    el.setAttribute("href", `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("BRBR — Contact")}`);
-  });
-}
-mountEmail();
+  const CONTACT_EMAIL = "contact@barbourbrbr.xyz";
 
-const BRBR_LINKS = {
-  linktree: "https://linktr.ee/barbourbrbr",
-  pancakeswap: "https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc",
-  bscscan: "https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1"
-};
+  // ---------- Audio Manager (Trailer Mode) ----------
+  const Audio = {
+    unlocked: false,
+    enabled: false,
+    ambience: null,
+    click: null,
+    whoosh: null,
+    hit: null,
+    stinger: null,
+    gain: null,
+    ctx: null,
 
-// ===== DOM =====
-const heroVideo = document.getElementById("heroVideo");
-const logoVideo = document.getElementById("logoVideo");
+    init() {
+      this.ambience = $("#aud-ambience");
+      this.click = $("#aud-click");
+      this.whoosh = $("#aud-whoosh");
+      this.hit = $("#aud-hit");
+      this.stinger = $("#aud-stinger");
 
-const ambience = document.getElementById("ambience");
-const clickSfx = document.getElementById("clickSfx");
-const heroAudio = document.getElementById("heroAudio");
+      // If these <audio> tags don't exist on a subpage, we gracefully degrade.
+      if (!this.ambience && !this.click) return;
 
-const soundToggle = document.getElementById("soundToggle");
-const soundIcon = document.getElementById("soundIcon");
-const trailerBtn = document.getElementById("trailerBtn");
+      // Start muted (browser policy). Toggle will unlock.
+      this.setEnabled(false);
+    },
 
-let audioEnabled = false;
-let muted = true;
+    async unlock() {
+      if (this.unlocked) return true;
 
-// --------------------
-//  SAFE AUDIO PLAY
-// --------------------
-function safePlay(mediaEl){
-  if (!mediaEl) return;
-  const p = mediaEl.play();
-  if (p && typeof p.catch === "function") p.catch(()=>{});
-}
-function setMuted(state){
-  muted = state;
-  document.body.classList.toggle("no-audio", muted);
+      // Use WebAudio only if available; otherwise fallback to HTMLAudio play()
+      try {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) { this.unlocked = true; return true; }
+        this.ctx = new Ctx();
+        this.gain = this.ctx.createGain();
+        this.gain.gain.value = 0.85;
+        this.gain.connect(this.ctx.destination);
 
-  // audio
-  [ambience, heroAudio].forEach(a => { if (a) a.muted = muted; });
+        // Create media sources (only once)
+        this._connectIfNeeded(this.ambience);
+        this._connectIfNeeded(this.click);
+        this._connectIfNeeded(this.whoosh);
+        this._connectIfNeeded(this.hit);
+        this._connectIfNeeded(this.stinger);
 
-  // videos: keep them muted always for autoplay stability
-  if (heroVideo) heroVideo.muted = true;
-  if (logoVideo) logoVideo.muted = true;
+        await this.ctx.resume();
+        this.unlocked = true;
+        return true;
+      } catch (e) {
+        this.unlocked = true;
+        return true;
+      }
+    },
 
-  soundIcon.textContent = muted ? "🔇" : "🔊";
-}
-setMuted(true);
+    _connectIfNeeded(el) {
+      if (!el || !this.ctx || el._wired) return;
+      try {
+        const src = this.ctx.createMediaElementSource(el);
+        src.connect(this.gain);
+        el._wired = true;
+      } catch (_) {
+        // Some browsers can throw if same element is connected twice, ignore.
+      }
+    },
 
-// click sfx on UI interactions
-document.addEventListener("click", (e) => {
-  const target = e.target.closest("[data-click]");
-  if (!target) return;
-  if (clickSfx){
-    clickSfx.currentTime = 0;
-    safePlay(clickSfx);
+    setEnabled(on) {
+      this.enabled = !!on;
+      const audios = [this.ambience, this.click, this.whoosh, this.hit, this.stinger].filter(Boolean);
+      audios.forEach(a => (a.muted = !this.enabled));
+      if (!this.enabled && this.ambience) {
+        try { this.ambience.pause(); } catch (_) {}
+      }
+    },
+
+    async startTrailer() {
+      await this.unlock();
+      this.setEnabled(true);
+
+      // Ambience loop
+      if (this.ambience) {
+        this.ambience.volume = 0.55;
+        try { await this.ambience.play(); } catch (_) {}
+      }
+
+      // Stinger once
+      if (this.stinger) {
+        this.stinger.currentTime = 0;
+        this.stinger.volume = 0.90;
+        try { await this.stinger.play(); } catch (_) {}
+      }
+    },
+
+    async play(el, vol = 0.9) {
+      if (!this.enabled || !el) return;
+      try {
+        el.pause();
+        el.currentTime = 0;
+        el.volume = vol;
+        await el.play();
+      } catch (_) {}
+    },
+
+    clickSfx() { this.play(this.click, 0.85); },
+    whooshSfx(){ this.play(this.whoosh, 0.90); },
+    hitSfx()   { this.play(this.hit, 0.95); }
+  };
+
+  // ---------- Particles (Blockchain-like network) ----------
+  function initParticles() {
+    const canvas = $("#particles");
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return;
+
+    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) return;
+
+    let w = 0, h = 0, dpr = 1;
+    let nodes = [];
+    let raf = 0;
+
+    const NODE_COUNT = Math.min(88, Math.max(42, Math.floor((window.innerWidth * window.innerHeight) / 24000)));
+
+    function resize() {
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      w = canvas.clientWidth = window.innerWidth;
+      h = canvas.clientHeight = window.innerHeight;
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      nodes = Array.from({ length: NODE_COUNT }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.22,
+        vy: (Math.random() - 0.5) * 0.22,
+        r: Math.random() * 1.6 + 0.7
+      }));
+    }
+
+    function step() {
+      ctx.clearRect(0, 0, w, h);
+
+      // Draw links
+      const maxDist = 130;
+      for (let i = 0; i < nodes.length; i++) {
+        const a = nodes[i];
+
+        a.x += a.vx; a.y += a.vy;
+        if (a.x < -20) a.x = w + 20;
+        if (a.x > w + 20) a.x = -20;
+        if (a.y < -20) a.y = h + 20;
+        if (a.y > h + 20) a.y = -20;
+
+        for (let j = i + 1; j < nodes.length; j++) {
+          const b = nodes[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < maxDist) {
+            const alpha = (1 - dist / maxDist) * 0.22;
+            ctx.globalAlpha = alpha;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.strokeStyle = "rgba(101,255,122,1)";
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw nodes
+      ctx.globalAlpha = 0.75;
+      for (const n of nodes) {
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,255,255,0.72)";
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r + 1.7, 0, Math.PI * 2);
+        ctx.strokeStyle = "rgba(101,255,122,0.18)";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
+      ctx.globalAlpha = 1;
+      raf = requestAnimationFrame(step);
+    }
+
+    resize();
+    step();
+
+    window.addEventListener("resize", () => {
+      cancelAnimationFrame(raf);
+      resize();
+      step();
+    }, { passive: true });
   }
-});
 
-// --------------------
-//  External Links (100%)
-// --------------------
-document.addEventListener("click", (e) => {
-  const a = e.target.closest("a[data-link]");
-  if (!a) return;
+  // ---------- Reveal on scroll ----------
+  function initReveal() {
+    const items = $$(".reveal");
+    if (!items.length) return;
 
-  e.preventDefault();
-  const key = a.getAttribute("data-link");
-  const url = BRBR_LINKS[key];
-  if (!url) return;
+    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) {
+      items.forEach(el => el.classList.add("in"));
+      return;
+    }
 
-  window.open(url, "_blank", "noopener,noreferrer");
-});
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add("in");
+          io.unobserve(e.target);
+        }
+      }
+    }, { threshold: 0.12 });
 
-// --------------------
-//  TRAILER MODE (enable sound)
-// --------------------
-async function enableAudio(){
-  if (audioEnabled) return;
-  audioEnabled = true;
-
-  // prepare volumes
-  if (ambience){ ambience.volume = 0.35; }
-  if (heroAudio){ heroAudio.volume = 0.9; }
-
-  // start ambience + keep running
-  safePlay(ambience);
-
-  // hero audio (one-shot vibe)
-  if (heroAudio){
-    heroAudio.currentTime = 0;
-    safePlay(heroAudio);
+    items.forEach(el => io.observe(el));
   }
 
-  // ensure hero video plays too
-  safePlay(heroVideo);
-
-  // unmute our AUDIO elements
-  setMuted(false);
-}
-
-if (trailerBtn){
-  trailerBtn.addEventListener("click", () => {
-    enableAudio();
-  });
-}
-
-if (soundToggle){
-  soundToggle.addEventListener("click", async () => {
-    // if user unmutes before enabling audio, enable first
-    if (!audioEnabled) await enableAudio();
-    setMuted(!muted);
-  });
-}
-
-// If user scrolls/clicks anywhere, we can softly start ambience (still muted until toggle)
-const firstUserGesture = () => {
-  safePlay(heroVideo);
-  // we don't enableAudio here to respect autoplay rules; we just prep.
-  window.removeEventListener("pointerdown", firstUserGesture);
-  window.removeEventListener("keydown", firstUserGesture);
-};
-window.addEventListener("pointerdown", firstUserGesture, { once:true });
-window.addEventListener("keydown", firstUserGesture, { once:true });
-
-// --------------------
-//  REVEAL ON SCROLL
-// --------------------
-const revealEls = Array.from(document.querySelectorAll(".reveal"));
-const io = new IntersectionObserver((entries) => {
-  entries.forEach((ent) => {
-    if (ent.isIntersecting) ent.target.classList.add("is-visible");
-  });
-}, { threshold: 0.12 });
-
-revealEls.forEach(el => io.observe(el));
-
-// --------------------
-//  MICRO PARTICLES (light + stable)
-// --------------------
-const canvas = document.getElementById("particles");
-const ctx = canvas?.getContext("2d");
-let W = 0, H = 0, dpr = 1;
-let particles = [];
-let raf = null;
-
-function resize(){
-  if (!canvas || !ctx) return;
-  dpr = Math.min(2, window.devicePixelRatio || 1);
-  W = canvas.clientWidth = window.innerWidth;
-  H = canvas.clientHeight = window.innerHeight;
-  canvas.width = Math.floor(W * dpr);
-  canvas.height = Math.floor(H * dpr);
-  ctx.setTransform(dpr,0,0,dpr,0,0);
-}
-function rand(min,max){ return min + Math.random()*(max-min); }
-
-function initParticles(){
-  if (!canvas || !ctx) return;
-  particles = [];
-  const count = Math.max(28, Math.min(70, Math.floor((W*H)/26000)));
-  for (let i=0;i<count;i++){
-    particles.push({
-      x: rand(0,W),
-      y: rand(0,H),
-      r: rand(0.6, 2.0),
-      vx: rand(-0.18, 0.18),
-      vy: rand(-0.12, 0.12),
-      a: rand(0.12, 0.35)
+  // ---------- Smooth anchors ----------
+  function initAnchors() {
+    $$(".nav__link[href^='#'], a[href^='#']").forEach(a => {
+      a.addEventListener("click", (ev) => {
+        const id = a.getAttribute("href");
+        if (!id || id === "#") return;
+        const target = document.querySelector(id);
+        if (!target) return;
+        ev.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, { passive: false });
     });
   }
-}
-function tick(){
-  if (!ctx) return;
 
-  ctx.clearRect(0,0,W,H);
-
-  // draw
-  for (const p of particles){
-    p.x += p.vx;
-    p.y += p.vy;
-
-    if (p.x < -10) p.x = W + 10;
-    if (p.x > W + 10) p.x = -10;
-    if (p.y < -10) p.y = H + 10;
-    if (p.y > H + 10) p.y = -10;
-
-    ctx.globalAlpha = p.a;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-    ctx.fillStyle = "rgba(109,255,122,1)";
-    ctx.fill();
+  // ---------- Copy helpers ----------
+  async function copyText(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (_) {
+      // fallback
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.left = "-9999px";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch (_) {}
+      document.body.removeChild(ta);
+      return true;
+    }
   }
 
-  ctx.globalAlpha = 1;
-  raf = requestAnimationFrame(tick);
-}
+  // ---------- Token reveal cinematic trigger ----------
+  function initTokenReveal() {
+    const logoVideo = $("#logoVideo");
+    if (!logoVideo) return;
 
-function startParticles(){
-  if (!canvas || !ctx) return;
-  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reduce) return;
+    // Keep it paused until in view; then play + SFX
+    let fired = false;
+    const io = new IntersectionObserver(async (entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting || fired) continue;
+        fired = true;
 
-  resize();
-  initParticles();
-  cancelAnimationFrame(raf);
-  tick();
-}
+        // Play whoosh + hit, then start video
+        Audio.whooshSfx();
+        setTimeout(() => Audio.hitSfx(), 220);
 
-window.addEventListener("resize", () => {
-  resize();
-  initParticles();
-});
+        try {
+          logoVideo.currentTime = 0;
+          await logoVideo.play();
+        } catch (_) {}
+        io.disconnect();
+      }
+    }, { threshold: 0.35 });
 
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden){
-    cancelAnimationFrame(raf);
-  } else {
-    startParticles();
+    io.observe(logoVideo);
   }
-});
 
-startParticles();
+  // ---------- Sound Toggle ----------
+  function initSoundToggle() {
+    const btn = $("#soundToggle");
+    if (!btn) return;
+
+    function render() {
+      const icon = btn.querySelector(".iconbtn__icon");
+      if (!icon) return;
+      btn.setAttribute("aria-pressed", Audio.enabled ? "true" : "false");
+      icon.textContent = Audio.enabled ? "🔊" : "🔇";
+    }
+
+    // Unlock audio on first user gesture (click/keydown/touch)
+    const unlockOnce = async () => {
+      window.removeEventListener("pointerdown", unlockOnce);
+      window.removeEventListener("keydown", unlockOnce);
+      Audio.init();
+      render();
+    };
+    window.addEventListener("pointerdown", unlockOnce, { once: true, passive: true });
+    window.addEventListener("keydown", unlockOnce, { once: true });
+
+    btn.addEventListener("click", async () => {
+      // If enabling: start trailer mode
+      if (!Audio.enabled) {
+        await Audio.startTrailer();
+      } else {
+        Audio.setEnabled(false);
+      }
+      render();
+    });
+
+    render();
+  }
+
+  // ---------- SFX on UI elements ----------
+  function initSfxUI() {
+    $$(".sfx").forEach(el => {
+      el.addEventListener("click", () => Audio.clickSfx(), { passive: true });
+    });
+  }
+
+  // ---------- Email (visible, but harder to scrape) ----------
+  function initContactEmail() {
+    const spots = $$("#contactEmail");
+    if (!spots.length) return;
+
+    // Render as visible text (exact requested) + mailto
+    spots.forEach(sp => {
+      const a = document.createElement("a");
+      a.className = "textlink sfx";
+      a.href = `mailto:${CONTACT_EMAIL}?subject=BRBR%20Contact`;
+      a.textContent = CONTACT_EMAIL; // EXACT format: no "at"
+      sp.textContent = "";
+      sp.appendChild(a);
+    });
+
+    const copyBtn = $("#copyEmail");
+    if (copyBtn) {
+      copyBtn.addEventListener("click", async () => {
+        await copyText(CONTACT_EMAIL);
+        copyBtn.textContent = "Copied ✓";
+        setTimeout(() => (copyBtn.textContent = "Copy"), 1000);
+      });
+    }
+  }
+
+  function initCopyCA() {
+    const btn = $("#copyCA");
+    const ca = $("#contractAddress");
+    if (!btn || !ca) return;
+
+    btn.addEventListener("click", async () => {
+      await copyText(ca.textContent.trim());
+      btn.textContent = "Copied ✓";
+      setTimeout(() => (btn.textContent = "Copy"), 1000);
+    });
+  }
+
+  // ---------- Footer year ----------
+  function initYear() {
+    const y = $("#year");
+    if (y) y.textContent = String(new Date().getFullYear());
+  }
+
+  // ---------- Boot ----------
+  document.addEventListener("DOMContentLoaded", () => {
+    initReveal();
+    initAnchors();
+    initParticles();
+
+    Audio.init();
+    initSoundToggle();
+    initSfxUI();
+
+    initTokenReveal();
+    initContactEmail();
+    initCopyCA();
+    initYear();
+  });
+})();
