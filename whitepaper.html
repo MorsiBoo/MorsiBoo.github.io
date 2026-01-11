@@ -1,143 +1,148 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#05070c" />
-  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#0b0f13" />
   <title>BRBR Whitepaper — BARBOUR BRBR</title>
-  <meta name="description" content="Whitepaper BRBR — Vision, token, sécurité, roadmap, gouvernance." />
+  <meta name="description" content="BRBR Whitepaper — meme coin with a serious mission: supportive web, community-first governance, and awareness initiatives." />
+  <link rel="canonical" href="https://barbourbrbr.xyz/whitepaper.html" />
   <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
 </head>
-
-<body data-page="whitepaper">
-  <div class="bg bg--lite">
-    <video class="bg__video" autoplay muted loop playsinline preload="auto" poster="assets/story.png">
-      <source src="assets/hero-web.mp4" type="video/mp4" />
-    </video>
-    <div class="bg__vignette"></div>
-    <div class="bg__scanlines"></div>
-    <canvas id="particles" class="bg__particles" aria-hidden="true"></canvas>
-  </div>
+<body>
+  <canvas id="fxCanvas" aria-hidden="true"></canvas>
 
   <header class="topbar">
-    <a class="brand sfx" data-sfx="click" href="index.html">
-      <span class="brand__dot"></span>
-      <span class="brand__name">BARBOUR <b>BRBR</b></span>
-    </a>
+    <div class="topbar__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__dot"></span>
+        <span class="brand__name">BARBOUR BRBR</span>
+      </a>
 
-    <nav class="nav">
-      <a class="nav__link sfx" data-sfx="click" href="index.html#story">Story</a>
-      <a class="nav__link sfx" data-sfx="click" href="index.html#token">Token</a>
-      <a class="nav__link sfx" data-sfx="click" href="index.html#roadmap">Roadmap</a>
-      <a class="nav__link is-active sfx" data-sfx="click" href="whitepaper.html">Whitepaper</a>
-      <a class="nav__link sfx" data-sfx="click" href="association.html">Association</a>
+      <nav class="nav" id="nav">
+        <a class="nav__link" href="index.html#roadmap">Roadmap</a>
+        <a class="nav__link" href="association.html">Association</a>
+        <a class="nav__pill" href="https://linktr.ee/barbourbrbr" target="_blank" rel="noopener noreferrer">Linktree</a>
+      </nav>
 
-      <div class="nav__actions">
-        <button id="soundToggle" class="iconbtn sfx" data-sfx="click" type="button" aria-pressed="false">
-          <span class="iconbtn__icon" aria-hidden="true">🔇</span>
-          <span class="iconbtn__text">Sound</span>
+      <div class="topbar__actions">
+        <button class="btn btn--ghost btn--sm" id="trailerBtn" type="button" aria-pressed="true">
+          <span class="icon">🎬</span> Trailer
         </button>
-        <a class="pill sfx" data-sfx="click" href="https://linktr.ee/barbourbrbr" target="_blank" rel="noopener noreferrer">Linktree</a>
+        <button class="btn btn--ghost btn--sm" id="soundBtn" type="button" aria-pressed="false">
+          <span class="icon" id="soundIcon">🔇</span>
+          <span id="soundLabel">Sound</span>
+        </button>
+        <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" type="button">
+          <span></span><span></span><span></span>
+        </button>
       </div>
-    </nav>
+    </div>
   </header>
 
-  <main>
-    <section class="section section--tight">
-      <div class="container">
-        <div class="head reveal">
-          <div class="chip">WHITEPAPER</div>
-          <h1 class="h1">BRBR — Meme coin, community mission</h1>
-          <p class="p">
-            Ce document est une présentation claire du projet. BRBR est un <b>meme coin</b>.
-            Le site et ce whitepaper sont <b>informatifs</b> (pas de conseil financier).
-          </p>
-        </div>
+  <main class="page container">
+    <section class="section">
+      <div class="section__head reveal">
+        <div class="section__kicker">WHITEPAPER</div>
+        <h1 class="section__title">BARBOUR BRBR (BRBR)</h1>
+        <p class="section__subtitle">
+          BRBR is a <strong>meme coin</strong> with a serious mission: build a supportive web for youth,
+          promote community action, and fund awareness initiatives.
+        </p>
+      </div>
 
-        <div class="doc card reveal">
-          <h2 class="h2">1) Vision</h2>
-          <p class="p">
-            Construire une présence web “supportive” et une communauté qui transforme l’attention en actions utiles :
-            sensibilisation, ressources, et initiatives progressives (selon l’avancée réelle).
-          </p>
+      <div class="card glass reveal">
+        <div class="card__kicker">TOKEN IDENTIFIERS</div>
+        <p class="card__text">
+          Network: <strong>BNB Smart Chain (BSC)</strong><br/>
+          Contract: <code>0xf97522ABEf762d28729E073019343b72C6e8D2C1</code><br/>
+          Official Buy Link:
+          <a href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc"
+             target="_blank" rel="noopener noreferrer">PancakeSwap</a><br/>
+          Explorer:
+          <a href="https://bscscan.com/token/0xf97522ABEf762d28729E073019343b72C6e8D2C1"
+             target="_blank" rel="noopener noreferrer">BscScan</a><br/>
+          Security Scan:
+          <a href="https://solidityscan.com/qs-report/53401f2de52031ca97d7a95a0b6f036f/5e136bbf32d12b9e/b2cf7d75f955f937"
+             target="_blank" rel="noopener noreferrer">SolidityScan report</a>
+        </p>
+      </div>
 
-          <h2 class="h2">2) Le Token (BRBR)</h2>
-          <ul class="list">
-            <li><b>Réseau :</b> BNB Smart Chain (BSC)</li>
-            <li><b>Nature :</b> Meme coin communautaire</li>
-            <li><b>Contrat :</b> 0xf97522ABEf762d28729E073019343b72C6e8D2C1</li>
-            <li><b>Trading :</b> PancakeSwap (lien officiel sur la home)</li>
-          </ul>
+      <div class="card glass reveal">
+        <div class="card__kicker">VISION</div>
+        <h2 class="card__titleSm">Global Youth. Global Hope.</h2>
+        <p class="card__text">
+          The BRBR mission is to help transform silence into strength — with a supportive web experience that promotes:
+          safe resources, community awareness, and progressive real-world impact.
+        </p>
+        <p class="card__text">
+          The project is designed to be <strong>community-driven</strong>: decisions, milestones, and major direction
+          should be visible and verifiable.
+        </p>
+      </div>
 
-          <h2 class="h2">3) Sécurité & “Community Ownership” (approche)</h2>
-          <p class="p">
-            “Ownership for the community” = réduire les points de contrôle, verrouiller la confiance par des actes vérifiables,
-            et documenter chaque étape (proof-based).
-          </p>
-          <ul class="list">
-            <li><b>Supply :</b> objectif de stabilité (pas de modification arbitraire)</li>
-            <li><b>Pas de promesses irréalistes :</b> on publie uniquement ce qui est vérifiable et effectué</li>
-            <li><b>Étapes publiques (quand exécutées) :</b> renounce ownership / lock LP / reporting</li>
-          </ul>
+      <div class="card glass reveal">
+        <div class="card__kicker">WHAT BRBR IS</div>
+        <p class="card__text">
+          BRBR is a <strong>meme coin</strong>. The purpose of BRBR is community movement and awareness.
+          Nothing on this site is an investment solicitation. Always verify on-chain and use official links only.
+        </p>
+      </div>
 
-          <div class="note">
-            Conseil : quand tu fais “renounce ownership”, ajoute la TX hash ici et sur la homepage.
-          </div>
+      <div class="card glass reveal">
+        <div class="card__kicker">ROADMAP SUMMARY</div>
+        <p class="card__text">
+          For the latest roadmap view, see: <a href="index.html#roadmap">Roadmap</a>.
+        </p>
+        <ul>
+          <li><strong>Phase 0:</strong> Foundation — official site, links, transparency</li>
+          <li><strong>Phase 1:</strong> Market presence — clean access + safety education</li>
+          <li><strong>Phase 2:</strong> Supportive Web MVP — resources, stories concept</li>
+          <li><strong>Phase 3:</strong> Governance — public proposals and transparent direction</li>
+          <li><strong>Phase 4:</strong> Awareness — campaigns and partnerships</li>
+          <li><strong>Phase 5:</strong> Association — long-term structure (legal feasibility first)</li>
+        </ul>
+      </div>
 
-          <h2 class="h2">4) Roadmap (stratégique)</h2>
-          <div class="timeline timeline--doc">
-            <div class="step reveal">
-              <div class="step__num">01</div>
-              <div class="step__body">
-                <div class="step__title">Launch Presence</div>
-                <div class="step__text">Site, story, identité, liens officiels, trailer mode UX, règles communauté.</div>
-              </div>
-            </div>
-            <div class="step reveal">
-              <div class="step__num">02</div>
-              <div class="step__body">
-                <div class="step__title">Trust & Proof</div>
-                <div class="step__text">Documentation, preuves publiques (ownership/LP), clarification token & objectifs.</div>
-              </div>
-            </div>
-            <div class="step reveal">
-              <div class="step__num">03</div>
-              <div class="step__body">
-                <div class="step__title">Community Governance</div>
-                <div class="step__text">Propositions, votes, transparence, règles anti-abus, direction pilotée communauté.</div>
-              </div>
-            </div>
-            <div class="step reveal">
-              <div class="step__num">04</div>
-              <div class="step__body">
-                <div class="step__title">Supportive Web Rollout</div>
-                <div class="step__text">Ressources, partenariats, reporting public, itérations basées sur résultats.</div>
-              </div>
-            </div>
-          </div>
+      <div class="card glass reveal">
+        <div class="card__kicker">RISKS & DISCLAIMER</div>
+        <p class="card__text">
+          Crypto assets can be highly volatile. BRBR is a meme coin. You can lose funds. This site is informational and
+          provides no financial advice. Always do your own research and verify official sources.
+        </p>
+      </div>
 
-          <h2 class="h2">5) Liens officiels</h2>
-          <p class="p">
-            <a class="textlink" target="_blank" rel="noopener noreferrer"
-               href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc">PancakeSwap</a>
-            <span class="sep">•</span>
-            <a class="textlink" target="_blank" rel="noopener noreferrer"
-               href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1">BscScan</a>
-            <span class="sep">•</span>
-            <a class="textlink" target="_blank" rel="noopener noreferrer"
-               href="https://linktr.ee/barbourbrbr">Linktree</a>
-          </p>
+      <div class="card glass reveal">
+        <div class="card__kicker">CONTACT</div>
+        <p class="card__text">
+          Official email: <strong>contact@barbourbrbr.xyz</strong>
+        </p>
+      </div>
 
-          <h2 class="h2">6) Contact</h2>
-          <p class="p">
-            Email: <span id="contactEmail"></span>
-            <button id="copyEmail" class="mini sfx" data-sfx="click" type="button">Copy</button>
-          </p>
-        </div>
+      <div class="row reveal">
+        <a class="btn btn--primary" href="index.html">← Back to Home</a>
+        <a class="btn btn--ghost" href="terms.html">Terms</a>
+        <a class="btn btn--ghost" href="privacy.html">Privacy</a>
       </div>
     </section>
   </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div>
+        <div class="footer__brand"><span class="brand__dot"></span><strong>BARBOUR BRBR</strong></div>
+        <div class="footer__muted">Global Youth. Global Hope.</div>
+      </div>
+      <div class="footer__links">
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <div class="footer__muted">© <span id="year"></span> BARBOUR BRBR. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
 </body>
 </html>
