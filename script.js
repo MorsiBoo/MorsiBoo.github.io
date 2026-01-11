@@ -1,400 +1,476 @@
+/* ============================
+   BRBR Ultra++ Cinematic Script
+   - Sound engine (autoplay-safe)
+   - Trailer Mode SFX
+   - Scroll reveals
+   - Particles canvas (lightweight)
+   - Copy buttons
+   - Mobile nav
+   ============================ */
+
 (() => {
-  "use strict";
+  const $ = (q, root=document) => root.querySelector(q);
+  const $$ = (q, root=document) => Array.from(root.querySelectorAll(q));
 
-  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
-  const $ = (sel, root = document) => root.querySelector(sel);
+  const toastEl = $("#toast");
+  function toast(msg){
+    if(!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    window.clearTimeout(toastEl._t);
+    toastEl._t = window.setTimeout(()=>toastEl.classList.remove("show"), 1400);
+  }
 
-  const LINKS = {
-    pancakeswap: "https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc",
-    bscscan: "https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1",
-    linktree: "https://linktr.ee/barbourbrbr"
-  };
+  // Year
+  const yearEl = $("#year");
+  if(yearEl) yearEl.textContent = new Date().getFullYear();
 
-  const CONTACT_EMAIL = "contact@barbourbrbr.xyz";
-
-  // ---------- Audio Manager (Trailer Mode) ----------
-  const Audio = {
-    unlocked: false,
-    enabled: false,
-    ambience: null,
-    click: null,
-    whoosh: null,
-    hit: null,
-    stinger: null,
-    gain: null,
-    ctx: null,
-
-    init() {
-      this.ambience = $("#aud-ambience");
-      this.click = $("#aud-click");
-      this.whoosh = $("#aud-whoosh");
-      this.hit = $("#aud-hit");
-      this.stinger = $("#aud-stinger");
-
-      // If these <audio> tags don't exist on a subpage, we gracefully degrade.
-      if (!this.ambience && !this.click) return;
-
-      // Start muted (browser policy). Toggle will unlock.
-      this.setEnabled(false);
-    },
-
-    async unlock() {
-      if (this.unlocked) return true;
-
-      // Use WebAudio only if available; otherwise fallback to HTMLAudio play()
-      try {
-        const Ctx = window.AudioContext || window.webkitAudioContext;
-        if (!Ctx) { this.unlocked = true; return true; }
-        this.ctx = new Ctx();
-        this.gain = this.ctx.createGain();
-        this.gain.gain.value = 0.85;
-        this.gain.connect(this.ctx.destination);
-
-        // Create media sources (only once)
-        this._connectIfNeeded(this.ambience);
-        this._connectIfNeeded(this.click);
-        this._connectIfNeeded(this.whoosh);
-        this._connectIfNeeded(this.hit);
-        this._connectIfNeeded(this.stinger);
-
-        await this.ctx.resume();
-        this.unlocked = true;
-        return true;
-      } catch (e) {
-        this.unlocked = true;
-        return true;
+  // Smooth anchor scroll
+  $$('a[href^="#"]').forEach(a=>{
+    a.addEventListener("click", (e)=>{
+      const href = a.getAttribute("href");
+      if(!href || href === "#") return;
+      const target = $(href);
+      if(target){
+        e.preventDefault();
+        target.scrollIntoView({ behavior:"smooth", block:"start" });
+        closeMobileNav();
       }
-    },
+    });
+  });
 
-    _connectIfNeeded(el) {
-      if (!el || !this.ctx || el._wired) return;
-      try {
-        const src = this.ctx.createMediaElementSource(el);
-        src.connect(this.gain);
-        el._wired = true;
-      } catch (_) {
-        // Some browsers can throw if same element is connected twice, ignore.
+  // Mobile nav
+  const nav = $("#nav");
+  const burger = $("#burger");
+
+  function openMobileNav(){
+    if(!nav || !burger) return;
+    nav.classList.add("nav--open");
+    burger.setAttribute("aria-expanded", "true");
+  }
+  function closeMobileNav(){
+    if(!nav || !burger) return;
+    nav.classList.remove("nav--open");
+    burger.setAttribute("aria-expanded", "false");
+  }
+  if(burger){
+    burger.addEventListener("click", ()=>{
+      if(nav.classList.contains("nav--open")) closeMobileNav();
+      else openMobileNav();
+    });
+  }
+  document.addEventListener("click", (e)=>{
+    if(!nav || !burger) return;
+    const inside = nav.contains(e.target) || burger.contains(e.target);
+    if(!inside) closeMobileNav();
+  });
+
+  // Reveal on scroll
+  const revealEls = $$(".reveal");
+  const io = new IntersectionObserver((entries)=>{
+    for(const ent of entries){
+      if(ent.isIntersecting){
+        ent.target.classList.add("in");
+        io.unobserve(ent.target);
       }
-    },
-
-    setEnabled(on) {
-      this.enabled = !!on;
-      const audios = [this.ambience, this.click, this.whoosh, this.hit, this.stinger].filter(Boolean);
-      audios.forEach(a => (a.muted = !this.enabled));
-      if (!this.enabled && this.ambience) {
-        try { this.ambience.pause(); } catch (_) {}
-      }
-    },
-
-    async startTrailer() {
-      await this.unlock();
-      this.setEnabled(true);
-
-      // Ambience loop
-      if (this.ambience) {
-        this.ambience.volume = 0.55;
-        try { await this.ambience.play(); } catch (_) {}
-      }
-
-      // Stinger once
-      if (this.stinger) {
-        this.stinger.currentTime = 0;
-        this.stinger.volume = 0.90;
-        try { await this.stinger.play(); } catch (_) {}
-      }
-    },
-
-    async play(el, vol = 0.9) {
-      if (!this.enabled || !el) return;
-      try {
-        el.pause();
-        el.currentTime = 0;
-        el.volume = vol;
-        await el.play();
-      } catch (_) {}
-    },
-
-    clickSfx() { this.play(this.click, 0.85); },
-    whooshSfx(){ this.play(this.whoosh, 0.90); },
-    hitSfx()   { this.play(this.hit, 0.95); }
-  };
-
-  // ---------- Particles (Blockchain-like network) ----------
-  function initParticles() {
-    const canvas = $("#particles");
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d", { alpha: true });
-    if (!ctx) return;
-
-    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) return;
-
-    let w = 0, h = 0, dpr = 1;
-    let nodes = [];
-    let raf = 0;
-
-    const NODE_COUNT = Math.min(88, Math.max(42, Math.floor((window.innerWidth * window.innerHeight) / 24000)));
-
-    function resize() {
-      dpr = Math.min(2, window.devicePixelRatio || 1);
-      w = canvas.clientWidth = window.innerWidth;
-      h = canvas.clientHeight = window.innerHeight;
-      canvas.width = Math.floor(w * dpr);
-      canvas.height = Math.floor(h * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      nodes = Array.from({ length: NODE_COUNT }, () => ({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.22,
-        vy: (Math.random() - 0.5) * 0.22,
-        r: Math.random() * 1.6 + 0.7
-      }));
     }
+  }, { threshold: 0.14 });
+  revealEls.forEach(el=>io.observe(el));
 
-    function step() {
-      ctx.clearRect(0, 0, w, h);
+  // Clipboard copy (contract + email)
+  const contractText = $("#contractText");
+  const copyContractBtn = $("#copyContractBtn");
+  if(copyContractBtn && contractText){
+    copyContractBtn.addEventListener("click", async ()=>{
+      const txt = contractText.textContent.trim();
+      try{
+        await navigator.clipboard.writeText(txt);
+        toast("Contract copied.");
+        Sound.sfx("click");
+      }catch{
+        toast("Copy failed.");
+      }
+    });
+  }
 
-      // Draw links
-      const maxDist = 130;
-      for (let i = 0; i < nodes.length; i++) {
-        const a = nodes[i];
+  // Email (obfuscated mailto)
+  const emailTextEl = $("#emailText");
+  const emailLink = $("#emailLink");
+  const copyEmailBtn = $("#copyEmailBtn");
 
-        a.x += a.vx; a.y += a.vy;
-        if (a.x < -20) a.x = w + 20;
-        if (a.x > w + 20) a.x = -20;
-        if (a.y < -20) a.y = h + 20;
-        if (a.y > h + 20) a.y = -20;
+  const emailUser = "contact";
+  const emailDomain = "barbourbrbr.xyz";
+  const email = `${emailUser}@${emailDomain}`;
 
-        for (let j = i + 1; j < nodes.length; j++) {
-          const b = nodes[j];
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          const dist = Math.hypot(dx, dy);
-          if (dist < maxDist) {
-            const alpha = (1 - dist / maxDist) * 0.22;
-            ctx.globalAlpha = alpha;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = "rgba(101,255,122,1)";
-            ctx.lineWidth = 1;
-            ctx.stroke();
+  if(emailTextEl) emailTextEl.textContent = email;
+  if(emailLink){
+    emailLink.textContent = `Email: ${email}`;
+    emailLink.setAttribute("href", `mailto:${email}?subject=BRBR%20Website%20Contact`);
+    emailLink.addEventListener("click", ()=>Sound.sfx("click"));
+  }
+  if(copyEmailBtn){
+    copyEmailBtn.addEventListener("click", async ()=>{
+      try{
+        await navigator.clipboard.writeText(email);
+        toast("Email copied.");
+        Sound.sfx("click");
+      }catch{
+        toast("Copy failed.");
+      }
+    });
+  }
+
+  // Contact form (no backend) + honeypot
+  const form = $("#contactForm");
+  const hp = $("#hpField");
+  if(form){
+    const startTs = Date.now();
+    form.addEventListener("submit", (e)=>{
+      e.preventDefault();
+      Sound.sfx("click");
+
+      // simple anti-bot:
+      // - honeypot must be empty
+      // - user must spend > 2 seconds on page
+      if(hp && hp.value.trim().length > 0){
+        toast("Blocked.");
+        return;
+      }
+      if(Date.now() - startTs < 2000){
+        toast("Please try again.");
+        return;
+      }
+
+      const fd = new FormData(form);
+      const name = (fd.get("name") || "").toString().trim();
+      const msg  = (fd.get("message") || "").toString().trim();
+
+      const subject = encodeURIComponent("BRBR Contact");
+      const body = encodeURIComponent(`Name: ${name}\n\nMessage:\n${msg}\n\n— Sent from barbourbrbr.xyz`);
+      window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    });
+  }
+
+  /* ===========================
+     SOUND ENGINE (autoplay safe)
+     =========================== */
+
+  const soundBtn = $("#soundBtn");
+  const soundIcon = $("#soundIcon");
+  const soundLabel = $("#soundLabel");
+  const heroVideo = $("#heroVideo");
+
+  const trailerBtn = $("#trailerBtn");
+
+  const Sound = {
+    enabled: false,
+    trailerMode: true,
+    unlocked: false,
+    _audio: {},
+    _once: new Set(),
+
+    init(){
+      // Load persisted settings
+      const saved = localStorage.getItem("brbr_sound");
+      if(saved === "1") this.enabled = false; // keep off until user clicks (browser rules)
+      const tm = localStorage.getItem("brbr_trailer");
+      if(tm === "0") this.trailerMode = false;
+
+      this._audio.hero = this._makeAudio("assets/Hero.m4a", true, 0.55);
+      this._audio.atmo = this._makeAudio("assets/atmosphere-sound-effect.mp3", true, 0.30);
+      this._audio.click = this._makeAudio("assets/Click.mp3", false, 0.85);
+
+      // Trailer pack (optional, if exists)
+      this._audio.hit     = this._makeAudio("assets/audio/hit.wav", false, 0.80, true);
+      this._audio.whoosh  = this._makeAudio("assets/audio/whoosh.wav", false, 0.75, true);
+      this._audio.stinger = this._makeAudio("assets/audio/stinger.wav", false, 0.80, true);
+
+      this._syncButtons();
+    },
+
+    _makeAudio(src, loop, vol, optional=false){
+      const a = new Audio();
+      a.src = src;
+      a.preload = "auto";
+      a.loop = !!loop;
+      a.volume = vol ?? 0.6;
+      a.muted = true; // always start muted until user enables
+      a.playsInline = true;
+
+      // If optional file is missing, ignore errors silently
+      if(optional){
+        a.addEventListener("error", ()=>{ /* ignore */ }, { once:true });
+      }
+      return a;
+    },
+
+    _syncButtons(){
+      if(trailerBtn){
+        trailerBtn.setAttribute("aria-pressed", this.trailerMode ? "true" : "false");
+        trailerBtn.classList.toggle("isOn", this.trailerMode);
+      }
+      if(soundBtn){
+        soundBtn.setAttribute("aria-pressed", this.enabled ? "true" : "false");
+      }
+      if(soundIcon) soundIcon.textContent = this.enabled ? "🔊" : "🔇";
+      if(soundLabel) soundLabel.textContent = this.enabled ? "Sound On" : "Sound";
+    },
+
+    async toggle(){
+      if(!this.enabled){
+        await this.enable();
+      }else{
+        this.disable();
+      }
+    },
+
+    async enable(){
+      // Must be triggered by a user gesture.
+      this.enabled = true;
+      localStorage.setItem("brbr_sound","1");
+
+      // Unmute + play loops
+      await this._unlockAndStart();
+      this._syncButtons();
+      toast("Sound enabled.");
+      this.sfx("whoosh");
+    },
+
+    disable(){
+      this.enabled = false;
+      localStorage.setItem("brbr_sound","0");
+
+      for(const k of Object.keys(this._audio)){
+        const a = this._audio[k];
+        if(!a) continue;
+        a.muted = true;
+        try{ a.pause(); }catch{}
+      }
+      // keep hero video muted
+      if(heroVideo){
+        heroVideo.muted = true;
+        heroVideo.volume = 0;
+      }
+
+      this._syncButtons();
+      toast("Sound muted.");
+    },
+
+    async _unlockAndStart(){
+      if(!this.enabled) return;
+
+      // Unmute loops
+      const hero = this._audio.hero;
+      const atmo = this._audio.atmo;
+
+      // attempt to start audio; some browsers need a "play" inside click
+      for(const a of [hero, atmo]){
+        if(!a) continue;
+        a.muted = false;
+        try{
+          await a.play();
+        }catch(e){
+          // If blocked, keep muted and retry on next click
+          a.muted = true;
+        }
+      }
+
+      // If hero video contains audio track and you want it: enable here
+      // (If your hero video is silent, Hero.m4a provides the soundtrack.)
+      if(heroVideo){
+        try{
+          heroVideo.muted = false;
+          heroVideo.volume = 0.45;
+          await heroVideo.play();
+        }catch(e){
+          heroVideo.muted = true;
+          heroVideo.volume = 0;
+        }
+      }
+
+      this.unlocked = true;
+    },
+
+    sfx(name){
+      if(!this.enabled) return;
+      const a = this._audio[name] || this._audio.click;
+      if(!a) return;
+
+      // if optional SFX missing, do nothing
+      if(a.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) return;
+
+      // restart quickly
+      try{
+        a.muted = false;
+        a.currentTime = 0;
+        a.play().catch(()=>{});
+      }catch{}
+    },
+
+    hitOnce(key, sfxName){
+      if(this._once.has(key)) return;
+      this._once.add(key);
+      if(this.trailerMode) this.sfx(sfxName);
+    }
+  };
+
+  Sound.init();
+
+  if(soundBtn){
+    soundBtn.addEventListener("click", async ()=>{
+      await Sound.toggle();
+    });
+_toggleFix(soundBtn);
+  }
+
+  function _toggleFix(btn){
+    // Prevent "stuck" state from accidental double clicks / focus issues
+    btn.addEventListener("pointerdown", ()=>btn.classList.add("pressed"));
+    btn.addEventListener("pointerup", ()=>btn.classList.remove("pressed"));
+    btn.addEventListener("pointercancel", ()=>btn.classList.remove("pressed"));
+  }
+
+  if(trailerBtn){
+    trailerBtn.addEventListener("click", ()=>{
+      Sound.trailerMode = !Sound.trailerMode;
+      localStorage.setItem("brbr_trailer", Sound.trailerMode ? "1" : "0");
+      Sound._syncButtons();
+      toast(Sound.trailerMode ? "Trailer Mode ON" : "Trailer Mode OFF");
+      Sound.sfx("click");
+    });
+  }
+
+  // Add SFX to key CTA clicks
+  const watchBtn = $("#watchStoryBtn");
+  if(watchBtn){
+    watchBtn.addEventListener("click", ()=> Sound.sfx("whoosh"));
+  }
+
+  // Cinematic hits on section reveal
+  const tokenSection = $("#token");
+  const logoVideo = $("#logoVideo");
+
+  const hitIO = new IntersectionObserver((entries)=>{
+    for(const ent of entries){
+      if(ent.isIntersecting){
+        if(ent.target === tokenSection){
+          Sound.hitOnce("hit_token", "hit");
+        }
+        if(ent.target === logoVideo){
+          Sound.hitOnce("hit_logo", "stinger");
+        }
+      }
+    }
+  }, { threshold: 0.30 });
+
+  if(tokenSection) hitIO.observe(tokenSection);
+  if(logoVideo) hitIO.observe(logoVideo);
+
+  // Always keep logo video muted (it’s a loop, soundtrack is separate)
+  if(logoVideo){
+    logoVideo.muted = true;
+    logoVideo.volume = 0;
+    logoVideo.play().catch(()=>{});
+  }
+
+  /* ===================
+     LIGHT PARTICLES FX
+     =================== */
+  const canvas = $("#fxCanvas");
+  if(canvas){
+    const ctx = canvas.getContext("2d", { alpha:true });
+    let w=0,h=0, dpr=1;
+    let running = true;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const nodes = [];
+    const MAX = reduceMotion ? 40 : 85;
+
+    function resize(){
+      dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      w = canvas.width = Math.floor(window.innerWidth * dpr);
+      h = canvas.height = Math.floor(window.innerHeight * dpr);
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    function rand(min,max){ return min + Math.random()*(max-min); }
+
+    function init(){
+      nodes.length=0;
+      for(let i=0;i<MAX;i++){
+        nodes.push({
+          x: rand(0,w),
+          y: rand(0,h),
+          vx: rand(-0.12,0.12)*dpr,
+          vy: rand(-0.10,0.10)*dpr,
+          r: rand(0.8,1.8)*dpr,
+          a: rand(0.15,0.40)
+        });
+      }
+    }
+    init();
+
+    document.addEventListener("visibilitychange", ()=>{
+      running = !document.hidden;
+      if(running) requestAnimationFrame(tick);
+    });
+
+    function tick(){
+      if(!running) return;
+      ctx.clearRect(0,0,w,h);
+
+      // soft gradient wash
+      const g = ctx.createRadialGradient(w*0.5,h*0.15, 0, w*0.5,h*0.2, Math.max(w,h)*0.8);
+      g.addColorStop(0, "rgba(100,255,122,0.08)");
+      g.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = g;
+      ctx.fillRect(0,0,w,h);
+
+      // nodes
+      for(const p of nodes){
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if(p.x<0) p.x=w;
+        if(p.x>w) p.x=0;
+        if(p.y<0) p.y=h;
+        if(p.y>h) p.y=0;
+
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle = `rgba(140,255,170,${p.a})`;
+        ctx.fill();
+      }
+
+      // connections (light)
+      if(!reduceMotion){
+        for(let i=0;i<nodes.length;i++){
+          for(let j=i+1;j<nodes.length;j++){
+            const a = nodes[i], b = nodes[j];
+            const dx = a.x-b.x, dy = a.y-b.y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if(dist < 140*dpr){
+              const alpha = (1 - dist/(140*dpr)) * 0.10;
+              ctx.strokeStyle = `rgba(120,255,170,${alpha})`;
+              ctx.lineWidth = 1*dpr;
+              ctx.beginPath();
+              ctx.moveTo(a.x,a.y);
+              ctx.lineTo(b.x,b.y);
+              ctx.stroke();
+            }
           }
         }
       }
 
-      // Draw nodes
-      ctx.globalAlpha = 0.75;
-      for (const n of nodes) {
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255,255,255,0.72)";
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, n.r + 1.7, 0, Math.PI * 2);
-        ctx.strokeStyle = "rgba(101,255,122,0.18)";
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      }
-
-      ctx.globalAlpha = 1;
-      raf = requestAnimationFrame(step);
+      requestAnimationFrame(tick);
     }
-
-    resize();
-    step();
-
-    window.addEventListener("resize", () => {
-      cancelAnimationFrame(raf);
-      resize();
-      step();
-    }, { passive: true });
+    requestAnimationFrame(tick);
   }
 
-  // ---------- Reveal on scroll ----------
-  function initReveal() {
-    const items = $$(".reveal");
-    if (!items.length) return;
-
-    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) {
-      items.forEach(el => el.classList.add("in"));
-      return;
-    }
-
-    const io = new IntersectionObserver((entries) => {
-      for (const e of entries) {
-        if (e.isIntersecting) {
-          e.target.classList.add("in");
-          io.unobserve(e.target);
-        }
-      }
-    }, { threshold: 0.12 });
-
-    items.forEach(el => io.observe(el));
-  }
-
-  // ---------- Smooth anchors ----------
-  function initAnchors() {
-    $$(".nav__link[href^='#'], a[href^='#']").forEach(a => {
-      a.addEventListener("click", (ev) => {
-        const id = a.getAttribute("href");
-        if (!id || id === "#") return;
-        const target = document.querySelector(id);
-        if (!target) return;
-        ev.preventDefault();
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, { passive: false });
-    });
-  }
-
-  // ---------- Copy helpers ----------
-  async function copyText(text) {
-    try {
-      await navigator.clipboard.writeText(text);
-      return true;
-    } catch (_) {
-      // fallback
-      const ta = document.createElement("textarea");
-      ta.value = text;
-      ta.style.position = "fixed";
-      ta.style.left = "-9999px";
-      document.body.appendChild(ta);
-      ta.select();
-      try { document.execCommand("copy"); } catch (_) {}
-      document.body.removeChild(ta);
-      return true;
-    }
-  }
-
-  // ---------- Token reveal cinematic trigger ----------
-  function initTokenReveal() {
-    const logoVideo = $("#logoVideo");
-    if (!logoVideo) return;
-
-    // Keep it paused until in view; then play + SFX
-    let fired = false;
-    const io = new IntersectionObserver(async (entries) => {
-      for (const e of entries) {
-        if (!e.isIntersecting || fired) continue;
-        fired = true;
-
-        // Play whoosh + hit, then start video
-        Audio.whooshSfx();
-        setTimeout(() => Audio.hitSfx(), 220);
-
-        try {
-          logoVideo.currentTime = 0;
-          await logoVideo.play();
-        } catch (_) {}
-        io.disconnect();
-      }
-    }, { threshold: 0.35 });
-
-    io.observe(logoVideo);
-  }
-
-  // ---------- Sound Toggle ----------
-  function initSoundToggle() {
-    const btn = $("#soundToggle");
-    if (!btn) return;
-
-    function render() {
-      const icon = btn.querySelector(".iconbtn__icon");
-      if (!icon) return;
-      btn.setAttribute("aria-pressed", Audio.enabled ? "true" : "false");
-      icon.textContent = Audio.enabled ? "🔊" : "🔇";
-    }
-
-    // Unlock audio on first user gesture (click/keydown/touch)
-    const unlockOnce = async () => {
-      window.removeEventListener("pointerdown", unlockOnce);
-      window.removeEventListener("keydown", unlockOnce);
-      Audio.init();
-      render();
-    };
-    window.addEventListener("pointerdown", unlockOnce, { once: true, passive: true });
-    window.addEventListener("keydown", unlockOnce, { once: true });
-
-    btn.addEventListener("click", async () => {
-      // If enabling: start trailer mode
-      if (!Audio.enabled) {
-        await Audio.startTrailer();
-      } else {
-        Audio.setEnabled(false);
-      }
-      render();
-    });
-
-    render();
-  }
-
-  // ---------- SFX on UI elements ----------
-  function initSfxUI() {
-    $$(".sfx").forEach(el => {
-      el.addEventListener("click", () => Audio.clickSfx(), { passive: true });
-    });
-  }
-
-  // ---------- Email (visible, but harder to scrape) ----------
-  function initContactEmail() {
-    const spots = $$("#contactEmail");
-    if (!spots.length) return;
-
-    // Render as visible text (exact requested) + mailto
-    spots.forEach(sp => {
-      const a = document.createElement("a");
-      a.className = "textlink sfx";
-      a.href = `mailto:${CONTACT_EMAIL}?subject=BRBR%20Contact`;
-      a.textContent = CONTACT_EMAIL; // EXACT format: no "at"
-      sp.textContent = "";
-      sp.appendChild(a);
-    });
-
-    const copyBtn = $("#copyEmail");
-    if (copyBtn) {
-      copyBtn.addEventListener("click", async () => {
-        await copyText(CONTACT_EMAIL);
-        copyBtn.textContent = "Copied ✓";
-        setTimeout(() => (copyBtn.textContent = "Copy"), 1000);
-      });
-    }
-  }
-
-  function initCopyCA() {
-    const btn = $("#copyCA");
-    const ca = $("#contractAddress");
-    if (!btn || !ca) return;
-
-    btn.addEventListener("click", async () => {
-      await copyText(ca.textContent.trim());
-      btn.textContent = "Copied ✓";
-      setTimeout(() => (btn.textContent = "Copy"), 1000);
-    });
-  }
-
-  // ---------- Footer year ----------
-  function initYear() {
-    const y = $("#year");
-    if (y) y.textContent = String(new Date().getFullYear());
-  }
-
-  // ---------- Boot ----------
-  document.addEventListener("DOMContentLoaded", () => {
-    initReveal();
-    initAnchors();
-    initParticles();
-
-    Audio.init();
-    initSoundToggle();
-    initSfxUI();
-
-    initTokenReveal();
-    initContactEmail();
-    initCopyCA();
-    initYear();
-  });
+  // Expose Sound for debugging (optional)
+  window.BRBR_SOUND = Sound;
 })();
