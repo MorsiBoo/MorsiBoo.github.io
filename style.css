@@ -411,4 +411,43 @@ code{
     text-align:center;
   }
   .cinematic-video{ width: min(420px, 92vw); margin: 0 auto; }
+}/* ===== Sound Toggle ===== */
+.sound-toggle{
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 20;
+  background: rgba(0,0,0,.45);
+  color: #fff;
+  border: 1px solid rgba(73,255,136,.28);
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-weight: 800;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 22px rgba(73,255,136,.12);
 }
+.sound-toggle:hover{ transform: translateY(-1px); }
+
+/* ===== Particles Canvas ===== */
+#particles{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;          /* au-dessus de la vidéo, sous le texte */
+  pointer-events: none;
+  opacity: .55;
+}
+
+/* ===== Fade-in on scroll ===== */
+.reveal{
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.in{
+  opacity: 1;
+  transform: translateY(0);
+}
+
