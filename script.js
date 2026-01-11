@@ -1,144 +1,290 @@
-// ============================
-//  BRBR Cinema Trailer Enhancements
-//  - Sound toggle (videos mute/unmute)
-//  - Micro particles (canvas)
-//  - Fade-in on scroll (IntersectionObserver)
-// ============================
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const $$ = (s) => Array.from(document.querySelectorAll(s));
 
-document.addEventListener("DOMContentLoaded", () => {
-  // ---------- 1) SOUND TOGGLE ----------
-  const btn = document.getElementById("soundToggle");
-  const videos = Array.from(document.querySelectorAll("video"));
+  // ---------------------------
+  // YEAR
+  // ---------------------------
+  const yearEl = $("#year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // On force toutes les vidéos muted au départ (autoplay policy)
-  videos.forEach(v => {
-    v.muted = true;
-    v.playsInline = true;
-  });
+  // ---------------------------
+  // UI CLICK SOUND
+  // ---------------------------
+  const uiClick = $("#uiClick");
+  const playUIClick = () => {
+    if (!uiClick) return;
+    try {
+      uiClick.currentTime = 0;
+      uiClick.volume = 0.55;
+      uiClick.play().catch(() => {});
+    } catch {}
+  };
+  $$("[data-click]").forEach((el) => el.addEventListener("click", playUIClick));
 
-  let soundOn = false;
-
-  function setSound(on){
-    soundOn = on;
-    videos.forEach(v => v.muted = !on);
-
-    if (btn){
-      btn.textContent = on ? "🔊 Sound: ON" : "🔇 Sound: OFF";
-    }
-  }
-
-  if (btn){
-    btn.addEventListener("click", async () => {
-      // Important: le son ne peut s'activer qu'après interaction user (OK ici)
-      setSound(!soundOn);
-
-      // Certains navigateurs exigent un "play()" après unmute
-      // On relance proprement (sans erreurs bloquantes)
-      videos.forEach(async (v) => {
-        try { await v.play(); } catch(e) {}
+  // ---------------------------
+  // REVEAL ON SCROLL
+  // ---------------------------
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) e.target.classList.add("is-visible");
       });
-    });
-  }
+    },
+    { threshold: 0.12 }
+  );
+  $$(".reveal").forEach((el) => io.observe(el));
 
-  // ---------- 2) FADE-IN ON SCROLL ----------
-  // Ajoute automatiquement .reveal à certaines zones si pas déjà fait
-  const autoReveal = [
-    ".headline", ".sub", ".cta-row", ".quick-links",
-    ".story", ".cinematic-break", "#token", "#help", "#contact"
-  ];
+  // ---------------------------
+  // PARTICLES (light + stable)
+  // ---------------------------
+  const canvas = $("#particles");
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
+    let w, h, dpr;
 
-  autoReveal.forEach(sel => {
-    document.querySelectorAll(sel).forEach(el => {
-      if (!el.classList.contains("reveal")) el.classList.add("reveal");
-    });
-  });
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add("in");
-    });
-  }, { threshold: 0.12 });
-
-  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
-
-  // ---------- 3) MICRO PARTICLES (CANVAS) ----------
-  const canvas = document.getElementById("particles");
-  if (!canvas) return;
-
-  const ctx = canvas.getContext("2d");
-  let w, h, dpr;
-  let particles = [];
-
-  function resize(){
-    dpr = Math.max(1, window.devicePixelRatio || 1);
-    w = canvas.clientWidth;
-    h = canvas.clientHeight;
-
-    canvas.width = Math.floor(w * dpr);
-    canvas.height = Math.floor(h * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-    // densité stable selon surface
-    const count = Math.min(90, Math.max(40, Math.floor((w * h) / 22000)));
-    particles = new Array(count).fill(0).map(() => makeParticle());
-  }
-
-  function makeParticle(){
-    const speed = Math.random() * 0.35 + 0.12;
-    return {
-      x: Math.random() * w,
-      y: Math.random() * h,
-      r: Math.random() * 1.6 + 0.6,
-      vx: (Math.random() - 0.5) * speed,
-      vy: (Math.random() - 0.5) * speed,
-      a: Math.random() * 0.35 + 0.15
+    const resize = () => {
+      dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      w = canvas.width = Math.floor(window.innerWidth * dpr);
+      h = canvas.height = Math.floor(window.innerHeight * dpr);
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
     };
-  }
 
-  function step(){
-    ctx.clearRect(0, 0, w, h);
+    const rand = (a, b) => a + Math.random() * (b - a);
+    const particles = [];
+    const COUNT = Math.min(60, Math.floor((window.innerWidth * window.innerHeight) / 24000));
 
-    // points
-    for (const p of particles){
-      p.x += p.vx;
-      p.y += p.vy;
+    const init = () => {
+      particles.length = 0;
+      for (let i = 0; i < COUNT; i++) {
+        particles.push({
+          x: rand(0, w),
+          y: rand(0, h),
+          r: rand(0.7, 2.2) * dpr,
+          vx: rand(-0.12, 0.12) * dpr,
+          vy: rand(-0.08, 0.18) * dpr,
+          a: rand(0.12, 0.55),
+          g: rand(0, 1) // green tint factor
+        });
+      }
+    };
 
-      // wrap
-      if (p.x < -20) p.x = w + 20;
-      if (p.x > w + 20) p.x = -20;
-      if (p.y < -20) p.y = h + 20;
-      if (p.y > h + 20) p.y = -20;
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
 
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(140, 255, 180, ${p.a})`; // vert doux
-      ctx.fill();
-    }
+      // soft glow lines
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < -50) p.x = w + 50;
+        if (p.x > w + 50) p.x = -50;
+        if (p.y < -50) p.y = h + 50;
+        if (p.y > h + 50) p.y = -50;
 
-    // lignes proches (effet blockchain)
-    for (let i = 0; i < particles.length; i++){
-      for (let j = i + 1; j < particles.length; j++){
-        const a = particles[i];
-        const b = particles[j];
-        const dx = a.x - b.x;
-        const dy = a.y - b.y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < 120){
-          const alpha = (1 - dist / 120) * 0.16;
-          ctx.strokeStyle = `rgba(120, 255, 170, ${alpha})`;
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
+        // particle
+        const green = Math.floor(160 + p.g * 95);
+        ctx.fillStyle = `rgba(92, ${green}, 111, ${p.a})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // connect near particles
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const a = particles[i], b = particles[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < 150 * dpr) {
+            const alpha = (1 - dist / (150 * dpr)) * 0.12;
+            ctx.strokeStyle = `rgba(92,255,111,${alpha})`;
+            ctx.lineWidth = 1 * dpr;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
         }
       }
-    }
 
-    requestAnimationFrame(step);
+      requestAnimationFrame(draw);
+    };
+
+    resize();
+    init();
+    draw();
+    window.addEventListener("resize", () => { resize(); init(); }, { passive: true });
   }
 
-  window.addEventListener("resize", resize);
-  resize();
-  step();
-});
+  // ---------------------------
+  // AUDIO POLICY FIX: start after gesture
+  // ---------------------------
+  const bgVideo = $("#bgVideo");
+  const trailerAudio = $("#trailerAudio");
+  const ambienceAudio = $("#ambienceAudio");
+  const soundToggle = $("#soundToggle");
+  const soundGate = $("#soundGate");
+  const soundGateBtn = $("#soundGateBtn");
+  const soundGateSkip = $("#soundGateSkip");
+
+  const state = {
+    enabled: false,
+    unlocked: false
+  };
+
+  // Persist user preference
+  const stored = localStorage.getItem("brbr_sound");
+  if (stored === "on") state.enabled = true;
+
+  const setSoundUI = () => {
+    if (!soundToggle) return;
+    const txt = soundToggle.querySelector(".sound-txt");
+    if (state.enabled) {
+      txt.textContent = "SOUND ON";
+      soundToggle.style.borderColor = "rgba(92,255,111,.35)";
+    } else {
+      txt.textContent = "SOUND OFF";
+      soundToggle.style.borderColor = "rgba(255,255,255,.10)";
+    }
+  };
+
+  const fade = (audio, to, ms = 550) => {
+    if (!audio) return;
+    const from = audio.volume ?? 0;
+    const start = performance.now();
+    const tick = (t) => {
+      const p = Math.min(1, (t - start) / ms);
+      audio.volume = from + (to - from) * p;
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  const tryPlay = async (audio, vol) => {
+    if (!audio) return false;
+    audio.volume = 0;
+    try {
+      await audio.play();
+      fade(audio, vol);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  const stopAudio = (audio) => {
+    if (!audio) return;
+    try { fade(audio, 0, 250); } catch {}
+    setTimeout(() => {
+      try { audio.pause(); } catch {}
+    }, 260);
+  };
+
+  // unlock audio on gesture
+  const unlockAudio = async () => {
+    if (state.unlocked) return true;
+
+    // Ensure video is playing (muted autoplay should already work)
+    if (bgVideo) {
+      try { await bgVideo.play(); } catch {}
+    }
+
+    // Start both layers quietly (you can keep only one if you want)
+    const ok1 = await tryPlay(trailerAudio, 0.70);
+    const ok2 = await tryPlay(ambienceAudio, 0.32);
+
+    state.unlocked = ok1 || ok2;
+    return state.unlocked;
+  };
+
+  const enableSound = async () => {
+    state.enabled = true;
+    localStorage.setItem("brbr_sound", "on");
+    setSoundUI();
+
+    // Try to unlock + start
+    await unlockAudio();
+
+    // If unlocked, ensure it's playing
+    if (state.unlocked) {
+      tryPlay(trailerAudio, 0.70);
+      tryPlay(ambienceAudio, 0.32);
+    }
+  };
+
+  const disableSound = () => {
+    state.enabled = false;
+    localStorage.setItem("brbr_sound", "off");
+    setSoundUI();
+    stopAudio(trailerAudio);
+    stopAudio(ambienceAudio);
+  };
+
+  const toggleSound = async () => {
+    playUIClick();
+    if (state.enabled) disableSound();
+    else await enableSound();
+  };
+
+  // Sound gate open on first load if preference ON (or to invite)
+  const openGate = () => {
+    if (!soundGate) return;
+    // If user already chose "off", don't spam.
+    const seen = localStorage.getItem("brbr_gate_seen");
+    if (seen === "1" && !state.enabled) return;
+
+    soundGate.classList.add("is-open");
+    localStorage.setItem("brbr_gate_seen", "1");
+  };
+  const closeGate = () => soundGate && soundGate.classList.remove("is-open");
+
+  // Start silent, show gate quickly
+  setSoundUI();
+  setTimeout(openGate, 700);
+
+  // Gate buttons
+  if (soundGateBtn) soundGateBtn.addEventListener("click", async () => {
+    await enableSound();
+    closeGate();
+  });
+  if (soundGateSkip) soundGateSkip.addEventListener("click", () => {
+    disableSound();
+    closeGate();
+  });
+
+  // Toggle button
+  if (soundToggle) soundToggle.addEventListener("click", toggleSound);
+
+  // Also unlock audio on ANY first click anywhere (if enabled)
+  const gestureUnlock = async () => {
+    if (!state.enabled) return;
+    await unlockAudio();
+    document.removeEventListener("pointerdown", gestureUnlock);
+    document.removeEventListener("keydown", gestureUnlock);
+  };
+  document.addEventListener("pointerdown", gestureUnlock, { passive: true });
+  document.addEventListener("keydown", gestureUnlock);
+
+  // If preference is ON, attempt to enable sound (will fully start after first gesture)
+  if (state.enabled) {
+    // start UI and prepare (won’t break if blocked)
+    unlockAudio().catch(() => {});
+  }
+
+  // ---------------------------
+  // LOGO VIDEO REPLAY
+  // ---------------------------
+  const logoVideo = $("#logoVideo");
+  const replayLogo = $("#replayLogo");
+  if (replayLogo && logoVideo) {
+    replayLogo.addEventListener("click", async () => {
+      playUIClick();
+      try {
+        logoVideo.currentTime = 0;
+        await logoVideo.play();
+      } catch {}
+    });
+  }
+})();
