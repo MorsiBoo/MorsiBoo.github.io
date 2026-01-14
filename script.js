@@ -1,5 +1,5 @@
 /* ============================
-   BRBR Ultra++ Cinematic Script
+   BRBRT Ultra++ Cinematic Script
    - Sound engine (autoplay-safe)
    - Trailer Mode SFX
    - Scroll reveals
@@ -99,13 +99,13 @@
   const copyEmailBtn = $("#copyEmailBtn");
 
   const emailUser = "contact";
-  const emailDomain = "barbourbrbr.xyz";
+  const emailDomain = "barbourBRBRT.xyz";
   const email = `${emailUser}@${emailDomain}`;
 
   if(emailTextEl) emailTextEl.textContent = email;
   if(emailLink){
     emailLink.textContent = `Email: ${email}`;
-    emailLink.setAttribute("href", `mailto:${email}?subject=BRBR%20Website%20Contact`);
+    emailLink.setAttribute("href", `mailto:${email}?subject=BRBRT%20Website%20Contact`);
     emailLink.addEventListener("click", ()=>Sound.sfx("click"));
   }
   if(copyEmailBtn){
@@ -145,8 +145,8 @@
       const name = (fd.get("name") || "").toString().trim();
       const msg  = (fd.get("message") || "").toString().trim();
 
-      const subject = encodeURIComponent("BRBR Contact");
-      const body = encodeURIComponent(`Name: ${name}\n\nMessage:\n${msg}\n\n— Sent from barbourbrbr.xyz`);
+      const subject = encodeURIComponent("BRBRT Contact");
+      const body = encodeURIComponent(`Name: ${name}\n\nMessage:\n${msg}\n\n— Sent from barbourBRBRT.xyz`);
       window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
     });
   }
@@ -171,9 +171,9 @@
 
     init(){
       // Load persisted settings
-      const saved = localStorage.getItem("brbr_sound");
+      const saved = localStorage.getItem("BRBRT_sound");
       if(saved === "1") this.enabled = false; // keep off until user clicks (browser rules)
-      const tm = localStorage.getItem("brbr_trailer");
+      const tm = localStorage.getItem("BRBRT_trailer");
       if(tm === "0") this.trailerMode = false;
 
       this._audio.hero = this._makeAudio("assets/Hero.m4a", true, 0.55);
@@ -227,7 +227,7 @@
     async enable(){
       // Must be triggered by a user gesture.
       this.enabled = true;
-      localStorage.setItem("brbr_sound","1");
+      localStorage.setItem("BRBRT_sound","1");
 
       // Unmute + play loops
       await this._unlockAndStart();
@@ -238,7 +238,7 @@
 
     disable(){
       this.enabled = false;
-      localStorage.setItem("brbr_sound","0");
+      localStorage.setItem("BRBRT_sound","0");
 
       for(const k of Object.keys(this._audio)){
         const a = this._audio[k];
@@ -333,7 +333,7 @@ _toggleFix(soundBtn);
   if(trailerBtn){
     trailerBtn.addEventListener("click", ()=>{
       Sound.trailerMode = !Sound.trailerMode;
-      localStorage.setItem("brbr_trailer", Sound.trailerMode ? "1" : "0");
+      localStorage.setItem("BRBRT_trailer", Sound.trailerMode ? "1" : "0");
       Sound._syncButtons();
       toast(Sound.trailerMode ? "Trailer Mode ON" : "Trailer Mode OFF");
       Sound.sfx("click");
@@ -472,5 +472,5 @@ _toggleFix(soundBtn);
   }
 
   // Expose Sound for debugging (optional)
-  window.BRBR_SOUND = Sound;
+  window.BRBRT_SOUND = Sound;
 })();
