@@ -146,7 +146,7 @@
       const msg  = (fd.get("message") || "").toString().trim();
 
       const subject = encodeURIComponent("BRBRT Contact");
-      const body = encodeURIComponent(`Name: ${name}\n\nMessage:\n${msg}\n\n— Sent from barbourBRBRT.xyz`);
+      const body = encodeURIComponent(`Name: ${name}\n\nMessage:\n${msg}\n\n— Sent from brbrt.com`);
       window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
     });
   }
