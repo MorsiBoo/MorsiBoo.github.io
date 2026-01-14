@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://barbourbrbr.xyz/sitemap.xml
+Sitemap: https://brbrt.com/sitemap.xml
