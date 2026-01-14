@@ -99,7 +99,7 @@
   const copyEmailBtn = $("#copyEmailBtn");
 
   const emailUser = "contact";
-  const emailDomain = "barbourBRBRT.xyz";
+  const emailDomain = "brbrt.com";
   const email = `${emailUser}@${emailDomain}`;
 
   if(emailTextEl) emailTextEl.textContent = email;
