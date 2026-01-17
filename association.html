@@ -3,141 +3,78 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#0b0f13" />
-  <title>Association — BRBRT</title>
-  <meta name="description" content="BRBRT Association — community-first mission, supportive web, awareness, and long-term impact." />
-  <link rel="canonical" href="https://brbrt.com/association.html" />
+  <meta name="theme-color" content="#07110D" />
+  <title>BRBRT — Community & Association</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <canvas id="fxCanvas" aria-hidden="true"></canvas>
-
-  <header class="topbar">
-    <div class="topbar__inner">
+  <header class="nav">
+    <div class="nav__inner">
       <a class="brand" href="index.html">
-        <span class="brand__dot"></span>
+        <span class="brand__mark" aria-hidden="true"></span>
         <span class="brand__name">BRBRT</span>
       </a>
-
-      <nav class="nav" id="nav">
-        <a class="nav__link" href="index.html#story">Story</a>
-        <a class="nav__link" href="index.html#token">Token</a>
-        <a class="nav__link" href="index.html#roadmap">Roadmap</a>
-        <a class="nav__link" href="whitepaper.html">Whitepaper</a>
-        <a class="nav__pill" href="https://linktr.ee/BRBRT" target="_blank" rel="noopener noreferrer">Linktree</a>
+      <nav class="nav__links">
+        <a href="index.html#story">Story</a>
+        <a href="index.html#roadmap">Roadmap</a>
+        <a href="whitepaper.html">Whitepaper</a>
       </nav>
-
-      <div class="topbar__actions">
-        <button class="btn btn--ghost btn--sm" id="trailerBtn" type="button" aria-pressed="true">
-          <span class="icon">🎬</span> Trailer
-        </button>
-        <button class="btn btn--ghost btn--sm" id="soundBtn" type="button" aria-pressed="false">
-          <span class="icon" id="soundIcon">🔇</span>
-          <span id="soundLabel">Sound</span>
-        </button>
-        <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" type="button">
-          <span></span><span></span><span></span>
-        </button>
+      <div class="nav__actions">
+        <a class="btn btn--ghost" href="index.html">Home</a>
+        <a class="btn btn--primary" href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">Links ↗</a>
       </div>
     </div>
   </header>
 
-  <main class="page container">
+  <main style="padding-top:92px">
     <section class="section">
-      <div class="section__head reveal">
-        <div class="section__kicker">ASSOCIATION (COMING)</div>
-        <h1 class="section__title">Supportive Web. Real Help.</h1>
-        <p class="section__subtitle">
-          The association direction is a long-term mission concept: a global space for resources,
-          awareness, and community-driven support — developed progressively and responsibly.
-        </p>
-      </div>
-
-      <div class="grid2">
-        <div class="card glass reveal">
-          <div class="card__kicker">MISSION</div>
-          <p class="card__text">
-            BRBRT aims to create a supportive web experience: educational resources, awareness initiatives,
-            and safe community action. The goal is to reduce isolation and promote real help.
+      <div class="container">
+        <div class="section__head">
+          <h2>Youth-Focused Mission (Community-Led)</h2>
+          <p class="muted">
+            BRBRT is building a community narrative that supports awareness and positive action.
+            This page explains the direction and values — not financial outcomes.
           </p>
-
-          <div class="divider"></div>
-
-          <div class="card__kicker">COMMUNITY-FIRST PRINCIPLES</div>
-          <ul>
-            <li><strong>Transparency:</strong> public milestones and verifiable updates.</li>
-            <li><strong>Safety:</strong> anti-scam education, privacy-first approach, respectful community guidelines.</li>
-            <li><strong>Impact:</strong> awareness and partnerships (progressive rollout).</li>
-          </ul>
-
-          <div class="divider"></div>
-
-          <div class="card__kicker">CONTACT</div>
-          <p class="card__text">
-            Official email: <strong>contact@brbrt.com</strong>
-          </p>
-
-          <div class="row row--wrap">
-            <a class="btn btn--primary" href="index.html#contact">Contact</a>
-            <a class="btn btn--secondary" href="whitepaper.html">Read Whitepaper</a>
-          </div>
-
-          <div class="fineprint">
-            Note: This page is informational. Any future association structure depends on legal feasibility and community direction.
-          </div>
         </div>
 
-        <div class="card glass reveal">
-          <div class="card__kicker">OFFICIAL LINKS</div>
-          <p class="card__text">
-            Linktree:
-            <a href="https://linktr.ee/BRBRT" target="_blank" rel="noopener noreferrer">linktr.ee/BRBRT</a><br/>
-            BscScan:
-            <a href="https://bscscan.com/token/0xf97522ABEf762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener noreferrer">Token Explorer</a><br/>
-            PancakeSwap:
-            <a href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc"
-               target="_blank" rel="noopener noreferrer">Buy BRBRT</a>
-          </p>
+        <div class="grid grid--2">
+          <article class="card">
+            <h3>What we stand for</h3>
+            <ul class="bullets">
+              <li>Anti-bullying awareness</li>
+              <li>Mental health support messaging</li>
+              <li>Youth empowerment & dignity</li>
+              <li>Family unity & protection</li>
+            </ul>
+          </article>
 
-          <div class="divider"></div>
+          <article class="card">
+            <h3>Community-first approach</h3>
+            <p>
+              We focus on transparent progress: public links, verifiable locks, and honest communication.
+              We do not make profit promises. Community trust comes from proof and consistency.
+            </p>
+          </article>
 
-          <div class="card__kicker">SECURITY</div>
-          <p class="card__text">
-            Independent scan:
-            <a href="https://solidityscan.com/qs-report/53401f2de52031ca97d7a95a0b6f036f/5e136bbf32d12b9e/b2cf7d75f955f937"
-               target="_blank" rel="noopener noreferrer">SolidityScan report</a>.
-          </p>
+          <article class="card">
+            <h3>Contact</h3>
+            <p>For partnership ideas, outreach, or support resources:</p>
+            <p class="mono">contact@brbrt.com</p>
+          </article>
 
-          <div class="fineprint">
-            Always verify official sources. Never share your seed phrase.
-          </div>
+          <article class="card">
+            <h3>Official links</h3>
+            <ul class="bullets">
+              <li><a href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">Linktree</a></li>
+              <li><a href="https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1#readContract" target="_blank" rel="noopener">Ownership (BscScan)</a></li>
+              <li><a href="https://www.pinksale.finance/pinklock/bsc/record/1437018" target="_blank" rel="noopener">Reserve Lock (PinkLock)</a></li>
+            </ul>
+          </article>
         </div>
-      </div>
-
-      <div class="row reveal">
-        <a class="btn btn--primary" href="index.html">← Back to Home</a>
-        <a class="btn btn--ghost" href="terms.html">Terms</a>
-        <a class="btn btn--ghost" href="privacy.html">Privacy</a>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div>
-        <div class="footer__brand"><span class="brand__dot"></span><strong>BRBRT</strong></div>
-        <div class="footer__muted">Global Youth. Global Hope.</div>
-      </div>
-      <div class="footer__links">
-        <a href="terms.html">Terms</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="index.html#contact">Contact</a>
-      </div>
-      <div class="footer__muted">© <span id="year"></span> BRBRT. All rights reserved.</div>
-    </div>
-  </footer>
-
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="script.js"></script>
+  <script defer src="script.js"></script>
 </body>
 </html>
