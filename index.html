@@ -2,13 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#0b0f13" />
-  <title> BRBRT — Global Youth. Global Hope.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <meta name="theme-color" content="#030507" />
+  
+  <title>BRBRT — Global Youth. Global Hope.</title>
   <meta name="description" content="BRBRT is a meme coin with a serious mission: build a supportive web for youth, promote community action, and fund awareness initiatives." />
   <link rel="canonical" href="https://brbrt.com/" />
 
-  <!-- Open Graph -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=SF+Mono&display=swap" rel="stylesheet">
+
   <meta property="og:title" content="BRBRT — Global Youth. Global Hope." />
   <meta property="og:description" content="A meme coin with a serious mission: supportive web, community-first, and real impact." />
   <meta property="og:type" content="website" />
@@ -19,10 +24,9 @@
 </head>
 
 <body>
-  <!-- Subtle background particles -->
+
   <canvas id="fxCanvas" aria-hidden="true"></canvas>
 
-  <!-- Top Navigation -->
   <header class="topbar">
     <div class="topbar__inner">
       <a class="brand" href="#top" aria-label="BRBRT Home">
@@ -40,14 +44,14 @@
       </nav>
 
       <div class="topbar__actions">
-        <button class="btn btn--ghost btn--sm" id="trailerBtn" type="button" aria-pressed="true" title="Trailer Mode">
+        <button class="btn btn--ghost btn--sm" id="trailerBtn" type="button" aria-pressed="true" title="Toggle Cinematic FX">
           <span class="icon">🎬</span>
-          Trailer
+          <span class="desktop-only">Trailer</span>
         </button>
 
         <button class="btn btn--ghost btn--sm" id="soundBtn" type="button" aria-pressed="false">
           <span class="icon" id="soundIcon">🔇</span>
-          <span id="soundLabel">Sound</span>
+          <span id="soundLabel" class="desktop-only">Sound</span>
         </button>
 
         <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" type="button">
@@ -57,10 +61,9 @@
     </div>
   </header>
 
-  <!-- HERO -->
   <main id="top" class="page">
+    
     <section class="hero" aria-label="Hero">
-      <!-- Video background -->
       <video
         class="hero__video"
         id="heroVideo"
@@ -78,7 +81,7 @@
       <div class="hero__content container">
         <div class="hero__badge reveal">
           <span class="pulse"></span>
-          <span>TRAILER EXPERIENCE • CINEMATIC MODE</span>
+          <span>SYSTEM ONLINE • CINEMATIC MODE</span>
         </div>
 
         <h1 class="hero__title reveal">
@@ -88,11 +91,16 @@
 
         <p class="hero__subtitle reveal">
           Turn silence into strength. Break the chain. Build hope.
+          <br>The first meme token with a real-world social shield.
         </p>
 
         <div class="hero__cta reveal">
-          <a class="btn btn--primary" href="#story" id="watchStoryBtn">Watch the Story</a>
-          <a class="btn btn--secondary" href="#token">Buy / Explore BRBRT</a>
+          <a class="btn btn--primary" href="#story" id="watchStoryBtn">
+            <span>▶ Watch Story</span>
+          </a>
+          <a class="btn btn--secondary" href="#token">
+            Token & Contract
+          </a>
         </div>
 
         <div class="hero__quicklinks reveal">
@@ -102,13 +110,12 @@
         </div>
 
         <div class="hero__scrollhint" aria-hidden="true">
-          <span>Scroll</span>
+          <span>Explore System</span>
           <span class="arrow">↓</span>
         </div>
       </div>
     </section>
 
-    <!-- STORY / MISSION -->
     <section id="story" class="section container">
       <div class="grid2">
         <div class="card glass reveal">
@@ -121,21 +128,21 @@
 
           <ul class="bullets">
             <li>
-              <span class="dot"></span>
+              <div class="dot"></div>
               <div>
                 <strong>Supportive Web</strong>
                 <div class="muted">A space for stories, resources, and real help.</div>
               </div>
             </li>
             <li>
-              <span class="dot"></span>
+              <div class="dot"></div>
               <div>
                 <strong>Community First</strong>
                 <div class="muted">Transparency, community-driven decisions, and clear milestones.</div>
               </div>
             </li>
             <li>
-              <span class="dot"></span>
+              <div class="dot"></div>
               <div>
                 <strong>Action & Awareness</strong>
                 <div class="muted">Campaigns, education, and partnerships (progressive rollout).</div>
@@ -150,15 +157,15 @@
         </div>
 
         <div class="poster reveal" aria-label="Story Poster">
-          <img src="assets/story.png" alt="BRBRT — The Silence of Fear / Break the Chain / Build Hope" />
+          <img src="assets/story.png" alt="BRBRT — The Silence of Fear / Break the Chain / Build Hope" loading="lazy" />
           <div class="poster__glow" aria-hidden="true"></div>
         </div>
       </div>
     </section>
 
-    <!-- TOKEN -->
     <section id="token" class="section container">
       <div class="grid2 grid2--wide">
+        
         <div class="card glass reveal">
           <div class="card__kicker">TOKEN REVEAL</div>
           <h2 class="card__title">Break the chain. Build hope.</h2>
@@ -168,7 +175,7 @@
           </p>
 
           <div class="contract">
-            <div class="contract__label">Contract</div>
+            <span class="contract__label">BSC / BEP20</span>
             <code class="contract__value" id="contractText">0xf97522ABEf762d28729E073019343b72C6e8D2C1</code>
             <button class="btn btn--ghost btn--sm" id="copyContractBtn" type="button">Copy</button>
           </div>
@@ -185,25 +192,20 @@
             <a class="btn btn--ghost" href="whitepaper.html">Read Whitepaper</a>
           </div>
 
-          <div class="fineprint">
-            Transparency note: This website is informational. BRBRT is a meme coin. Nothing here is financial advice.
-          </div>
-
           <div class="divider"></div>
 
           <div class="mini">
-            <div class="mini__title">Security & transparency</div>
-            <div class="mini__text">
+            <div class="section__kicker" style="margin-bottom:6px;">Security & Transparency</div>
+            <div class="card__text" style="font-size:13px;">
               Verify everything on-chain. Independent scan available:
               <a href="https://solidityscan.com/qs-report/53401f2de52031ca97d7a95a0b6f036f/5e136bbf32d12b9e/b2cf7d75f955f937"
-                 target="_blank" rel="noopener noreferrer">SolidityScan report</a>.
+                 target="_blank" rel="noopener noreferrer" style="color:#fff; text-decoration:underline;">SolidityScan report</a>.
             </div>
           </div>
         </div>
 
-        <!-- LOGO VIDEO (fixed: not cropped) -->
         <div class="card glass reveal">
-          <div class="card__kicker">BRBRT LOGO • CINEMATIC LOOP</div>
+          <div class="card__kicker">VISUAL IDENTITY</div>
           <div class="videoCard">
             <video
               class="videoCard__video"
@@ -218,13 +220,12 @@
             <div class="videoCard__frame" aria-hidden="true"></div>
           </div>
           <div class="videoCard__caption">
-            Scroll into view → cinematic hit (Trailer Mode)
+            Symbol of resilience. The shield against silence.
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ROADMAP -->
     <section id="roadmap" class="section container">
       <div class="section__head reveal">
         <div class="section__kicker">ROADMAP</div>
@@ -278,12 +279,12 @@
         <div class="step reveal">
           <div class="step__dot"></div>
           <div class="step__content">
-            <h3>Phase 3 — Community Governance (Public Direction)</h3>
-            <p>Formalize community direction with clear proposals and transparent votes (tools and process defined publicly).</p>
+            <h3>Phase 3 — Community Governance</h3>
+            <p>Formalize community direction with clear proposals and transparent votes.</p>
             <ul>
               <li>Proposal format + public roadmap updates</li>
               <li>Community-driven priorities and milestones</li>
-              <li>On-chain verification culture (no hidden changes)</li>
+              <li>On-chain verification culture</li>
             </ul>
           </div>
         </div>
@@ -305,18 +306,13 @@
           <div class="step__dot"></div>
           <div class="step__content">
             <h3>Phase 5 — Association & Long-Term Vision</h3>
-            <p>Progress toward a real-world association initiative and long-term supportive impact (subject to legal structure and feasibility).</p>
-            <ul>
-              <li>Association page + public mission statement</li>
-              <li>Community-first policy framework</li>
-              <li>Long-term supportive web expansion</li>
-            </ul>
+            <p>Progress toward a real-world association initiative and long-term supportive impact.</p>
           </div>
         </div>
       </div>
 
       <div class="callout reveal">
-        <div class="callout__title">Community Ownership Promise (clean, compliant wording)</div>
+        <div class="callout__title">Community Ownership Promise</div>
         <div class="callout__text">
           BRBRT is designed to be <strong>community-driven</strong>. Governance and direction will be shaped publicly.
           Always verify on-chain and via official links. No hidden promises — only transparent progress.
@@ -324,54 +320,50 @@
       </div>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact" class="section container">
       <div class="section__head reveal">
-        <div class="section__kicker">CONTACT</div>
+        <div class="section__kicker">COMMUNICATION</div>
         <h2 class="section__title">Reach us safely</h2>
         <p class="section__subtitle">
-          Official email: <strong id="emailText">contact@brbr.com</strong>
+          Official email: <strong id="emailText">contact@brbrt.com</strong>
         </p>
       </div>
 
       <div class="grid2">
         <div class="card glass reveal">
-          <h3 class="card__titleSm">Email</h3>
+          <h3 class="card__titleSm">Direct Connection</h3>
           <p class="card__text">
             Use the official email below. We never ask for your seed phrase. Ever.
           </p>
 
           <div class="row row--wrap">
-            <a class="btn btn--primary" id="emailLink" href="#">Email: contact@brbrt.com</a>
+            <a class="btn btn--primary" id="emailLink" href="mailto:contact@brbrt.com">
+              Email: contact@brbrt.com
+            </a>
             <button class="btn btn--ghost" id="copyEmailBtn" type="button">Copy Email</button>
-          </div>
-
-          <div class="fineprint">
-      
           </div>
         </div>
 
         <div class="card glass reveal">
-          <h3 class="card__titleSm">Quick Message (no backend)</h3>
+          <h3 class="card__titleSm">Secure Form</h3>
           <p class="card__text">
-            This form opens your email client (no server = safer). Bots can’t spam a backend because there is none.
+            No backend storage. This form generates a secure email draft on your device.
           </p>
 
           <form id="contactForm" class="form" autocomplete="off">
-            <!-- Honeypot (bots will fill this) -->
             <input type="text" name="website" id="hpField" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
 
             <label>
               <span>Name</span>
-              <input type="text" name="name" placeholder="Your name" required />
+              <input type="text" name="name" placeholder="Your name or alias" required />
             </label>
 
             <label>
               <span>Message</span>
-              <textarea name="message" rows="4" placeholder="Write your message..." required></textarea>
+              <textarea name="message" rows="4" placeholder="How can we help?" required></textarea>
             </label>
 
-            <button class="btn btn--secondary" type="submit">Open Email Draft</button>
+            <button class="btn btn--secondary" type="submit">Encrypt & Send</button>
           </form>
 
           <div class="fineprint">
@@ -381,7 +373,6 @@
       </div>
     </section>
 
-    <!-- FOOTER -->
     <footer class="footer">
       <div class="container footer__inner">
         <div>
@@ -400,12 +391,12 @@
 
         <div class="footer__muted">
           © <span id="year"></span> BRBRT. All rights reserved.
+          <br><span style="opacity:0.5; font-size:10px;">Not financial advice. Cryptocurrency involves risk.</span>
         </div>
       </div>
     </footer>
   </main>
 
-  <!-- Toast -->
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="script.js"></script>
