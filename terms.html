@@ -3,103 +3,61 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#0b0f13" />
-  <title>Terms — BRBRT</title>
-  <meta name="description" content="BRBRT Terms and Disclaimer" />
-  <link rel="canonical" href="https://brbrt.com/terms.html" />
+  <meta name="theme-color" content="#07110D" />
+  <title>BRBRT — Terms</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <canvas id="fxCanvas" aria-hidden="true"></canvas>
-
-  <header class="topbar">
-    <div class="topbar__inner">
-      <a class="brand" href="index.html"><span class="brand__dot"></span><span class="brand__name">BRBRT</span></a>
-      <nav class="nav" id="nav">
-        <a class="nav__link" href="index.html">Home</a>
-        <a class="nav__link" href="whitepaper.html">Whitepaper</a>
-        <a class="nav__link" href="association.html">Association</a>
-      </nav>
-      <div class="topbar__actions">
-        <button class="btn btn--ghost btn--sm" id="trailerBtn" type="button" aria-pressed="true"><span class="icon">🎬</span> Trailer</button>
-        <button class="btn btn--ghost btn--sm" id="soundBtn" type="button" aria-pressed="false"><span class="icon" id="soundIcon">🔇</span><span id="soundLabel">Sound</span></button>
-        <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" type="button"><span></span><span></span><span></span></button>
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__name">BRBRT</span>
+      </a>
+      <div class="nav__actions">
+        <a class="btn btn--ghost" href="index.html">Home</a>
       </div>
     </div>
   </header>
 
-  <main class="page container">
+  <main style="padding-top:92px">
     <section class="section">
-      <div class="section__head reveal">
-        <div class="section__kicker">LEGAL</div>
-        <h1 class="section__title">Terms & Disclaimer</h1>
-        <p class="section__subtitle">Please read carefully. This site is informational only.</p>
-      </div>
+      <div class="container">
+        <div class="card">
+          <h2>Terms of Use</h2>
+          <p class="muted">
+            This website is provided for informational purposes only. BRBRT is a meme token.
+            Nothing on this website constitutes financial, investment, or legal advice.
+          </p>
 
-      <div class="card glass reveal">
-        <h2 class="card__titleSm">1) Informational purpose</h2>
-        <p class="card__text">
-          This website is provided for informational purposes only. It does not constitute financial, legal, or investment advice.
-        </p>
+          <h3>Use of Information</h3>
+          <p class="muted">
+            You are responsible for your own decisions and actions. Always verify on-chain data
+            and only use official links published here.
+          </p>
 
-        <h2 class="card__titleSm">2) Meme coin notice</h2>
-        <p class="card__text">
-          BRBRT is a <strong>meme coin</strong>. Crypto assets can be highly volatile. You can lose funds.
-          Always do your own research and verify official sources.
-        </p>
+          <h3>No Guarantees</h3>
+          <p class="muted">
+            BRBRT does not promise profits, returns, or any financial outcome.
+          </p>
 
-        <h2 class="card__titleSm">3) Official links</h2>
-        <p class="card__text">
-          Only use official links from this website or the official Linktree:
-          <a href="https://linktr.ee/BRBRT" target="_blank" rel="noopener noreferrer">linktr.ee/BRBRT</a>.
-        </p>
+          <h3>Third-Party Links</h3>
+          <p class="muted">
+            Links to third-party services (e.g., PancakeSwap, BscScan, PinkSale) are provided for convenience.
+            We do not control third-party services.
+          </p>
 
-        <h2 class="card__titleSm">4) No warranties</h2>
-        <p class="card__text">
-          The website is provided “as is” without warranties. We do not guarantee uninterrupted availability or error-free content.
-        </p>
+          <h3>Contact</h3>
+          <p class="mono">contact@brbrt.com</p>
 
-        <h2 class="card__titleSm">5) Intellectual property & copyright</h2>
-        <p class="card__text">
-          © <span id="year"></span> BRBRT. All rights reserved.  
-          All brand elements, website layout, and original content are protected by applicable intellectual property laws.
-          Unauthorized copying or redistribution may be subject to takedown requests.
-        </p>
-
-        <h2 class="card__titleSm">6) Third-party services</h2>
-        <p class="card__text">
-          This website links to third-party services (PancakeSwap, BscScan, Linktree, SolidityScan).
-          We do not control and are not responsible for their content or availability.
-        </p>
-
-        <h2 class="card__titleSm">7) Contact</h2>
-        <p class="card__text">
-          Official email: <strong>contact@brbrt.com</strong>
-        </p>
-      </div>
-
-      <div class="row reveal">
-        <a class="btn btn--primary" href="index.html">← Back to Home</a>
-        <a class="btn btn--ghost" href="privacy.html">Privacy</a>
+          <p class="muted small">Last updated: <span id="termsDate"></span></p>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div>
-        <div class="footer__brand"><span class="brand__dot"></span><strong>BRBRT</strong></div>
-        <div class="footer__muted">Global Youth. Global Hope.</div>
-      </div>
-      <div class="footer__links">
-        <a href="privacy.html">Privacy</a>
-        <a href="index.html#contact">Contact</a>
-      </div>
-      <div class="footer__muted">© <span id="year"></span>BRBRT. All rights reserved.</div>
-    </div>
-  </footer>
-
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="script.js"></script>
+  <script>
+    document.getElementById("termsDate").textContent = new Date().toISOString().slice(0,10);
+  </script>
 </body>
 </html>
