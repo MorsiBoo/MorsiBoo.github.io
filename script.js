@@ -1,278 +1,368 @@
-/* =======================================================
-   BRBRT ULTRA++ "NEURAL INTERFACE" SCRIPT
-   - Reactive Particle Physics (Mouse Interaction)
-   - Cyberpunk Text Decryption (Scramble Effect)
-   - Immersive Sound Engine (UI Hover + Clicks)
-   - Smooth Scroll & Mobile Logic
-   ======================================================= */
+/* =========================
+   BRBRT Ultra Web3 Scripts
+   - Autoplay-safe sound toggle
+   - Particles (lightweight canvas)
+   - Scroll reveal
+   - Copy buttons
+   - Mobile menu
+   - Email obfuscation (anti-scrape)
+========================= */
 
 (() => {
   const $ = (q, root = document) => root.querySelector(q);
   const $$ = (q, root = document) => Array.from(root.querySelectorAll(q));
 
-  // --- UTILS: THE SCRAMBLER (Effet de décryptage textuel) ---
-  const CHARS = "ABCDEF0123456789xyz#%&@$";
-  
-  function scrambleText(element, finalState, duration = 800) {
-    let frame = 0;
-    const totalFrames = duration / 30; // 30ms per frame
-    const original = finalState || element.textContent;
-    
-    const interval = setInterval(() => {
-      element.textContent = original
-        .split("")
-        .map((letter, index) => {
-          if (index < (frame / totalFrames) * original.length) {
-            return original[index];
-          }
-          return CHARS[Math.floor(Math.random() * CHARS.length)];
-        })
-        .join("");
+  // ====== Config (KEEP LINKS / ASSETS) ======
+  const CONTRACT = "0xf97522ABEf762d28729E073019343b72C6e8D2C1";
+  const EMAIL = "contact@brbrt.com"; // requested update
+  const SOUND_FILES = {
+    ambience: "assets/atmosphere-sound-effect.mp3",
+    click: "assets/Click.mp3",
+    music: "assets/Hero.m4a"
+  };
 
-      if (frame >= totalFrames) {
-        clearInterval(interval);
-        element.textContent = original; // Ensure cleanliness
-      }
-      frame++;
-    }, 30);
+  // ====== Email (anti-spam basic obfuscation) ======
+  function setEmailSlot() {
+    const slot = $("#emailSlot");
+    if (!slot) return;
+    // Render as text + mailto created on click (reduces scraping)
+    slot.innerHTML = `<button class="chip" id="emailBtn" type="button">${EMAIL} ⧉</button>`;
+    $("#emailBtn").addEventListener("click", async () => {
+      await copyText(EMAIL);
+      flashToast("Email copied");
+    });
   }
 
-  // --- UI: TOAST NOTIFICATIONS ---
-  const toastEl = $("#toast");
-  function toast(msg, type = "normal") {
-    if (!toastEl) return;
-    
-    // Reset animation
-    toastEl.style.animation = 'none';
-    toastEl.offsetHeight; /* trigger reflow */
-    toastEl.style.animation = null;
+  // ====== Copy helper ======
+  async function copyText(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      // fallback
+      const t = document.createElement("textarea");
+      t.value = text;
+      document.body.appendChild(t);
+      t.select();
+      document.execCommand("copy");
+      document.body.removeChild(t);
+    }
+  }
 
-    toastEl.innerHTML = `<span style="color:${type==='error'?'#ff4444':'#64ff7a'}">●</span> ${msg}`;
-    toastEl.classList.add("show");
-    
-    if (window.innerWidth > 768) {
-      // Petit effet scramble sur le toast aussi
-      scrambleText(toastEl, toastEl.textContent, 400);
+  // ====== Toast ======
+  let toastTimer = null;
+  function flashToast(msg) {
+    let el = $("#toast");
+    if (!el) {
+      el = document.createElement("div");
+      el.id = "toast";
+      el.style.position = "fixed";
+      el.style.left = "50%";
+      el.style.bottom = "18px";
+      el.style.transform = "translateX(-50%)";
+      el.style.padding = "12px 14px";
+      el.style.borderRadius = "14px";
+      el.style.background = "rgba(8,12,14,.82)";
+      el.style.border = "1px solid rgba(255,255,255,.12)";
+      el.style.color = "rgba(234,247,241,.95)";
+      el.style.boxShadow = "0 18px 70px rgba(0,0,0,.45)";
+      el.style.backdropFilter = "blur(10px)";
+      el.style.zIndex = 50;
+      el.style.opacity = "0";
+      el.style.transition = "opacity .2s ease, transform .2s ease";
+      document.body.appendChild(el);
+    }
+    el.textContent = msg;
+    el.style.opacity = "1";
+    el.style.transform = "translateX(-50%) translateY(-2px)";
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      el.style.opacity = "0";
+      el.style.transform = "translateX(-50%) translateY(0)";
+    }, 1600);
+  }
+
+  // ====== Copy Contract Buttons ======
+  function wireCopyButtons() {
+    const btn = $("#copyCA");
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        await copyText(CONTRACT);
+        sfxClick();
+        flashToast("Contract copied");
+      });
+    }
+    $$("[data-copy]").forEach(el => {
+      el.addEventListener("click", async () => {
+        await copyText(el.getAttribute("data-copy"));
+        sfxClick();
+        flashToast("Copied");
+      });
+    });
+
+    const emailBtn = $("#copyEmail");
+    if (emailBtn) {
+      emailBtn.addEventListener("click", async () => {
+        await copyText(EMAIL);
+        sfxClick();
+        flashToast("Email copied");
+      });
+    }
+    const emailBtn2 = $("#copyEmailFooter");
+    if (emailBtn2) {
+      emailBtn2.addEventListener("click", async () => {
+        await copyText(EMAIL);
+        sfxClick();
+        flashToast("Email copied");
+      });
+    }
+  }
+
+  // ====== Mobile Menu ======
+  function wireMenu() {
+    const menuBtn = $("#menuBtn");
+    const mobile = $("#mobileMenu");
+    if (!menuBtn || !mobile) return;
+
+    function closeMenu() {
+      menuBtn.setAttribute("aria-expanded", "false");
+      mobile.setAttribute("aria-hidden", "true");
+      mobile.style.maxHeight = "0px";
+      mobile.style.opacity = "0";
+    }
+    function openMenu() {
+      menuBtn.setAttribute("aria-expanded", "true");
+      mobile.setAttribute("aria-hidden", "false");
+      mobile.style.maxHeight = "360px";
+      mobile.style.opacity = "1";
     }
 
-    window.clearTimeout(toastEl._t);
-    toastEl._t = window.setTimeout(() => toastEl.classList.remove("show"), 2500);
-  }
+    mobile.style.overflow = "hidden";
+    mobile.style.maxHeight = "0px";
+    mobile.style.opacity = "0";
+    mobile.style.transition = "max-height .25s ease, opacity .2s ease";
 
-  // --- UI: GENERAL ---
-  const yearEl = $("#year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-  // Smooth Scroll & Offset
-  $$('a[href^="#"]').forEach(a => {
-    a.addEventListener("click", (e) => {
-      const href = a.getAttribute("href");
-      if (!href || href === "#") return;
-      const target = $(href);
-      if (target) {
-        e.preventDefault();
-        const offset = 80; // Compensate for fixed header
-        const bodyRect = document.body.getBoundingClientRect().top;
-        const elementRect = target.getBoundingClientRect().top;
-        const elementPosition = elementRect - bodyRect;
-        const offsetPosition = elementPosition - offset;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth"
-        });
-        closeMobileNav();
-        Sound.sfx("click");
-      }
+    menuBtn.addEventListener("click", () => {
+      sfxClick();
+      const expanded = menuBtn.getAttribute("aria-expanded") === "true";
+      expanded ? closeMenu() : openMenu();
     });
-  });
 
-  // Mobile Nav
-  const nav = $("#nav");
-  const burger = $("#burger");
-
-  function openMobileNav() {
-    if (!nav || !burger) return;
-    nav.classList.add("nav--open");
-    burger.setAttribute("aria-expanded", "true");
-    Sound.sfx("whoosh");
-  }
-
-  function closeMobileNav() {
-    if (!nav || !burger) return;
-    nav.classList.remove("nav--open");
-    burger.setAttribute("aria-expanded", "false");
-  }
-
-  if (burger) {
-    burger.addEventListener("click", () => {
-      if (nav.classList.contains("nav--open")) closeMobileNav();
-      else openMobileNav();
+    // Close on link click
+    $$("#mobileMenu a").forEach(a => {
+      a.addEventListener("click", () => closeMenu());
     });
-  }
-  
-  // Close nav when clicking outside
-  document.addEventListener("click", (e) => {
-    if (!nav || !burger) return;
-    const inside = nav.contains(e.target) || burger.contains(e.target);
-    if (!inside && nav.classList.contains("nav--open")) closeMobileNav();
-  });
 
-  // --- SCROLL REVEAL (Observer) ---
-  const revealEls = $$(".reveal");
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(ent => {
-      if (ent.isIntersecting) {
-        ent.target.classList.add("in");
-        io.unobserve(ent.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  revealEls.forEach(el => io.observe(el));
-
-  // --- ACTIONS: COPY & EMAIL ---
-  
-  // 1. Contract Copy
-  const contractText = $("#contractText");
-  const copyContractBtn = $("#copyContractBtn");
-  
-  if (copyContractBtn && contractText) {
-    copyContractBtn.addEventListener("click", async () => {
-      const txt = contractText.textContent.trim();
-      const originalBtnText = copyContractBtn.innerHTML;
-      
-      try {
-        await navigator.clipboard.writeText(txt);
-        Sound.sfx("success"); // New specific sound
-        toast("Smart Contract Copied");
-        
-        // Visual feedback on button
-        copyContractBtn.style.borderColor = "#64ff7a";
-        copyContractBtn.innerHTML = `<span style="color:#64ff7a">COPIED</span>`;
-        setTimeout(() => {
-          copyContractBtn.innerHTML = originalBtnText;
-          copyContractBtn.style.borderColor = "";
-        }, 2000);
-        
-      } catch {
-        toast("Manual copy required", "error");
-      }
-    });
+    // Close when resizing up
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 980) closeMenu();
+    }, { passive: true });
   }
 
-  // 2. Email Logic
-  const emailTextEl = $("#emailText");
-  const emailLink = $("#emailLink");
-  const copyEmailBtn = $("#copyEmailBtn");
-  const emailUser = "contact";
-  const emailDomain = "brbrt.com";
-  const email = `${emailUser}@${emailDomain}`;
+  // ====== Scroll Reveal ======
+  function initReveal() {
+    const els = $$(".reveal");
+    if (!els.length) return;
 
-  if (emailTextEl) {
-    emailTextEl.textContent = email;
-    // Petit effet au chargement
-    scrambleText(emailTextEl, email);
-  }
-  
-  if (emailLink) {
-    emailLink.textContent = `Connect: ${email}`;
-    emailLink.setAttribute("href", `mailto:${email}?subject=Invest%20In%20Future`);
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add("in");
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    els.forEach(el => io.observe(el));
   }
 
-  if (copyEmailBtn) {
-    copyEmailBtn.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(email);
-        Sound.sfx("success");
-        toast("Email Address Securely Copied");
-      } catch {
-        toast("Error copying email", "error");
-      }
-    });
+  // ====== Sound Engine (autoplay-safe) ======
+  let audio = {
+    ctx: null,
+    master: null,
+    ambience: null,
+    music: null,
+    click: null,
+    armed: false,
+    enabled: false
+  };
+
+  async function loadAudioBuffer(url) {
+    const res = await fetch(url);
+    const arr = await res.arrayBuffer();
+    return await audio.ctx.decodeAudioData(arr);
   }
 
-  // 3. Form Logic
-  const form = $("#contactForm");
-  const hp = $("#hpField");
-  
-  if (form) {
-    const startTs = Date.now();
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      
-      // Honeypot & Time check
-      if (hp && hp.value.trim().length > 0) return;
-      if (Date.now() - startTs < 2000) {
-        toast("System processing... please wait", "error");
-        return;
-      }
+  function playBuffer(buffer, { volume = 0.8, loop = false } = {}) {
+    const src = audio.ctx.createBufferSource();
+    src.buffer = buffer;
+    src.loop = loop;
+    const gain = audio.ctx.createGain();
+    gain.gain.value = volume;
+    src.connect(gain).connect(audio.master);
+    src.start(0);
+    return { src, gain };
+  }
 
-      Sound.sfx("click");
-      const fd = new FormData(form);
-      const name = (fd.get("name") || "Investor").toString().trim();
-      const msg  = (fd.get("message") || "").toString().trim();
-      
-      const subject = encodeURIComponent("BRBRT Inquiry");
-      const body = encodeURIComponent(`Origin: Website Form\nName: ${name}\n\n${msg}`);
-      
-      // Simulate network request visual
-      const btn = form.querySelector("button");
-      const oldTxt = btn ? btn.textContent : "Send";
-      if(btn) {
-        btn.textContent = "ENCRYPTING...";
-        scrambleText(btn, "SENDING...");
-      }
+  async function armAudio() {
+    if (audio.armed) return;
+    audio.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    audio.master = audio.ctx.createGain();
+    audio.master.gain.value = 0.9;
+    audio.master.connect(audio.ctx.destination);
 
-      setTimeout(() => {
-        window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
-        if(btn) btn.textContent = oldTxt;
-      }, 1500);
+    // Load buffers
+    const [amb, clk, mus] = await Promise.all([
+      loadAudioBuffer(SOUND_FILES.ambience).catch(() => null),
+      loadAudioBuffer(SOUND_FILES.click).catch(() => null),
+      loadAudioBuffer(SOUND_FILES.music).catch(() => null),
+    ]);
+
+    audio.ambience = amb;
+    audio.click = clk;
+    audio.music = mus;
+    audio.armed = true;
+  }
+
+  function stopLoop(nodeObj) {
+    if (!nodeObj) return;
+    try { nodeObj.src.stop(0); } catch {}
+  }
+
+  let ambienceNode = null;
+  let musicNode = null;
+
+  async function toggleSound() {
+    const btn = $("#soundBtn");
+    if (!btn) return;
+
+    // Must be user gesture -> arm
+    if (!audio.armed) {
+      await armAudio();
+    }
+    if (audio.ctx.state === "suspended") {
+      await audio.ctx.resume();
+    }
+
+    audio.enabled = !audio.enabled;
+    btn.setAttribute("aria-pressed", String(audio.enabled));
+    btn.querySelector(".btn__icon").textContent = audio.enabled ? "🔈" : "🔊";
+    btn.querySelector(".btn__text").textContent = audio.enabled ? "Sound ON" : "Sound";
+
+    if (audio.enabled) {
+      if (audio.ambience) ambienceNode = playBuffer(audio.ambience, { volume: 0.35, loop: true });
+      if (audio.music) musicNode = playBuffer(audio.music, { volume: 0.20, loop: true });
+      flashToast("Sound enabled");
+    } else {
+      stopLoop(ambienceNode);
+      stopLoop(musicNode);
+      ambienceNode = null;
+      musicNode = null;
+      flashToast("Sound muted");
+    }
+  }
+
+  function sfxClick() {
+    if (!audio.armed || !audio.enabled || !audio.click) return;
+    playBuffer(audio.click, { volume: 0.55, loop: false });
+  }
+
+  function wireSoundButton() {
+    const btn = $("#soundBtn");
+    if (!btn) return;
+    btn.addEventListener("click", async () => {
+      await toggleSound();
+      // tiny click if already enabled
+      if (audio.enabled) sfxClick();
     });
   }
 
-  /* =========================================
-     AUDIO ENGINE 2.0 (Immersive & Spatial)
-     ========================================= */
-  const soundBtn = $("#soundBtn");
-  const soundIcon = $("#soundIcon");
-  const soundLabel = $("#soundLabel");
-  const trailerBtn = $("#trailerBtn");
-  const heroVideo = $("#heroVideo");
+  // ====== Lightweight Particles (Canvas) ======
+  function initFX() {
+    const canvas = $("#fx");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d", { alpha: true });
+    let w = 0, h = 0, dpr = Math.min(2, window.devicePixelRatio || 1);
 
-  const Sound = {
-    enabled: false,
-    trailerMode: true,
-    _ctx: null, // AudioContext for advanced features later if needed
-    _audio: {},
-    _once: new Set(),
+    function resize() {
+      w = canvas.clientWidth = window.innerWidth;
+      h = canvas.clientHeight = window.innerHeight;
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+    }
 
-    init() {
-      // Load prefs
-      const s = localStorage.getItem("BRBRT_sound");
-      const t = localStorage.getItem("BRBRT_trailer");
-      if (s === "1") this.enabled = false; // Always start mute for UX safety
-      if (t === "0") this.trailerMode = false;
+    const pts = Array.from({ length: 70 }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      r: 0.7 + Math.random() * 2.0,
+      vx: (-0.15 + Math.random() * 0.3),
+      vy: (-0.10 + Math.random() * 0.2),
+      a: 0.15 + Math.random() * 0.35
+    }));
 
-      // --- SOUND PACK ---
-      // Backgrounds
-      this._audio.hero = this._make("assets/Hero.m4a", true, 0.4);
-      this._audio.atmo = this._make("assets/atmosphere-sound-effect.mp3", true, 0.2);
-      
-      // UI SFX
-      this._audio.click = this._make("assets/Click.mp3", false, 0.6);
-      this._audio.hover = this._make("assets/audio/hover.wav", false, 0.15, true); // NEW: Subtle tick
-      this._audio.success = this._make("assets/audio/success.wav", false, 0.5, true); // NEW: Tech confirm
-      
-      // Cinematic
-      this._audio.hit = this._make("assets/audio/hit.wav", false, 0.7, true);
-      this._audio.stinger = this._make("assets/audio/stinger.wav", false, 0.7, true);
-      this._audio.whoosh = this._make("assets/audio/whoosh.wav", false, 0.5, true);
+    let t = 0;
+    function draw() {
+      t += 1;
+      ctx.clearRect(0,0,w,h);
 
-      this._syncUI();
-      this._attachHoverSounds();
-    },
+      // dots
+      for (const p of pts) {
+        p.x += p.vx;
+        p.y += p.vy;
 
-    _make(src, loop, vol, optional = false) {
-      const a = new Audio();
-      a.src = src;
-      a.loop = !!loop;
+        // wrap
+        if (p.x < -10) p.x = w + 10;
+        if (p.x > w + 10) p.x = -10;
+        if (p.y < -10) p.y = h + 10;
+        if (p.y > h + 10) p.y = -10;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(40,255,180,${p.a})`;
+        ctx.fill();
+      }
+
+      // subtle links
+      for (let i=0;i<pts.length;i++){
+        for (let j=i+1;j<i+6 && j<pts.length;j++){
+          const a = pts[i], b = pts[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const dist = Math.hypot(dx,dy);
+          if (dist < 120){
+            ctx.beginPath();
+            ctx.moveTo(a.x,a.y);
+            ctx.lineTo(b.x,b.y);
+            ctx.strokeStyle = `rgba(40,255,180,${0.08 * (1 - dist/120)})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    resize();
+    requestAnimationFrame(draw);
+    window.addEventListener("resize", resize, { passive: true });
+  }
+
+  // ====== Init ======
+  function init() {
+    // year
+    const y = $("#year");
+    if (y) y.textContent = String(new Date().getFullYear());
+
+    setEmailSlot();
+    wireCopyButtons();
+    wireMenu();
+    initReveal();
+    wireSoundButton();
+    initFX();
+
+    // Add small click SFX to key buttons (only if enabled & armed)
+    $$(".btn, .chip").forEach(el => el.addEventListener("click", () => sfxClick()));
+  }
+
+  document.addEventListener("DOMContentLoaded", init);
+})();
