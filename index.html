@@ -2,403 +2,417 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
-  <meta name="theme-color" content="#030507" />
-  
-  <title>BRBRT — Global Youth. Global Hope.</title>
-  <meta name="description" content="BRBRT is a meme coin with a serious mission: build a supportive web for youth, promote community action, and fund awareness initiatives." />
-  <link rel="canonical" href="https://brbrt.com/" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#07110D" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=SF+Mono&display=swap" rel="stylesheet">
+  <title>BRBRT — Strength • Dignity • Awareness (BNB Chain)</title>
+  <meta name="description" content="BRBRT is a community-driven meme token on BNB Chain inspired by a real story of bullying, resilience and personal growth. Transparency-first. No promises of profit. NFA." />
 
-  <meta property="og:title" content="BRBRT — Global Youth. Global Hope." />
-  <meta property="og:description" content="A meme coin with a serious mission: supportive web, community-first, and real impact." />
+  <!-- Open Graph -->
+  <meta property="og:title" content="BRBRT — Strength • Dignity • Awareness" />
+  <meta property="og:description" content="A community-driven meme token on BNB Chain. Transparency-first. No promises of profit. NFA." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://brbrt.com/" />
-  <meta property="og:image" content="https://brbrt.com/assets/story.png" />
+  <meta property="og:url" content="https://brbrt.com" />
+  <meta property="og:image" content="https://brbrt.com/assets/BRBR_256x256.png" />
 
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preload" href="assets/hero-web.mp4" as="video" type="video/mp4" />
+  <link rel="preload" href="assets/logo-web.mp4" as="video" type="video/mp4" />
+  <link rel="preload" href="style.css" as="style" />
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+  <!-- Background FX Canvas -->
+  <canvas id="fx" aria-hidden="true"></canvas>
 
-  <canvas id="fxCanvas" aria-hidden="true"></canvas>
-
-  <header class="topbar">
-    <div class="topbar__inner">
-      <a class="brand" href="#top" aria-label="BRBRT Home">
-        <span class="brand__dot"></span>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="brand" href="#top" aria-label="BRBRT home">
+        <span class="brand__mark" aria-hidden="true"></span>
         <span class="brand__name">BRBRT</span>
       </a>
 
-      <nav class="nav" id="nav">
-        <a class="nav__link" href="#story">Story</a>
-        <a class="nav__link" href="#token">Token</a>
-        <a class="nav__link" href="#roadmap">Roadmap</a>
-        <a class="nav__link" href="whitepaper.html">Whitepaper</a>
-        <a class="nav__link" href="association.html">Association</a>
-        <a class="nav__pill" href="https://linktr.ee/BRBRT" target="_blank" rel="noopener noreferrer">Linktree</a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#story">Story</a>
+        <a href="#token">Token</a>
+        <a href="#transparency">Transparency</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="whitepaper.html">Whitepaper</a>
+        <a href="association.html">Association</a>
       </nav>
 
-      <div class="topbar__actions">
-        <button class="btn btn--ghost btn--sm" id="trailerBtn" type="button" aria-pressed="true" title="Toggle Cinematic FX">
-          <span class="icon">🎬</span>
-          <span class="desktop-only">Trailer</span>
+      <div class="nav__actions">
+        <button id="soundBtn" class="btn btn--ghost" type="button" aria-pressed="false" aria-label="Toggle sound">
+          <span class="btn__icon" aria-hidden="true">🔊</span>
+          <span class="btn__text">Sound</span>
         </button>
 
-        <button class="btn btn--ghost btn--sm" id="soundBtn" type="button" aria-pressed="false">
-          <span class="icon" id="soundIcon">🔇</span>
-          <span id="soundLabel" class="desktop-only">Sound</span>
-        </button>
+        <a class="btn btn--primary" href="#buy" aria-label="How to buy">
+          <span class="btn__text">How to Buy</span>
+          <span class="btn__icon" aria-hidden="true">↗</span>
+        </a>
 
-        <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" type="button">
+        <button id="menuBtn" class="hamburger" type="button" aria-label="Open menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
       </div>
     </div>
+
+    <div id="mobileMenu" class="mobile" aria-hidden="true">
+      <div class="mobile__panel">
+        <a href="#story">Story</a>
+        <a href="#token">Token</a>
+        <a href="#transparency">Transparency</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="whitepaper.html">Whitepaper</a>
+        <a href="association.html">Association</a>
+        <a href="#contact">Contact</a>
+        <a class="mobile__cta" href="#buy">How to Buy</a>
+      </div>
+    </div>
   </header>
 
-  <main id="top" class="page">
-    
-    <section class="hero" aria-label="Hero">
-      <video
-        class="hero__video"
-        id="heroVideo"
-        src="assets/hero-web.mp4"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="auto"
-      ></video>
-
+  <!-- HERO -->
+  <main id="top">
+    <section class="hero">
+      <video class="hero__video" autoplay muted playsinline loop preload="metadata" poster="assets/BRBR_256x256.png">
+        <source src="assets/hero-web.mp4" type="video/mp4" />
+      </video>
       <div class="hero__overlay"></div>
-      <div class="hero__noise" aria-hidden="true"></div>
 
-      <div class="hero__content container">
-        <div class="hero__badge reveal">
-          <span class="pulse"></span>
-          <span>SYSTEM ONLINE • CINEMATIC MODE</span>
+      <div class="hero__inner">
+        <div class="hero__kicker reveal">
+          <span class="pill">GLOBAL YOUTH. GLOBAL HOPE.</span>
+          <span class="pill pill--ghost">BNB Chain • Meme Token</span>
         </div>
 
         <h1 class="hero__title reveal">
-          GLOBAL YOUTH.<br />
-          <span class="accent">GLOBAL HOPE.</span>
+          BRBRT is a meme token built from a real story —
+          <span class="glow">bullying → resilience → purpose</span>.
         </h1>
 
-        <p class="hero__subtitle reveal">
-          Turn silence into strength. Break the chain. Build hope.
-          <br>The first meme token with a real-world social shield.
+        <p class="hero__sub reveal">
+          No hype. No profit promises. Just a community mission focused on awareness, dignity,
+          and transparent on-chain proof.
+          <span class="muted">NFA • DYOR</span>
         </p>
 
         <div class="hero__cta reveal">
-          <a class="btn btn--primary" href="#story" id="watchStoryBtn">
-            <span>▶ Watch Story</span>
+          <a class="btn btn--primary" href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc" target="_blank" rel="noopener">
+            Buy on PancakeSwap
+            <span class="btn__icon" aria-hidden="true">↗</span>
           </a>
-          <a class="btn btn--secondary" href="#token">
-            Token & Contract
+          <a class="btn btn--ghost" href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener">
+            View on BscScan
+            <span class="btn__icon" aria-hidden="true">↗</span>
           </a>
+          <button class="btn btn--ghost" id="copyCA" type="button" data-copy="0xf97522ABEf762d28729E073019343b72C6e8D2C1">
+            Copy Contract
+            <span class="btn__icon" aria-hidden="true">⧉</span>
+          </button>
         </div>
 
-        <div class="hero__quicklinks reveal">
-          <a class="chip" href="https://linktr.ee/BRBRT" target="_blank" rel="noopener noreferrer">Linktree</a>
-          <a class="chip" href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc" target="_blank" rel="noopener noreferrer">PancakeSwap</a>
-          <a class="chip" href="https://bscscan.com/token/0xf97522ABEf762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener noreferrer">BscScan</a>
-        </div>
-
-        <div class="hero__scrollhint" aria-hidden="true">
-          <span>Explore System</span>
-          <span class="arrow">↓</span>
-        </div>
-      </div>
-    </section>
-
-    <section id="story" class="section container">
-      <div class="grid2">
-        <div class="card glass reveal">
-          <div class="card__kicker">THE SILENCE OF FEAR</div>
-          <h2 class="card__title">A real story. A real mission.</h2>
-          <p class="card__text">
-            BRBRT is a <strong>meme coin</strong> with a serious vision:
-            build a supportive web for youth, promote community action, and fund awareness initiatives.
-          </p>
-
-          <ul class="bullets">
-            <li>
-              <div class="dot"></div>
-              <div>
-                <strong>Supportive Web</strong>
-                <div class="muted">A space for stories, resources, and real help.</div>
-              </div>
-            </li>
-            <li>
-              <div class="dot"></div>
-              <div>
-                <strong>Community First</strong>
-                <div class="muted">Transparency, community-driven decisions, and clear milestones.</div>
-              </div>
-            </li>
-            <li>
-              <div class="dot"></div>
-              <div>
-                <strong>Action & Awareness</strong>
-                <div class="muted">Campaigns, education, and partnerships (progressive rollout).</div>
-              </div>
-            </li>
-          </ul>
-
-          <div class="row">
-            <a class="btn btn--primary" href="#token">Continue → Token Reveal</a>
-            <a class="btn btn--ghost" href="association.html">Association Page</a>
+        <div class="hero__meta reveal">
+          <div class="metaCard">
+            <div class="metaCard__label">Contract</div>
+            <div class="metaCard__value mono">0xf975...D2C1</div>
           </div>
-        </div>
-
-        <div class="poster reveal" aria-label="Story Poster">
-          <img src="assets/story.png" alt="BRBRT — The Silence of Fear / Break the Chain / Build Hope" loading="lazy" />
-          <div class="poster__glow" aria-hidden="true"></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="token" class="section container">
-      <div class="grid2 grid2--wide">
-        
-        <div class="card glass reveal">
-          <div class="card__kicker">TOKEN REVEAL</div>
-          <h2 class="card__title">Break the chain. Build hope.</h2>
-          <p class="card__text">
-            BRBRT is a meme coin on BSC designed for community movement and long-term trust.
-            Clear links, clean UX, and a public footprint.
-          </p>
-
-          <div class="contract">
-            <span class="contract__label">BSC / BEP20</span>
-            <code class="contract__value" id="contractText">0xf97522ABEf762d28729E073019343b72C6e8D2C1</code>
-            <button class="btn btn--ghost btn--sm" id="copyContractBtn" type="button">Copy</button>
+          <div class="metaCard">
+            <div class="metaCard__label">Contact</div>
+            <div class="metaCard__value" id="emailSlot"></div>
           </div>
-
-          <div class="row row--wrap">
-            <a class="btn btn--primary"
-               href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc"
-               target="_blank" rel="noopener noreferrer">Buy on PancakeSwap</a>
-
-            <a class="btn btn--secondary"
-               href="https://bscscan.com/token/0xf97522ABEf762d28729E073019343b72C6e8D2C1"
-               target="_blank" rel="noopener noreferrer">View on BscScan</a>
-
-            <a class="btn btn--ghost" href="whitepaper.html">Read Whitepaper</a>
-          </div>
-
-          <div class="divider"></div>
-
-          <div class="mini">
-            <div class="section__kicker" style="margin-bottom:6px;">Security & Transparency</div>
-            <div class="card__text" style="font-size:13px;">
-              Verify everything on-chain. Independent scan available:
-              <a href="https://solidityscan.com/qs-report/53401f2de52031ca97d7a95a0b6f036f/5e136bbf32d12b9e/b2cf7d75f955f937"
-                 target="_blank" rel="noopener noreferrer" style="color:#fff; text-decoration:underline;">SolidityScan report</a>.
+          <div class="metaCard">
+            <div class="metaCard__label">Links</div>
+            <div class="metaCard__value">
+              <a href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">linktr.ee/BRBRT</a>
             </div>
           </div>
         </div>
 
-        <div class="card glass reveal">
-          <div class="card__kicker">VISUAL IDENTITY</div>
-          <div class="videoCard">
-            <video
-              class="videoCard__video"
-              id="logoVideo"
-              src="assets/logo-web.mp4"
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="auto"
-            ></video>
-            <div class="videoCard__frame" aria-hidden="true"></div>
-          </div>
-          <div class="videoCard__caption">
-            Symbol of resilience. The shield against silence.
-          </div>
+        <div class="hero__hint reveal" aria-hidden="true">
+          Scroll
+          <span class="hero__chev">⌄</span>
         </div>
       </div>
     </section>
 
-    <section id="roadmap" class="section container">
-      <div class="section__head reveal">
-        <div class="section__kicker">ROADMAP</div>
-        <h2 class="section__title">A strategic, community-first rollout</h2>
-        <p class="section__subtitle">
-          BRBRT is built for the community. Governance and direction are designed to evolve publicly,
-          with verifiable progress and clear milestones.
-        </p>
-      </div>
-
-      <div class="timeline">
-        <div class="step reveal">
-          <div class="step__dot"></div>
-          <div class="step__content">
-            <h3>Phase 0 — Foundation</h3>
-            <p>Launch the public website, official links, contract visibility, and baseline transparency.</p>
-            <ul>
-              <li>Official pages (site, Linktree)</li>
-              <li>Contract verification and public tracking</li>
-              <li>Community onboarding and safety guidelines</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="step reveal">
-          <div class="step__dot"></div>
-          <div class="step__content">
-            <h3>Phase 1 — Liquidity & Market Presence</h3>
-            <p>Make access simple and safe: direct buy link, clean UX, and anti-scam education for newcomers.</p>
-            <ul>
-              <li>PancakeSwap buy path + contract copy UX</li>
-              <li>“How to buy safely” content</li>
-              <li>Community moderation and reporting channels</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="step reveal">
-          <div class="step__dot"></div>
-          <div class="step__content">
-            <h3>Phase 2 — Supportive Web (MVP)</h3>
-            <p>Start building the supportive ecosystem: resources, stories, and guidance — progressively released.</p>
-            <ul>
-              <li>Resource hub (bullying / harassment / support)</li>
-              <li>Anonymous story submission concept (privacy-first)</li>
-              <li>Partnership outreach plan</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="step reveal">
-          <div class="step__dot"></div>
-          <div class="step__content">
-            <h3>Phase 3 — Community Governance</h3>
-            <p>Formalize community direction with clear proposals and transparent votes.</p>
-            <ul>
-              <li>Proposal format + public roadmap updates</li>
-              <li>Community-driven priorities and milestones</li>
-              <li>On-chain verification culture</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="step reveal">
-          <div class="step__dot"></div>
-          <div class="step__content">
-            <h3>Phase 4 — Awareness & Partnerships</h3>
-            <p>Scale campaigns and awareness initiatives with measurable outcomes and open reporting.</p>
-            <ul>
-              <li>Creator/community collaborations</li>
-              <li>Education campaigns</li>
-              <li>Transparent reporting updates</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="step reveal">
-          <div class="step__dot"></div>
-          <div class="step__content">
-            <h3>Phase 5 — Association & Long-Term Vision</h3>
-            <p>Progress toward a real-world association initiative and long-term supportive impact.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="callout reveal">
-        <div class="callout__title">Community Ownership Promise</div>
-        <div class="callout__text">
-          BRBRT is designed to be <strong>community-driven</strong>. Governance and direction will be shaped publicly.
-          Always verify on-chain and via official links. No hidden promises — only transparent progress.
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="section container">
-      <div class="section__head reveal">
-        <div class="section__kicker">COMMUNICATION</div>
-        <h2 class="section__title">Reach us safely</h2>
-        <p class="section__subtitle">
-          Official email: <strong id="emailText">contact@brbrt.com</strong>
-        </p>
-      </div>
-
-      <div class="grid2">
-        <div class="card glass reveal">
-          <h3 class="card__titleSm">Direct Connection</h3>
-          <p class="card__text">
-            Use the official email below. We never ask for your seed phrase. Ever.
+    <!-- STORY -->
+    <section id="story" class="section">
+      <div class="container">
+        <div class="section__head reveal">
+          <h2>Why BRBRT exists</h2>
+          <p>
+            A real story can become a real mission. BRBRT is inspired by lived experiences of bullying,
+            silence, and the choice to rebuild with dignity — turning pain into awareness and community action.
           </p>
+        </div>
 
-          <div class="row row--wrap">
-            <a class="btn btn--primary" id="emailLink" href="mailto:contact@brbrt.com">
-              Email: contact@brbrt.com
+        <div class="grid grid--3">
+          <article class="card reveal">
+            <h3>Courage</h3>
+            <p>
+              Learning to say “no”, to speak up, and to protect the next generation from moral harassment and abuse.
+            </p>
+          </article>
+          <article class="card reveal">
+            <h3>Compassion</h3>
+            <p>
+              Supporting mental health awareness and creating a safe space for youth to be seen and heard.
+            </p>
+          </article>
+          <article class="card reveal">
+            <h3>Community</h3>
+            <p>
+              Transparent, on-chain proof and community-first progress. No hidden control. No false promises.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOGO VIDEO -->
+    <section class="section section--tight">
+      <div class="container">
+        <div class="split">
+          <div class="split__left reveal">
+            <h2>Token Reveal</h2>
+            <p>
+              A cinematic identity — clean, modern, and future-forward.
+              This is BRBRT: strength, dignity, awareness.
+            </p>
+
+            <div class="stack">
+              <a class="btn btn--primary" href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">
+                Official Links
+                <span class="btn__icon" aria-hidden="true">↗</span>
+              </a>
+              <a class="btn btn--ghost" href="whitepaper.html">Read Whitepaper</a>
+            </div>
+          </div>
+
+          <div class="split__right reveal">
+            <div class="mediaFrame">
+              <video class="logoVideo" autoplay muted playsinline loop preload="metadata">
+                <source src="assets/logo-web.mp4" type="video/mp4" />
+              </video>
+              <div class="mediaFrame__glow"></div>
+              <div class="mediaFrame__badge mono">BRBRT • BNB Chain</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOKEN -->
+    <section id="token" class="section">
+      <div class="container">
+        <div class="section__head reveal">
+          <h2>Token Info</h2>
+          <p>Use official links only. Verify contract addresses on-chain.</p>
+        </div>
+
+        <div class="grid grid--2">
+          <div class="card reveal">
+            <h3>Official</h3>
+            <ul class="list">
+              <li>
+                <span>Contract</span>
+                <button class="chip mono" data-copy="0xf97522ABEf762d28729E073019343b72C6e8D2C1">0xf975…D2C1 ⧉</button>
+              </li>
+              <li>
+                <span>PancakeSwap</span>
+                <a class="chip" href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc" target="_blank" rel="noopener">Buy ↗</a>
+              </li>
+              <li>
+                <span>BscScan</span>
+                <a class="chip" href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener">Explorer ↗</a>
+              </li>
+              <li>
+                <span>Linktree</span>
+                <a class="chip" href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">linktr.ee/BRBRT ↗</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card reveal">
+            <h3>Compliance-first messaging</h3>
+            <p class="muted">
+              BRBRT is a meme token with a mission-driven story. This website is informational only.
+              We do not promise profits, returns, or financial outcomes.
+            </p>
+            <div class="notice">
+              <strong>NFA / DYOR</strong>
+              <span>Always verify links and contract addresses before interacting.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRANSPARENCY -->
+    <section id="transparency" class="section">
+      <div class="container">
+        <div class="section__head reveal">
+          <h2>Transparency</h2>
+          <p>On-chain proof, public links, and accountability.</p>
+        </div>
+
+        <div class="grid grid--3">
+          <div class="card reveal">
+            <h3>Ownership</h3>
+            <p>Ownership has been renounced on-chain.</p>
+            <a class="chip" href="https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1#readContract" target="_blank" rel="noopener">
+              Verify owner() ↗
             </a>
-            <button class="btn btn--ghost" id="copyEmailBtn" type="button">Copy Email</button>
           </div>
-        </div>
 
-        <div class="card glass reveal">
-          <h3 class="card__titleSm">Secure Form</h3>
-          <p class="card__text">
-            No backend storage. This form generates a secure email draft on your device.
-          </p>
+          <div class="card reveal">
+            <h3>Reserve Lock (PinkLock V2)</h3>
+            <p class="mono small">
+              Locked: 279,897.5221 BRBR<br>
+              Unlock: 2030-01-01 (UTC)
+            </p>
+            <a class="chip" href="https://www.pinksale.finance/pinklock/bsc/record/1437018" target="_blank" rel="noopener">
+              View lock record ↗
+            </a>
+          </div>
 
-          <form id="contactForm" class="form" autocomplete="off">
-            <input type="text" name="website" id="hpField" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
-
-            <label>
-              <span>Name</span>
-              <input type="text" name="name" placeholder="Your name or alias" required />
-            </label>
-
-            <label>
-              <span>Message</span>
-              <textarea name="message" rows="4" placeholder="How can we help?" required></textarea>
-            </label>
-
-            <button class="btn btn--secondary" type="submit">Encrypt & Send</button>
-          </form>
-
-          <div class="fineprint">
-            By contacting us you agree to the <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy</a>.
+          <div class="card reveal">
+            <h3>Contact</h3>
+            <p>Official email:</p>
+            <button id="copyEmail" class="chip" type="button">contact@brbrt.com ⧉</button>
+            <p class="muted small">Protected from simple email scrapers.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <footer class="footer">
-      <div class="container footer__inner">
-        <div>
-          <div class="footer__brand">
-            <span class="brand__dot"></span>
-            <strong>BRBRT</strong>
+    <!-- ROADMAP -->
+    <section id="roadmap" class="section">
+      <div class="container">
+        <div class="section__head reveal">
+          <h2>Roadmap</h2>
+          <p>Clear steps. Community-first. Proof on-chain where possible.</p>
+        </div>
+
+        <div class="testing grid grid--2">
+          <div class="card reveal">
+            <h3>Phase 1 — Foundations</h3>
+            <ul class="bullets">
+              <li>Brand upgrade to BRBRT (site, socials, messaging)</li>
+              <li>Official links & verification (BscScan + token profile updates)</li>
+              <li>Initial transparency page + public proofs (ownership + locks)</li>
+              <li>Community launch: X + Linktree hub</li>
+            </ul>
           </div>
-          <div class="footer__muted">Global Youth. Global Hope.</div>
+
+          <div class="card reveal">
+            <h3>Phase 2 — Community Growth</h3>
+            <ul class="bullets">
+              <li>Weekly story drops (short cinematic clips, awareness posts)</li>
+              <li>Community events & moderation tools (safe space)</li>
+              <li>Partnership outreach (youth awareness & creators)</li>
+              <li>Public progress reports: holders, locks, milestones</li>
+            </ul>
+          </div>
+
+          <div class="card reveal">
+            <h3>Phase 3 — Impact</h3>
+            <ul class="bullets">
+              <li>Launch “Supportive Web” hub resources (anti-bullying awareness)</li>
+              <li>Association page + early initiatives (community-guided)</li>
+              <li>Content series: real scenes → animated episodes</li>
+              <li>Transparent funding goals (no profit promises)</li>
+            </ul>
+          </div>
+
+          <div class="card reveal">
+            <h3>Phase 4 — Sustainability</h3>
+            <ul class="bullets">
+              <li>Long-term community governance discussion</li>
+              <li>Expand global awareness campaigns</li>
+              <li>Maintain a clean, verifiable transparency standard</li>
+              <li>Iterate website performance & accessibility</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUY -->
+    <section id="buy" class="section">
+      <div class="container">
+        <div class="section__head reveal">
+          <h2>How to Buy (Quick)</h2>
+          <p>Simple steps. Always verify contract addresses.</p>
         </div>
 
-        <div class="footer__links">
-          <a href="terms.html">Terms</a>
-          <a href="privacy.html">Privacy</a>
-          <a href="#contact">Contact</a>
+        <div class="grid grid--3">
+          <div class="card reveal">
+            <h3>1) Get BNB</h3>
+            <p>Use BNB on BNB Chain for gas and swaps.</p>
+          </div>
+          <div class="card reveal">
+            <h3>2) Open PancakeSwap</h3>
+            <p>Use the official link below.</p>
+            <a class="chip" href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc" target="_blank" rel="noopener">Swap ↗</a>
+          </div>
+          <div class="card reveal">
+            <h3>3) Verify</h3>
+            <p>Confirm the contract address on BscScan.</p>
+            <a class="chip" href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener">Explorer ↗</a>
+          </div>
         </div>
 
-        <div class="footer__muted">
-          © <span id="year"></span> BRBRT. All rights reserved.
-          <br><span style="opacity:0.5; font-size:10px;">Not financial advice. Cryptocurrency involves risk.</span>
+        <div class="notice notice--big reveal">
+          <strong>Reminder:</strong>
+          <span>BRBRT makes no promises of profit. This website is informational only. DYOR.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact" class="footer">
+      <div class="container footer__inner">
+        <div class="footer__left">
+          <div class="footer__brand">
+            <img src="assets/BRBR_256x256.png" alt="BRBRT logo" width="44" height="44" loading="lazy" />
+            <div>
+              <div class="footer__name">BRBRT</div>
+              <div class="footer__tag">Strength • Dignity • Awareness</div>
+            </div>
+          </div>
+
+          <p class="footer__small muted">
+            © <span id="year"></span> BRBRT. All rights reserved.  
+            This site is informational only. No financial advice.
+          </p>
+        </div>
+
+        <div class="footer__right">
+          <div class="footer__links">
+            <a href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">Linktree ↗</a>
+            <a href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener">BscScan ↗</a>
+            <a href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc" target="_blank" rel="noopener">PancakeSwap ↗</a>
+          </div>
+
+          <div class="footer__legal">
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+          </div>
+
+          <button class="btn btn--ghost btn--small" id="copyEmailFooter" type="button">
+            contact@brbrt.com ⧉
+          </button>
         </div>
       </div>
     </footer>
   </main>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-  <script src="script.js"></script>
+  <script defer src="script.js"></script>
 </body>
 </html>
