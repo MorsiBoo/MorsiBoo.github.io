@@ -3,146 +3,88 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#0b0f13" />
-  <title>BRBRT Whitepaper — BRBRT</title>
-  <meta name="description" content="BRBRT Whitepaper — meme coin with a serious mission: supportive web, community-first governance, and awareness initiatives." />
-  <link rel="canonical" href="https://brbrt.com/whitepaper.html" />
+  <meta name="theme-color" content="#07110D" />
+  <title>BRBRT Whitepaper</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <canvas id="fxCanvas" aria-hidden="true"></canvas>
-
-  <header class="topbar">
-    <div class="topbar__inner">
+  <header class="nav">
+    <div class="nav__inner">
       <a class="brand" href="index.html">
-        <span class="brand__dot"></span>
+        <span class="brand__mark" aria-hidden="true"></span>
         <span class="brand__name">BRBRT</span>
       </a>
-
-      <nav class="nav" id="nav">
-        <a class="nav__link" href="index.html#roadmap">Roadmap</a>
-        <a class="nav__link" href="association.html">Association</a>
-        <a class="nav__pill" href="https://linktr.ee/BRBRT" target="_blank" rel="noopener noreferrer">Linktree</a>
+      <nav class="nav__links">
+        <a href="index.html#story">Story</a>
+        <a href="index.html#token">Token</a>
+        <a href="index.html#transparency">Transparency</a>
+        <a href="index.html#roadmap">Roadmap</a>
+        <a href="association.html">Association</a>
       </nav>
-
-      <div class="topbar__actions">
-        <button class="btn btn--ghost btn--sm" id="trailerBtn" type="button" aria-pressed="true">
-          <span class="icon">🎬</span> Trailer
-        </button>
-        <button class="btn btn--ghost btn--sm" id="soundBtn" type="button" aria-pressed="false">
-          <span class="icon" id="soundIcon">🔇</span>
-          <span id="soundLabel">Sound</span>
-        </button>
-        <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" type="button">
-          <span></span><span></span><span></span>
-        </button>
+      <div class="nav__actions">
+        <a class="btn btn--ghost" href="index.html">Home</a>
+        <a class="btn btn--primary" href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">Links ↗</a>
       </div>
     </div>
   </header>
 
-  <main class="page container">
+  <main style="padding-top:92px">
     <section class="section">
-      <div class="section__head reveal">
-        <div class="section__kicker">WHITEPAPER</div>
-        <h1 class="section__title">BRBRT</h1>
-        <p class="section__subtitle">
-          BRBR is a <strong>meme coin</strong> with a serious mission: build a supportive web for youth,
-          promote community action, and fund awareness initiatives.
-        </p>
-      </div>
+      <div class="container">
+        <div class="section__head">
+          <h2>Whitepaper (Summary)</h2>
+          <p class="muted">This is a plain-language overview. BRBRT is a meme token. No profit promises. NFA.</p>
+        </div>
 
-      <div class="card glass reveal">
-        <div class="card__kicker">TOKEN IDENTIFIERS</div>
-        <p class="card__text">
-          Network: <strong>BNB Smart Chain (BSC)</strong><br/>
-          Contract: <code>0xf97522ABEf762d28729E073019343b72C6e8D2C1</code><br/>
-          Official Buy Link:
-          <a href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc"
-             target="_blank" rel="noopener noreferrer">PancakeSwap</a><br/>
-          Explorer:
-          <a href="https://bscscan.com/token/0xf97522ABEf762d28729E073019343b72C6e8D2C1"
-             target="_blank" rel="noopener noreferrer">BscScan</a><br/>
-          Security Scan:
-          <a href="https://solidityscan.com/qs-report/53401f2de52031ca97d7a95a0b6f036f/5e136bbf32d12b9e/b2cf7d75f955f937"
-             target="_blank" rel="noopener noreferrer">SolidityScan report</a>
-        </p>
-      </div>
+        <div class="grid grid--2">
+          <article class="card">
+            <h3>Mission</h3>
+            <p>
+              BRBRT is inspired by a real story of bullying, resilience, and personal growth.
+              The mission is to build a supportive, transparent community around awareness and youth empowerment.
+            </p>
+          </article>
 
-      <div class="card glass reveal">
-        <div class="card__kicker">VISION</div>
-        <h2 class="card__titleSm">Global Youth. Global Hope.</h2>
-        <p class="card__text">
-          The BRBRT mission is to help transform silence into strength — with a supportive web experience that promotes:
-          safe resources, community awareness, and progressive real-world impact.
-        </p>
-        <p class="card__text">
-          The project is designed to be <strong>community-driven</strong>: decisions, milestones, and major direction
-          should be visible and verifiable.
-        </p>
-      </div>
+          <article class="card">
+            <h3>Core Values</h3>
+            <ul class="bullets">
+              <li><strong>Courage</strong> — speaking up</li>
+              <li><strong>Compassion</strong> — supporting others</li>
+              <li><strong>Community</strong> — building together, transparently</li>
+            </ul>
+          </article>
 
-      <div class="card glass reveal">
-        <div class="card__kicker">WHAT BRBRT IS</div>
-        <p class="card__text">
-          BRBRT is a <strong>meme coin</strong>. The purpose of BRBRT is community movement and awareness.
-          Nothing on this site is an investment solicitation. Always verify on-chain and use official links only.
-        </p>
-      </div>
+          <article class="card">
+            <h3>Token & Links</h3>
+            <ul class="bullets">
+              <li>Contract: <span class="mono">0xf97522ABEf762d28729E073019343b72C6e8D2C1</span></li>
+              <li>PancakeSwap: official buy link on homepage</li>
+              <li>BscScan: official explorer link on homepage</li>
+              <li>Linktree: <a href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">linktr.ee/BRBRT</a></li>
+            </ul>
+          </article>
 
-      <div class="card glass reveal">
-        <div class="card__kicker">ROADMAP SUMMARY</div>
-        <p class="card__text">
-          For the latest roadmap view, see: <a href="index.html#roadmap">Roadmap</a>.
-        </p>
-        <ul>
-          <li><strong>Phase 0:</strong> Foundation — official site, links, transparency</li>
-          <li><strong>Phase 1:</strong> Market presence — clean access + safety education</li>
-          <li><strong>Phase 2:</strong> Supportive Web MVP — resources, stories concept</li>
-          <li><strong>Phase 3:</strong> Governance — public proposals and transparent direction</li>
-          <li><strong>Phase 4:</strong> Awareness — campaigns and partnerships</li>
-          <li><strong>Phase 5:</strong> Association — long-term structure (legal feasibility first)</li>
-        </ul>
-      </div>
+          <article class="card">
+            <h3>Transparency</h3>
+            <ul class="bullets">
+              <li>Ownership renounced (verify on BscScan)</li>
+              <li>Reserve lock proof (PinkLock V2 record)</li>
+              <li>Public links published for verification</li>
+            </ul>
+          </article>
+        </div>
 
-      <div class="card glass reveal">
-        <div class="card__kicker">RISKS & DISCLAIMER</div>
-        <p class="card__text">
-          Crypto assets can be highly volatile. BRBRT is a meme coin. You can lose funds. This site is informational and
-          provides no financial advice. Always do your own research and verify official sources.
-        </p>
-      </div>
-
-      <div class="card glass reveal">
-        <div class="card__kicker">CONTACT</div>
-        <p class="card__text">
-          Official email: <strong>contact@brbrt.com</strong>
-        </p>
-      </div>
-
-      <div class="row reveal">
-        <a class="btn btn--primary" href="index.html">← Back to Home</a>
-        <a class="btn btn--ghost" href="terms.html">Terms</a>
-        <a class="btn btn--ghost" href="privacy.html">Privacy</a>
+        <div class="notice notice--big" style="margin-top:18px">
+          <strong>Disclaimer</strong>
+          <span>
+            BRBRT is a meme token. This document is informational only and does not constitute financial advice.
+            Always do your own research and verify on-chain data.
+          </span>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div>
-        <div class="footer__brand"><span class="brand__dot"></span><strong>BRBRT</strong></div>
-        <div class="footer__muted">Global Youth. Global Hope.</div>
-      </div>
-      <div class="footer__links">
-        <a href="terms.html">Terms</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="index.html#contact">Contact</a>
-      </div>
-      <div class="footer__muted">© <span id="year"></span> BRBRT. All rights reserved.</div>
-    </div>
-  </footer>
-
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="script.js"></script>
+  <script defer src="script.js"></script>
 </body>
 </html>
