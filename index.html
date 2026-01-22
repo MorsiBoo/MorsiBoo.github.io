@@ -4,6 +4,10 @@
   <!-- Performance: Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Preload videos ONLY on desktop (mobile = no huge early download) -->
+<link rel="preload" href="assets/hero-web.mp4" as="fetch" type="video/mp4" crossorigin media="(min-width: 981px)" />
+<link rel="preload" href="assets/logo-web.mp4" as="fetch" type="video/mp4" crossorigin media="(min-width: 981px)" />
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -159,70 +163,80 @@
   </header>
 
   <!-- HERO -->
-  <main id="top">
-    <section class="hero">
-      <!-- ✅ preload none + poster is LCP -->
-      <video class="hero__video" autoplay muted playsinline loop preload="none" poster="assets/logo%20BRBRT.png">
-        <!-- ✅ data-src so script.js lazy-load controls the download -->
-        <source data-src="assets/hero-web.mp4" type="video/mp4" />
-      </video>
-      <div class="hero__overlay"></div>
+  <section class="hero" aria-label="BRBRT hero">
+  <!-- Video background -->
+  <video
+    id="heroVideo"
+    class="hero__video"
+    autoplay
+    muted
+    playsinline
+    loop
+    preload="none"
+    poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'%3E%3Crect width='100%25' height='100%25' fill='%2307110D'/%3E%3C/svg%3E"
+  >
+    <source src="assets/hero-web.mp4" type="video/mp4" />
+  </video>
 
-      <div class="hero__inner">
-        <div class="hero__kicker reveal">
-          <span class="pill">GLOBAL YOUTH. GLOBAL HOPE.</span>
-          <span class="pill pill--ghost">BNB Chain • Meme Token</span>
-        </div>
+  <!-- If video cannot autoplay on mobile, show this tap overlay -->
+  <button id="heroPlayBtn" class="hero__tap" type="button" aria-label="Play background video">
+    Tap to play
+  </button>
 
-        <h1 class="hero__title reveal">
-          BRBRT is a meme token built from a real story —
-          <span class="glow">bullying → resilience → purpose</span>.
-        </h1>
+  <div class="hero__overlay" aria-hidden="true"></div>
 
-        <p class="hero__sub reveal">
-          No hype. No profit promises. Just a community mission focused on awareness, dignity,
-          and transparent on-chain proof.
-          <span class="muted">NFA • DYOR</span>
-        </p>
+  <div class="hero__inner">
+    <div class="hero__kicker reveal">
+      <span class="pill">GLOBAL YOUTH. GLOBAL HOPE.</span>
+      <span class="pill pill--ghost">BNB Chain • Meme Token</span>
+    </div>
 
-        <div class="hero__cta reveal">
-          <a class="btn btn--primary" href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc" target="_blank" rel="noopener">
-            Buy on PancakeSwap
-            <span class="btn__icon" aria-hidden="true">↗</span>
-          </a>
-          <a class="btn btn--ghost" href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener">
-            View on BscScan
-            <span class="btn__icon" aria-hidden="true">↗</span>
-          </a>
-          <button class="btn btn--ghost" id="copyCA" type="button" data-copy="0xf97522ABEf762d28729E073019343b72C6e8D2C1">
-            Copy Contract
-            <span class="btn__icon" aria-hidden="true">⧉</span>
-          </button>
-        </div>
+    <h1 class="hero__title reveal">
+      BRBRT is a meme token built from a real story —
+      <span class="glow">bullying → resilience → purpose</span>.
+    </h1>
 
-        <div class="hero__meta reveal">
-          <div class="metaCard">
-            <div class="metaCard__label">Contract</div>
-            <div class="metaCard__value mono">0xf975...D2C1</div>
-          </div>
-          <div class="metaCard">
-            <div class="metaCard__label">Contact</div>
-            <div class="metaCard__value" id="emailSlot"></div>
-          </div>
-          <div class="metaCard">
-            <div class="metaCard__label">Links</div>
-            <div class="metaCard__value">
-              <a href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">linktr.ee/BRBRT</a>
-            </div>
-          </div>
-        </div>
+    <p class="hero__sub reveal">
+      No hype. No profit promises. Just a community mission focused on awareness, dignity,
+      and transparent on-chain proof.
+      <span class="muted">NFA • DYOR</span>
+    </p>
 
-        <div class="hero__hint reveal" aria-hidden="true">
-          Scroll
-          <span class="hero__chev">⌄</span>
+    <div class="hero__cta reveal">
+      <a class="btn btn--primary" href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc" target="_blank" rel="noopener">
+        Buy on PancakeSwap <span class="btn__icon" aria-hidden="true">↗</span>
+      </a>
+      <a class="btn btn--ghost" href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener">
+        View on BscScan <span class="btn__icon" aria-hidden="true">↗</span>
+      </a>
+      <button class="btn btn--ghost" id="copyCA" type="button" data-copy="0xf97522ABEf762d28729E073019343b72C6e8D2C1">
+        Copy Contract <span class="btn__icon" aria-hidden="true">⧉</span>
+      </button>
+    </div>
+
+    <div class="hero__meta reveal">
+      <div class="metaCard">
+        <div class="metaCard__label">Contract</div>
+        <div class="metaCard__value mono">0xf975...D2C1</div>
+      </div>
+      <div class="metaCard">
+        <div class="metaCard__label">Contact</div>
+        <div class="metaCard__value" id="emailSlot"></div>
+      </div>
+      <div class="metaCard">
+        <div class="metaCard__label">Links</div>
+        <div class="metaCard__value">
+          <a href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">linktr.ee/BRBRT</a>
         </div>
       </div>
-    </section>
+    </div>
+
+    <div class="hero__hint reveal" aria-hidden="true">
+      Scroll <span class="hero__chev">⌄</span>
+    </div>
+  </div>
+</section>
+</section>
 
     <!-- STORY -->
     <section id="story" class="section">
