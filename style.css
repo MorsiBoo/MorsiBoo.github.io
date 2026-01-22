@@ -447,16 +447,23 @@ button{font-family:inherit}
   .reveal{transition:none}
   .hero__chev{animation:none}
 }
-/* ===== HERO FULL PAGE VIDEO BACKGROUND ===== */
-.hero{
-  position: relative;
-  min-height: 100vh;   /* prend toute la hauteur de l’écran */
-  width: 100%;
-  overflow: hidden;
+/* ===== HERO FULLSCREEN BACKGROUND VIDEO ===== */
+
+html, body {
+  height: 100%;
 }
 
-/* l'image poster (fallback) prend toute la page */
-.hero__poster{
+.hero {
+  position: relative;
+  min-height: 100svh; /* meilleur que 100vh sur mobile */
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+/* Image LCP */
+.hero__poster {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -465,39 +472,44 @@ button{font-family:inherit}
   z-index: 0;
 }
 
-/* la vidéo devient un vrai background */
-.hero__video{
+/* Vidéo background */
+.hero__video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;    /* remplis l’écran, crop si besoin */
+  object-fit: cover; /* remplit TOUJOURS l’écran */
   z-index: 1;
+  opacity: 0;
+  transition: opacity .6s ease;
 }
 
-/* ton overlay au-dessus de la vidéo */
-.hero__overlay{
+/* Vidéo visible une fois chargée */
+.hero__video.is-ready {
+  opacity: 1;
+}
+
+/* Overlay */
+.hero__overlay {
   position: absolute;
   inset: 0;
   z-index: 2;
+  background: radial-gradient(
+    circle at center,
+    rgba(0,0,0,0.2),
+    rgba(0,0,0,0.75)
+  );
 }
 
-/* ton contenu au-dessus de tout */
-.hero__inner{
+/* Contenu */
+.hero__inner {
   position: relative;
   z-index: 3;
+  width: 100%;
 }
 
-/* optionnel: mieux pour mobile safari */
-.hero__video{
+/* Sécurité mobile Safari */
+.hero__video {
   transform: translateZ(0);
+  will-change: opacity;
 }
-
-/* si tu as un canvas FX, il doit rester derrière le contenu */
-#fx{
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
