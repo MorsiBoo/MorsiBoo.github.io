@@ -413,3 +413,26 @@
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+/* ===== HERO VIDEO LOAD AFTER LCP ===== */
+(function () {
+  const video = document.querySelector('.hero__video');
+  if (!video) return;
+
+  const source = video.querySelector('source[data-src]');
+  if (!source) return;
+
+  const loadVideo = () => {
+    if (source.src) return;
+    source.src = source.dataset.src;
+    video.load();
+    video.play().catch(() => {});
+    video.classList.add('is-ready');
+  };
+
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(loadVideo, { timeout: 2000 });
+  } else {
+    setTimeout(loadVideo, 2000);
+  }
+})();
+
