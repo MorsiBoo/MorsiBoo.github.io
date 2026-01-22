@@ -555,4 +555,26 @@ body {
     background: url("assets/logo%20BRBRT.png") center/cover no-repeat fixed;
   }
 }
+/* ===== CLEAN LOGO VIDEO FRAME ===== */
+
+.mediaFrame {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.mediaFrame__glow {
+  display: none !important; /* enlève le glow si tu trouves ça moche */
+}
+
+.logoVideo {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+}
+
 
