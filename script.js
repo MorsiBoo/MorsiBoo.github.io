@@ -435,4 +435,28 @@
     setTimeout(loadVideo, 2000);
   }
 })();
+/* ===== Ensure background video plays on mobile Safari ===== */
+(() => {
+  const v = document.getElementById("bgVideo");
+  if (!v) return;
+
+  const tryPlay = () => {
+    v.play().catch(() => {});
+  };
+
+  // Try immediately
+  tryPlay();
+
+  // Also try on first user interaction (iOS/Safari)
+  const arm = () => {
+    tryPlay();
+    window.removeEventListener("touchstart", arm);
+    window.removeEventListener("click", arm);
+    window.removeEventListener("scroll", arm);
+  };
+
+  window.addEventListener("touchstart", arm, { passive: true });
+  window.addEventListener("click", arm, { passive: true });
+  window.addEventListener("scroll", arm, { passive: true });
+})();
 
