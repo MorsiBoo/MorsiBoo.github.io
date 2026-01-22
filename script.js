@@ -1,11 +1,13 @@
 /* =========================
-   BRBRT Ultra Web3 Scripts
+   BRBRT Ultra Web3 Scripts (Optimized + Stable LCP)
    - Autoplay-safe sound toggle
-   - Particles (lightweight canvas)
+   - Particles (lightweight canvas) + reduced motion handling
    - Scroll reveal
    - Copy buttons
    - Mobile menu
    - Email obfuscation (anti-scrape)
+   - ✅ Lazy-load videos to prevent random LCP spikes (Mobile + Desktop)
+   - ✅ Pause FX when tab is hidden (performance)
 ========================= */
 
 (() => {
@@ -14,7 +16,7 @@
 
   // ====== Config (KEEP LINKS / ASSETS) ======
   const CONTRACT = "0xf97522ABEf762d28729E073019343b72C6e8D2C1";
-  const EMAIL = "contact@brbrt.com"; // requested update
+  const EMAIL = "contact@brbrt.com";
   const SOUND_FILES = {
     ambience: "assets/atmosphere-sound-effect.mp3",
     click: "assets/Click.mp3",
@@ -25,7 +27,6 @@
   function setEmailSlot() {
     const slot = $("#emailSlot");
     if (!slot) return;
-    // Render as text + mailto created on click (reduces scraping)
     slot.innerHTML = `<button class="chip" id="emailBtn" type="button">${EMAIL} ⧉</button>`;
     $("#emailBtn").addEventListener("click", async () => {
       await copyText(EMAIL);
@@ -38,7 +39,6 @@
     try {
       await navigator.clipboard.writeText(text);
     } catch {
-      // fallback
       const t = document.createElement("textarea");
       t.value = text;
       document.body.appendChild(t);
@@ -91,6 +91,7 @@
         flashToast("Contract copied");
       });
     }
+
     $$("[data-copy]").forEach(el => {
       el.addEventListener("click", async () => {
         await copyText(el.getAttribute("data-copy"));
@@ -107,6 +108,7 @@
         flashToast("Email copied");
       });
     }
+
     const emailBtn2 = $("#copyEmailFooter");
     if (emailBtn2) {
       emailBtn2.addEventListener("click", async () => {
@@ -147,12 +149,10 @@
       expanded ? closeMenu() : openMenu();
     });
 
-    // Close on link click
     $$("#mobileMenu a").forEach(a => {
       a.addEventListener("click", () => closeMenu());
     });
 
-    // Close when resizing up
     window.addEventListener("resize", () => {
       if (window.innerWidth > 980) closeMenu();
     }, { passive: true });
@@ -173,6 +173,39 @@
     }, { threshold: 0.12 });
 
     els.forEach(el => io.observe(el));
+  }
+
+  // ====== ✅ Lazy-load Videos (prevents random LCP spikes) ======
+  // Requirement in HTML: <source data-src="assets/hero-web.mp4"> (not src)
+  function initLazyVideos() {
+    const videos = $$("video");
+    if (!videos.length) return;
+
+    const loadVideo = (v) => {
+      const s = v.querySelector("source[data-src]");
+      if (s && !s.src) {
+        s.src = s.dataset.src;
+        try { v.load(); } catch {}
+        // attempt play (autoplay can be blocked in some situations)
+        v.play?.().catch?.(() => {});
+      }
+    };
+
+    // If browser has no IntersectionObserver => load all
+    if (!("IntersectionObserver" in window)) {
+      videos.forEach(loadVideo);
+      return;
+    }
+
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        loadVideo(entry.target);
+        obs.unobserve(entry.target);
+      });
+    }, { rootMargin: "250px 0px" }); // load a bit before visible
+
+    videos.forEach(v => io.observe(v));
   }
 
   // ====== Sound Engine (autoplay-safe) ======
@@ -210,7 +243,6 @@
     audio.master.gain.value = 0.9;
     audio.master.connect(audio.ctx.destination);
 
-    // Load buffers
     const [amb, clk, mus] = await Promise.all([
       loadAudioBuffer(SOUND_FILES.ambience).catch(() => null),
       loadAudioBuffer(SOUND_FILES.click).catch(() => null),
@@ -235,13 +267,8 @@
     const btn = $("#soundBtn");
     if (!btn) return;
 
-    // Must be user gesture -> arm
-    if (!audio.armed) {
-      await armAudio();
-    }
-    if (audio.ctx.state === "suspended") {
-      await audio.ctx.resume();
-    }
+    if (!audio.armed) await armAudio();
+    if (audio.ctx.state === "suspended") await audio.ctx.resume();
 
     audio.enabled = !audio.enabled;
     btn.setAttribute("aria-pressed", String(audio.enabled));
@@ -271,7 +298,6 @@
     if (!btn) return;
     btn.addEventListener("click", async () => {
       await toggleSound();
-      // tiny click if already enabled
       if (audio.enabled) sfxClick();
     });
   }
@@ -280,6 +306,11 @@
   function initFX() {
     const canvas = $("#fx");
     if (!canvas) return;
+
+    // If user prefers reduced motion, keep FX extremely light
+    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    const maxPts = reduceMotion ? 24 : 70;
+
     const ctx = canvas.getContext("2d", { alpha: true });
     let w = 0, h = 0, dpr = Math.min(2, window.devicePixelRatio || 1);
 
@@ -288,10 +319,10 @@
       h = canvas.clientHeight = window.innerHeight;
       canvas.width = Math.floor(w * dpr);
       canvas.height = Math.floor(h * dpr);
-      ctx.setTransform(dpr,0,0,dpr,0,0);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
-    const pts = Array.from({ length: 70 }, () => ({
+    const pts = Array.from({ length: maxPts }, () => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
       r: 0.7 + Math.random() * 2.0,
@@ -300,56 +331,68 @@
       a: 0.15 + Math.random() * 0.35
     }));
 
-    let t = 0;
-    function draw() {
-      t += 1;
-      ctx.clearRect(0,0,w,h);
+    let raf = 0;
+    let running = true;
 
-      // dots
+    function draw() {
+      if (!running) return;
+      ctx.clearRect(0, 0, w, h);
+
       for (const p of pts) {
         p.x += p.vx;
         p.y += p.vy;
 
-        // wrap
         if (p.x < -10) p.x = w + 10;
         if (p.x > w + 10) p.x = -10;
         if (p.y < -10) p.y = h + 10;
         if (p.y > h + 10) p.y = -10;
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(40,255,180,${p.a})`;
         ctx.fill();
       }
 
-      // subtle links
-      for (let i=0;i<pts.length;i++){
-        for (let j=i+1;j<i+6 && j<pts.length;j++){
-          const a = pts[i], b = pts[j];
-          const dx = a.x - b.x, dy = a.y - b.y;
-          const dist = Math.hypot(dx,dy);
-          if (dist < 120){
-            ctx.beginPath();
-            ctx.moveTo(a.x,a.y);
-            ctx.lineTo(b.x,b.y);
-            ctx.strokeStyle = `rgba(40,255,180,${0.08 * (1 - dist/120)})`;
-            ctx.lineWidth = 1;
-            ctx.stroke();
+      // reduce links if reduced motion
+      if (!reduceMotion) {
+        for (let i = 0; i < pts.length; i++) {
+          for (let j = i + 1; j < i + 6 && j < pts.length; j++) {
+            const a = pts[i], b = pts[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < 120) {
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.strokeStyle = `rgba(40,255,180,${0.08 * (1 - dist / 120)})`;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
           }
         }
       }
 
-      requestAnimationFrame(draw);
+      raf = requestAnimationFrame(draw);
     }
 
+    // Pause FX when tab is hidden (saves CPU => better Lighthouse stability)
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        running = false;
+        if (raf) cancelAnimationFrame(raf);
+      } else {
+        running = true;
+        raf = requestAnimationFrame(draw);
+      }
+    });
+
     resize();
-    requestAnimationFrame(draw);
+    raf = requestAnimationFrame(draw);
     window.addEventListener("resize", resize, { passive: true });
   }
 
   // ====== Init ======
   function init() {
-    // year
     const y = $("#year");
     if (y) y.textContent = String(new Date().getFullYear());
 
@@ -358,6 +401,10 @@
     wireMenu();
     initReveal();
     wireSoundButton();
+
+    // ✅ Lazy-load videos to stabilize LCP / scores
+    initLazyVideos();
+
     initFX();
 
     // Add small click SFX to key buttons (only if enabled & armed)
