@@ -447,3 +447,57 @@ button{font-family:inherit}
   .reveal{transition:none}
   .hero__chev{animation:none}
 }
+/* ===== HERO FULL PAGE VIDEO BACKGROUND ===== */
+.hero{
+  position: relative;
+  min-height: 100vh;   /* prend toute la hauteur de l’écran */
+  width: 100%;
+  overflow: hidden;
+}
+
+/* l'image poster (fallback) prend toute la page */
+.hero__poster{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* la vidéo devient un vrai background */
+.hero__video{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;    /* remplis l’écran, crop si besoin */
+  z-index: 1;
+}
+
+/* ton overlay au-dessus de la vidéo */
+.hero__overlay{
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+/* ton contenu au-dessus de tout */
+.hero__inner{
+  position: relative;
+  z-index: 3;
+}
+
+/* optionnel: mieux pour mobile safari */
+.hero__video{
+  transform: translateZ(0);
+}
+
+/* si tu as un canvas FX, il doit rester derrière le contenu */
+#fx{
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
