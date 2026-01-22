@@ -1,54 +1,41 @@
 /* =========================
-   BRBRT Ultra Web3 Scripts (Optimized + Stable LCP)
-   - Autoplay-safe sound toggle
-   - Particles (lightweight canvas) + reduced motion handling
+   BRBRT Ultra Web3 Scripts
+   Clean + Stable + Mobile-safe
+   - Stable LCP (poster first, video after)
+   - Hero autoplay fallback (tap-to-play)
+   - Lazy video loading (ONLY when needed)
+   - FX canvas lightweight + pauses when hidden
+   - Sound engine autoplay-safe (arms on user gesture)
    - Scroll reveal
-   - Copy buttons
-   - Mobile menu
-   - Email obfuscation (anti-scrape)
-   - ✅ Lazy-load videos to prevent random LCP spikes (Mobile + Desktop)
-   - ✅ Pause FX when tab is hidden (performance)
+   - Copy buttons + toast
+   - Mobile menu accessible (no layout shifts)
 ========================= */
 
 (() => {
+  "use strict";
+
   const $ = (q, root = document) => root.querySelector(q);
   const $$ = (q, root = document) => Array.from(root.querySelectorAll(q));
 
-  // ====== Config (KEEP LINKS / ASSETS) ======
+  /* ===== CONFIG ===== */
   const CONTRACT = "0xf97522ABEf762d28729E073019343b72C6e8D2C1";
   const EMAIL = "contact@brbrt.com";
+
   const SOUND_FILES = {
     ambience: "assets/atmosphere-sound-effect.mp3",
     click: "assets/Click.mp3",
     music: "assets/Hero.m4a"
   };
 
-  // ====== Email (anti-spam basic obfuscation) ======
-  function setEmailSlot() {
-    const slot = $("#emailSlot");
-    if (!slot) return;
-    slot.innerHTML = `<button class="chip" id="emailBtn" type="button">${EMAIL} ⧉</button>`;
-    $("#emailBtn").addEventListener("click", async () => {
-      await copyText(EMAIL);
-      flashToast("Email copied");
-    });
-  }
+  /* ===== Feature flags / perf signals ===== */
+  const reduceMotion = !!window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+  const saveData = !!navigator.connection?.saveData;
+  const effectiveType = navigator.connection?.effectiveType || ""; // '4g','3g'...
+  const isSlowNet = /2g|3g/.test(effectiveType);
 
-  // ====== Copy helper ======
-  async function copyText(text) {
-    try {
-      await navigator.clipboard.writeText(text);
-    } catch {
-      const t = document.createElement("textarea");
-      t.value = text;
-      document.body.appendChild(t);
-      t.select();
-      document.execCommand("copy");
-      document.body.removeChild(t);
-    }
-  }
+  const canAutoplayVideo = !reduceMotion && !saveData; // we still handle fallback
 
-  // ====== Toast ======
+  /* ===== Toast ===== */
   let toastTimer = null;
   function flashToast(msg) {
     let el = $("#toast");
@@ -58,7 +45,7 @@
       el.style.position = "fixed";
       el.style.left = "50%";
       el.style.bottom = "18px";
-      el.style.transform = "translateX(-50%)";
+      el.style.transform = "translateX(-50%) translateY(0)";
       el.style.padding = "12px 14px";
       el.style.borderRadius = "14px";
       el.style.background = "rgba(8,12,14,.82)";
@@ -66,14 +53,16 @@
       el.style.color = "rgba(234,247,241,.95)";
       el.style.boxShadow = "0 18px 70px rgba(0,0,0,.45)";
       el.style.backdropFilter = "blur(10px)";
-      el.style.zIndex = 50;
+      el.style.zIndex = "50";
       el.style.opacity = "0";
       el.style.transition = "opacity .2s ease, transform .2s ease";
       document.body.appendChild(el);
     }
+
     el.textContent = msg;
     el.style.opacity = "1";
     el.style.transform = "translateX(-50%) translateY(-2px)";
+
     if (toastTimer) clearTimeout(toastTimer);
     toastTimer = setTimeout(() => {
       el.style.opacity = "0";
@@ -81,67 +70,87 @@
     }, 1600);
   }
 
-  // ====== Copy Contract Buttons ======
-  function wireCopyButtons() {
-    const btn = $("#copyCA");
-    if (btn) {
-      btn.addEventListener("click", async () => {
-        await copyText(CONTRACT);
-        sfxClick();
-        flashToast("Contract copied");
-      });
+  /* ===== Copy helper ===== */
+  async function copyText(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const t = document.createElement("textarea");
+      t.value = text;
+      t.setAttribute("readonly", "");
+      t.style.position = "fixed";
+      t.style.left = "-9999px";
+      document.body.appendChild(t);
+      t.select();
+      document.execCommand("copy");
+      document.body.removeChild(t);
     }
+  }
+
+  /* ===== Email Slot (anti scrape basic) ===== */
+  function setEmailSlot() {
+    const slot = $("#emailSlot");
+    if (!slot) return;
+
+    slot.innerHTML = `<button class="chip" id="emailBtn" type="button" aria-label="Copy email">${EMAIL} ⧉</button>`;
+    $("#emailBtn")?.addEventListener("click", async () => {
+      await copyText(EMAIL);
+      sfxClick();
+      flashToast("Email copied");
+    });
+  }
+
+  /* ===== Copy Buttons ===== */
+  function wireCopyButtons() {
+    $("#copyCA")?.addEventListener("click", async () => {
+      await copyText(CONTRACT);
+      sfxClick();
+      flashToast("Contract copied");
+    });
 
     $$("[data-copy]").forEach(el => {
       el.addEventListener("click", async () => {
-        await copyText(el.getAttribute("data-copy"));
+        const t = el.getAttribute("data-copy") || "";
+        if (!t) return;
+        await copyText(t);
         sfxClick();
         flashToast("Copied");
       });
     });
 
-    const emailBtn = $("#copyEmail");
-    if (emailBtn) {
-      emailBtn.addEventListener("click", async () => {
-        await copyText(EMAIL);
-        sfxClick();
-        flashToast("Email copied");
-      });
-    }
+    $("#copyEmail")?.addEventListener("click", async () => {
+      await copyText(EMAIL);
+      sfxClick();
+      flashToast("Email copied");
+    });
 
-    const emailBtn2 = $("#copyEmailFooter");
-    if (emailBtn2) {
-      emailBtn2.addEventListener("click", async () => {
-        await copyText(EMAIL);
-        sfxClick();
-        flashToast("Email copied");
-      });
-    }
+    $("#copyEmailFooter")?.addEventListener("click", async () => {
+      await copyText(EMAIL);
+      sfxClick();
+      flashToast("Email copied");
+    });
   }
 
-  // ====== Mobile Menu ======
+  /* ===== Mobile Menu (accessible & stable) ===== */
   function wireMenu() {
     const menuBtn = $("#menuBtn");
     const mobile = $("#mobileMenu");
     if (!menuBtn || !mobile) return;
 
+    // We use [hidden] to remove from tab order when closed
     function closeMenu() {
       menuBtn.setAttribute("aria-expanded", "false");
       mobile.setAttribute("aria-hidden", "true");
-      mobile.style.maxHeight = "0px";
-      mobile.style.opacity = "0";
+      mobile.hidden = true;
     }
     function openMenu() {
       menuBtn.setAttribute("aria-expanded", "true");
       mobile.setAttribute("aria-hidden", "false");
-      mobile.style.maxHeight = "360px";
-      mobile.style.opacity = "1";
+      mobile.hidden = false;
     }
 
-    mobile.style.overflow = "hidden";
-    mobile.style.maxHeight = "0px";
-    mobile.style.opacity = "0";
-    mobile.style.transition = "max-height .25s ease, opacity .2s ease";
+    // Init state
+    closeMenu();
 
     menuBtn.addEventListener("click", () => {
       sfxClick();
@@ -149,19 +158,29 @@
       expanded ? closeMenu() : openMenu();
     });
 
-    $$("#mobileMenu a").forEach(a => {
-      a.addEventListener("click", () => closeMenu());
+    // close when clicking a link
+    $$("#mobileMenu a").forEach(a => a.addEventListener("click", () => closeMenu()));
+
+    // close on ESC
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeMenu();
     });
 
+    // close on resize to desktop
     window.addEventListener("resize", () => {
       if (window.innerWidth > 980) closeMenu();
     }, { passive: true });
   }
 
-  // ====== Scroll Reveal ======
+  /* ===== Scroll Reveal ===== */
   function initReveal() {
     const els = $$(".reveal");
     if (!els.length) return;
+
+    if (!("IntersectionObserver" in window)) {
+      els.forEach(el => el.classList.add("in"));
+      return;
+    }
 
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -175,10 +194,122 @@
     els.forEach(el => io.observe(el));
   }
 
-  // ====== ✅ Lazy-load Videos (prevents random LCP spikes) ======
-  // Requirement in HTML: <source data-src="assets/hero-web.mp4"> (not src)
+  /* =========================================================
+     HERO VIDEO (Stable LCP + mobile autoplay fallback)
+     Requirements in HTML:
+       <video id="heroVideo" class="hero__video" muted playsinline loop preload="none" poster="assets/hero-poster.webp">
+         <source id="heroSource" data-src="assets/hero-web.mp4" type="video/mp4">
+       </video>
+       <button id="heroPlayBtn" class="heroPlay" type="button">Tap to play</button>
+  ========================================================= */
+  function initHeroVideo() {
+    const v = $("#heroVideo");
+    const src = $("#heroSource");
+    const btn = $("#heroPlayBtn");
+    if (!v || !src) return;
+
+    // Ensure autoplay rules
+    v.muted = true;
+    v.playsInline = true;
+    v.setAttribute("muted", "");
+    v.setAttribute("playsinline", "");
+
+    // If reduced motion or save-data => do not load video at all
+    if (!canAutoplayVideo) {
+      if (btn) btn.classList.remove("is-visible");
+      return;
+    }
+
+    // show play button only if autoplay fails
+    const showPlay = () => {
+      if (!btn) return;
+      btn.classList.add("is-visible");
+    };
+    const hidePlay = () => {
+      if (!btn) return;
+      btn.classList.remove("is-visible");
+    };
+
+    // Load source only once
+    const ensureSourceLoaded = () => {
+      if (!src.dataset.src) return;
+      if (src.src) return; // already loaded
+      src.src = src.dataset.src;
+      try { v.load(); } catch {}
+    };
+
+    // Try play (may fail on iOS until gesture)
+    const tryPlay = async () => {
+      ensureSourceLoaded();
+      try {
+        const p = v.play();
+        if (p && typeof p.then === "function") await p;
+        hidePlay();
+      } catch {
+        showPlay();
+      }
+    };
+
+    // Tap-to-play fallback
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        hidePlay();
+        await tryPlay();
+      });
+    }
+
+    // PERF: load/play only when hero is visible
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+        if (!entry) return;
+
+        if (entry.isIntersecting) {
+          // Use idle callback to avoid fighting LCP
+          if ("requestIdleCallback" in window && !isSlowNet) {
+            requestIdleCallback(() => tryPlay(), { timeout: 1800 });
+          } else {
+            setTimeout(() => tryPlay(), 900);
+          }
+        } else {
+          try { v.pause(); } catch {}
+        }
+      }, { threshold: 0.35 });
+
+      io.observe(v);
+    } else {
+      // No IO => just load later
+      setTimeout(() => tryPlay(), 1200);
+    }
+
+    // Also try on first user gesture (Safari)
+    const armGesture = async () => {
+      await tryPlay();
+      window.removeEventListener("touchstart", armGesture);
+      window.removeEventListener("click", armGesture);
+    };
+    window.addEventListener("touchstart", armGesture, { passive: true });
+    window.addEventListener("click", armGesture, { passive: true });
+
+    // Pause when tab hidden
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        try { v.pause(); } catch {}
+      } else {
+        // Don't force; only try if visible in viewport
+        // (keep simple: user will re-enter hero, IO will handle)
+      }
+    });
+  }
+
+  /* ===== Lazy-load OTHER videos (not the hero) =====
+     For non-hero videos, add:
+       <video preload="none">
+         <source data-src="assets/xxx.mp4" type="video/mp4">
+       </video>
+  */
   function initLazyVideos() {
-    const videos = $$("video");
+    const videos = $$("video").filter(v => v.id !== "heroVideo");
     if (!videos.length) return;
 
     const loadVideo = (v) => {
@@ -186,12 +317,9 @@
       if (s && !s.src) {
         s.src = s.dataset.src;
         try { v.load(); } catch {}
-        // attempt play (autoplay can be blocked in some situations)
-        v.play?.().catch?.(() => {});
       }
     };
 
-    // If browser has no IntersectionObserver => load all
     if (!("IntersectionObserver" in window)) {
       videos.forEach(loadVideo);
       return;
@@ -203,13 +331,13 @@
         loadVideo(entry.target);
         obs.unobserve(entry.target);
       });
-    }, { rootMargin: "250px 0px" }); // load a bit before visible
+    }, { rootMargin: "300px 0px" });
 
     videos.forEach(v => io.observe(v));
   }
 
-  // ====== Sound Engine (autoplay-safe) ======
-  let audio = {
+  /* ===== Sound Engine (autoplay-safe) ===== */
+  const audio = {
     ctx: null,
     master: null,
     ambience: null,
@@ -219,40 +347,50 @@
     enabled: false
   };
 
+  let ambienceNode = null;
+  let musicNode = null;
+
   async function loadAudioBuffer(url) {
-    const res = await fetch(url);
-    const arr = await res.arrayBuffer();
-    return await audio.ctx.decodeAudioData(arr);
+    const res = await fetch(url, { cache: "force-cache" }).catch(() => null);
+    if (!res) return null;
+    const arr = await res.arrayBuffer().catch(() => null);
+    if (!arr) return null;
+    return await audio.ctx.decodeAudioData(arr).catch(() => null);
   }
 
   function playBuffer(buffer, { volume = 0.8, loop = false } = {}) {
     const src = audio.ctx.createBufferSource();
     src.buffer = buffer;
     src.loop = loop;
+
     const gain = audio.ctx.createGain();
     gain.gain.value = volume;
+
     src.connect(gain).connect(audio.master);
     src.start(0);
     return { src, gain };
   }
 
   async function armAudio() {
-    if (audio.armed) return;
+    if (audio.armed) return true;
+    if (!(window.AudioContext || window.webkitAudioContext)) return false;
+
     audio.ctx = new (window.AudioContext || window.webkitAudioContext)();
     audio.master = audio.ctx.createGain();
     audio.master.gain.value = 0.9;
     audio.master.connect(audio.ctx.destination);
 
     const [amb, clk, mus] = await Promise.all([
-      loadAudioBuffer(SOUND_FILES.ambience).catch(() => null),
-      loadAudioBuffer(SOUND_FILES.click).catch(() => null),
-      loadAudioBuffer(SOUND_FILES.music).catch(() => null),
+      loadAudioBuffer(SOUND_FILES.ambience),
+      loadAudioBuffer(SOUND_FILES.click),
+      loadAudioBuffer(SOUND_FILES.music)
     ]);
 
     audio.ambience = amb;
     audio.click = clk;
     audio.music = mus;
     audio.armed = true;
+    return true;
   }
 
   function stopLoop(nodeObj) {
@@ -260,20 +398,27 @@
     try { nodeObj.src.stop(0); } catch {}
   }
 
-  let ambienceNode = null;
-  let musicNode = null;
-
   async function toggleSound() {
     const btn = $("#soundBtn");
     if (!btn) return;
 
-    if (!audio.armed) await armAudio();
-    if (audio.ctx.state === "suspended") await audio.ctx.resume();
+    const ok = await armAudio();
+    if (!ok) {
+      flashToast("Audio not supported");
+      return;
+    }
+
+    if (audio.ctx.state === "suspended") {
+      await audio.ctx.resume().catch(() => {});
+    }
 
     audio.enabled = !audio.enabled;
+
     btn.setAttribute("aria-pressed", String(audio.enabled));
-    btn.querySelector(".btn__icon").textContent = audio.enabled ? "🔈" : "🔊";
-    btn.querySelector(".btn__text").textContent = audio.enabled ? "Sound ON" : "Sound";
+    const icon = btn.querySelector(".btn__icon");
+    const text = btn.querySelector(".btn__text");
+    if (icon) icon.textContent = audio.enabled ? "🔈" : "🔊";
+    if (text) text.textContent = audio.enabled ? "Sound ON" : "Sound";
 
     if (audio.enabled) {
       if (audio.ambience) ambienceNode = playBuffer(audio.ambience, { volume: 0.35, loop: true });
@@ -302,14 +447,14 @@
     });
   }
 
-  // ====== Lightweight Particles (Canvas) ======
+  /* ===== Lightweight Particles (Canvas FX) ===== */
   function initFX() {
     const canvas = $("#fx");
     if (!canvas) return;
 
-    // If user prefers reduced motion, keep FX extremely light
-    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-    const maxPts = reduceMotion ? 24 : 70;
+    // If reduced motion OR saveData => keep FX minimal
+    const light = reduceMotion || saveData || isSlowNet;
+    const maxPts = light ? 18 : 64;
 
     const ctx = canvas.getContext("2d", { alpha: true });
     let w = 0, h = 0, dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -326,9 +471,9 @@
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
       r: 0.7 + Math.random() * 2.0,
-      vx: (-0.15 + Math.random() * 0.3),
-      vy: (-0.10 + Math.random() * 0.2),
-      a: 0.15 + Math.random() * 0.35
+      vx: (-0.12 + Math.random() * 0.24),
+      vy: (-0.10 + Math.random() * 0.20),
+      a: 0.12 + Math.random() * 0.32
     }));
 
     let raf = 0;
@@ -336,6 +481,7 @@
 
     function draw() {
       if (!running) return;
+
       ctx.clearRect(0, 0, w, h);
 
       for (const p of pts) {
@@ -353,8 +499,7 @@
         ctx.fill();
       }
 
-      // reduce links if reduced motion
-      if (!reduceMotion) {
+      if (!light) {
         for (let i = 0; i < pts.length; i++) {
           for (let j = i + 1; j < i + 6 && j < pts.length; j++) {
             const a = pts[i], b = pts[j];
@@ -375,7 +520,6 @@
       raf = requestAnimationFrame(draw);
     }
 
-    // Pause FX when tab is hidden (saves CPU => better Lighthouse stability)
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
         running = false;
@@ -391,124 +535,41 @@
     window.addEventListener("resize", resize, { passive: true });
   }
 
-  // ====== Init ======
-  function init() {
+  /* ===== Year ===== */
+  function setYear() {
     const y = $("#year");
     if (y) y.textContent = String(new Date().getFullYear());
+  }
 
+  /* ===== Global click SFX attachment (safe) ===== */
+  function wireClickSfx() {
+    // Don't attach to every element (can be heavy).
+    // Attach only to key interactive UI.
+    const targets = $$(".btn, .chip, .nav__links a, .mobile__panel a");
+    targets.forEach(el => el.addEventListener("click", () => sfxClick(), { passive: true }));
+  }
+
+  /* ===== Init ===== */
+  function init() {
+    setYear();
     setEmailSlot();
     wireCopyButtons();
     wireMenu();
     initReveal();
     wireSoundButton();
 
-    // ✅ Lazy-load videos to stabilize LCP / scores
+    // HERO video: stable + mobile friendly + fallback
+    initHeroVideo();
+
+    // other videos lazy
     initLazyVideos();
 
+    // FX last (don’t compete with hero paint)
     initFX();
 
-    // Add small click SFX to key buttons (only if enabled & armed)
-    $$(".btn, .chip").forEach(el => el.addEventListener("click", () => sfxClick()));
+    // optional sfx wiring
+    wireClickSfx();
   }
 
   document.addEventListener("DOMContentLoaded", init);
 })();
-/* ===== HERO VIDEO LOAD AFTER LCP ===== */
-(function () {
-  const video = document.querySelector('.hero__video');
-  if (!video) return;
-
-  const source = video.querySelector('source[data-src]');
-  if (!source) return;
-
-  const loadVideo = () => {
-    if (source.src) return;
-    source.src = source.dataset.src;
-    video.load();
-    video.play().catch(() => {});
-    video.classList.add('is-ready');
-  };
-
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(loadVideo, { timeout: 2000 });
-  } else {
-    setTimeout(loadVideo, 2000);
-  }
-})();
-/* ===== Ensure background video plays on mobile Safari ===== */
-(() => {
-  const v = document.getElementById("bgVideo");
-  if (!v) return;
-
-  const tryPlay = () => {
-    v.play().catch(() => {});
-  };
-
-  // Try immediately
-  tryPlay();
-
-  // Also try on first user interaction (iOS/Safari)
-  const arm = () => {
-    tryPlay();
-    window.removeEventListener("touchstart", arm);
-    window.removeEventListener("click", arm);
-    window.removeEventListener("scroll", arm);
-  };
-
-  window.addEventListener("touchstart", arm, { passive: true });
-  window.addEventListener("click", arm, { passive: true });
-  window.addEventListener("scroll", arm, { passive: true });
-})();
-function initHeroVideo() {
-  const v = document.getElementById("heroVideo");
-  const btn = document.getElementById("heroPlayBtn");
-  if (!v || !btn) return;
-
-  // Respect "reduced motion" and "save-data"
-  const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const saveData = navigator.connection && navigator.connection.saveData;
-
-  // On those modes: do NOT autoplay video, keep poster only
-  if (reduceMotion || saveData) {
-    v.pause();
-    v.removeAttribute("autoplay");
-    btn.style.display = "none";
-    return;
-  }
-
-  // Only attempt to play when hero is visible (better performance)
-  const tryPlay = async () => {
-    try {
-      v.muted = true;      // REQUIRED for autoplay on most mobiles
-      v.playsInline = true;
-      const p = v.play();
-      if (p && typeof p.then === "function") await p;
-      btn.style.display = "none";
-    } catch (e) {
-      // Autoplay blocked -> show tap button
-      btn.style.display = "inline-flex";
-    }
-  };
-
-  // Tap-to-play fallback
-  btn.addEventListener("click", async () => {
-    btn.style.display = "none";
-    await tryPlay();
-  });
-
-  // Observe hero visibility
-  const io = new IntersectionObserver((entries) => {
-    const entry = entries[0];
-    if (!entry) return;
-
-    if (entry.isIntersecting) {
-      tryPlay();
-    } else {
-      // pause when user scrolls away (saves CPU/battery)
-      try { v.pause(); } catch {}
-    }
-  }, { threshold: 0.35 });
-
-  io.observe(v);
-}
-
