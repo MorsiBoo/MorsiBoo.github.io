@@ -16,6 +16,9 @@
   <link rel="canonical" href="https://brbrt.com/" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
 
+  <!-- ✅ Make LCP stable: preload ONLY the hero poster (image), NOT videos -->
+  <link rel="preload" href="assets/logo%20BRBRT.png" as="image" fetchpriority="high" />
+
   <!-- Open Graph -->
   <meta property="og:title" content="BRBRT — Strength • Dignity • Awareness" />
   <meta property="og:description" content="A community-driven meme token on BNB Chain. Transparency-first. No promises of profit. NFA." />
@@ -70,9 +73,7 @@
   }
   </script>
 
-  <!-- Preloads -->
-  <link rel="preload" href="assets/hero-web.mp4" as="video" type="video/mp4" />
-  <link rel="preload" href="assets/logo-web.mp4" as="video" type="video/mp4" />
+  <!-- ✅ Keep CSS preload (good) -->
   <link rel="preload" href="style.css" as="style" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -96,9 +97,9 @@
         <a href="#roadmap">Roadmap</a>
         <a href="whitepaper.html">Whitepaper</a>
         <a href="association.html">Association</a>
-        <a href="https://x.com/_BRBRT_" target="_blank" rel="noreferrer">X</a>
-        <a href="https://www.instagram.com/_brbrt_/" target="_blank" rel="noreferrer">Instagram</a>
-        <a class="pill" href="https://linktr.ee/BRBRT" target="_blank" rel="noreferrer">Linktree</a>
+        <a href="https://x.com/_BRBRT_" target="_blank" rel="noopener noreferrer">X</a>
+        <a href="https://www.instagram.com/_brbrt_/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a class="pill" href="https://linktr.ee/BRBRT" target="_blank" rel="noopener noreferrer">Linktree</a>
       </nav>
 
       <div class="nav__actions">
@@ -128,9 +129,9 @@
         <a href="association.html">Association</a>
         <a class="mobile__cta" href="#buy">How to Buy</a>
 
-        <a href="https://x.com/_BRBRT_" target="_blank" rel="noreferrer" class="drawerLink">X (Twitter)</a>
-        <a href="https://www.instagram.com/_brbrt_/" target="_blank" rel="noreferrer" class="drawerLink">Instagram</a>
-        <a href="https://linktr.ee/BRBRT" target="_blank" rel="noreferrer" class="drawerLink">Linktree</a>
+        <a href="https://x.com/_BRBRT_" target="_blank" rel="noopener noreferrer" class="drawerLink">X (Twitter)</a>
+        <a href="https://www.instagram.com/_brbrt_/" target="_blank" rel="noopener noreferrer" class="drawerLink">Instagram</a>
+        <a href="https://linktr.ee/BRBRT" target="_blank" rel="noopener noreferrer" class="drawerLink">Linktree</a>
         <a href="mailto:contact@brbrt.com" class="drawerLink">contact@brbrt.com</a>
       </div>
     </div>
@@ -139,9 +140,12 @@
   <!-- HERO -->
   <main id="top">
     <section class="hero">
-      <video class="hero__video" autoplay muted playsinline loop preload="metadata" poster="assets/logo%20BRBRT.png">
-        <source src="assets/hero-web.mp4" type="video/mp4" />
+      <!-- ✅ LCP-safe: poster loads fast, video loads later (lazy via script.js) -->
+      <video class="hero__video" autoplay muted playsinline loop preload="none" poster="assets/logo%20BRBRT.png">
+        <!-- IMPORTANT: data-src (not src) for your lazy-video script -->
+        <source data-src="assets/hero-web.mp4" type="video/mp4" />
       </video>
+
       <div class="hero__overlay"></div>
 
       <div class="hero__inner">
@@ -162,11 +166,11 @@
         </p>
 
         <div class="hero__cta reveal">
-          <a class="btn btn--primary" href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc" target="_blank" rel="noopener">
+          <a class="btn btn--primary" href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc" target="_blank" rel="noopener noreferrer">
             Buy on PancakeSwap
             <span class="btn__icon" aria-hidden="true">↗</span>
           </a>
-          <a class="btn btn--ghost" href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener">
+          <a class="btn btn--ghost" href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener noreferrer">
             View on BscScan
             <span class="btn__icon" aria-hidden="true">↗</span>
           </a>
@@ -188,7 +192,7 @@
           <div class="metaCard">
             <div class="metaCard__label">Links</div>
             <div class="metaCard__value">
-              <a href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">linktr.ee/BRBRT</a>
+              <a href="https://linktr.ee/BRBRT" target="_blank" rel="noopener noreferrer">linktr.ee/BRBRT</a>
             </div>
           </div>
         </div>
@@ -246,7 +250,7 @@
             </p>
 
             <div class="stack">
-              <a class="btn btn--primary" href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">
+              <a class="btn btn--primary" href="https://linktr.ee/BRBRT" target="_blank" rel="noopener noreferrer">
                 Official Links
                 <span class="btn__icon" aria-hidden="true">↗</span>
               </a>
@@ -256,8 +260,9 @@
 
           <div class="split__right reveal">
             <div class="mediaFrame">
-              <video class="logoVideo" autoplay muted playsinline loop preload="metadata">
-                <source src="assets/logo-web.mp4" type="video/mp4" />
+              <!-- ✅ Below fold: lazy-load + preload none -->
+              <video class="logoVideo" autoplay muted playsinline loop preload="none">
+                <source data-src="assets/logo-web.mp4" type="video/mp4" />
               </video>
               <div class="mediaFrame__glow"></div>
               <div class="mediaFrame__badge mono">BRBRT • BNB Chain</div>
@@ -266,6 +271,9 @@
         </div>
       </div>
     </section>
+
+    <!-- (le reste de ton HTML ne change pas) -->
+    <!-- TOKEN / TRANSPARENCY / ROADMAP / BUY / FOOTER identiques à ton code -->
 
     <!-- TOKEN -->
     <section id="token" class="section">
@@ -285,15 +293,15 @@
               </li>
               <li>
                 <span>PancakeSwap</span>
-                <a class="chip" href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc" target="_blank" rel="noopener">Buy ↗</a>
+                <a class="chip" href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc" target="_blank" rel="noopener noreferrer">Buy ↗</a>
               </li>
               <li>
                 <span>BscScan</span>
-                <a class="chip" href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener">Explorer ↗</a>
+                <a class="chip" href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener noreferrer">Explorer ↗</a>
               </li>
               <li>
                 <span>Linktree</span>
-                <a class="chip" href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">linktr.ee/BRBRT ↗</a>
+                <a class="chip" href="https://linktr.ee/BRBRT" target="_blank" rel="noopener noreferrer">linktr.ee/BRBRT ↗</a>
               </li>
             </ul>
           </div>
@@ -325,7 +333,7 @@
           <div class="card reveal">
             <h3>Ownership</h3>
             <p>Ownership has been renounced on-chain.</p>
-            <a class="chip" href="https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1#readContract" target="_blank" rel="noopener">
+            <a class="chip" href="https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1#readContract" target="_blank" rel="noopener noreferrer">
               Verify owner() ↗
             </a>
           </div>
@@ -336,7 +344,7 @@
               Locked: 279,897.5221 BRBR<br>
               Unlock: 2030-01-01 (UTC)
             </p>
-            <a class="chip" href="https://www.pinksale.finance/pinklock/bsc/record/1437018" target="_blank" rel="noopener">
+            <a class="chip" href="https://www.pinksale.finance/pinklock/bsc/record/1437018" target="_blank" rel="noopener noreferrer">
               View lock record ↗
             </a>
           </div>
@@ -419,12 +427,12 @@
           <div class="card reveal">
             <h3>2) Open PancakeSwap</h3>
             <p>Use the official link below.</p>
-            <a class="chip" href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc" target="_blank" rel="noopener">Swap ↗</a>
+            <a class="chip" href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc" target="_blank" rel="noopener noreferrer">Swap ↗</a>
           </div>
           <div class="card reveal">
             <h3>3) Verify</h3>
             <p>Confirm the contract address on BscScan.</p>
-            <a class="chip" href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener">Explorer ↗</a>
+            <a class="chip" href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener noreferrer">Explorer ↗</a>
           </div>
         </div>
 
@@ -455,26 +463,8 @@
 
         <div class="footer__right">
           <div class="footer__links">
-            <a href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener">BscScan</a>
-            <a href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc" target="_blank" rel="noopener">PancakeSwap</a>
-            <a href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">Linktree</a>
-            <a href="https://x.com/_BRBRT_" target="_blank" rel="noreferrer">X</a>
-            <a href="https://www.instagram.com/_brbrt_/" target="_blank" rel="noreferrer">Instagram</a>
-          </div>
-
-          <div class="footer__legal">
-            <a href="privacy.html">Privacy</a>
-            <a href="terms.html">Terms</a>
-          </div>
-
-          <button class="btn btn--ghost btn--small" id="copyEmailFooter" type="button">
-            contact@brbrt.com ⧉
-          </button>
-        </div>
-      </div>
-    </footer>
-  </main>
-
-  <script src="script.js" defer></script>
-</body>
-</html>
+            <a href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener noreferrer">BscScan</a>
+            <a href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc" target="_blank" rel="noopener noreferrer">PancakeSwap</a>
+            <a href="https://linktr.ee/BRBRT" target="_blank" rel="noopener noreferrer">Linktree</a>
+            <a href="https://x.com/_BRBRT_" target="_blank" rel="noopener noreferrer">X</a>
+            <a
