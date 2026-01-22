@@ -459,4 +459,56 @@
   window.addEventListener("click", arm, { passive: true });
   window.addEventListener("scroll", arm, { passive: true });
 })();
+function initHeroVideo() {
+  const v = document.getElementById("heroVideo");
+  const btn = document.getElementById("heroPlayBtn");
+  if (!v || !btn) return;
+
+  // Respect "reduced motion" and "save-data"
+  const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const saveData = navigator.connection && navigator.connection.saveData;
+
+  // On those modes: do NOT autoplay video, keep poster only
+  if (reduceMotion || saveData) {
+    v.pause();
+    v.removeAttribute("autoplay");
+    btn.style.display = "none";
+    return;
+  }
+
+  // Only attempt to play when hero is visible (better performance)
+  const tryPlay = async () => {
+    try {
+      v.muted = true;      // REQUIRED for autoplay on most mobiles
+      v.playsInline = true;
+      const p = v.play();
+      if (p && typeof p.then === "function") await p;
+      btn.style.display = "none";
+    } catch (e) {
+      // Autoplay blocked -> show tap button
+      btn.style.display = "inline-flex";
+    }
+  };
+
+  // Tap-to-play fallback
+  btn.addEventListener("click", async () => {
+    btn.style.display = "none";
+    await tryPlay();
+  });
+
+  // Observe hero visibility
+  const io = new IntersectionObserver((entries) => {
+    const entry = entries[0];
+    if (!entry) return;
+
+    if (entry.isIntersecting) {
+      tryPlay();
+    } else {
+      // pause when user scrolls away (saves CPU/battery)
+      try { v.pause(); } catch {}
+    }
+  }, { threshold: 0.35 });
+
+  io.observe(v);
+}
 
