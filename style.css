@@ -576,5 +576,47 @@ body {
   height: auto;
   border-radius: 18px;
 }
+/* ===== HERO video full background (mobile + desktop) ===== */
+.hero{
+  position: relative;
+  min-height: 100svh; /* better on mobile than 100vh */
+  overflow: hidden;
+}
+
+.hero__video{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translateZ(0);
+}
+
+.hero__overlay{
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Tap-to-play overlay (only shown if autoplay fails) */
+.hero__tap{
+  position: absolute;
+  left: 50%;
+  top: 72%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(0,0,0,.45);
+  color: rgba(255,255,255,.92);
+  backdrop-filter: blur(10px);
+  display: none;
+}
+
+/* On small screens, place the button a bit higher */
+@media (max-width: 480px){
+  .hero__tap{ top: 68%; }
+}
 
 
