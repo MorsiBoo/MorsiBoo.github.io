@@ -566,3 +566,65 @@ button{ font-family:inherit; }
   .hero__chev{ animation:none; }
   #fx{ display:none; }
 }
+/* ===== Roadmap Cinematic Background (performance-safe) ===== */
+.section--videoBg{
+  position: relative;
+  overflow: hidden;
+  isolation: isolate; /* keeps overlays clean */
+}
+
+.section--videoBg .container{
+  position: relative;
+  z-index: 2;
+}
+
+/* background wrapper */
+.sectionBg{
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* video covers entire section */
+.sectionBg__video{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .62;
+  filter: saturate(1.12) contrast(1.08);
+  transform: scale(1.03);
+}
+
+/* cinematic overlay for readability */
+.sectionBg__overlay{
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(900px 520px at 20% 20%, rgba(40,255,180,.16), transparent 60%),
+    radial-gradient(900px 520px at 70% 80%, rgba(0,209,140,.10), transparent 60%),
+    linear-gradient(180deg, rgba(5,9,10,.80), rgba(5,9,10,.68) 40%, rgba(5,9,10,.86));
+}
+
+/* subtle grid (web3 feel) */
+.sectionBg__grid{
+  position: absolute;
+  inset: 0;
+  opacity: .28;
+  background-image:
+    linear-gradient(rgba(40,255,180,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(40,255,180,.08) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: radial-gradient(circle at 50% 40%, rgba(0,0,0,.9), transparent 70%);
+}
+
+/* Reduced motion / Save Data: use poster only (no video) */
+@media (prefers-reduced-motion: reduce){
+  .sectionBg__video{ display:none !important; }
+  .sectionBg{
+    background: url("assets/roadmap-bg.webp") center/cover no-repeat;
+  }
+}
+
