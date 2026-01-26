@@ -491,3 +491,24 @@
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+<script>
+  (function(){
+    const el = document.querySelectorAll(".rm__card");
+    if(!("IntersectionObserver" in window) || !el.length) return;
+
+    el.forEach(c => { c.style.opacity = "0"; c.style.transform = "translateY(10px)"; });
+
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.style.transition = "opacity .35s ease, transform .35s ease";
+          e.target.style.opacity = "1";
+          e.target.style.transform = "translateY(0)";
+          io.unobserve(e.target);
+        }
+      });
+    }, {threshold: 0.12});
+
+    el.forEach(c=>io.observe(c));
+  })();
+</script>
