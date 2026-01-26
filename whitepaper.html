@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>BRBRT — Official Token Supply & Transparency Statement</title>
-  <meta name="description" content="BRBRT official token supply & transparency statement. Fixed supply, transparent allocations, on-chain lock record, exchange listing review pack." />
+  <title>BRBRT — Token Supply & Transparency Statement (Official)</title>
+  <meta name="description" content="BRBRT official Token Supply & Transparency Statement. Fixed supply proof, allocations, PinkLock record, contract disclosure, and CEX transparency pack." />
   <meta name="robots" content="index,follow,max-image-preview:large" />
 
   <style>
@@ -17,7 +17,7 @@
       --muted: rgba(255,255,255,.74);
       --faint: rgba(255,255,255,.56);
       --line: rgba(255,255,255,.12);
-      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --shadow: 0 18px 55px rgba(0,0,0,.48);
       --shadow2: 0 10px 26px rgba(0,0,0,.28);
       --radius: 18px;
       --radius2: 26px;
@@ -25,17 +25,19 @@
 
       --accent: #19d38b;
       --cyan: #22c7ff;
+      --danger:#ff4b4b;
+      --warn:#ffb020;
 
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
 
-      /* Exchange-grade chart palette (high contrast on dark) */
-      --c-locked:#19d38b;       /* green */
-      --c-liquidity:#22c7ff;    /* cyan */
-      --c-infra:#8a7dff;        /* violet */
-      --c-marketing:#ffb020;    /* amber */
-      --c-team:#ff5ad6;         /* pink */
-      --c-public:#eef3fb;       /* off-white */
+      /* chart palette */
+      --c-locked:#19d38b;
+      --c-liquidity:#22c7ff;
+      --c-infra:#8a7dff;
+      --c-marketing:#ffb020;
+      --c-team:#ff5ad6;
+      --c-public:#eef3fb;
     }
 
     *{box-sizing:border-box}
@@ -47,15 +49,14 @@
       line-height:1.55;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
-      background: radial-gradient(1100px 700px at 18% 10%, rgba(25,211,139,.15), transparent 55%),
-                  radial-gradient(1000px 650px at 82% 20%, rgba(34,199,255,.12), transparent 55%),
-                  radial-gradient(900px 700px at 50% 110%, rgba(255,255,255,.06), transparent 55%),
-                  linear-gradient(180deg, var(--bg0), var(--bg1));
+      background:
+        radial-gradient(1200px 720px at 14% 12%, rgba(25,211,139,.16), transparent 60%),
+        radial-gradient(1100px 700px at 86% 18%, rgba(34,199,255,.12), transparent 58%),
+        radial-gradient(1000px 780px at 50% 110%, rgba(255,255,255,.06), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
       position:relative;
       overflow-x:hidden;
     }
-
-    /* Subtle noise overlay (smooth, premium) */
     body:before{
       content:"";
       position:fixed;
@@ -68,14 +69,14 @@
 
     a{color:var(--text); text-decoration:none}
     a:hover{text-decoration:underline; opacity:.92}
-    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 64px}
+
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 70px}
     .mono{font-family:var(--mono)}
     .muted{color:var(--muted)}
     .faint{color:var(--faint)}
     .small{font-size:12px; color:var(--faint)}
     .divider{height:1px; background:var(--line); margin:14px 0}
 
-    /* Sticky top bar (exchange-friendly navigation) */
     .topbar{
       position:sticky;
       top:0;
@@ -148,8 +149,8 @@
       content:"";
       position:absolute; inset:-2px;
       background:
-        radial-gradient(620px 320px at 18% 0%, rgba(25,211,139,.20), transparent 60%),
-        radial-gradient(580px 320px at 92% 45%, rgba(34,199,255,.13), transparent 65%);
+        radial-gradient(680px 340px at 18% 0%, rgba(25,211,139,.20), transparent 62%),
+        radial-gradient(620px 340px at 92% 45%, rgba(34,199,255,.14), transparent 66%);
       pointer-events:none;
     }
     header > *{position:relative}
@@ -179,7 +180,7 @@
     .sub{
       margin:0 0 14px;
       color:var(--muted);
-      max-width: 86ch;
+      max-width: 92ch;
     }
     .meta{
       display:flex; gap:10px; flex-wrap:wrap;
@@ -262,6 +263,7 @@
       margin-top:6px;
       line-height:1;
     }
+
     .ok{
       display:flex;
       gap:10px;
@@ -295,7 +297,6 @@
     }
     .row strong{color:var(--text); font-weight:800}
 
-    /* Strong info boxes */
     .note{
       border:1px solid rgba(255,255,255,.12);
       background: rgba(0,0,0,.18);
@@ -305,15 +306,19 @@
     }
     .note strong{color:var(--text)}
     .danger{
-      border-color: rgba(255,90,95,.35);
-      background: rgba(255,90,95,.08);
+      border-color: rgba(255,75,75,.35);
+      background: rgba(255,75,75,.08);
+    }
+    .warning{
+      border-color: rgba(255,176,32,.35);
+      background: rgba(255,176,32,.08);
     }
     .success{
       border-color: rgba(25,211,139,.30);
       background: rgba(25,211,139,.08);
     }
 
-    /* Tables (exchange-style) */
+    /* tables */
     table{
       width:100%;
       border-collapse:separate;
@@ -340,10 +345,63 @@
     }
     tr:last-child td{border-bottom:none}
 
+    /* contract disclosure block */
+    .monoBox{
+      margin-top:10px;
+      padding:10px 12px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:14px;
+      background:rgba(0,0,0,.18);
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .addr{
+      font-family:var(--mono);
+      font-size:13px;
+      word-break:break-all;
+      color:rgba(255,255,255,.92);
+      flex:1 1 auto;
+      min-width:240px;
+    }
+    .miniBtn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      font-size:12px;
+      color:var(--text);
+      white-space:nowrap;
+      cursor:pointer;
+      user-select:none;
+    }
+    .miniBtn:hover{opacity:.95}
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:20px;
+      transform:translateX(-50%);
+      background: rgba(0,0,0,.72);
+      border:1px solid rgba(255,255,255,.14);
+      padding:10px 12px;
+      border-radius:14px;
+      box-shadow: var(--shadow2);
+      color: rgba(255,255,255,.92);
+      font-size:13px;
+      display:none;
+      z-index:999;
+      backdrop-filter: blur(10px);
+    }
+
     /* Allocation (chart + legend) */
     .alloc{
       display:grid;
-      grid-template-columns: 520px 1fr;
+      grid-template-columns: 1fr 1fr;
       gap: 16px;
       align-items: start;
     }
@@ -357,6 +415,7 @@
       background: rgba(0,0,0,.18);
       box-shadow: var(--shadow2);
       padding: 14px;
+      overflow:hidden;
     }
     .chartTop{
       display:flex; align-items:center; justify-content:space-between;
@@ -380,18 +439,18 @@
     }
 
     #allocSvg{width:100%; height:auto; display:block}
+
     .slice{
       stroke: rgba(0,0,0,.35);
       stroke-width: 2;
       filter: drop-shadow(0 10px 18px rgba(0,0,0,.30));
       transition: transform .18s ease, opacity .18s ease;
-      transform-origin: 260px 260px;
+      transform-origin: 380px 260px;
     }
     .slice:hover{transform: scale(1.01); opacity:.98}
 
-    /* label callouts */
-    .call-line{stroke: rgba(255,255,255,.55); stroke-width:2}
-    .call-dot{fill: rgba(255,255,255,.9)}
+    .call-line{stroke: rgba(255,255,255,.58); stroke-width:2}
+    .call-dot{fill: rgba(255,255,255,.92)}
     .call-box{
       fill: rgba(0,0,0,.55);
       stroke: rgba(255,255,255,.14);
@@ -494,7 +553,7 @@
     }
     .cta:hover{text-decoration:none; opacity:.96}
 
-    /* Print/PDF: cleaner background, solid text */
+    /* print */
     @media print{
       body{background:#fff !important; color:#000 !important}
       body:before{display:none !important}
@@ -505,23 +564,25 @@
       .muted,.faint,.small{color:#333 !important}
       .big{color:#000 !important}
       .cta{display:none !important}
+      .toast{display:none !important}
     }
   </style>
 </head>
 
 <body>
+  <div class="toast" id="toast">Copied</div>
 
   <!-- Sticky Topbar -->
   <div class="topbar">
     <div class="topbar-inner">
       <div class="brand">
         <span class="brand-badge" aria-hidden="true"></span>
-        <div class="brand-title">BRBRT — Official Transparency</div>
+        <div class="brand-title">BRBRT — Official Transparency (BRBRT-DOC-2026)</div>
       </div>
       <div class="top-actions">
-        <a class="btn" href="#exchange-pack">Exchange Pack</a>
+        <a class="btn" href="#contract">Contract</a>
         <a class="btn" href="#allocation">Allocation</a>
-        <a class="btn primary" href="#onchain">On-chain Proof</a>
+        <a class="btn primary" href="#cex">CEX Pack</a>
       </div>
     </div>
   </div>
@@ -536,116 +597,162 @@
 
       <h1>Token Supply &amp; Transparency Statement</h1>
       <p class="sub">
-        Issued by <strong>BRBRT Team</strong> — Official supply clarity, allocations, and on-chain verification references for listing due diligence.
+        Issued by <strong>BRBRT Team</strong> — Official, on-chain supply clarity and allocation structure (Institutional-grade summary for exchange due diligence).
       </p>
 
       <div class="meta">
         <span>Date: <code>23/01/2026</code></span>
         <span>Document Ref: <code>BRBRT-DOC-2026</code></span>
         <span>Status: <code>Official</code></span>
+        <span>Contact: <code><a href="mailto:contact@brbrt.com">contact@brbrt.com</a></code></span>
       </div>
 
       <div class="nav" aria-label="On-page navigation">
-        <a href="#summary">Executive Summary</a>
-        <a href="#token">Token Overview</a>
-        <a href="#allocation">Allocation</a>
-        <a href="#onchain">Locks &amp; Proof</a>
-        <a href="#security">Security</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#exchange-pack">Exchange Pack</a>
+        <a href="#facts">Supply Facts</a>
+        <a href="#contract">Contract Disclosure</a>
+        <a href="#control">Project Control</a>
+        <a href="#allocation">Supply Transparency</a>
+        <a href="#locked">Locked Tokens</a>
+        <a href="#liquidity">Listings &amp; Liquidity</a>
+        <a href="#guarantees">Guarantees</a>
+        <a href="#roadmap">Vision &amp; Roadmap</a>
+        <a href="#cex">CEX Transparency Pack</a>
       </div>
     </header>
 
-    <!-- Executive Summary -->
-    <section id="summary" class="grid" aria-label="Executive Summary">
-      <div class="card span-12">
-        <div class="label">Executive Summary</div>
-        <p style="margin-top:8px">
-          This page is the official transparency statement for <strong>$BRBRT</strong>. It provides a fixed supply overview, allocation structure, on-chain lock reference, and operational notes required for exchange listing reviews.
-        </p>
-        <div class="divider"></div>
-        <div class="grid" style="margin-top:0">
-          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <div class="label">Supply</div>
-            <div class="big">1,000,000</div>
-            <div class="small">Max Supply / Total Supply (Fixed)</div>
-          </div>
-          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <div class="label">Project Controlled</div>
-            <div class="big">74.6%</div>
-            <div class="small">Structured allocation &amp; milestone-based execution</div>
-          </div>
-          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <div class="label">Locked</div>
-            <div class="big">27.99%</div>
-            <div class="small">On-chain PinkLock V2 record provided below</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Token Overview -->
-    <section id="token" class="grid" aria-label="Token Overview">
+    <!-- Supply Facts -->
+    <section id="facts" class="grid" aria-label="Supply Facts">
       <div class="card span-6">
-        <div class="label">Token Overview</div>
-        <div class="row"><span>Token Name</span><strong>BRBRT</strong></div>
-        <div class="row"><span>Ticker</span><strong>$BRBRT</strong></div>
-        <div class="row"><span>Total Supply</span><strong class="mono">1,000,000</strong></div>
+        <div class="label">Supply Facts — Non-Negotiable</div>
         <div class="row"><span>Max Supply</span><strong class="mono">1,000,000</strong></div>
+        <div class="row"><span>Total Supply</span><strong class="mono">1,000,000</strong></div>
         <div class="divider"></div>
         <div class="note success">
-          <strong>Policy:</strong> No financial profit promises. This is a transparency and structure document for on-chain verifiability.
+          <strong>The supply cannot increase.</strong> Everything is on-chain.
         </div>
       </div>
 
       <div class="card span-6">
         <div class="label">Security Protocol</div>
         <div class="ok"><span class="tick">✓</span>
-          <div><strong>Minting Disabled</strong><br/><span class="small">Supply cannot increase.</span></div>
+          <div><strong>Minting Disabled</strong><br/><span class="small">Functionality permanently removed.</span></div>
         </div>
         <div class="ok"><span class="tick">✓</span>
-          <div><strong>No Hidden Supply</strong><br/><span class="small">Allocations are defined and auditable.</span></div>
+          <div><strong>No Hidden Supply</strong><br/><span class="small">100% visible on explorer.</span></div>
         </div>
         <div class="ok"><span class="tick">✓</span>
-          <div><strong>No Proxy / Upgrades</strong><br/><span class="small">Immutable logic (as declared in the official statement).</span></div>
+          <div><strong>No Proxy / Upgrades</strong><br/><span class="small">Contract logic is immutable.</span></div>
         </div>
+      </div>
+    </section>
+
+    <!-- Contract Disclosure -->
+    <section id="contract" class="grid" aria-label="Contract Disclosure">
+      <div class="card span-12">
+        <h2>Contract Disclosure (Exchange-Ready)</h2>
+        <p class="small" style="margin:0">
+          Official references to the contract and security scanning resources for due diligence.
+        </p>
         <div class="divider"></div>
+
         <div class="note">
-          <strong>Contract Address:</strong>
-          <div class="small" style="margin-top:6px">
-            Add it here once you paste it (do not leave blank for exchanges).
+          <div class="label">Contract Address (BSC)</div>
+          <div class="monoBox">
+            <div class="addr" id="addr">0xf97522ABEf762d28729E073019343b72C6e8D2C1</div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <button class="miniBtn" type="button" onclick="copyText('0xf97522ABEf762d28729E073019343b72C6e8D2C1')">Copy Address</button>
+              <a class="miniBtn" href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1#tokenInfo" target="_blank" rel="noopener noreferrer">Open BscScan</a>
+              <a class="miniBtn" href="https://solidityscan.com/quickscan/0xf97522abef762d28729e073019343b72c6e8d2c1/bscscan/mainnet?ref=etherscan" target="_blank" rel="noopener noreferrer">Open SolidityScan</a>
+            </div>
           </div>
-          <div class="mono" style="margin-top:10px; padding:10px 12px; border:1px solid rgba(255,255,255,.12); border-radius:14px; background:rgba(0,0,0,.18)">
-            0x............................................
+          <div class="small" style="margin-top:10px">
+            Contact: <a href="mailto:contact@brbrt.com">contact@brbrt.com</a>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="grid" style="margin-top:0">
+          <div class="card span-6" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <div class="label">Security Disclosure</div>
+            <ul class="list">
+              <li><strong>Explorer Proof:</strong> Token information is publicly verifiable on BscScan.</li>
+              <li><strong>Automated Scan:</strong> SolidityScan quickscan report link provided for transparency.</li>
+              <li><strong>On-chain Review:</strong> Supply & transfers are traceable on-chain (no hidden supply claims).</li>
+            </ul>
+            <div class="note warning" style="margin-top:12px">
+              <strong>Important:</strong> Automated scans are informational. Exchanges may run internal audits and additional checks.
+            </div>
+          </div>
+
+          <div class="card span-6" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <div class="label">Official Links</div>
+            <div class="row">
+              <span>BscScan Token Info</span>
+              <strong><a href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1#tokenInfo" target="_blank" rel="noopener noreferrer">Open</a></strong>
+            </div>
+            <div class="row">
+              <span>SolidityScan Quickscan</span>
+              <strong><a href="https://solidityscan.com/quickscan/0xf97522abef762d28729e073019343b72c6e8d2c1/bscscan/mainnet?ref=etherscan" target="_blank" rel="noopener noreferrer">Open</a></strong>
+            </div>
+            <div class="row">
+              <span>Official Contact</span>
+              <strong><a href="mailto:contact@brbrt.com">contact@brbrt.com</a></strong>
+            </div>
+            <div class="row">
+              <span>Official Website</span>
+              <strong><a href="https://brbrt.com" target="_blank" rel="noopener noreferrer">brbrt.com</a></strong>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Allocation -->
-    <section id="allocation" class="grid" aria-label="Allocation">
+    <!-- Project Control Overview -->
+    <section id="control" class="grid" aria-label="Project Control Overview">
       <div class="card span-12">
-        <h2>Allocation Structure</h2>
+        <div class="label">Project Control Overview</div>
+        <div class="grid" style="margin-top:10px">
+          <div class="card span-5" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <div class="big">74.6%</div>
+            <div class="small" style="letter-spacing:.12em; text-transform:uppercase;">Controlled by Project</div>
+          </div>
+          <div class="card span-7" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <h2 style="margin:0 0 10px">Fully transparent and publicly traceable.</h2>
+            <ul class="list">
+              <li><strong>Structured for Stability</strong> — No random dumps.</li>
+              <li><strong>Responsible Growth</strong> — Aligned with adoption.</li>
+              <li><strong>Roadmap Alignment</strong> — Unlocked only for milestones.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Supply Transparency Summary + Chart -->
+    <section id="allocation" class="grid" aria-label="Supply Transparency Summary">
+      <div class="card span-12">
+        <h2>Supply Transparency Summary</h2>
         <p class="small" style="margin:0">
-          The chart and table below are the official supply breakdown (Total supply: <strong>1,000,000 BRBRT</strong>).
+          Total Supply: <strong>1,000,000 BRBRT</strong>. Labels are shown as callouts (name + percentage) for maximum readability, including small allocations.
         </p>
         <div class="divider"></div>
 
         <div class="alloc">
           <!-- Chart -->
-          <div class="chartBox" aria-label="Allocation Chart Box">
+          <div class="chartBox">
             <div class="chartTop">
-              <div class="title">Allocation Donut (Labeled)</div>
-              <div class="badge">Hover slices • Labels auto-arranged</div>
+              <div class="title">Allocation Donut (Clear Labels)</div>
+              <div class="badge">No clipped labels • Callouts inside canvas</div>
             </div>
-            <svg id="allocSvg" viewBox="0 0 520 520" role="img" aria-label="Allocation donut chart"></svg>
+            <svg id="allocSvg" viewBox="0 0 760 520" role="img" aria-label="Allocation donut chart"></svg>
             <div class="small" style="margin-top:10px">
-              Labels are placed as callouts for maximum readability (including small allocations).
+              If you export to PDF, the chart remains sharp (SVG).
             </div>
           </div>
 
-          <!-- Legend -->
-          <div class="legend" aria-label="Allocation Legend">
+          <!-- Legend (official naming) -->
+          <div class="legend">
             <div class="legItem">
               <div class="legLeft">
                 <span class="swatch" style="background:var(--c-locked)"></span>
@@ -672,7 +779,7 @@
               <div class="legLeft">
                 <span class="swatch" style="background:var(--c-infra)"></span>
                 <div>
-                  <div class="legName">Infrastructure &amp; Development</div>
+                  <div class="legName">Infrastructure</div>
                   <div class="legDesc">Supportive web, content systems, future game (future launch).</div>
                 </div>
               </div>
@@ -684,7 +791,7 @@
                 <span class="swatch" style="background:var(--c-marketing)"></span>
                 <div>
                   <div class="legName">Marketing</div>
-                  <div class="legDesc">Education, awareness, partnerships, growth initiatives.</div>
+                  <div class="legDesc">Educational campaigns, partnerships, growth initiatives.</div>
                 </div>
               </div>
               <div class="legPct">5.00%</div>
@@ -695,7 +802,7 @@
                 <span class="swatch" style="background:var(--c-team)"></span>
                 <div>
                   <div class="legName">Team / DAO</div>
-                  <div class="legDesc">Long-term incentives, DAO experimentation, governance.</div>
+                  <div class="legDesc">Long-term incentives, DAO experimentation phase, governance.</div>
                 </div>
               </div>
               <div class="legPct">3.66%</div>
@@ -716,7 +823,7 @@
 
         <div class="divider"></div>
 
-        <h2 style="margin-top:2px">Supply Transparency Table</h2>
+        <h2 style="margin-top:2px">Allocation Table (Auditable)</h2>
         <table aria-label="Supply Transparency Table">
           <thead>
             <tr>
@@ -729,12 +836,12 @@
             <tr>
               <td>Locked (PinkLock V2)</td>
               <td class="mono">27.99%</td>
-              <td>On-chain secured lock (team cannot move/sell).</td>
+              <td>Tokens are mathematically locked and cannot be moved or sold by the team.</td>
             </tr>
             <tr>
               <td>Listings &amp; Liquidity</td>
               <td class="mono">27.99%</td>
-              <td>Reserved for CEX / market making / order book stability.</td>
+              <td>Reserved exclusively for CEX, market making, order book stability.</td>
             </tr>
             <tr>
               <td>Infrastructure &amp; Development</td>
@@ -744,12 +851,12 @@
             <tr>
               <td>Marketing</td>
               <td class="mono">5.00%</td>
-              <td>Education, awareness, partnerships, growth initiatives.</td>
+              <td>Awareness (ethics), partnerships, growth.</td>
             </tr>
             <tr>
               <td>Team / DAO</td>
               <td class="mono">3.66%</td>
-              <td>Long-term incentives, DAO experimentation, community governance.</td>
+              <td>Long-term team incentives, DAO experimentation phase, community-guided decisions.</td>
             </tr>
             <tr>
               <td>Public / Circulating</td>
@@ -758,61 +865,133 @@
             </tr>
           </tbody>
         </table>
-
-        <div class="divider"></div>
-        <div class="note">
-          <strong>Project Control Overview:</strong> shown as <strong>74.6%</strong> in the official overview (structured allocation and milestone-based distribution).
-        </div>
       </div>
     </section>
 
-    <!-- On-chain Locks & Proof -->
-    <section id="onchain" class="grid" aria-label="On-chain Proof">
-      <div class="card span-6">
-        <h2>Locked Tokens</h2>
-        <div class="row"><span>Locked Allocation</span><strong>27.99%</strong></div>
-        <div class="row"><span>Platform</span><strong>PinkLock V2</strong></div>
-        <div class="divider"></div>
-        <div class="note success">
-          <strong>Statement:</strong> Tokens are mathematically locked and cannot be moved or sold by the team.
-        </div>
-        <ul class="list">
-          <li>Holder Protection</li>
-          <li>Supply Stability</li>
-          <li>Long-term Commitment</li>
-        </ul>
-      </div>
-
-      <div class="card span-6">
-        <h2>On-chain Lock Record</h2>
-        <p class="small" style="margin:0">Direct verification link (clickable):</p>
-        <div class="divider"></div>
-        <div class="note">
-          <div class="label">Record</div>
-          <div class="mono" style="margin-top:8px; word-break:break-word; font-size:13px">
-            <a href="https://pinksale.finance/pinklock/bsc/record/1437618" target="_blank" rel="noopener noreferrer">
-              https://pinksale.finance/pinklock/bsc/record/1437618
-            </a>
-          </div>
-          <div class="small" style="margin-top:10px">
-            If your exchange requires screenshots: open the record link and export a PDF.
-          </div>
-        </div>
-
-        <div class="divider"></div>
-        <div class="note danger">
-          <strong>Exchange Note:</strong> do not submit for listing without adding the contract address and explorer link in the Token Overview section.
-        </div>
-      </div>
-    </section>
-
-    <!-- Security -->
-    <section id="security" class="grid" aria-label="Security">
+    <!-- Locked Tokens -->
+    <section id="locked" class="grid" aria-label="Locked Tokens">
       <div class="card span-12">
-        <h2>Security &amp; Operational Guarantees</h2>
-        <div class="divider"></div>
         <div class="grid" style="margin-top:0">
+          <div class="card span-5" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <div class="label">Locked Tokens</div>
+            <div class="big">27.99%</div>
+            <div class="small">On-chain secured — Platform: <span class="mono">PinkLock V2</span></div>
+          </div>
+
+          <div class="card span-7" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <div class="label">Verification Record</div>
+            <p style="margin-top:8px" class="muted">Tokens are mathematically locked and cannot be moved or sold by the team.</p>
+            <div class="monoBox" style="margin-top:12px">
+              <div class="addr">https://pinksale.finance/pinklock/bsc/record/1437018</div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <button class="miniBtn" type="button" onclick="copyText('https://pinksale.finance/pinklock/bsc/record/1437018')">Copy Link</button>
+                <a class="miniBtn" href="https://pinksale.finance/pinklock/bsc/record/1437018" target="_blank" rel="noopener noreferrer">Open Record</a>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <ul class="list">
+              <li>Holder Protection</li>
+              <li>Supply Stability</li>
+              <li>Long-term Commitment</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Listings & Liquidity -->
+    <section id="liquidity" class="grid" aria-label="Listings and Liquidity">
+      <div class="card span-12">
+        <div class="label">Listings &amp; Liquidity</div>
+        <div class="grid" style="margin-top:10px">
           <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <h2>Purpose (27.99%)</h2>
+            <p class="muted">Reserved exclusively for:</p>
+            <ul class="list">
+              <li>Centralized Exchanges (CEX)</li>
+              <li>Market Making</li>
+              <li>Order Book Stability</li>
+            </ul>
+          </div>
+
+          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <h2>Deployment</h2>
+            <p class="muted">Strategic release schedule:</p>
+            <ul class="list">
+              <li>Not released at once</li>
+              <li>Deployed progressively</li>
+              <li>Based on volume demand</li>
+            </ul>
+          </div>
+
+          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03); border-color: rgba(255,75,75,.28)">
+            <h2 style="color:rgba(255,255,255,.96)">Restrictions</h2>
+            <p class="muted">Strict governance rules:</p>
+            <ul class="list">
+              <li><strong>NOT</strong> for team profit</li>
+              <li><strong>NOT</strong> for personal wallets</li>
+              <li>Auditable transfers only</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Infrastructure & Development -->
+    <section id="infra" class="grid" aria-label="Infrastructure and Development">
+      <div class="card span-12">
+        <div class="label">Infrastructure &amp; Development (10%)</div>
+        <div class="grid" style="margin-top:10px">
+          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <h2>Supportive Web</h2>
+            <p class="muted">Building anti-bullying resources, community platforms, and advanced moderation tools for a safe digital space.</p>
+          </div>
+          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <h2>Content Systems</h2>
+            <p class="muted">Production of educational content (real scenes to animated episodes). Enhancing website performance & accessibility.</p>
+          </div>
+          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <h2>Future Game</h2>
+            <p class="muted">Development of the BRBRT creative game. Focused on real experiences and long-term impact (Future Launch).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Marketing & DAO -->
+    <section id="marketing" class="grid" aria-label="Marketing and DAO Allocation">
+      <div class="card span-12">
+        <div class="label">Marketing &amp; DAO Allocation</div>
+        <div class="grid" style="margin-top:10px">
+          <div class="card span-6" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <h2>Marketing (5%)</h2>
+            <ul class="list">
+              <li><strong>Awareness:</strong> Educational campaigns on ethics.</li>
+              <li><strong>Partnerships:</strong> Aligning with strategic allies.</li>
+              <li><strong>Growth:</strong> Initiatives to expand the community.</li>
+            </ul>
+          </div>
+          <div class="card span-6" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <h2>Team / DAO (3.66%)</h2>
+            <ul class="list">
+              <li><strong>Alignment:</strong> Long-term team incentives.</li>
+              <li><strong>Governance:</strong> DAO experimentation phase.</li>
+              <li><strong>Future:</strong> Community-guided decision making.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Structural Guarantees -->
+    <section id="guarantees" class="grid" aria-label="Structural Guarantees">
+      <div class="card span-12">
+        <h2>Structural Guarantees</h2>
+        <p class="muted" style="margin:0">This structure is designed for long-term sustainability, not short-term speculation.</p>
+        <div class="divider"></div>
+
+        <div class="grid" style="margin-top:0">
+          <div class="card span-6" style="box-shadow:none; background:rgba(255,255,255,.03)">
             <div class="label">Technical</div>
             <ul class="list">
               <li>Fixed Supply</li>
@@ -820,127 +999,179 @@
               <li>No Proxy Contracts</li>
             </ul>
           </div>
-          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
+          <div class="card span-6" style="box-shadow:none; background:rgba(255,255,255,.03)">
             <div class="label">Operational</div>
             <ul class="list">
-              <li>Public Wallets (recommended)</li>
+              <li>Public Wallets</li>
               <li>On-chain Locks</li>
               <li>Roadmap-based Allocation</li>
             </ul>
           </div>
-          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <div class="label">Disclosure</div>
-            <ul class="list">
-              <li>No financial profit promises</li>
-              <li>Not financial advice</li>
-              <li>Transparency-first communication</li>
-            </ul>
-          </div>
         </div>
       </div>
     </section>
 
-    <!-- Roadmap -->
-    <section id="roadmap" class="grid" aria-label="Roadmap">
+    <!-- Vision & Roadmap -->
+    <section id="roadmap" class="grid" aria-label="Vision & Roadmap Alignment">
       <div class="card span-12">
         <h2>Vision &amp; Roadmap Alignment</h2>
-        <p class="muted" style="margin:0">
-          BRBRT is built from a real story, driven by resilience, dignity, and awareness.
-        </p>
         <div class="divider"></div>
         <div class="grid" style="margin-top:0">
           <div class="card span-6" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <div class="label">Core Principles</div>
+            <div class="label">Driven By Values</div>
+            <p class="muted" style="margin-top:8px">BRBRT is built from a real story, driven by resilience, dignity, and awareness.</p>
             <ul class="list">
               <li>Community Safety</li>
               <li>Anti-bullying Awareness</li>
               <li>Transparent Funding Goals</li>
-              <li>No speculation narrative</li>
+              <li>No Financial Profit Promises</li>
             </ul>
           </div>
+
           <div class="card span-6" style="box-shadow:none; background:rgba(255,255,255,.03)">
             <div class="label">Phases</div>
             <ul class="list">
-              <li><strong>Phase 01 — Foundations</strong>: Brand upgrades, official verifications, transparency page.</li>
-              <li><strong>Phase 02 — Growth</strong>: Story drops, community tools, safe space events.</li>
-              <li><strong>Phase 03 — Impact</strong>: Supportive web hub, association page, animated series.</li>
-              <li><strong>Phase 04 — Sustainability</strong>: Global awareness, long-term governance.</li>
+              <li><strong>Phase 01 — Foundations</strong>: Brand upgrade, Official verifications, Transparency page.</li>
+              <li><strong>Phase 02 — Growth</strong>: Story drops, Community tools, Safe space events.</li>
+              <li><strong>Phase 03 — Impact</strong>: Supportive Web hub, Association page, Animated series.</li>
+              <li><strong>Phase 04 — Sustainability</strong>: Global awareness, Long-term governance.</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Exchange Pack -->
-    <section id="exchange-pack" class="grid" aria-label="Exchange Pack">
+    <!-- Future Ecosystem -->
+    <section id="ecosystem" class="grid" aria-label="Future Ecosystem">
       <div class="card span-12">
-        <h2>Exchange Listing Pack (Quick Due Diligence)</h2>
-        <p class="small" style="margin:0">
-          Use this section as the “front page” summary when submitting to exchanges.
-        </p>
+        <h2>Future Ecosystem: Game &amp; Expansion</h2>
+        <div class="divider"></div>
+        <div class="note">
+          <strong>Creative &amp; Community-Driven:</strong>
+          <div class="muted" style="margin-top:6px">
+            The future BRBRT game is designed to reinforce awareness &amp; resilience themes. It is built responsibly as part of the broader BRBRT ecosystem.
+          </div>
+          <div class="grid" style="margin-top:12px">
+            <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
+              <div class="ok"><span class="tick">✓</span><div><strong>Theme Focused</strong><br><span class="small">Reinforces core mission</span></div></div>
+            </div>
+            <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
+              <div class="ok"><span class="tick">✓</span><div><strong>No Profit Promises</strong><br><span class="small">Not an investment vehicle</span></div></div>
+            </div>
+            <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
+              <div class="ok"><span class="tick">✓</span><div><strong>No Projections</strong><br><span class="small">No financial speculation</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CEX Transparency Pack -->
+    <section id="cex" class="grid" aria-label="CEX Transparency Pack">
+      <div class="card span-12">
+        <h2>CEX Transparency Pack</h2>
+        <p class="muted" style="margin:0">This document serves as the institutional-grade transparency summary for exchange due diligence.</p>
         <div class="divider"></div>
 
-        <table aria-label="Exchange Pack Table">
+        <table aria-label="Exchange Due Diligence Table">
           <thead>
             <tr>
-              <th>Requirement</th>
+              <th>Item</th>
               <th>Status</th>
-              <th>Where to Verify</th>
+              <th>Verification</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Total / Max Supply</td>
-              <td><strong class="mono">1,000,000</strong> fixed</td>
-              <td>See “Token Overview” and “Allocation Table”</td>
+              <td>Fixed Supply Proof</td>
+              <td><strong>1,000,000</strong> total / max</td>
+              <td>Supply Facts section (Non-negotiable)</td>
             </tr>
             <tr>
-              <td>Allocation Breakdown</td>
-              <td>Defined &amp; disclosed</td>
-              <td>See “Allocation Structure” chart + table</td>
-            </tr>
-            <tr>
-              <td>Lock Proof</td>
-              <td><strong>27.99%</strong> locked</td>
+              <td>Contract Disclosure</td>
+              <td><strong>Provided</strong></td>
               <td>
-                <a href="https://pinksale.finance/pinklock/bsc/record/1437618" target="_blank" rel="noopener noreferrer">
-                  PinkLock record 1437618
-                </a>
+                <a href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1#tokenInfo" target="_blank" rel="noopener noreferrer">BscScan Token Info</a>
               </td>
             </tr>
             <tr>
-              <td>Contract / Explorer Link</td>
-              <td><strong>Required</strong> (fill in)</td>
-              <td>Add in “Token Overview” (do not submit without it)</td>
+              <td>Security Scan Reference</td>
+              <td><strong>Provided</strong></td>
+              <td>
+                <a href="https://solidityscan.com/quickscan/0xf97522abef762d28729e073019343b72c6e8d2c1/bscscan/mainnet?ref=etherscan" target="_blank" rel="noopener noreferrer">SolidityScan Quickscan</a>
+              </td>
             </tr>
             <tr>
-              <td>Risk Disclosure</td>
-              <td>Included</td>
-              <td>See “Security &amp; Disclosure”</td>
+              <td>PinkLock Proof</td>
+              <td><strong>27.99%</strong> locked</td>
+              <td>
+                <a href="https://pinksale.finance/pinklock/bsc/record/1437018" target="_blank" rel="noopener noreferrer">On-chain Record</a>
+              </td>
+            </tr>
+            <tr>
+              <td>Allocation Logic</td>
+              <td><strong>Disclosed</strong></td>
+              <td>Allocation chart + auditable table</td>
+            </tr>
+            <tr>
+              <td>Roadmap Alignment</td>
+              <td><strong>Defined</strong></td>
+              <td>Vision & Roadmap Alignment (phases)</td>
+            </tr>
+            <tr>
+              <td>Official Contact</td>
+              <td><strong>contact@brbrt.com</strong></td>
+              <td><a href="mailto:contact@brbrt.com">Email</a></td>
             </tr>
           </tbody>
         </table>
 
         <div class="divider"></div>
         <div class="note">
-          <strong>Suggested email subject:</strong>
-          <div class="mono" style="margin-top:8px">BRBRT — Official Token Supply & Transparency Statement (Listing Review)</div>
-          <div class="small" style="margin-top:8px">
-            Attach screenshots/PDF exports of the lock record + explorer pages once the contract address is filled.
-          </div>
+          <strong>Suggested Subject Line:</strong>
+          <div class="mono" style="margin-top:8px">"BRBRT — Token Supply Transparency &amp; Long-Term Structure"</div>
         </div>
       </div>
     </section>
 
-    <section class="footer">
-      <div style="font-weight:900; letter-spacing:-.02em">Everything is on-chain. Everything is structured.</div>
+    <!-- Final -->
+    <section class="footer" id="final">
+      <div style="font-weight:900; letter-spacing:-.02em; font-size:18px">Everything is on-chain. Everything is structured.</div>
       <div class="muted" style="margin-top:6px">Nothing is hidden.</div>
+      <div class="monoBox" style="margin-top:14px; justify-content:center;">
+        <a class="miniBtn" href="https://brbrt.com" target="_blank" rel="noopener noreferrer">brbrt.com</a>
+        <button class="miniBtn" type="button" onclick="copyText('contact@brbrt.com')">Copy Email</button>
+        <button class="miniBtn" type="button" onclick="copyText('0xf97522ABEf762d28729E073019343b72C6e8D2C1')">Copy Address</button>
+      </div>
       <a class="cta" href="#top">Back to top →</a>
-      <div class="small" style="margin-top:10px">— BRBRT Team —</div>
+      <div class="small" style="margin-top:10px">— BRBRT TEAM —</div>
     </section>
   </div>
 
   <script>
+    function toast(msg){
+      const t = document.getElementById("toast");
+      t.textContent = msg || "Copied";
+      t.style.display = "block";
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(()=> t.style.display="none", 1400);
+    }
+    async function copyText(txt){
+      try{
+        await navigator.clipboard.writeText(txt);
+        toast("Copied");
+      }catch(e){
+        // fallback
+        const ta = document.createElement("textarea");
+        ta.value = txt;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        toast("Copied");
+      }
+    }
+
     (function(){
       const svg = document.getElementById("allocSvg");
       if(!svg) return;
@@ -948,43 +1179,42 @@
       const css = getComputedStyle(document.documentElement);
       const color = v => (css.getPropertyValue(v).trim() || "#19d38b");
 
-      // Official breakdown (must match your statement)
       const data = [
-        { key:"Locked",         pct:27.99, col: color("--c-locked") },
-        { key:"Liquidity",      pct:27.99, col: color("--c-liquidity") },
-        { key:"Infrastructure", pct:10.00, col: color("--c-infra") },
-        { key:"Marketing",      pct:5.00,  col: color("--c-marketing") },
-        { key:"Team/DAO",       pct:3.66,  col: color("--c-team") },
-        { key:"Public",         pct:25.36, col: color("--c-public") },
+        { key:"Locked (PinkLock V2)", pct:27.99, col: color("--c-locked") },
+        { key:"Listings & Liquidity",  pct:27.99, col: color("--c-liquidity") },
+        { key:"Infrastructure",        pct:10.00, col: color("--c-infra") },
+        { key:"Marketing",             pct:5.00,  col: color("--c-marketing") },
+        { key:"Team / DAO",            pct:3.66,  col: color("--c-team") },
+        { key:"Public / Circulating",  pct:25.36, col: color("--c-public") },
       ];
 
-      // Geometry
-      const W=520, H=520;
-      const cx=260, cy=260;
-      const R=170;          // outer radius
-      const r=108;          // inner radius (donut)
-      const callR = 200;    // where connector starts
-      const labelX = 235;   // horizontal label columns distance from center
+      // BIG FIX: wider canvas so labels are NEVER clipped
+      const W=760, H=520;
+      const cx=380, cy=260;
+      const R=170;
+      const r=108;
+      const callR = 205;
+
+      // label columns safely inside canvas
+      const rightX = 640;
+      const leftX  = 120;
 
       svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
 
-      // defs: soft glow
       svg.innerHTML = `
         <defs>
-          <radialGradient id="bgGlow" cx="35%" cy="25%" r="80%">
+          <radialGradient id="bgGlow" cx="42%" cy="28%" r="82%">
             <stop offset="0%" stop-color="rgba(255,255,255,.16)"/>
             <stop offset="55%" stop-color="rgba(255,255,255,.06)"/>
-            <stop offset="100%" stop-color="rgba(0,0,0,.10)"/>
+            <stop offset="100%" stop-color="rgba(0,0,0,.12)"/>
           </radialGradient>
         </defs>
-        <circle cx="${cx}" cy="${cy}" r="${R+10}" fill="url(#bgGlow)" opacity="0.75"></circle>
+        <circle cx="${cx}" cy="${cy}" r="${R+12}" fill="url(#bgGlow)" opacity="0.80"></circle>
       `;
 
       const total = data.reduce((a,b)=>a+b.pct,0);
-
-      // Build slices and compute label anchors
       let angle = -Math.PI/2;
-      const labels = []; // will be arranged to avoid overlap
+      const labels = [];
 
       data.forEach(d=>{
         const a0 = angle;
@@ -993,15 +1223,11 @@
 
         const largeArc = (a1-a0) > Math.PI ? 1 : 0;
 
-        // Outer arc points
         const x0 = cx + R*Math.cos(a0), y0 = cy + R*Math.sin(a0);
         const x1 = cx + R*Math.cos(a1), y1 = cy + R*Math.sin(a1);
-
-        // Inner arc points (reverse)
         const xi1 = cx + r*Math.cos(a1), yi1 = cy + r*Math.sin(a1);
         const xi0 = cx + r*Math.cos(a0), yi0 = cy + r*Math.sin(a0);
 
-        // Slice path (donut segment)
         const path = el("path");
         path.setAttribute("class","slice");
         path.setAttribute("fill", d.col);
@@ -1012,14 +1238,8 @@
            A ${r} ${r} 0 ${largeArc} 0 ${xi0} ${yi0}
            Z`
         );
-
-        // Hover focus
-        path.addEventListener("mouseenter", ()=> path.style.opacity="0.98");
-        path.addEventListener("mouseleave", ()=> path.style.opacity="1");
-
         svg.appendChild(path);
 
-        // Label anchor angle
         const mid = (a0+a1)/2;
         const ax = cx + callR*Math.cos(mid);
         const ay = cy + callR*Math.sin(mid);
@@ -1030,68 +1250,55 @@
           pct: d.pct,
           col: d.col,
           ax, ay, side,
-          // initial y target
-          ty: ay,
+          ty: ay
         });
       });
 
-      // Arrange labels to prevent overlap (simple vertical spacing per side)
-      const gap = 26; // minimum vertical gap between labels
-      const topBound = 70, bottomBound = 450;
+      // prevent overlap (per side)
+      const gap = 28;
+      const topBound = 72, bottomBound = 448;
 
       function arrange(side){
         const L = labels.filter(x=>x.side===side).sort((a,b)=>a.ty-b.ty);
-
-        // pass 1: forward
         for(let i=1;i<L.length;i++){
-          if(L[i].ty - L[i-1].ty < gap){
-            L[i].ty = L[i-1].ty + gap;
-          }
+          if(L[i].ty - L[i-1].ty < gap) L[i].ty = L[i-1].ty + gap;
         }
-        // pass 2: clamp bottom
         for(let i=L.length-1;i>=0;i--){
           if(L[i].ty > bottomBound) L[i].ty = bottomBound;
-          if(i>0 && L[i].ty - L[i-1].ty < gap){
-            L[i-1].ty = L[i].ty - gap;
-          }
+          if(i>0 && L[i].ty - L[i-1].ty < gap) L[i-1].ty = L[i].ty - gap;
         }
-        // pass 3: clamp top
         for(let i=0;i<L.length;i++){
           if(L[i].ty < topBound) L[i].ty = topBound;
-          if(i>0 && L[i].ty - L[i-1].ty < gap){
-            L[i].ty = L[i-1].ty + gap;
-          }
+          if(i>0 && L[i].ty - L[i-1].ty < gap) L[i].ty = L[i-1].ty + gap;
         }
       }
       arrange(-1);
       arrange(1);
 
-      // Draw callouts
+      // draw callouts INSIDE canvas
       labels.forEach(l=>{
-        const x2 = cx + l.side*labelX; // label column x
+        const x2 = (l.side===1) ? rightX : leftX;
         const y2 = l.ty;
 
-        // connector: anchor -> bend -> label
-        const bendX = cx + l.side*(labelX - 40);
+        const bendX = (l.side===1) ? (x2 - 55) : (x2 + 55);
+
         const line = el("path");
         line.setAttribute("class","call-line");
         line.setAttribute("fill","none");
         line.setAttribute("d", `M ${l.ax} ${l.ay} L ${bendX} ${y2} L ${x2} ${y2}`);
         svg.appendChild(line);
 
-        // dot at anchor
         const dot = el("circle");
         dot.setAttribute("class","call-dot");
         dot.setAttribute("cx", l.ax);
         dot.setAttribute("cy", l.ay);
-        dot.setAttribute("r", 3.2);
+        dot.setAttribute("r", 3.3);
         svg.appendChild(dot);
 
-        // label box
-        const boxW = 132;
-        const boxH = 38;
-        const pad = 10;
-        const bx = l.side===1 ? (x2 + 8) : (x2 - boxW - 8);
+        const boxW = 190;
+        const boxH = 44;
+
+        const bx = (l.side===1) ? (x2 + 10) : (x2 - boxW - 10);
         const by = y2 - boxH/2;
 
         const box = el("rect");
@@ -1104,10 +1311,9 @@
         box.setAttribute("height", boxH);
         svg.appendChild(box);
 
-        // small color chip inside box
         const chip = el("rect");
         chip.setAttribute("x", bx + 10);
-        chip.setAttribute("y", by + 12);
+        chip.setAttribute("y", by + 16);
         chip.setAttribute("width", 10);
         chip.setAttribute("height", 10);
         chip.setAttribute("rx", 4);
@@ -1117,12 +1323,12 @@
         chip.setAttribute("stroke-width", "1");
         svg.appendChild(chip);
 
-        // text: name + pct
         const tx = bx + 26;
+
         const tName = el("text");
         tName.setAttribute("class","call-text");
         tName.setAttribute("x", tx);
-        tName.setAttribute("y", y2 - 3);
+        tName.setAttribute("y", y2 - 6);
         tName.setAttribute("text-anchor","start");
         tName.setAttribute("dominant-baseline","middle");
         tName.textContent = l.name;
@@ -1138,7 +1344,7 @@
         svg.appendChild(tPct);
       });
 
-      // center label
+      // center
       const center = el("circle");
       center.setAttribute("cx", cx);
       center.setAttribute("cy", cy);
@@ -1168,7 +1374,6 @@
       t2.textContent = "1,000,000 BRBRT";
       svg.appendChild(t2);
 
-      // outer ring
       const ring = el("circle");
       ring.setAttribute("cx", cx);
       ring.setAttribute("cy", cy);
