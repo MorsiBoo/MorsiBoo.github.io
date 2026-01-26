@@ -11,8 +11,6 @@
     :root{
       --bg0:#06100C;
       --bg1:#07110D;
-      --panel: rgba(255,255,255,.065);
-      --panel2: rgba(255,255,255,.045);
       --text: rgba(255,255,255,.94);
       --muted: rgba(255,255,255,.74);
       --faint: rgba(255,255,255,.56);
@@ -31,7 +29,6 @@
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
 
-      /* chart palette */
       --c-locked:#19d38b;
       --c-liquidity:#22c7ff;
       --c-infra:#8a7dff;
@@ -42,6 +39,10 @@
 
     *{box-sizing:border-box}
     html,body{height:100%}
+
+    html{scroll-behavior:smooth;}
+    section{scroll-margin-top:88px;} /* fixes anchor jump under sticky bar */
+
     body{
       margin:0;
       font-family:var(--sans);
@@ -70,19 +71,24 @@
     a{color:var(--text); text-decoration:none}
     a:hover{text-decoration:underline; opacity:.92}
 
-    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 70px}
+    /* PERFECT PAGE MARGINS */
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding: clamp(18px, 2.2vw, 28px) clamp(14px, 2.0vw, 18px) 70px;
+    }
+
     .mono{font-family:var(--mono)}
     .muted{color:var(--muted)}
     .faint{color:var(--faint)}
     .small{font-size:12px; color:var(--faint)}
     .divider{height:1px; background:var(--line); margin:14px 0}
 
+    /* Sticky Topbar (perfect alignment with wrap) */
     .topbar{
       position:sticky;
       top:0;
       z-index:50;
-      margin:0 -18px 16px;
-      padding:10px 18px;
       backdrop-filter: blur(12px);
       background: rgba(0,0,0,.34);
       border-bottom: 1px solid rgba(255,255,255,.08);
@@ -90,6 +96,7 @@
     .topbar-inner{
       max-width:var(--max);
       margin:0 auto;
+      padding:10px clamp(14px, 2.0vw, 18px);
       display:flex;
       gap:12px;
       align-items:center;
@@ -137,7 +144,7 @@
     }
 
     header{
-      padding:26px 22px;
+      padding: clamp(18px, 2.2vw, 26px) clamp(16px, 2.1vw, 22px);
       border:1px solid var(--line);
       border-radius:var(--radius2);
       background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.03));
@@ -173,7 +180,7 @@
 
     h1{
       margin:14px 0 8px;
-      font-size:36px;
+      font-size: clamp(28px, 3.4vw, 36px);
       letter-spacing:-.03em;
       line-height:1.12;
     }
@@ -226,6 +233,7 @@
       border-radius:var(--radius);
       padding:16px 16px;
       box-shadow: var(--shadow2);
+      overflow:hidden;
     }
     .card h2{
       margin:0 0 10px;
@@ -234,17 +242,13 @@
     }
     .card p{margin:0; color:var(--muted)}
     .span-12{grid-column: span 12}
-    .span-8{grid-column: span 8}
-    .span-7{grid-column: span 7}
     .span-6{grid-column: span 6}
     .span-5{grid-column: span 5}
     .span-4{grid-column: span 4}
-    .span-3{grid-column: span 3}
+    .span-7{grid-column: span 7}
 
     @media (max-width: 980px){
-      .span-8,.span-7,.span-6,.span-5,.span-4,.span-3{grid-column: span 12}
-      h1{font-size:30px}
-      .topbar-inner{gap:8px}
+      .span-6,.span-7,.span-5,.span-4{grid-column: span 12}
       .top-actions{gap:8px}
       .btn{padding:9px 11px}
     }
@@ -256,7 +260,7 @@
       letter-spacing:.12em;
     }
     .big{
-      font-size:46px;
+      font-size: clamp(38px, 5vw, 46px);
       font-weight:900;
       letter-spacing:-.03em;
       color:var(--accent);
@@ -305,10 +309,6 @@
       color: var(--muted);
     }
     .note strong{color:var(--text)}
-    .danger{
-      border-color: rgba(255,75,75,.35);
-      background: rgba(255,75,75,.08);
-    }
     .warning{
       border-color: rgba(255,176,32,.35);
       background: rgba(255,176,32,.08);
@@ -318,7 +318,6 @@
       background: rgba(25,211,139,.08);
     }
 
-    /* tables */
     table{
       width:100%;
       border-collapse:separate;
@@ -345,7 +344,7 @@
     }
     tr:last-child td{border-bottom:none}
 
-    /* contract disclosure block */
+    /* Contract disclosure block */
     .monoBox{
       margin-top:10px;
       padding:10px 12px;
@@ -381,6 +380,7 @@
       user-select:none;
     }
     .miniBtn:hover{opacity:.95}
+
     .toast{
       position:fixed;
       left:50%;
@@ -398,7 +398,7 @@
       backdrop-filter: blur(10px);
     }
 
-    /* Allocation (chart + legend) */
+    /* Allocation */
     .alloc{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -415,7 +415,7 @@
       background: rgba(0,0,0,.18);
       box-shadow: var(--shadow2);
       padding: 14px;
-      overflow:hidden;
+      overflow:hidden; /* ensures no weird overflow */
     }
     .chartTop{
       display:flex; align-items:center; justify-content:space-between;
@@ -438,14 +438,14 @@
       white-space:nowrap;
     }
 
-    #allocSvg{width:100%; height:auto; display:block}
+    /* The SVG uses full width; height is auto */
+    #allocSvg{width:100%; height:auto; display:block;}
 
     .slice{
       stroke: rgba(0,0,0,.35);
       stroke-width: 2;
       filter: drop-shadow(0 10px 18px rgba(0,0,0,.30));
       transition: transform .18s ease, opacity .18s ease;
-      transform-origin: 380px 260px;
     }
     .slice:hover{transform: scale(1.01); opacity:.98}
 
@@ -553,7 +553,6 @@
     }
     .cta:hover{text-decoration:none; opacity:.96}
 
-    /* print */
     @media print{
       body{background:#fff !important; color:#000 !important}
       body:before{display:none !important}
@@ -610,13 +609,9 @@
       <div class="nav" aria-label="On-page navigation">
         <a href="#facts">Supply Facts</a>
         <a href="#contract">Contract Disclosure</a>
-        <a href="#control">Project Control</a>
         <a href="#allocation">Supply Transparency</a>
         <a href="#locked">Locked Tokens</a>
-        <a href="#liquidity">Listings &amp; Liquidity</a>
-        <a href="#guarantees">Guarantees</a>
-        <a href="#roadmap">Vision &amp; Roadmap</a>
-        <a href="#cex">CEX Transparency Pack</a>
+        <a href="#cex">CEX Pack</a>
       </div>
     </header>
 
@@ -672,86 +667,31 @@
 
         <div class="divider"></div>
 
-        <div class="grid" style="margin-top:0">
-          <div class="card span-6" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <div class="label">Security Disclosure</div>
-            <ul class="list">
-              <li><strong>Explorer Proof:</strong> Token information is publicly verifiable on BscScan.</li>
-              <li><strong>Automated Scan:</strong> SolidityScan quickscan report link provided for transparency.</li>
-              <li><strong>On-chain Review:</strong> Supply & transfers are traceable on-chain (no hidden supply claims).</li>
-            </ul>
-            <div class="note warning" style="margin-top:12px">
-              <strong>Important:</strong> Automated scans are informational. Exchanges may run internal audits and additional checks.
-            </div>
-          </div>
-
-          <div class="card span-6" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <div class="label">Official Links</div>
-            <div class="row">
-              <span>BscScan Token Info</span>
-              <strong><a href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1#tokenInfo" target="_blank" rel="noopener noreferrer">Open</a></strong>
-            </div>
-            <div class="row">
-              <span>SolidityScan Quickscan</span>
-              <strong><a href="https://solidityscan.com/quickscan/0xf97522abef762d28729e073019343b72c6e8d2c1/bscscan/mainnet?ref=etherscan" target="_blank" rel="noopener noreferrer">Open</a></strong>
-            </div>
-            <div class="row">
-              <span>Official Contact</span>
-              <strong><a href="mailto:contact@brbrt.com">contact@brbrt.com</a></strong>
-            </div>
-            <div class="row">
-              <span>Official Website</span>
-              <strong><a href="https://brbrt.com" target="_blank" rel="noopener noreferrer">brbrt.com</a></strong>
-            </div>
-          </div>
+        <div class="note warning">
+          <strong>Security Disclosure:</strong> Explorer proofs are public and verifiable. Automated scanners are informational only; exchanges may perform internal audits and additional checks.
         </div>
       </div>
     </section>
 
-    <!-- Project Control Overview -->
-    <section id="control" class="grid" aria-label="Project Control Overview">
-      <div class="card span-12">
-        <div class="label">Project Control Overview</div>
-        <div class="grid" style="margin-top:10px">
-          <div class="card span-5" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <div class="big">74.6%</div>
-            <div class="small" style="letter-spacing:.12em; text-transform:uppercase;">Controlled by Project</div>
-          </div>
-          <div class="card span-7" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <h2 style="margin:0 0 10px">Fully transparent and publicly traceable.</h2>
-            <ul class="list">
-              <li><strong>Structured for Stability</strong> — No random dumps.</li>
-              <li><strong>Responsible Growth</strong> — Aligned with adoption.</li>
-              <li><strong>Roadmap Alignment</strong> — Unlocked only for milestones.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Supply Transparency Summary + Chart -->
+    <!-- Allocation -->
     <section id="allocation" class="grid" aria-label="Supply Transparency Summary">
       <div class="card span-12">
         <h2>Supply Transparency Summary</h2>
         <p class="small" style="margin:0">
-          Total Supply: <strong>1,000,000 BRBRT</strong>. Labels are shown as callouts (name + percentage) for maximum readability, including small allocations.
+          Total Supply: <strong>1,000,000 BRBRT</strong>. Callouts are always inside the canvas (no clipped labels).
         </p>
         <div class="divider"></div>
 
         <div class="alloc">
-          <!-- Chart -->
           <div class="chartBox">
             <div class="chartTop">
               <div class="title">Allocation Donut (Clear Labels)</div>
-              <div class="badge">No clipped labels • Callouts inside canvas</div>
+              <div class="badge">Responsive • No cut labels</div>
             </div>
-            <svg id="allocSvg" viewBox="0 0 760 520" role="img" aria-label="Allocation donut chart"></svg>
-            <div class="small" style="margin-top:10px">
-              If you export to PDF, the chart remains sharp (SVG).
-            </div>
+            <svg id="allocSvg" role="img" aria-label="Allocation donut chart"></svg>
+            <div class="small" style="margin-top:10px">Export to PDF keeps the chart sharp (SVG).</div>
           </div>
 
-          <!-- Legend (official naming) -->
           <div class="legend">
             <div class="legItem">
               <div class="legLeft">
@@ -841,7 +781,7 @@
             <tr>
               <td>Listings &amp; Liquidity</td>
               <td class="mono">27.99%</td>
-              <td>Reserved exclusively for CEX, market making, order book stability.</td>
+              <td>Reserved for CEX, market making, order book stability.</td>
             </tr>
             <tr>
               <td>Infrastructure &amp; Development</td>
@@ -851,12 +791,12 @@
             <tr>
               <td>Marketing</td>
               <td class="mono">5.00%</td>
-              <td>Awareness (ethics), partnerships, growth.</td>
+              <td>Education, awareness, partnerships, growth initiatives.</td>
             </tr>
             <tr>
               <td>Team / DAO</td>
               <td class="mono">3.66%</td>
-              <td>Long-term team incentives, DAO experimentation phase, community-guided decisions.</td>
+              <td>Long-term incentives, DAO experimentation phase, governance.</td>
             </tr>
             <tr>
               <td>Public / Circulating</td>
@@ -868,211 +808,28 @@
       </div>
     </section>
 
-    <!-- Locked Tokens -->
+    <!-- Locked -->
     <section id="locked" class="grid" aria-label="Locked Tokens">
       <div class="card span-12">
-        <div class="grid" style="margin-top:0">
-          <div class="card span-5" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <div class="label">Locked Tokens</div>
-            <div class="big">27.99%</div>
-            <div class="small">On-chain secured — Platform: <span class="mono">PinkLock V2</span></div>
-          </div>
-
-          <div class="card span-7" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <div class="label">Verification Record</div>
-            <p style="margin-top:8px" class="muted">Tokens are mathematically locked and cannot be moved or sold by the team.</p>
-            <div class="monoBox" style="margin-top:12px">
-              <div class="addr">https://pinksale.finance/pinklock/bsc/record/1437018</div>
-              <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                <button class="miniBtn" type="button" onclick="copyText('https://pinksale.finance/pinklock/bsc/record/1437018')">Copy Link</button>
-                <a class="miniBtn" href="https://pinksale.finance/pinklock/bsc/record/1437018" target="_blank" rel="noopener noreferrer">Open Record</a>
-              </div>
-            </div>
-            <div class="divider"></div>
-            <ul class="list">
-              <li>Holder Protection</li>
-              <li>Supply Stability</li>
-              <li>Long-term Commitment</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Listings & Liquidity -->
-    <section id="liquidity" class="grid" aria-label="Listings and Liquidity">
-      <div class="card span-12">
-        <div class="label">Listings &amp; Liquidity</div>
-        <div class="grid" style="margin-top:10px">
-          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <h2>Purpose (27.99%)</h2>
-            <p class="muted">Reserved exclusively for:</p>
-            <ul class="list">
-              <li>Centralized Exchanges (CEX)</li>
-              <li>Market Making</li>
-              <li>Order Book Stability</li>
-            </ul>
-          </div>
-
-          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <h2>Deployment</h2>
-            <p class="muted">Strategic release schedule:</p>
-            <ul class="list">
-              <li>Not released at once</li>
-              <li>Deployed progressively</li>
-              <li>Based on volume demand</li>
-            </ul>
-          </div>
-
-          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03); border-color: rgba(255,75,75,.28)">
-            <h2 style="color:rgba(255,255,255,.96)">Restrictions</h2>
-            <p class="muted">Strict governance rules:</p>
-            <ul class="list">
-              <li><strong>NOT</strong> for team profit</li>
-              <li><strong>NOT</strong> for personal wallets</li>
-              <li>Auditable transfers only</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Infrastructure & Development -->
-    <section id="infra" class="grid" aria-label="Infrastructure and Development">
-      <div class="card span-12">
-        <div class="label">Infrastructure &amp; Development (10%)</div>
-        <div class="grid" style="margin-top:10px">
-          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <h2>Supportive Web</h2>
-            <p class="muted">Building anti-bullying resources, community platforms, and advanced moderation tools for a safe digital space.</p>
-          </div>
-          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <h2>Content Systems</h2>
-            <p class="muted">Production of educational content (real scenes to animated episodes). Enhancing website performance & accessibility.</p>
-          </div>
-          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <h2>Future Game</h2>
-            <p class="muted">Development of the BRBRT creative game. Focused on real experiences and long-term impact (Future Launch).</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Marketing & DAO -->
-    <section id="marketing" class="grid" aria-label="Marketing and DAO Allocation">
-      <div class="card span-12">
-        <div class="label">Marketing &amp; DAO Allocation</div>
-        <div class="grid" style="margin-top:10px">
-          <div class="card span-6" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <h2>Marketing (5%)</h2>
-            <ul class="list">
-              <li><strong>Awareness:</strong> Educational campaigns on ethics.</li>
-              <li><strong>Partnerships:</strong> Aligning with strategic allies.</li>
-              <li><strong>Growth:</strong> Initiatives to expand the community.</li>
-            </ul>
-          </div>
-          <div class="card span-6" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <h2>Team / DAO (3.66%)</h2>
-            <ul class="list">
-              <li><strong>Alignment:</strong> Long-term team incentives.</li>
-              <li><strong>Governance:</strong> DAO experimentation phase.</li>
-              <li><strong>Future:</strong> Community-guided decision making.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Structural Guarantees -->
-    <section id="guarantees" class="grid" aria-label="Structural Guarantees">
-      <div class="card span-12">
-        <h2>Structural Guarantees</h2>
-        <p class="muted" style="margin:0">This structure is designed for long-term sustainability, not short-term speculation.</p>
-        <div class="divider"></div>
-
-        <div class="grid" style="margin-top:0">
-          <div class="card span-6" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <div class="label">Technical</div>
-            <ul class="list">
-              <li>Fixed Supply</li>
-              <li>No Mint Function</li>
-              <li>No Proxy Contracts</li>
-            </ul>
-          </div>
-          <div class="card span-6" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <div class="label">Operational</div>
-            <ul class="list">
-              <li>Public Wallets</li>
-              <li>On-chain Locks</li>
-              <li>Roadmap-based Allocation</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Vision & Roadmap -->
-    <section id="roadmap" class="grid" aria-label="Vision & Roadmap Alignment">
-      <div class="card span-12">
-        <h2>Vision &amp; Roadmap Alignment</h2>
-        <div class="divider"></div>
-        <div class="grid" style="margin-top:0">
-          <div class="card span-6" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <div class="label">Driven By Values</div>
-            <p class="muted" style="margin-top:8px">BRBRT is built from a real story, driven by resilience, dignity, and awareness.</p>
-            <ul class="list">
-              <li>Community Safety</li>
-              <li>Anti-bullying Awareness</li>
-              <li>Transparent Funding Goals</li>
-              <li>No Financial Profit Promises</li>
-            </ul>
-          </div>
-
-          <div class="card span-6" style="box-shadow:none; background:rgba(255,255,255,.03)">
-            <div class="label">Phases</div>
-            <ul class="list">
-              <li><strong>Phase 01 — Foundations</strong>: Brand upgrade, Official verifications, Transparency page.</li>
-              <li><strong>Phase 02 — Growth</strong>: Story drops, Community tools, Safe space events.</li>
-              <li><strong>Phase 03 — Impact</strong>: Supportive Web hub, Association page, Animated series.</li>
-              <li><strong>Phase 04 — Sustainability</strong>: Global awareness, Long-term governance.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Future Ecosystem -->
-    <section id="ecosystem" class="grid" aria-label="Future Ecosystem">
-      <div class="card span-12">
-        <h2>Future Ecosystem: Game &amp; Expansion</h2>
-        <div class="divider"></div>
-        <div class="note">
-          <strong>Creative &amp; Community-Driven:</strong>
-          <div class="muted" style="margin-top:6px">
-            The future BRBRT game is designed to reinforce awareness &amp; resilience themes. It is built responsibly as part of the broader BRBRT ecosystem.
-          </div>
-          <div class="grid" style="margin-top:12px">
-            <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
-              <div class="ok"><span class="tick">✓</span><div><strong>Theme Focused</strong><br><span class="small">Reinforces core mission</span></div></div>
-            </div>
-            <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
-              <div class="ok"><span class="tick">✓</span><div><strong>No Profit Promises</strong><br><span class="small">Not an investment vehicle</span></div></div>
-            </div>
-            <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
-              <div class="ok"><span class="tick">✓</span><div><strong>No Projections</strong><br><span class="small">No financial speculation</span></div></div>
+        <h2>Locked Tokens</h2>
+        <div class="note success">
+          <strong>On-chain Lock Record:</strong>
+          <div class="monoBox" style="margin-top:10px;">
+            <div class="addr">https://pinksale.finance/pinklock/bsc/record/1437618</div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <button class="miniBtn" type="button" onclick="copyText('https://pinksale.finance/pinklock/bsc/record/1437618')">Copy Link</button>
+              <a class="miniBtn" href="https://pinksale.finance/pinklock/bsc/record/1437618" target="_blank" rel="noopener noreferrer">Open Record</a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CEX Transparency Pack -->
-    <section id="cex" class="grid" aria-label="CEX Transparency Pack">
+    <!-- CEX Pack -->
+    <section id="cex" class="grid" aria-label="CEX Pack">
       <div class="card span-12">
         <h2>CEX Transparency Pack</h2>
-        <p class="muted" style="margin:0">This document serves as the institutional-grade transparency summary for exchange due diligence.</p>
         <div class="divider"></div>
-
         <table aria-label="Exchange Due Diligence Table">
           <thead>
             <tr>
@@ -1085,38 +842,22 @@
             <tr>
               <td>Fixed Supply Proof</td>
               <td><strong>1,000,000</strong> total / max</td>
-              <td>Supply Facts section (Non-negotiable)</td>
+              <td>Supply Facts (Non-negotiable)</td>
             </tr>
             <tr>
               <td>Contract Disclosure</td>
               <td><strong>Provided</strong></td>
-              <td>
-                <a href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1#tokenInfo" target="_blank" rel="noopener noreferrer">BscScan Token Info</a>
-              </td>
+              <td><a href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1#tokenInfo" target="_blank" rel="noopener noreferrer">BscScan Token Info</a></td>
             </tr>
             <tr>
               <td>Security Scan Reference</td>
               <td><strong>Provided</strong></td>
-              <td>
-                <a href="https://solidityscan.com/quickscan/0xf97522abef762d28729e073019343b72c6e8d2c1/bscscan/mainnet?ref=etherscan" target="_blank" rel="noopener noreferrer">SolidityScan Quickscan</a>
-              </td>
+              <td><a href="https://solidityscan.com/quickscan/0xf97522abef762d28729e073019343b72c6e8d2c1/bscscan/mainnet?ref=etherscan" target="_blank" rel="noopener noreferrer">SolidityScan Quickscan</a></td>
             </tr>
             <tr>
               <td>PinkLock Proof</td>
               <td><strong>27.99%</strong> locked</td>
-              <td>
-                <a href="https://pinksale.finance/pinklock/bsc/record/1437018" target="_blank" rel="noopener noreferrer">On-chain Record</a>
-              </td>
-            </tr>
-            <tr>
-              <td>Allocation Logic</td>
-              <td><strong>Disclosed</strong></td>
-              <td>Allocation chart + auditable table</td>
-            </tr>
-            <tr>
-              <td>Roadmap Alignment</td>
-              <td><strong>Defined</strong></td>
-              <td>Vision & Roadmap Alignment (phases)</td>
+              <td><a href="https://pinksale.finance/pinklock/bsc/record/1437618" target="_blank" rel="noopener noreferrer">On-chain Record</a></td>
             </tr>
             <tr>
               <td>Official Contact</td>
@@ -1125,30 +866,26 @@
             </tr>
           </tbody>
         </table>
-
-        <div class="divider"></div>
-        <div class="note">
-          <strong>Suggested Subject Line:</strong>
-          <div class="mono" style="margin-top:8px">"BRBRT — Token Supply Transparency &amp; Long-Term Structure"</div>
-        </div>
       </div>
     </section>
 
-    <!-- Final -->
     <section class="footer" id="final">
       <div style="font-weight:900; letter-spacing:-.02em; font-size:18px">Everything is on-chain. Everything is structured.</div>
       <div class="muted" style="margin-top:6px">Nothing is hidden.</div>
+
       <div class="monoBox" style="margin-top:14px; justify-content:center;">
         <a class="miniBtn" href="https://brbrt.com" target="_blank" rel="noopener noreferrer">brbrt.com</a>
         <button class="miniBtn" type="button" onclick="copyText('contact@brbrt.com')">Copy Email</button>
         <button class="miniBtn" type="button" onclick="copyText('0xf97522ABEf762d28729E073019343b72C6e8D2C1')">Copy Address</button>
       </div>
+
       <a class="cta" href="#top">Back to top →</a>
       <div class="small" style="margin-top:10px">— BRBRT TEAM —</div>
     </section>
   </div>
 
   <script>
+    // toast + copy
     function toast(msg){
       const t = document.getElementById("toast");
       t.textContent = msg || "Copied";
@@ -1161,7 +898,6 @@
         await navigator.clipboard.writeText(txt);
         toast("Copied");
       }catch(e){
-        // fallback
         const ta = document.createElement("textarea");
         ta.value = txt;
         document.body.appendChild(ta);
@@ -1172,6 +908,7 @@
       }
     }
 
+    // Responsive SVG chart renderer (fixes clipped callouts + margin issues)
     (function(){
       const svg = document.getElementById("allocSvg");
       if(!svg) return;
@@ -1187,205 +924,234 @@
         { key:"Team / DAO",            pct:3.66,  col: color("--c-team") },
         { key:"Public / Circulating",  pct:25.36, col: color("--c-public") },
       ];
+      const total = data.reduce((a,b)=>a+b.pct,0);
 
-      // BIG FIX: wider canvas so labels are NEVER clipped
-      const W=760, H=520;
-      const cx=380, cy=260;
-      const R=170;
-      const r=108;
-      const callR = 205;
+      function el(tag){ return document.createElementNS("http://www.w3.org/2000/svg", tag); }
 
-      // label columns safely inside canvas
-      const rightX = 640;
-      const leftX  = 120;
+      function clearSVG(){
+        while(svg.firstChild) svg.removeChild(svg.firstChild);
+      }
 
-      svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+      function render(){
+        // width breakpoint based on real rendered px
+        const wPx = svg.getBoundingClientRect().width || 760;
 
-      svg.innerHTML = `
-        <defs>
+        // Two modes: desktop (wide) / compact (mobile)
+        const compact = wPx < 560;
+
+        const W = compact ? 640 : 760;
+        const H = 520;
+
+        const cx = compact ? 320 : 380;
+        const cy = 260;
+
+        const R  = compact ? 155 : 170;
+        const r  = compact ? 98  : 108;
+
+        const callR = compact ? 190 : 205;
+
+        // IMPORTANT FIX:
+        // Put label columns far enough so label boxes NEVER go outside viewBox.
+        // leftX: must be >= boxW + margin + 10
+        // rightX: must be <= W - (boxW + margin + 10)
+        const boxW = compact ? 168 : 190;
+        const boxH = compact ? 42  : 44;
+
+        const margin = 18;
+        const leftX  = Math.max(boxW + margin + 10, compact ? 210 : 220);
+        const rightX = Math.min(W - (boxW + margin + 10), compact ? 430 : 540);
+
+        svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+        svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+
+        clearSVG();
+
+        // defs
+        const defs = el("defs");
+        defs.innerHTML = `
           <radialGradient id="bgGlow" cx="42%" cy="28%" r="82%">
             <stop offset="0%" stop-color="rgba(255,255,255,.16)"/>
             <stop offset="55%" stop-color="rgba(255,255,255,.06)"/>
             <stop offset="100%" stop-color="rgba(0,0,0,.12)"/>
           </radialGradient>
-        </defs>
-        <circle cx="${cx}" cy="${cy}" r="${R+12}" fill="url(#bgGlow)" opacity="0.80"></circle>
-      `;
+        `;
+        svg.appendChild(defs);
 
-      const total = data.reduce((a,b)=>a+b.pct,0);
-      let angle = -Math.PI/2;
-      const labels = [];
+        const glow = el("circle");
+        glow.setAttribute("cx", cx);
+        glow.setAttribute("cy", cy);
+        glow.setAttribute("r", R + 12);
+        glow.setAttribute("fill", "url(#bgGlow)");
+        glow.setAttribute("opacity", "0.80");
+        svg.appendChild(glow);
 
-      data.forEach(d=>{
-        const a0 = angle;
-        const a1 = angle + (d.pct/total)*Math.PI*2;
-        angle = a1;
+        let angle = -Math.PI/2;
+        const labels = [];
 
-        const largeArc = (a1-a0) > Math.PI ? 1 : 0;
+        data.forEach(d=>{
+          const a0 = angle;
+          const a1 = angle + (d.pct/total)*Math.PI*2;
+          angle = a1;
 
-        const x0 = cx + R*Math.cos(a0), y0 = cy + R*Math.sin(a0);
-        const x1 = cx + R*Math.cos(a1), y1 = cy + R*Math.sin(a1);
-        const xi1 = cx + r*Math.cos(a1), yi1 = cy + r*Math.sin(a1);
-        const xi0 = cx + r*Math.cos(a0), yi0 = cy + r*Math.sin(a0);
+          const largeArc = (a1-a0) > Math.PI ? 1 : 0;
 
-        const path = el("path");
-        path.setAttribute("class","slice");
-        path.setAttribute("fill", d.col);
-        path.setAttribute("d",
-          `M ${x0} ${y0}
-           A ${R} ${R} 0 ${largeArc} 1 ${x1} ${y1}
-           L ${xi1} ${yi1}
-           A ${r} ${r} 0 ${largeArc} 0 ${xi0} ${yi0}
-           Z`
-        );
-        svg.appendChild(path);
+          const x0 = cx + R*Math.cos(a0), y0 = cy + R*Math.sin(a0);
+          const x1 = cx + R*Math.cos(a1), y1 = cy + R*Math.sin(a1);
+          const xi1 = cx + r*Math.cos(a1), yi1 = cy + r*Math.sin(a1);
+          const xi0 = cx + r*Math.cos(a0), yi0 = cy + r*Math.sin(a0);
 
-        const mid = (a0+a1)/2;
-        const ax = cx + callR*Math.cos(mid);
-        const ay = cy + callR*Math.sin(mid);
-        const side = Math.cos(mid) >= 0 ? 1 : -1;
+          const path = el("path");
+          path.setAttribute("class","slice");
+          path.style.transformOrigin = `${cx}px ${cy}px`;
+          path.setAttribute("fill", d.col);
+          path.setAttribute("d",
+            `M ${x0} ${y0}
+             A ${R} ${R} 0 ${largeArc} 1 ${x1} ${y1}
+             L ${xi1} ${yi1}
+             A ${r} ${r} 0 ${largeArc} 0 ${xi0} ${yi0}
+             Z`
+          );
+          svg.appendChild(path);
 
-        labels.push({
-          name: d.key,
-          pct: d.pct,
-          col: d.col,
-          ax, ay, side,
-          ty: ay
+          const mid = (a0+a1)/2;
+          const ax = cx + callR*Math.cos(mid);
+          const ay = cy + callR*Math.sin(mid);
+          const side = Math.cos(mid) >= 0 ? 1 : -1;
+
+          labels.push({ name:d.key, pct:d.pct, col:d.col, ax, ay, side, ty:ay });
         });
-      });
 
-      // prevent overlap (per side)
-      const gap = 28;
-      const topBound = 72, bottomBound = 448;
+        // prevent overlap
+        const gap = compact ? 30 : 28;
+        const topBound = 72, bottomBound = 448;
 
-      function arrange(side){
-        const L = labels.filter(x=>x.side===side).sort((a,b)=>a.ty-b.ty);
-        for(let i=1;i<L.length;i++){
-          if(L[i].ty - L[i-1].ty < gap) L[i].ty = L[i-1].ty + gap;
+        function arrange(side){
+          const L = labels.filter(x=>x.side===side).sort((a,b)=>a.ty-b.ty);
+          for(let i=1;i<L.length;i++){
+            if(L[i].ty - L[i-1].ty < gap) L[i].ty = L[i-1].ty + gap;
+          }
+          for(let i=L.length-1;i>=0;i--){
+            if(L[i].ty > bottomBound) L[i].ty = bottomBound;
+            if(i>0 && L[i].ty - L[i-1].ty < gap) L[i-1].ty = L[i].ty - gap;
+          }
+          for(let i=0;i<L.length;i++){
+            if(L[i].ty < topBound) L[i].ty = topBound;
+            if(i>0 && L[i].ty - L[i-1].ty < gap) L[i].ty = L[i-1].ty + gap;
+          }
         }
-        for(let i=L.length-1;i>=0;i--){
-          if(L[i].ty > bottomBound) L[i].ty = bottomBound;
-          if(i>0 && L[i].ty - L[i-1].ty < gap) L[i-1].ty = L[i].ty - gap;
-        }
-        for(let i=0;i<L.length;i++){
-          if(L[i].ty < topBound) L[i].ty = topBound;
-          if(i>0 && L[i].ty - L[i-1].ty < gap) L[i].ty = L[i-1].ty + gap;
-        }
+        arrange(-1); arrange(1);
+
+        // callouts
+        labels.forEach(l=>{
+          const x2 = (l.side===1) ? rightX : leftX;
+          const y2 = l.ty;
+
+          const bendX = (l.side===1) ? (x2 - 55) : (x2 + 55);
+
+          const line = el("path");
+          line.setAttribute("class","call-line");
+          line.setAttribute("fill","none");
+          line.setAttribute("d", `M ${l.ax} ${l.ay} L ${bendX} ${y2} L ${x2} ${y2}`);
+          svg.appendChild(line);
+
+          const dot = el("circle");
+          dot.setAttribute("class","call-dot");
+          dot.setAttribute("cx", l.ax);
+          dot.setAttribute("cy", l.ay);
+          dot.setAttribute("r", 3.3);
+          svg.appendChild(dot);
+
+          const bx = (l.side===1) ? (x2 + 10) : (x2 - boxW - 10);
+          const by = y2 - boxH/2;
+
+          const box = el("rect");
+          box.setAttribute("class","call-box");
+          box.setAttribute("x", bx);
+          box.setAttribute("y", by);
+          box.setAttribute("rx", 12);
+          box.setAttribute("ry", 12);
+          box.setAttribute("width", boxW);
+          box.setAttribute("height", boxH);
+          svg.appendChild(box);
+
+          const chip = el("rect");
+          chip.setAttribute("x", bx + 10);
+          chip.setAttribute("y", by + (compact ? 15 : 16));
+          chip.setAttribute("width", 10);
+          chip.setAttribute("height", 10);
+          chip.setAttribute("rx", 4);
+          chip.setAttribute("ry", 4);
+          chip.setAttribute("fill", l.col);
+          chip.setAttribute("stroke", "rgba(255,255,255,.20)");
+          chip.setAttribute("stroke-width", "1");
+          svg.appendChild(chip);
+
+          const tx = bx + 26;
+
+          const tName = el("text");
+          tName.setAttribute("class","call-text");
+          tName.setAttribute("x", tx);
+          tName.setAttribute("y", y2 - 6);
+          tName.setAttribute("text-anchor","start");
+          tName.setAttribute("dominant-baseline","middle");
+          tName.textContent = l.name;
+          svg.appendChild(tName);
+
+          const tPct = el("text");
+          tPct.setAttribute("class","call-sub");
+          tPct.setAttribute("x", tx);
+          tPct.setAttribute("y", y2 + 12);
+          tPct.setAttribute("text-anchor","start");
+          tPct.setAttribute("dominant-baseline","middle");
+          tPct.textContent = `${l.pct.toFixed(2)}%`;
+          svg.appendChild(tPct);
+        });
+
+        // center
+        const center = el("circle");
+        center.setAttribute("cx", cx);
+        center.setAttribute("cy", cy);
+        center.setAttribute("r", r-8);
+        center.setAttribute("fill", "rgba(0,0,0,.55)");
+        center.setAttribute("stroke", "rgba(255,255,255,.12)");
+        center.setAttribute("stroke-width", "2");
+        svg.appendChild(center);
+
+        const t1 = el("text");
+        t1.setAttribute("x", cx);
+        t1.setAttribute("y", cy - 10);
+        t1.setAttribute("text-anchor","middle");
+        t1.setAttribute("dominant-baseline","middle");
+        t1.setAttribute("class","call-text");
+        t1.setAttribute("style","font-size:14px");
+        t1.textContent = "Total Supply";
+        svg.appendChild(t1);
+
+        const t2 = el("text");
+        t2.setAttribute("x", cx);
+        t2.setAttribute("y", cy + 12);
+        t2.setAttribute("text-anchor","middle");
+        t2.setAttribute("dominant-baseline","middle");
+        t2.setAttribute("class","call-sub");
+        t2.setAttribute("style","font-size:13px");
+        t2.textContent = "1,000,000 BRBRT";
+        svg.appendChild(t2);
+
+        const ring = el("circle");
+        ring.setAttribute("cx", cx);
+        ring.setAttribute("cy", cy);
+        ring.setAttribute("r", R);
+        ring.setAttribute("fill","none");
+        ring.setAttribute("stroke","rgba(255,255,255,.12)");
+        ring.setAttribute("stroke-width","2");
+        svg.appendChild(ring);
       }
-      arrange(-1);
-      arrange(1);
 
-      // draw callouts INSIDE canvas
-      labels.forEach(l=>{
-        const x2 = (l.side===1) ? rightX : leftX;
-        const y2 = l.ty;
-
-        const bendX = (l.side===1) ? (x2 - 55) : (x2 + 55);
-
-        const line = el("path");
-        line.setAttribute("class","call-line");
-        line.setAttribute("fill","none");
-        line.setAttribute("d", `M ${l.ax} ${l.ay} L ${bendX} ${y2} L ${x2} ${y2}`);
-        svg.appendChild(line);
-
-        const dot = el("circle");
-        dot.setAttribute("class","call-dot");
-        dot.setAttribute("cx", l.ax);
-        dot.setAttribute("cy", l.ay);
-        dot.setAttribute("r", 3.3);
-        svg.appendChild(dot);
-
-        const boxW = 190;
-        const boxH = 44;
-
-        const bx = (l.side===1) ? (x2 + 10) : (x2 - boxW - 10);
-        const by = y2 - boxH/2;
-
-        const box = el("rect");
-        box.setAttribute("class","call-box");
-        box.setAttribute("x", bx);
-        box.setAttribute("y", by);
-        box.setAttribute("rx", 12);
-        box.setAttribute("ry", 12);
-        box.setAttribute("width", boxW);
-        box.setAttribute("height", boxH);
-        svg.appendChild(box);
-
-        const chip = el("rect");
-        chip.setAttribute("x", bx + 10);
-        chip.setAttribute("y", by + 16);
-        chip.setAttribute("width", 10);
-        chip.setAttribute("height", 10);
-        chip.setAttribute("rx", 4);
-        chip.setAttribute("ry", 4);
-        chip.setAttribute("fill", l.col);
-        chip.setAttribute("stroke", "rgba(255,255,255,.20)");
-        chip.setAttribute("stroke-width", "1");
-        svg.appendChild(chip);
-
-        const tx = bx + 26;
-
-        const tName = el("text");
-        tName.setAttribute("class","call-text");
-        tName.setAttribute("x", tx);
-        tName.setAttribute("y", y2 - 6);
-        tName.setAttribute("text-anchor","start");
-        tName.setAttribute("dominant-baseline","middle");
-        tName.textContent = l.name;
-        svg.appendChild(tName);
-
-        const tPct = el("text");
-        tPct.setAttribute("class","call-sub");
-        tPct.setAttribute("x", tx);
-        tPct.setAttribute("y", y2 + 12);
-        tPct.setAttribute("text-anchor","start");
-        tPct.setAttribute("dominant-baseline","middle");
-        tPct.textContent = `${l.pct.toFixed(2)}%`;
-        svg.appendChild(tPct);
-      });
-
-      // center
-      const center = el("circle");
-      center.setAttribute("cx", cx);
-      center.setAttribute("cy", cy);
-      center.setAttribute("r", r-8);
-      center.setAttribute("fill", "rgba(0,0,0,.55)");
-      center.setAttribute("stroke", "rgba(255,255,255,.12)");
-      center.setAttribute("stroke-width", "2");
-      svg.appendChild(center);
-
-      const t1 = el("text");
-      t1.setAttribute("x", cx);
-      t1.setAttribute("y", cy - 10);
-      t1.setAttribute("text-anchor","middle");
-      t1.setAttribute("dominant-baseline","middle");
-      t1.setAttribute("class","call-text");
-      t1.setAttribute("style","font-size:14px");
-      t1.textContent = "Total Supply";
-      svg.appendChild(t1);
-
-      const t2 = el("text");
-      t2.setAttribute("x", cx);
-      t2.setAttribute("y", cy + 12);
-      t2.setAttribute("text-anchor","middle");
-      t2.setAttribute("dominant-baseline","middle");
-      t2.setAttribute("class","call-sub");
-      t2.setAttribute("style","font-size:13px");
-      t2.textContent = "1,000,000 BRBRT";
-      svg.appendChild(t2);
-
-      const ring = el("circle");
-      ring.setAttribute("cx", cx);
-      ring.setAttribute("cy", cy);
-      ring.setAttribute("r", R);
-      ring.setAttribute("fill","none");
-      ring.setAttribute("stroke","rgba(255,255,255,.12)");
-      ring.setAttribute("stroke-width","2");
-      svg.appendChild(ring);
-
-      function el(tag){
-        return document.createElementNS("http://www.w3.org/2000/svg", tag);
-      }
+      // render now + on resize
+      render();
+      const ro = new ResizeObserver(()=> render());
+      ro.observe(svg);
+      window.addEventListener("orientationchange", render);
     })();
   </script>
 </body>
