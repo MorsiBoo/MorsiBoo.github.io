@@ -491,3 +491,81 @@
 
   document.addEventListener("DOMContentLoaded", init);
 })();
+/* ===== Roadmap background video: lazy-load + pause offscreen ===== */
+(function initRoadmapBgVideo(){
+  const section = document.querySelector("[data-bgvideo]");
+  if (!section) return;
+
+  const v = section.querySelector("video");
+  if (!v) return;
+
+  const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+  const saveData = navigator.connection?.saveData;
+
+  // On low-power modes: keep poster only
+  if (reduceMotion || saveData) {
+    try { v.pause(); } catch {}
+    v.removeAttribute("autoplay");
+    return;
+  }
+
+  const loadSources = () => {
+    const sources = Array.from(v.querySelectorAll("source[data-src]"));
+    for (const s of sources) {
+      if (!s.src) s.src = s.dataset.src;
+    }
+    try { v.load(); } catch {}
+  };
+
+  const tryPlay = () => {
+    v.muted = true;
+    v.playsInline = true;
+    const p = v.play?.();
+    if (p && typeof p.catch === "function") p.catch(() => {});
+  };
+
+  // iOS/Safari: arm playback on first user gesture
+  const arm = () => {
+    loadSources();
+    tryPlay();
+    window.removeEventListener("touchstart", arm);
+    window.removeEventListener("click", arm);
+    window.removeEventListener("scroll", arm);
+  };
+  window.addEventListener("touchstart", arm, { passive: true });
+  window.addEventListener("click", arm, { passive: true });
+  window.addEventListener("scroll", arm, { passive: true });
+
+  // Load + play only when near viewport, pause when away
+  if (!("IntersectionObserver" in window)) {
+    loadSources();
+    tryPlay();
+    return;
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    const e = entries[0];
+    if (!e) return;
+
+    if (e.isIntersecting) {
+      loadSources();
+      tryPlay();
+    } else {
+      try { v.pause(); } catch {}
+    }
+  }, { rootMargin: "300px 0px", threshold: 0.08 });
+
+  io.observe(section);
+
+  // Pause when tab hidden (perf)
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      try { v.pause(); } catch {}
+    } else {
+      // Only resume if section is visible-ish
+      // (safe: just attempt, browser will ignore if not allowed)
+      tryPlay();
+    }
+  });
+})();
+
