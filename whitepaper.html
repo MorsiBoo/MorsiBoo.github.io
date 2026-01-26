@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>BRBRT — Official Token Supply & Transparency Statement</title>
-  <meta name="description" content="BRBRT official token supply & transparency statement. Fixed supply, no minting, no proxy, on-chain locks, roadmap-based allocation, exchange-friendly overview." />
+  <meta name="description" content="BRBRT official token supply & transparency statement. Fixed supply, no minting, no proxy, on-chain locks, roadmap-based allocation." />
   <meta name="robots" content="index,follow,max-image-preview:large" />
 
   <style>
@@ -16,7 +16,7 @@
       --muted:rgba(255,255,255,.72);
       --faint:rgba(255,255,255,.55);
       --line:rgba(255,255,255,.10);
-      --accent:#19d38b; /* green */
+      --accent:#19d38b;
       --shadow: 0 16px 40px rgba(0,0,0,.40);
       --radius:18px;
       --radius2:24px;
@@ -24,7 +24,7 @@
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
 
-      /* Chart palette (coherent, premium, readable on dark) */
+      /* Pie palette (premium on dark) */
       --c-locked:#19d38b;      /* green */
       --c-liquidity:#22c7ff;   /* cyan */
       --c-infra:#8a7dff;       /* violet */
@@ -32,17 +32,21 @@
       --c-team:#ff5ad6;        /* pink */
       --c-public:#e7edf4;      /* off-white */
     }
+
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
       font-family:var(--sans);
       color:var(--text);
       background:
-        radial-gradient(1200px 800px at 20% 10%, rgba(25,211,139,.10), transparent 60%),
-        radial-gradient(900px 600px at 85% 30%, rgba(34,199,255,.08), transparent 55%),
+        radial-gradient(1200px 800px at 20% 10%, rgba(25,211,139,.12), transparent 60%),
+        radial-gradient(900px 600px at 85% 30%, rgba(34,199,255,.10), transparent 55%),
         radial-gradient(800px 600px at 50% 110%, rgba(255,255,255,.05), transparent 55%),
         var(--bg);
       line-height:1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
     a{color:var(--text); text-decoration:none}
     a:hover{opacity:.9; text-decoration:underline}
@@ -52,7 +56,7 @@
       margin-top:10px;
       padding:28px 22px;
       border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
       border-radius:var(--radius2);
       box-shadow:var(--shadow);
       position:relative;
@@ -62,8 +66,8 @@
       content:"";
       position:absolute; inset:-2px;
       background:
-        radial-gradient(520px 280px at 20% 0%, rgba(25,211,139,.18), transparent 60%),
-        radial-gradient(520px 280px at 90% 40%, rgba(34,199,255,.10), transparent 65%);
+        radial-gradient(520px 280px at 20% 0%, rgba(25,211,139,.20), transparent 60%),
+        radial-gradient(520px 280px at 90% 40%, rgba(34,199,255,.12), transparent 65%);
       pointer-events:none;
     }
     header > *{position:relative}
@@ -74,10 +78,11 @@
     }
     .pill{
       border:1px solid var(--line);
-      background:rgba(0,0,0,.20);
+      background:rgba(0,0,0,.22);
       padding:6px 10px;
       border-radius:999px;
       display:inline-flex; gap:8px; align-items:center;
+      backdrop-filter: blur(6px);
     }
     .dot{width:8px; height:8px; border-radius:999px; background:var(--accent); display:inline-block}
     h1{
@@ -133,6 +138,7 @@
       border-radius:var(--radius);
       padding:16px 16px;
       box-shadow: 0 10px 26px rgba(0,0,0,.22);
+      backdrop-filter: blur(6px);
     }
     .card h2{
       margin:0 0 10px;
@@ -146,6 +152,7 @@
     .span-4{grid-column: span 4}
     .span-8{grid-column: span 8}
     .span-12{grid-column: span 12}
+
     @media (max-width: 860px){
       .span-6,.span-7,.span-5,.span-4,.span-8{grid-column: span 12}
       h1{font-size:28px}
@@ -206,6 +213,7 @@
       border-bottom:1px solid var(--line);
       font-size:14px;
       color:var(--muted);
+      vertical-align: top;
     }
     th{
       color:var(--text);
@@ -224,6 +232,7 @@
       border-radius:var(--radius2);
       background:rgba(255,255,255,.03);
       color:var(--muted);
+      backdrop-filter: blur(6px);
     }
     .center{text-align:center; padding:30px 12px}
     .center h3{margin:0 0 8px; font-size:22px; letter-spacing:-.02em}
@@ -242,93 +251,92 @@
     .cta:hover{text-decoration:none; opacity:.95}
     .small{font-size:12px; color:var(--faint); margin-top:10px}
 
-    /* Allocation Overview (Pie Chart + Legend) */
+    /* Allocation Overview layout */
     .alloc-wrap{
       display:grid;
-      grid-template-columns: 360px 1fr;
+      grid-template-columns: 420px 1fr;
       gap:16px;
-      align-items:center;
+      align-items:start;
     }
-    @media (max-width: 860px){
+    @media (max-width: 980px){
       .alloc-wrap{grid-template-columns: 1fr}
     }
 
-    .donut{
-      width:320px; height:320px;
-      margin:0 auto;
-      border-radius:999px;
-      position:relative;
+    /* SVG Pie container */
+    .pieBox{
+      width: 100%;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
       box-shadow: 0 20px 50px rgba(0,0,0,.35);
-      border:1px solid rgba(255,255,255,.10);
-      background:
-        conic-gradient(
-          /* Order: Locked, Liquidity, Infra, Marketing, Team, Public */
-          var(--c-locked)    0%      27.99%,
-          var(--c-liquidity) 27.99%  55.98%,
-          var(--c-infra)     55.98%  65.98%,
-          var(--c-marketing) 65.98%  70.98%,
-          var(--c-team)      70.98%  74.64%,
-          var(--c-public)    74.64%  100%
-        );
-      overflow:hidden;
+      padding: 14px;
     }
-    .donut:before{
-      content:"";
-      position:absolute; inset:14px;
-      border-radius:999px;
-      background:
-        radial-gradient(320px 260px at 30% 20%, rgba(255,255,255,.10), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.05));
-      border:1px solid rgba(255,255,255,.08);
-      box-shadow: inset 0 0 0 1px rgba(0,0,0,.18);
-    }
-    .donut:after{
-      content:"";
-      position:absolute; inset:86px;
-      border-radius:999px;
-      background: rgba(0,0,0,.55);
-      border:1px solid rgba(255,255,255,.10);
-      box-shadow: inset 0 10px 30px rgba(0,0,0,.45);
-    }
-    .donut-center{
-      position:absolute;
-      inset:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      z-index:2;
-      padding:22px;
-      pointer-events:none;
-    }
-    .donut-center .t1{
-      font-size:12px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color:var(--faint);
-      margin-bottom:6px;
-    }
-    .donut-center .t2{
-      font-size:26px;
-      font-weight:800;
-      letter-spacing:-.02em;
-      color:var(--text);
-      line-height:1.1;
-    }
-    .donut-center .t3{
-      margin-top:8px;
-      font-family:var(--mono);
-      font-size:12px;
-      color:var(--muted);
+    #allocPie{width:100%; height:auto; display:block}
+
+    .pie-slice{
+      stroke: rgba(0,0,0,.35);
+      stroke-width: 2;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.35));
     }
 
+    /* Labels inside slices */
+    .pie-label{
+      font-family: var(--sans);
+      font-weight: 900;
+      fill: rgba(255,255,255,.96);
+      paint-order: stroke;
+      stroke: rgba(0,0,0,.60);
+      stroke-width: 4px;
+      stroke-linejoin: round;
+      pointer-events: none;
+      letter-spacing: -0.01em;
+    }
+    .pie-sub{
+      font-family: var(--mono);
+      font-weight: 800;
+      fill: rgba(255,255,255,.92);
+      paint-order: stroke;
+      stroke: rgba(0,0,0,.60);
+      stroke-width: 4px;
+      stroke-linejoin: round;
+      pointer-events: none;
+    }
+
+    /* Connector labels (for small slices) */
+    .pie-line{
+      stroke: rgba(255,255,255,.45);
+      stroke-width: 2;
+      opacity: .9;
+    }
+    .pie-out{
+      font-family: var(--sans);
+      font-weight: 900;
+      fill: rgba(255,255,255,.95);
+      paint-order: stroke;
+      stroke: rgba(0,0,0,.65);
+      stroke-width: 4px;
+      stroke-linejoin: round;
+      pointer-events: none;
+    }
+    .pie-out-sub{
+      font-family: var(--mono);
+      font-weight: 800;
+      fill: rgba(255,255,255,.90);
+      paint-order: stroke;
+      stroke: rgba(0,0,0,.65);
+      stroke-width: 4px;
+      stroke-linejoin: round;
+      pointer-events: none;
+    }
+
+    /* Legend cards */
     .legend{
       display:grid;
       gap:10px;
     }
     .legend .item{
       display:flex;
-      align-items:center;
+      align-items:flex-start;
       justify-content:space-between;
       gap:12px;
       padding:10px 12px;
@@ -337,7 +345,7 @@
       background: rgba(0,0,0,.18);
     }
     .legend .left{
-      display:flex; align-items:center; gap:10px;
+      display:flex; align-items:flex-start; gap:10px;
       min-width: 0;
     }
     .swatch{
@@ -346,19 +354,22 @@
       border:1px solid rgba(255,255,255,.18);
       box-shadow: 0 10px 20px rgba(0,0,0,.25);
       flex:0 0 auto;
+      margin-top: 2px;
     }
     .legend .name{
       color:var(--text);
-      font-weight:650;
+      font-weight:750;
       font-size:13px;
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
+      max-width: 46ch;
     }
     .legend .desc{
       color:var(--muted);
       font-size:12px;
       margin-top:2px;
+      max-width: 64ch;
     }
     .legend .right{
       font-family:var(--mono);
@@ -369,7 +380,19 @@
       border:1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.05);
       flex:0 0 auto;
+      margin-top: 1px;
+      white-space: nowrap;
     }
+
+    /* Small highlight callout */
+    .callout{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      border-radius: 16px;
+      padding: 12px;
+      color: var(--muted);
+    }
+    .callout strong{color:var(--text)}
   </style>
 </head>
 
@@ -434,7 +457,6 @@
         <div class="ok"><span class="tick">✓</span>
           <div><strong>No Proxy / Upgrades</strong><br/><span class="small">Contract logic is immutable.</span></div>
         </div>
-
         <!-- sentence removed as requested -->
       </div>
     </section>
@@ -457,26 +479,21 @@
       </div>
     </section>
 
-    <!-- ALLOCATION OVERVIEW (PIE CHART) -->
+    <!-- ALLOCATION OVERVIEW (POWERFUL PIE: labels per slice + connectors for small slices) -->
     <section id="allocation" class="grid" aria-label="Allocation Overview">
       <div class="card span-12">
         <h2>Allocation Overview</h2>
         <p class="small" style="margin:0">
-          Total supply: <strong>1,000,000 BRBRT</strong>. Allocation structure is designed for clarity, stability, and long-term execution.
+          Total supply: <strong>1,000,000 BRBRT</strong>. Every allocation is designed for clarity, stability, and long-term execution.
         </p>
 
         <div class="divider"></div>
 
         <div class="alloc-wrap">
-          <div style="display:flex; align-items:center; justify-content:center;">
-            <div class="donut" aria-label="Allocation Pie Chart">
-              <div class="donut-center">
-                <div>
-                  <div class="t1">Total Supply</div>
-                  <div class="t2">1,000,000<br/>BRBRT</div>
-                  <div class="t3">Locked • Liquidity • Infra • Marketing • DAO • Public</div>
-                </div>
-              </div>
+          <div class="pieBox">
+            <svg id="allocPie" viewBox="0 0 520 520" role="img" aria-label="BRBRT allocation pie chart"></svg>
+            <div class="small" style="margin-top:10px">
+              Labels are placed on slices. Small allocations use connector labels for maximum readability.
             </div>
           </div>
 
@@ -545,6 +562,13 @@
                 </div>
               </div>
               <div class="right">25.36%</div>
+            </div>
+
+            <div class="callout">
+              <strong>On-chain Lock Record:</strong>
+              <div class="mono" style="margin-top:6px; word-break: break-word;">
+                pinksale.finance/pinklock/bsc/record/1437618
+              </div>
             </div>
           </div>
         </div>
@@ -698,7 +722,7 @@
           </div>
           <div class="card span-3" style="box-shadow:none; background:rgba(255,255,255,.03)">
             <h2>Allocation Logic</h2>
-            <p>Detailed breakdown.</p>
+            <p>Clear breakdown.</p>
           </div>
           <div class="card span-3" style="box-shadow:none; background:rgba(255,255,255,.03)">
             <h2>Roadmap Alignment</h2>
@@ -721,5 +745,166 @@
       <p class="small">— BRBRT Team —</p>
     </section>
   </div>
+
+  <script>
+    (function(){
+      // Data (must match your official breakdown)
+      const data = [
+        { name: "Locked",         value: 27.99, colorVar: "--c-locked" },
+        { name: "Liquidity",      value: 27.99, colorVar: "--c-liquidity" },
+        { name: "Infrastructure", value: 10.00, colorVar: "--c-infra" },
+        { name: "Marketing",      value: 5.00,  colorVar: "--c-marketing" },
+        { name: "Team/DAO",       value: 3.66,  colorVar: "--c-team" },
+        { name: "Public",         value: 25.36, colorVar: "--c-public" }
+      ];
+
+      const svg = document.getElementById("allocPie");
+      if(!svg) return;
+
+      const W = 520, H = 520;
+      const cx = W/2, cy = H/2;
+
+      const r  = 190;   // pie radius
+      const lr = 125;   // label radius (inside)
+      const outR1 = r + 18; // connector start
+      const outR2 = r + 54; // connector end
+
+      const total = data.reduce((a,b)=>a+b.value,0);
+      const css = getComputedStyle(document.documentElement);
+
+      // background glow / depth
+      svg.innerHTML = `
+        <defs>
+          <radialGradient id="pieGlow" cx="35%" cy="25%" r="80%">
+            <stop offset="0%" stop-color="rgba(255,255,255,.18)"/>
+            <stop offset="55%" stop-color="rgba(255,255,255,.07)"/>
+            <stop offset="100%" stop-color="rgba(0,0,0,.10)"/>
+          </radialGradient>
+        </defs>
+        <circle cx="${cx}" cy="${cy}" r="${r+8}" fill="url(#pieGlow)" opacity="0.75"></circle>
+      `;
+
+      let angle = -Math.PI / 2; // start at top
+
+      data.forEach(d => {
+        const sliceAngle = (d.value / total) * Math.PI * 2;
+        const a0 = angle;
+        const a1 = angle + sliceAngle;
+
+        const x0 = cx + r * Math.cos(a0);
+        const y0 = cy + r * Math.sin(a0);
+        const x1 = cx + r * Math.cos(a1);
+        const y1 = cy + r * Math.sin(a1);
+
+        const largeArc = sliceAngle > Math.PI ? 1 : 0;
+        const color = (css.getPropertyValue(d.colorVar).trim() || "#19d38b");
+
+        const path = el("path");
+        path.setAttribute("d", [
+          `M ${cx} ${cy}`,
+          `L ${x0} ${y0}`,
+          `A ${r} ${r} 0 ${largeArc} 1 ${x1} ${y1}`,
+          "Z"
+        ].join(" "));
+        path.setAttribute("fill", color);
+        path.setAttribute("class", "pie-slice");
+        svg.appendChild(path);
+
+        // Midpoint angle for label placement
+        const mid = (a0 + a1) / 2;
+
+        // For small slices: push label outside with connector
+        const isSmall = d.value < 6.0;
+
+        if(!isSmall){
+          const lx = cx + lr * Math.cos(mid);
+          const ly = cy + lr * Math.sin(mid);
+
+          const size = d.value < 11 ? 16 : 17;
+          const subSize = 13;
+
+          const text = el("text");
+          text.setAttribute("x", lx);
+          text.setAttribute("y", ly);
+          text.setAttribute("text-anchor", "middle");
+          text.setAttribute("dominant-baseline", "middle");
+          text.setAttribute("class", "pie-label");
+          text.setAttribute("style", `font-size:${size}px;`);
+
+          const t1 = el("tspan");
+          t1.textContent = d.name;
+          t1.setAttribute("x", lx);
+          t1.setAttribute("dy", "-0.15em");
+
+          const t2 = el("tspan");
+          t2.textContent = `${d.value.toFixed(2)}%`;
+          t2.setAttribute("x", lx);
+          t2.setAttribute("dy", "1.20em");
+          t2.setAttribute("class", "pie-sub");
+          t2.setAttribute("style", `font-size:${subSize}px;`);
+
+          text.appendChild(t1);
+          text.appendChild(t2);
+          svg.appendChild(text);
+        } else {
+          // Connector points
+          const xA = cx + outR1 * Math.cos(mid);
+          const yA = cy + outR1 * Math.sin(mid);
+          const xB = cx + outR2 * Math.cos(mid);
+          const yB = cy + outR2 * Math.sin(mid);
+
+          // little horizontal offset so label doesn't sit on the line
+          const side = Math.cos(mid) >= 0 ? 1 : -1;
+          const xC = xB + side * 22;
+          const yC = yB;
+
+          const line = el("path");
+          line.setAttribute("d", `M ${xA} ${yA} L ${xB} ${yB} L ${xC} ${yC}`);
+          line.setAttribute("class", "pie-line");
+          svg.appendChild(line);
+
+          const text = el("text");
+          text.setAttribute("x", xC + side * 6);
+          text.setAttribute("y", yC);
+          text.setAttribute("text-anchor", side === 1 ? "start" : "end");
+          text.setAttribute("dominant-baseline", "middle");
+          text.setAttribute("class", "pie-out");
+          text.setAttribute("style", "font-size:15px;");
+
+          const t1 = el("tspan");
+          t1.textContent = d.name;
+          t1.setAttribute("x", xC + side * 6);
+          t1.setAttribute("dy", "-0.15em");
+
+          const t2 = el("tspan");
+          t2.textContent = `${d.value.toFixed(2)}%`;
+          t2.setAttribute("x", xC + side * 6);
+          t2.setAttribute("dy", "1.20em");
+          t2.setAttribute("class", "pie-out-sub");
+          t2.setAttribute("style", "font-size:12px;");
+
+          text.appendChild(t1);
+          text.appendChild(t2);
+          svg.appendChild(text);
+        }
+
+        angle = a1;
+      });
+
+      // Outer ring for crisp edge
+      const ring = el("circle");
+      ring.setAttribute("cx", cx);
+      ring.setAttribute("cy", cy);
+      ring.setAttribute("r", r);
+      ring.setAttribute("fill", "none");
+      ring.setAttribute("stroke", "rgba(255,255,255,.12)");
+      ring.setAttribute("stroke-width", "2");
+      svg.appendChild(ring);
+
+      function el(tag){
+        return document.createElementNS("http://www.w3.org/2000/svg", tag);
+      }
+    })();
+  </script>
 </body>
 </html>
