@@ -1,90 +1,626 @@
+<!--
+  BRBRT — Official Token Supply & Transparency Statement (Official Whitepaper Replacement)
+  Source: "BRBRT coin Official Transparency Document.pdf" (13 pages) — Date: 23/01/2026
+-->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#07110D" />
-  <title>BRBRT Whitepaper</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>BRBRT — Official Token Supply & Transparency Statement</title>
+  <meta name="description" content="BRBRT official token supply & transparency statement. Fixed supply, no minting, no proxy, on-chain locks, roadmap-based allocation, exchange-friendly overview." />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+
+  <!-- OPTIONAL: keep your canonical if you already have it -->
+  <!-- <link rel="canonical" href="https://brbrt.com/whitepaper" /> -->
+
+  <style>
+    :root{
+      --bg:#07110D;
+      --panel:rgba(255,255,255,.06);
+      --panel2:rgba(255,255,255,.04);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.72);
+      --faint:rgba(255,255,255,.55);
+      --line:rgba(255,255,255,.10);
+      --accent:#19d38b; /* green */
+      --warn:#ff5a5f;
+      --shadow: 0 16px 40px rgba(0,0,0,.40);
+      --radius:18px;
+      --radius2:24px;
+      --max: 1080px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 20% 10%, rgba(25,211,139,.10), transparent 60%),
+        radial-gradient(900px 600px at 85% 30%, rgba(25,211,139,.08), transparent 55%),
+        radial-gradient(800px 600px at 50% 110%, rgba(255,255,255,.05), transparent 55%),
+        var(--bg);
+      line-height:1.55;
+    }
+    a{color:var(--text); text-decoration:none}
+    a:hover{opacity:.9; text-decoration:underline}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 64px}
+    header{
+      margin-top:10px;
+      padding:28px 22px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius:var(--radius2);
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    header:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(520px 280px at 20% 0%, rgba(25,211,139,.18), transparent 60%),
+        radial-gradient(520px 280px at 90% 40%, rgba(25,211,139,.12), transparent 65%);
+      filter: blur(0px);
+      pointer-events:none;
+    }
+    header > *{position:relative}
+    .kicker{
+      display:flex; flex-wrap:wrap; gap:10px;
+      font-size:13px; color:var(--muted);
+      align-items:center;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.20);
+      padding:6px 10px;
+      border-radius:999px;
+      display:inline-flex; gap:8px; align-items:center;
+    }
+    .dot{width:8px; height:8px; border-radius:999px; background:var(--accent); display:inline-block}
+    h1{
+      margin:14px 0 8px;
+      font-size:34px;
+      letter-spacing:-.02em;
+      line-height:1.15;
+    }
+    .sub{
+      color:var(--muted);
+      font-size:16px;
+      margin:0 0 14px;
+      max-width: 74ch;
+    }
+    .meta{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:8px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .meta code{
+      font-family:var(--mono);
+      font-size:12px;
+      color:var(--text);
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      padding:4px 8px;
+      border-radius:10px;
+    }
+    nav{
+      margin:18px 0 0;
+      display:flex; flex-wrap:wrap; gap:10px;
+    }
+    nav a{
+      font-size:13px;
+      color:var(--muted);
+      border:1px solid var(--line);
+      padding:8px 10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.03);
+    }
+    nav a:hover{color:var(--text); text-decoration:none}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(12, 1fr);
+      gap:14px;
+      margin-top:18px;
+    }
+    .card{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius:var(--radius);
+      padding:16px 16px;
+      box-shadow: 0 10px 26px rgba(0,0,0,.22);
+    }
+    .card h2{
+      margin:0 0 10px;
+      font-size:16px;
+      letter-spacing:-.01em;
+    }
+    .card p{margin:0; color:var(--muted)}
+    .span-6{grid-column: span 6}
+    .span-7{grid-column: span 7}
+    .span-5{grid-column: span 5}
+    .span-4{grid-column: span 4}
+    .span-8{grid-column: span 8}
+    .span-12{grid-column: span 12}
+    @media (max-width: 860px){
+      .span-6,.span-7,.span-5,.span-4,.span-8{grid-column: span 12}
+      h1{font-size:28px}
+    }
+    .big{
+      font-size:44px;
+      font-weight:800;
+      letter-spacing:-.03em;
+      margin:4px 0 0;
+      color:var(--accent);
+    }
+    .label{
+      color:var(--faint);
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+    }
+    .two{
+      display:grid; gap:10px;
+    }
+    .row{
+      display:flex; justify-content:space-between; gap:10px;
+      border-top:1px solid var(--line);
+      padding-top:10px;
+      margin-top:10px;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .row strong{color:var(--text); font-weight:700}
+    .list{
+      margin:8px 0 0;
+      padding:0 0 0 18px;
+      color:var(--muted);
+    }
+    .list li{margin:6px 0}
+    .ok{
+      display:flex; gap:10px; align-items:flex-start;
+      margin:8px 0;
+      color:var(--muted);
+    }
+    .tick{
+      width:22px; height:22px; border-radius:8px;
+      background:rgba(25,211,139,.12);
+      border:1px solid rgba(25,211,139,.35);
+      display:inline-flex; align-items:center; justify-content:center;
+      color:var(--accent);
+      flex:0 0 auto;
+      font-weight:900;
+    }
+    .warn{
+      border:1px solid rgba(255,90,95,.35);
+      background:rgba(255,90,95,.10);
+      color:var(--text);
+      padding:12px 12px;
+      border-radius:14px;
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(0,0,0,.18);
+    }
+    th, td{
+      padding:12px 12px;
+      text-align:left;
+      border-bottom:1px solid var(--line);
+      font-size:14px;
+      color:var(--muted);
+    }
+    th{
+      color:var(--text);
+      background:rgba(255,255,255,.04);
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:.10em;
+    }
+    tr:last-child td{border-bottom:none}
+    .mono{font-family:var(--mono)}
+    .footer{
+      margin-top:22px;
+      padding:18px 16px;
+      border:1px solid var(--line);
+      border-radius:var(--radius2);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+    }
+    .center{
+      text-align:center;
+      padding:30px 12px;
+    }
+    .center h3{
+      margin:0 0 8px;
+      font-size:22px;
+      letter-spacing:-.02em;
+    }
+    .center p{margin:0; color:var(--muted)}
+    .cta{
+      margin-top:14px;
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      border-radius:999px;
+      padding:10px 14px;
+      border:1px solid rgba(25,211,139,.35);
+      background:rgba(25,211,139,.10);
+      color:var(--text);
+    }
+    .cta:hover{text-decoration:none; opacity:.95}
+    .small{
+      font-size:12px; color:var(--faint);
+      margin-top:10px;
+    }
+    .divider{height:1px; background:var(--line); margin:14px 0}
+  </style>
 </head>
+
 <body>
-  <header class="nav">
-    <div class="nav__inner">
-      <a class="brand" href="index.html">
-        <span class="brand__mark" aria-hidden="true"></span>
-        <span class="brand__name">BRBRT</span>
-      </a>
-      <nav class="nav__links">
-        <a href="index.html#story">Story</a>
-        <a href="index.html#token">Token</a>
-        <a href="index.html#transparency">Transparency</a>
-        <a href="index.html#roadmap">Roadmap</a>
-        <a href="association.html">Association</a>
-      </nav>
-      <div class="nav__actions">
-        <a class="btn btn--ghost" href="index.html">Home</a>
-        <a class="btn btn--primary" href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">Links ↗</a>
+  <div class="wrap">
+    <header>
+      <div class="kicker">
+        <span class="pill"><span class="dot"></span> Locked &amp; Verified</span>
+        <span class="pill">Classification: Professional Exchange Review</span>
+        <span class="pill">Purpose: Community Trust &amp; Market Clarity</span>
       </div>
-    </div>
-  </header>
 
-  <main style="padding-top:92px">
-    <section class="section">
-      <div class="container">
-        <div class="section__head">
-          <h2>Whitepaper (Summary)</h2>
-          <p class="muted">This is a plain-language overview. BRBRT is a meme token. No profit promises. NFA.</p>
+      <h1>Token Supply &amp; Transparency Statement</h1>
+      <p class="sub">
+        Issued by <strong>BRBRT Team</strong> — Official on-chain supply clarity and allocation structure.
+      </p>
+
+      <div class="meta">
+        <span>Date: <code>23/01/2026</code></span>
+        <span>Document Ref: <code>BRBRT-DOC-2026</code></span>
+        <span>Status: <code>Official</code></span>
+      </div>
+
+      <nav aria-label="On-page navigation">
+        <a href="#supply">Supply Facts</a>
+        <a href="#control">Project Control</a>
+        <a href="#locked">Locked Tokens</a>
+        <a href="#alloc">Allocations</a>
+        <a href="#guarantees">Guarantees</a>
+        <a href="#roadmap">Vision &amp; Roadmap</a>
+        <a href="#cex">CEX Pack</a>
+      </nav>
+    </header>
+
+    <!-- SUPPLY FACTS -->
+    <section id="supply" class="grid" style="margin-top:16px">
+      <div class="card span-6">
+        <div class="label">Supply Data</div>
+        <div class="two">
+          <div>
+            <div class="label" style="margin-top:10px">Max Supply</div>
+            <div class="big">1,000,000</div>
+          </div>
+          <div class="divider"></div>
+          <div>
+            <div class="label">Total Supply</div>
+            <div class="big" style="font-size:40px">1,000,000</div>
+            <p class="small">The supply cannot increase. Everything is on-chain.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card span-6">
+        <div class="label">Security Protocol</div>
+
+        <div class="ok"><span class="tick">✓</span>
+          <div><strong>Minting Disabled</strong><br/><span class="small">Functionality permanently removed.</span></div>
+        </div>
+        <div class="ok"><span class="tick">✓</span>
+          <div><strong>No Hidden Supply</strong><br/><span class="small">100% visible on explorer.</span></div>
+        </div>
+        <div class="ok"><span class="tick">✓</span>
+          <div><strong>No Proxy / Upgrades</strong><br/><span class="small">Contract logic is immutable.</span></div>
         </div>
 
-        <div class="grid grid--2">
-          <article class="card">
-            <h3>Mission</h3>
-            <p>
-              BRBRT is inspired by a real story of bullying, resilience, and personal growth.
-              The mission is to build a supportive, transparent community around awareness and youth empowerment.
-            </p>
-          </article>
-
-          <article class="card">
-            <h3>Core Values</h3>
-            <ul class="bullets">
-              <li><strong>Courage</strong> — speaking up</li>
-              <li><strong>Compassion</strong> — supporting others</li>
-              <li><strong>Community</strong> — building together, transparently</li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <h3>Token & Links</h3>
-            <ul class="bullets">
-              <li>Contract: <span class="mono">0xf97522ABEf762d28729E073019343b72C6e8D2C1</span></li>
-              <li>PancakeSwap: official buy link on homepage</li>
-              <li>BscScan: official explorer link on homepage</li>
-              <li>Linktree: <a href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">linktr.ee/BRBRT</a></li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <h3>Transparency</h3>
-            <ul class="bullets">
-              <li>Ownership renounced (verify on BscScan)</li>
-              <li>Reserve lock proof (PinkLock V2 record)</li>
-              <li>Public links published for verification</li>
-            </ul>
-          </article>
-        </div>
-
-        <div class="notice notice--big" style="margin-top:18px">
-          <strong>Disclaimer</strong>
-          <span>
-            BRBRT is a meme token. This document is informational only and does not constitute financial advice.
-            Always do your own research and verify on-chain data.
-          </span>
+        <div class="warn" style="margin-top:12px">
+          This statement is designed to be exchange-friendly: clear, auditable, and verifiable.
         </div>
       </div>
     </section>
-  </main>
 
-  <script defer src="script.js"></script>
+    <!-- PROJECT CONTROL -->
+    <section id="control" class="grid">
+      <div class="card span-5">
+        <div class="label">Project Control Overview</div>
+        <div class="big">74.6%</div>
+        <p class="small">Controlled by project (structured allocation and milestone-based distribution).</p>
+      </div>
+
+      <div class="card span-7">
+        <div class="label">Fully transparent &amp; publicly traceable</div>
+        <ul class="list">
+          <li><strong>Structured for Stability</strong> — No random dumps.</li>
+          <li><strong>Responsible Growth</strong> — Aligned with adoption.</li>
+          <li><strong>Roadmap Alignment</strong> — Unlocked only for milestones.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- LOCKED TOKENS -->
+    <section id="locked" class="grid">
+      <div class="card span-6">
+        <div class="label">Locked Tokens</div>
+        <div class="big">27.99%</div>
+        <p class="small">
+          On-chain secured — Platform: <strong>PinkLock V2</strong>
+        </p>
+      </div>
+
+      <div class="card span-6">
+        <div class="label">Verification Record</div>
+        <p class="small" style="margin:0">
+          Tokens are mathematically locked and cannot be moved or sold by the team.
+        </p>
+        <div class="row">
+          <span>Record</span>
+          <strong class="mono">pinksale.finance/pinklock/bsc/record/1437618</strong>
+        </div>
+        <ul class="list" style="margin-top:10px">
+          <li>Holder Protection</li>
+          <li>Supply Stability</li>
+          <li>Long-term Commitment</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- LISTINGS & LIQUIDITY + INFRA + MKT + DAO -->
+    <section id="alloc" class="grid">
+      <div class="card span-4">
+        <div class="label">Listings &amp; Liquidity</div>
+        <div class="big" style="font-size:36px">27.99%</div>
+        <p class="small">Reserved exclusively for:</p>
+        <ul class="list">
+          <li>Centralized Exchanges (CEX)</li>
+          <li>Market Making</li>
+          <li>Order Book Stability</li>
+        </ul>
+      </div>
+
+      <div class="card span-4">
+        <div class="label">Deployment</div>
+        <p class="small">Strategic release schedule:</p>
+        <ul class="list">
+          <li>Not released at once</li>
+          <li>Deployed progressively</li>
+          <li>Based on volume demand</li>
+        </ul>
+      </div>
+
+      <div class="card span-4" style="border-color: rgba(255,90,95,.35); background: rgba(255,90,95,.06);">
+        <div class="label" style="color:rgba(255,255,255,.85)">Restrictions</div>
+        <p class="small" style="color:rgba(255,255,255,.78)">Strict governance rules:</p>
+        <ul class="list" style="color:rgba(255,255,255,.78)">
+          <li><strong>NOT</strong> for team profit</li>
+          <li><strong>NOT</strong> for personal wallets</li>
+          <li>Auditable transfers only</li>
+        </ul>
+      </div>
+
+      <div class="card span-8">
+        <div class="label">Infrastructure &amp; Development</div>
+        <div class="row" style="margin-top:8px">
+          <span>Allocation</span><strong>10%</strong>
+        </div>
+        <div class="grid" style="margin-top:10px">
+          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <h2>Supportive Web</h2>
+            <p>Building anti-bullying resources, community platforms, and advanced moderation tools for a safe digital space.</p>
+          </div>
+          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <h2>Content Systems</h2>
+            <p>Production of educational content (real cases) and animated episodes. Enhancing website performance &amp; accessibility.</p>
+          </div>
+          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <h2>Future Game</h2>
+            <p>Development of the BRBRT creative game. Focused on real experiences and long-term impact (Future Launch).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card span-4">
+        <div class="label">Marketing &amp; DAO Allocation</div>
+        <div class="row" style="margin-top:8px"><span>Marketing</span><strong>5%</strong></div>
+        <ul class="list">
+          <li>Awareness: Educational campaigns on ethics.</li>
+          <li>Partnerships: Aligning with strategic allies.</li>
+          <li>Growth: Initiatives to expand the community.</li>
+        </ul>
+        <div class="divider"></div>
+        <div class="row"><span>Team / DAO</span><strong>3.66%</strong></div>
+        <ul class="list">
+          <li>Alignment: Long-term team incentives.</li>
+          <li>Governance: DAO experimentation phase.</li>
+          <li>Future: Community-guided decision making.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SUMMARY TABLE (matches the chart in the PDF) -->
+    <section class="grid" aria-label="Supply Transparency Summary">
+      <div class="card span-12">
+        <h2>Supply Transparency Summary</h2>
+        <p class="small">
+          Breakdown aligned with the official structure (total supply: <strong>1,000,000 BRBRT</strong>).
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Bucket</th>
+              <th>Allocation</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Locked (PinkLock V2)</td>
+              <td class="mono">27.99%</td>
+              <td>On-chain secured lock (team cannot move/sell).</td>
+            </tr>
+            <tr>
+              <td>Listings &amp; Liquidity</td>
+              <td class="mono">27.99%</td>
+              <td>Reserved for CEX / market making / order book stability.</td>
+            </tr>
+            <tr>
+              <td>Infrastructure &amp; Development</td>
+              <td class="mono">10.00%</td>
+              <td>Supportive web, content systems, future game (future launch).</td>
+            </tr>
+            <tr>
+              <td>Marketing</td>
+              <td class="mono">5.00%</td>
+              <td>Education, awareness, partnerships, growth initiatives.</td>
+            </tr>
+            <tr>
+              <td>Team / DAO</td>
+              <td class="mono">3.66%</td>
+              <td>Long-term incentives, DAO experimentation, community-guided governance.</td>
+            </tr>
+            <tr>
+              <td>Public / Circulating</td>
+              <td class="mono">25.36%</td>
+              <td>Public supply in circulation.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="small" style="margin-top:10px">
+          Note: “Project controlled” figure is shown as <strong>74.6%</strong> in the official overview.
+        </p>
+      </div>
+    </section>
+
+    <!-- GUARANTEES -->
+    <section id="guarantees" class="grid">
+      <div class="card span-6">
+        <h2>Structural Guarantees</h2>
+        <p class="small">Designed for long-term sustainability, not short-term speculation.</p>
+      </div>
+
+      <div class="card span-3">
+        <div class="label">Technical</div>
+        <ul class="list">
+          <li>Fixed Supply</li>
+          <li>No Mint Function</li>
+          <li>No Proxy Contracts</li>
+        </ul>
+      </div>
+
+      <div class="card span-3">
+        <div class="label">Operational</div>
+        <ul class="list">
+          <li>Public Wallets</li>
+          <li>On-chain Locks</li>
+          <li>Roadmap-based Allocation</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ROADMAP -->
+    <section id="roadmap" class="grid">
+      <div class="card span-6">
+        <h2>Vision &amp; Roadmap Alignment</h2>
+        <div class="label">Driven by values</div>
+        <p class="small">
+          BRBRT is built from a real story, driven by resilience, dignity, and awareness.
+        </p>
+        <ul class="list">
+          <li>Community Safety</li>
+          <li>Anti-bullying Awareness</li>
+          <li>Transparent Funding Goals</li>
+          <li>No Financial Profit Promises</li>
+        </ul>
+      </div>
+
+      <div class="card span-6">
+        <div class="label">Phases</div>
+        <ul class="list">
+          <li><strong>Phase 01 — Foundations</strong>: Brand upgrades, official verifications, transparency page.</li>
+          <li><strong>Phase 02 — Growth</strong>: Story drops, community tools, safe space events.</li>
+          <li><strong>Phase 03 — Impact</strong>: Supportive web hub, association page, animated series.</li>
+          <li><strong>Phase 04 — Sustainability</strong>: Global awareness, long-term governance.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- FUTURE ECOSYSTEM -->
+    <section class="grid" aria-label="Future Ecosystem">
+      <div class="card span-12">
+        <h2>Future Ecosystem: Game &amp; Expansion</h2>
+        <div class="grid" style="margin-top:10px">
+          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <h2>Theme Focused</h2>
+            <p>Reinforces our mission.</p>
+          </div>
+          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <h2>No Profit Promises</h2>
+            <p>Not an investment vehicle.</p>
+          </div>
+          <div class="card span-4" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <h2>No Projections</h2>
+            <p>No financial speculation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CEX PACK -->
+    <section id="cex" class="grid">
+      <div class="card span-12">
+        <h2>CEX Transparency Pack</h2>
+        <p class="small">
+          This document serves as the institutional-grade transparency summary for exchange due diligence.
+        </p>
+
+        <div class="grid" style="margin-top:10px">
+          <div class="card span-3" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <h2>Fixed Supply Proof</h2>
+            <p>Immutable contract.</p>
+          </div>
+          <div class="card span-3" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <h2>PinkLock Proof</h2>
+            <p>On-chain record.</p>
+          </div>
+          <div class="card span-3" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <h2>Allocation Logic</h2>
+            <p>Detailed breakdown.</p>
+          </div>
+          <div class="card span-3" style="box-shadow:none; background:rgba(255,255,255,.03)">
+            <h2>Roadmap Alignment</h2>
+            <p>Strategic plan.</p>
+          </div>
+        </div>
+
+        <p class="small" style="margin-top:12px">
+          Suggested subject line: <span class="mono">“BRBRT — Token Supply Transparency &amp; Long-Term Structure”</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- FINAL STATEMENT -->
+    <section class="footer center" aria-label="Final Statement">
+      <h3>Everything is on-chain. Everything is structured.</h3>
+      <p>Nothing is hidden.</p>
+      <a class="cta" href="/" aria-label="Back to BRBRT home">
+        brbrt.com <span aria-hidden="true">→</span>
+      </a>
+      <p class="small">— BRBRT Team —</p>
+    </section>
+  </div>
 </body>
 </html>
