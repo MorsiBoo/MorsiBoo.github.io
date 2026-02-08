@@ -568,4 +568,25 @@
     }
   });
 })();
+// Partners marquee: smart pause when tab hidden + optional speed tuning
+(function () {
+  const track = document.querySelector(".partners-track");
+  if (!track) return;
+
+  // Pause when browser tab is hidden
+  document.addEventListener("visibilitychange", () => {
+    track.style.animationPlayState = document.hidden ? "paused" : "running";
+  });
+
+  // Optional: tune duration based on track width (keeps speed consistent)
+  const tuneSpeed = () => {
+    const w = track.scrollWidth;
+    const pxPerSecond = 90; // change this value to make it faster/slower
+    const duration = Math.max(12, Math.round(w / pxPerSecond));
+    track.style.animationDuration = duration + "s";
+  };
+
+  window.addEventListener("load", tuneSpeed);
+  window.addEventListener("resize", tuneSpeed);
+})();
 
