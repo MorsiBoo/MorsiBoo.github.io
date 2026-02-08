@@ -619,6 +619,124 @@ button{ font-family:inherit; }
   background-size: 54px 54px;
   mask-image: radial-gradient(circle at 50% 40%, rgba(0,0,0,.9), transparent 70%);
 }
+/* =========================
+   Partners (moving ticker)
+========================= */
+
+.partners{
+  padding: 70px 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.partners-inner{
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.partners-title{
+  font-size: clamp(24px, 3vw, 34px);
+  margin: 0 0 6px;
+}
+
+.partners-subtitle{
+  margin: 0 0 22px;
+  opacity: .75;
+}
+
+.partners-marquee{
+  position: relative;
+  border-radius: 18px;
+  padding: 18px 0;
+  overflow: hidden;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(10px);
+}
+
+/* glow edges */
+.partners-marquee::before,
+.partners-marquee::after{
+  content:"";
+  position:absolute;
+  top:0; bottom:0;
+  width: 90px;
+  z-index: 2;
+  pointer-events: none;
+}
+.partners-marquee::before{
+  left:0;
+  background: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0));
+}
+.partners-marquee::after{
+  right:0;
+  background: linear-gradient(to left, rgba(0,0,0,0.9), rgba(0,0,0,0));
+}
+
+.partners-track{
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  width: max-content;
+  padding: 6px 18px;
+  animation: partnersScroll 18s linear infinite;
+}
+
+.partners-marquee:hover .partners-track{
+  animation-play-state: paused;
+}
+
+.partner{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: transform .2s ease, background .2s ease, border-color .2s ease;
+  min-width: 170px;
+}
+
+.partner:hover{
+  transform: translateY(-2px) scale(1.02);
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.16);
+}
+
+.partner img{
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.35));
+  opacity: .95;
+}
+
+.partners-hint{
+  margin-top: 12px;
+  font-size: 13px;
+  opacity: .65;
+}
+
+@keyframes partnersScroll{
+  from{ transform: translateX(0); }
+  to{ transform: translateX(-50%); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .partners-track{
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+  .partners-marquee::before,
+  .partners-marquee::after{
+    display:none;
+  }
+}
+
 
 /* Reduced motion / Save Data: use poster only (no video) */
 @media (prefers-reduced-motion: reduce){
