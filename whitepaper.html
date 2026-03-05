@@ -1,1158 +1,1289 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800;900&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Bebas+Neue&display=swap" rel="stylesheet">
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#020A06" />
   <title>BRBRT — Token Supply & Transparency Statement (Official)</title>
   <meta name="description" content="BRBRT official Token Supply & Transparency Statement. Fixed supply proof, allocations, PinkLock record, contract disclosure, and CEX transparency pack." />
   <meta name="robots" content="index,follow,max-image-preview:large" />
 
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/logo-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/logo-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/logo-180.png">
+
   <style>
-    :root{
-      --bg0:#06100C;
-      --bg1:#07110D;
-      --text: rgba(255,255,255,.94);
-      --muted: rgba(255,255,255,.74);
-      --faint: rgba(255,255,255,.56);
-      --line: rgba(255,255,255,.12);
-      --shadow: 0 18px 55px rgba(0,0,0,.48);
-      --shadow2: 0 10px 26px rgba(0,0,0,.28);
-      --radius: 18px;
-      --radius2: 26px;
-      --max: 1120px;
+    /* ═══════════════════════════════════════════════════
+       BRBRT WHITEPAPER — Synced with main site
+       Same tokens: Bebas Neue · Syne · DM Mono
+       Same palette: #020A06 · #28FFB4 · glassmorphism
+    ═══════════════════════════════════════════════════ */
+    :root {
+      --c-black:   #020A06;
+      --c-deep:    #040F09;
+      --c-dark:    #071410;
+      --c-card:    #0A1A12;
+      --c-border:  rgba(40,255,180,0.12);
+      --c-border2: rgba(255,255,255,0.07);
 
-      --accent: #19d38b;
-      --cyan: #22c7ff;
-      --danger:#ff4b4b;
-      --warn:#ffb020;
+      --c-neon:    #28FFB4;
+      --c-neon2:   #00E89A;
+      --c-neon3:   #00C47C;
+      --c-neon4:   #006B4A;
 
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --c-txt:     #E8F5EE;
+      --c-muted:   #7FA893;
+      --c-dim:     #3D5A4A;
 
-      --c-locked:#19d38b;
-      --c-liquidity:#22c7ff;
-      --c-infra:#8a7dff;
-      --c-marketing:#ffb020;
-      --c-team:#ff5ad6;
-      --c-public:#eef3fb;
+      --c-yellow:  #FFD166;
+      --c-red:     #FF5A5A;
+
+      --g-neon:    linear-gradient(135deg, #28FFB4, #00C47C);
+      --g-card:    linear-gradient(160deg, rgba(10,26,18,.72), rgba(6,12,10,.55));
+
+      --s-neon:    0 0 30px rgba(40,255,180,.20), 0 0 80px rgba(40,255,180,.08);
+      --s-card:    0 20px 60px rgba(0,0,0,.45), 0 1px 0 rgba(40,255,180,.08) inset;
+
+      --r-sm:   10px;
+      --r-md:   16px;
+      --r-lg:   22px;
+      --r-xl:   30px;
+      --r-pill: 999px;
+
+      --f-display: 'Bebas Neue', 'Syne', sans-serif;
+      --f-ui:      'Syne', ui-sans-serif, system-ui, sans-serif;
+      --f-mono:    'DM Mono', ui-monospace, 'SF Mono', monospace;
+
+      --max: 1100px;
+
+      /* Chart colors */
+      --c-locked:    #28FFB4;
+      --c-liquidity: #22C7FF;
+      --c-infra:     #8A7DFF;
+      --c-marketing: #FFD166;
+      --c-team:      #FF5AD6;
+      --c-public:    #E8F5EE;
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+    html, body { height: 100%; }
 
-    html{scroll-behavior:smooth;}
-    section{scroll-margin-top:88px;} /* fixes anchor jump under sticky bar */
-
-    body{
-      margin:0;
-      font-family:var(--sans);
-      color:var(--text);
-      line-height:1.55;
+    body {
+      font-family: var(--f-ui);
+      font-size: 16px;
+      color: var(--c-txt);
+      background: var(--c-black);
+      overflow-x: hidden;
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
+    }
+
+    /* ── Noise & scanlines (matching main site) ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none; z-index: 1;
+      opacity: .028;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    body::after {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none; z-index: 2;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.03) 2px, rgba(0,0,0,.03) 4px);
+      opacity: .4;
+    }
+
+    /* ── Background radial glow ── */
+    .bg-glow {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
       background:
-        radial-gradient(1200px 720px at 14% 12%, rgba(25,211,139,.16), transparent 60%),
-        radial-gradient(1100px 700px at 86% 18%, rgba(34,199,255,.12), transparent 58%),
-        radial-gradient(1000px 780px at 50% 110%, rgba(255,255,255,.06), transparent 55%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-      position:relative;
-      overflow-x:hidden;
-    }
-    body:before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      opacity:.07;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
-      mix-blend-mode: overlay;
+        radial-gradient(900px 600px at 15% 10%, rgba(40,255,180,.09), transparent 60%),
+        radial-gradient(700px 500px at 85% 20%, rgba(34,199,255,.07), transparent 60%),
+        radial-gradient(800px 700px at 50% 100%, rgba(40,255,180,.05), transparent 60%);
     }
 
-    a{color:var(--text); text-decoration:none}
-    a:hover{text-decoration:underline; opacity:.92}
-
-    /* PERFECT PAGE MARGINS */
-    .wrap{
-      max-width:var(--max);
-      margin:0 auto;
-      padding: clamp(18px, 2.2vw, 28px) clamp(14px, 2.0vw, 18px) 70px;
+    /* ── Canvas particles ── */
+    #fx {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0; opacity: .35;
     }
 
-    .mono{font-family:var(--mono)}
-    .muted{color:var(--muted)}
-    .faint{color:var(--faint)}
-    .small{font-size:12px; color:var(--faint)}
-    .divider{height:1px; background:var(--line); margin:14px 0}
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: var(--c-neon); }
+    img { max-width: 100%; height: auto; display: block; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
 
-    /* Sticky Topbar (perfect alignment with wrap) */
-    .topbar{
-      position:sticky;
-      top:0;
-      z-index:50;
-      backdrop-filter: blur(12px);
-      background: rgba(0,0,0,.34);
-      border-bottom: 1px solid rgba(255,255,255,.08);
+    /* ══════════════════════════════════════════════
+       TOPBAR
+    ══════════════════════════════════════════════ */
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(20px) saturate(1.6);
+      -webkit-backdrop-filter: blur(20px) saturate(1.6);
+      background: linear-gradient(180deg, rgba(2,10,6,.94), rgba(2,10,6,.76));
+      border-bottom: 1px solid rgba(40,255,180,.08);
     }
-    .topbar-inner{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:10px clamp(14px, 2.0vw, 18px);
-      display:flex;
-      gap:12px;
-      align-items:center;
-      justify-content:space-between;
+    .topbar__inner {
+      max-width: var(--max); margin: 0 auto;
+      padding: 12px clamp(16px, 2.5vw, 24px);
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
     }
-    .brand{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      min-width:0;
+    .topbar__brand {
+      display: flex; align-items: center; gap: 10px;
     }
-    .brand-badge{
-      width:12px; height:12px; border-radius:999px;
-      background: var(--accent);
-      box-shadow: 0 0 0 6px rgba(25,211,139,.12);
-      flex:0 0 auto;
+    .topbar__dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--c-neon);
+      box-shadow: 0 0 10px var(--c-neon);
+      animation: dotPulse 2s ease-in-out infinite;
+      flex-shrink: 0;
     }
-    .brand-title{
-      font-weight:900;
-      letter-spacing:-.02em;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+    @keyframes dotPulse {
+      0%,100% { box-shadow: 0 0 6px var(--c-neon); opacity: 1; }
+      50% { box-shadow: 0 0 18px var(--c-neon), 0 0 40px rgba(40,255,180,.3); opacity: .7; }
     }
-    .top-actions{
-      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
-      justify-content:flex-end;
+    .topbar__title {
+      font-family: var(--f-display); font-size: 1.15rem; letter-spacing: .05em;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .btn{
-      display:inline-flex;
-      gap:10px;
-      align-items:center;
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      color:var(--text);
-      font-size:13px;
-      white-space:nowrap;
+    .topbar__nav {
+      display: flex; gap: 6px; align-items: center; flex-wrap: wrap;
     }
-    .btn:hover{text-decoration:none; opacity:.95}
-    .btn.primary{
-      border-color: rgba(25,211,139,.35);
-      background: rgba(25,211,139,.12);
+    .topbar__link {
+      font-family: var(--f-mono); font-size: .78rem; color: var(--c-muted);
+      padding: 7px 12px; border-radius: var(--r-pill);
+      border: 1px solid rgba(255,255,255,.08);
+      transition: color .15s, border-color .15s, background .15s;
+    }
+    .topbar__link:hover { color: var(--c-neon); border-color: rgba(40,255,180,.25); background: rgba(40,255,180,.05); }
+    .topbar__cta {
+      padding: 8px 16px; border-radius: var(--r-pill);
+      background: var(--g-neon); color: #021A0E;
+      font-family: var(--f-mono); font-size: .78rem; font-weight: 700;
+      border: none; cursor: pointer; white-space: nowrap;
+      transition: box-shadow .15s, transform .15s;
+    }
+    .topbar__cta:hover { box-shadow: var(--s-neon); transform: translateY(-1px); }
+
+    /* ══════════════════════════════════════════════
+       LAYOUT
+    ══════════════════════════════════════════════ */
+    .wrap {
+      max-width: var(--max); margin: 0 auto;
+      padding: clamp(24px, 3vw, 40px) clamp(16px, 2.5vw, 24px) 80px;
+      position: relative; z-index: 3;
     }
 
-    header{
-      padding: clamp(18px, 2.2vw, 26px) clamp(16px, 2.1vw, 22px);
-      border:1px solid var(--line);
-      border-radius:var(--radius2);
-      background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.03));
-      box-shadow: var(--shadow);
-      position:relative;
-      overflow:hidden;
+    /* ══════════════════════════════════════════════
+       HERO HEADER
+    ══════════════════════════════════════════════ */
+    .doc-header {
+      padding: clamp(28px, 4vw, 44px) clamp(24px, 3vw, 36px);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-xl);
+      background: var(--g-card);
+      box-shadow: var(--s-card);
+      position: relative; overflow: hidden;
+      margin-bottom: 24px;
     }
-    header:before{
-      content:"";
-      position:absolute; inset:-2px;
+    .doc-header::before {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none;
       background:
-        radial-gradient(680px 340px at 18% 0%, rgba(25,211,139,.20), transparent 62%),
-        radial-gradient(620px 340px at 92% 45%, rgba(34,199,255,.14), transparent 66%);
-      pointer-events:none;
+        radial-gradient(700px 380px at 10% 0%, rgba(40,255,180,.15), transparent 60%),
+        radial-gradient(600px 340px at 90% 50%, rgba(34,199,255,.10), transparent 60%);
     }
-    header > *{position:relative}
+    .doc-header > * { position: relative; z-index: 1; }
 
-    .kicker{
-      display:flex; flex-wrap:wrap; gap:10px;
-      font-size:13px; color:var(--muted);
-      align-items:center;
+    .doc-header__kicker {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px;
     }
-    .pill{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
-      padding:6px 10px;
-      border-radius:999px;
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
+    .kicker-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 14px; border-radius: var(--r-pill);
+      border: 1px solid rgba(40,255,180,.20);
+      background: rgba(10,26,18,.55);
+      font-family: var(--f-mono); font-size: .78rem; color: var(--c-muted);
+      backdrop-filter: blur(8px);
     }
-    .dot{width:8px; height:8px; border-radius:999px; background:var(--accent); display:inline-block}
-
-    h1{
-      margin:14px 0 8px;
-      font-size: clamp(28px, 3.4vw, 36px);
-      letter-spacing:-.03em;
-      line-height:1.12;
-    }
-    .sub{
-      margin:0 0 14px;
-      color:var(--muted);
-      max-width: 92ch;
-    }
-    .meta{
-      display:flex; gap:10px; flex-wrap:wrap;
-      color:var(--muted);
-      font-size:13px;
-      margin-top:8px;
-    }
-    .meta code{
-      font-family:var(--mono);
-      font-size:12px;
-      color:var(--text);
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.12);
-      padding:4px 8px;
-      border-radius:10px;
+    .kicker-pill .dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--c-neon);
+      animation: dotPulse 2s infinite;
+      flex-shrink: 0;
     }
 
-    .nav{
-      margin-top:16px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
+    .doc-header__title {
+      font-family: var(--f-display);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: .95; letter-spacing: -.01em;
+      margin-bottom: 16px;
     }
-    .nav a{
-      font-size:13px;
-      color:var(--muted);
-      border:1px solid rgba(255,255,255,.12);
-      padding:9px 12px;
-      border-radius:999px;
-      background: rgba(255,255,255,.04);
-    }
-    .nav a:hover{color:var(--text); text-decoration:none}
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(12, 1fr);
-      gap:14px;
-      margin-top:18px;
-    }
-    .card{
-      border:1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border-radius:var(--radius);
-      padding:16px 16px;
-      box-shadow: var(--shadow2);
-      overflow:hidden;
-    }
-    .card h2{
-      margin:0 0 10px;
-      font-size:16px;
-      letter-spacing:-.01em;
-    }
-    .card p{margin:0; color:var(--muted)}
-    .span-12{grid-column: span 12}
-    .span-6{grid-column: span 6}
-    .span-5{grid-column: span 5}
-    .span-4{grid-column: span 4}
-    .span-7{grid-column: span 7}
-
-    @media (max-width: 980px){
-      .span-6,.span-7,.span-5,.span-4{grid-column: span 12}
-      .top-actions{gap:8px}
-      .btn{padding:9px 11px}
+    .doc-header__title span {
+      background: var(--g-neon);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 0 20px rgba(40,255,180,.2));
     }
 
-    .label{
-      color:var(--faint);
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:.12em;
-    }
-    .big{
-      font-size: clamp(38px, 5vw, 46px);
-      font-weight:900;
-      letter-spacing:-.03em;
-      color:var(--accent);
-      margin-top:6px;
-      line-height:1;
+    .doc-header__sub {
+      max-width: 680px; color: var(--c-muted); font-size: 1.05rem; line-height: 1.7;
+      margin-bottom: 20px;
     }
 
-    .ok{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      margin:10px 0;
-      color:var(--muted);
+    .doc-header__meta {
+      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 22px;
     }
-    .tick{
-      width:22px; height:22px; border-radius:8px;
-      background: rgba(25,211,139,.12);
-      border:1px solid rgba(25,211,139,.38);
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      color:var(--accent);
-      flex:0 0 auto;
-      font-weight:900;
-      margin-top:1px;
+    .meta-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 14px; border-radius: var(--r-pill);
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(4,15,9,.6);
+      font-family: var(--f-mono); font-size: .78rem;
     }
-    .list{margin:8px 0 0; padding:0 0 0 18px; color:var(--muted)}
-    .list li{margin:6px 0}
-    .row{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      border-top:1px solid rgba(255,255,255,.12);
-      padding-top:10px;
-      margin-top:10px;
-      color:var(--muted);
-      font-size:14px;
-    }
-    .row strong{color:var(--text); font-weight:800}
+    .meta-chip strong { color: var(--c-neon); }
+    .meta-chip a { color: var(--c-neon); }
 
-    .note{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      border-radius: 16px;
-      padding: 12px;
-      color: var(--muted);
+    .doc-header__nav {
+      display: flex; flex-wrap: wrap; gap: 8px;
     }
-    .note strong{color:var(--text)}
-    .warning{
-      border-color: rgba(255,176,32,.35);
-      background: rgba(255,176,32,.08);
+    .doc-nav-link {
+      padding: 9px 16px; border-radius: var(--r-pill);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(10,26,18,.45);
+      font-family: var(--f-mono); font-size: .8rem; color: var(--c-muted);
+      transition: color .15s, border-color .15s, background .15s;
     }
-    .success{
-      border-color: rgba(25,211,139,.30);
-      background: rgba(25,211,139,.08);
-    }
+    .doc-nav-link:hover { color: var(--c-neon); border-color: rgba(40,255,180,.3); background: rgba(40,255,180,.06); }
 
-    table{
-      width:100%;
-      border-collapse:separate;
-      border-spacing:0;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius: 16px;
-      overflow:hidden;
-      background: rgba(0,0,0,.18);
-    }
-    th,td{
-      padding:12px 12px;
-      font-size:14px;
-      color:var(--muted);
-      border-bottom:1px solid rgba(255,255,255,.10);
-      vertical-align:top;
-      text-align:left;
-    }
-    th{
-      background: rgba(255,255,255,.05);
-      color: var(--text);
-      font-size:13px;
-      text-transform:uppercase;
-      letter-spacing:.10em;
-    }
-    tr:last-child td{border-bottom:none}
+    /* ══════════════════════════════════════════════
+       SECTIONS
+    ══════════════════════════════════════════════ */
+    .section { scroll-margin-top: 84px; margin-bottom: 20px; }
 
-    /* Contract disclosure block */
-    .monoBox{
-      margin-top:10px;
-      padding:10px 12px;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:14px;
-      background:rgba(0,0,0,.18);
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
+    .section__label {
+      display: inline-block; font-family: var(--f-mono); font-size: .75rem;
+      color: var(--c-neon); letter-spacing: .18em; text-transform: uppercase;
+      margin-bottom: 10px;
     }
-    .addr{
-      font-family:var(--mono);
-      font-size:13px;
-      word-break:break-all;
-      color:rgba(255,255,255,.92);
-      flex:1 1 auto;
-      min-width:240px;
+    .section__title {
+      font-family: var(--f-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1; letter-spacing: -.01em; margin-bottom: 6px;
     }
-    .miniBtn{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 10px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      font-size:12px;
-      color:var(--text);
-      white-space:nowrap;
-      cursor:pointer;
-      user-select:none;
-    }
-    .miniBtn:hover{opacity:.95}
+    .section__title span { color: var(--c-neon); }
 
-    .toast{
-      position:fixed;
-      left:50%;
-      bottom:20px;
-      transform:translateX(-50%);
-      background: rgba(0,0,0,.72);
-      border:1px solid rgba(255,255,255,.14);
-      padding:10px 12px;
-      border-radius:14px;
-      box-shadow: var(--shadow2);
-      color: rgba(255,255,255,.92);
-      font-size:13px;
-      display:none;
-      z-index:999;
-      backdrop-filter: blur(10px);
+    /* ══════════════════════════════════════════════
+       GRID SYSTEM
+    ══════════════════════════════════════════════ */
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+    .span-12 { grid-column: span 12; }
+    .span-6  { grid-column: span 6; }
+    .span-4  { grid-column: span 4; }
+    .span-8  { grid-column: span 8; }
+
+    @media (max-width: 900px) {
+      .span-6, .span-4, .span-8 { grid-column: span 12; }
     }
 
-    /* Allocation */
-    .alloc{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      align-items: start;
+    /* ══════════════════════════════════════════════
+       CARDS
+    ══════════════════════════════════════════════ */
+    .card {
+      padding: clamp(18px, 2.5vw, 28px);
+      border-radius: var(--r-lg);
+      background: var(--g-card);
+      border: 1px solid var(--c-border);
+      box-shadow: var(--s-card);
+      position: relative; overflow: hidden;
+      transition: transform .2s ease, border-color .2s ease;
     }
-    @media (max-width: 1100px){
-      .alloc{grid-template-columns: 1fr}
-    }
-
-    .chartBox{
-      border-radius: 22px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      box-shadow: var(--shadow2);
-      padding: 14px;
-      overflow:hidden; /* ensures no weird overflow */
-    }
-    .chartTop{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px;
-      margin-bottom:10px;
-      flex-wrap:wrap;
-    }
-    .chartTop .title{
-      font-weight:900;
-      letter-spacing:-.02em;
-    }
-    .badge{
-      font-family:var(--mono);
-      font-size:12px;
-      color: var(--text);
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      padding:6px 10px;
-      border-radius:999px;
-      white-space:nowrap;
+    .card:hover { transform: translateY(-3px); border-color: rgba(40,255,180,.20); }
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: var(--g-neon); opacity: .35;
     }
 
-    /* The SVG uses full width; height is auto */
-    #allocSvg{width:100%; height:auto; display:block;}
+    .card__label {
+      font-family: var(--f-mono); font-size: .75rem;
+      color: var(--c-muted); letter-spacing: .15em; text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .card__title { font-family: var(--f-display); font-size: 1.5rem; margin-bottom: 10px; }
+    .card p { color: var(--c-muted); line-height: 1.7; }
 
-    .slice{
-      stroke: rgba(0,0,0,.35);
-      stroke-width: 2;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.30));
-      transition: transform .18s ease, opacity .18s ease;
-    }
-    .slice:hover{transform: scale(1.01); opacity:.98}
-
-    .call-line{stroke: rgba(255,255,255,.58); stroke-width:2}
-    .call-dot{fill: rgba(255,255,255,.92)}
-    .call-box{
-      fill: rgba(0,0,0,.55);
-      stroke: rgba(255,255,255,.14);
-      stroke-width: 1.2;
-    }
-    .call-text{
-      font-family: var(--sans);
-      font-weight: 900;
-      fill: rgba(255,255,255,.96);
-      paint-order: stroke;
-      stroke: rgba(0,0,0,.65);
-      stroke-width: 4px;
-      stroke-linejoin: round;
-      font-size: 14px;
-      letter-spacing: -0.01em;
-    }
-    .call-sub{
-      font-family: var(--mono);
-      font-weight: 800;
-      fill: rgba(255,255,255,.92);
-      paint-order: stroke;
-      stroke: rgba(0,0,0,.65);
-      stroke-width: 4px;
-      stroke-linejoin: round;
-      font-size: 12px;
+    .card__big {
+      font-family: var(--f-display);
+      font-size: clamp(2.5rem, 5vw, 3.8rem);
+      color: var(--c-neon); line-height: 1;
+      margin: 8px 0;
     }
 
-    .legend{
-      display:grid;
-      gap:10px;
+    /* ── Row divider ── */
+    .divider { height: 1px; background: rgba(40,255,180,.08); margin: 16px 0; }
+
+    /* ── Data rows ── */
+    .data-row {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 12px; padding: 12px 0;
+      border-top: 1px solid rgba(40,255,180,.07);
+      font-size: .95rem;
     }
-    .legItem{
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      justify-content:space-between;
-      padding:12px 12px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.03);
+    .data-row:first-of-type { border-top: none; }
+    .data-row span { color: var(--c-muted); }
+    .data-row strong { color: var(--c-txt); font-family: var(--f-mono); }
+
+    /* ── Check items ── */
+    .check-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 12px 0; border-top: 1px solid rgba(40,255,180,.07);
     }
-    .legLeft{
-      display:flex; gap:10px; align-items:flex-start;
-      min-width:0;
+    .check-item:first-of-type { border-top: none; padding-top: 0; }
+    .check-tick {
+      width: 24px; height: 24px; border-radius: 8px;
+      background: rgba(40,255,180,.1); border: 1px solid rgba(40,255,180,.35);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--c-neon); font-size: .85rem; font-weight: 900;
+      flex-shrink: 0; margin-top: 1px;
     }
-    .swatch{
-      width:14px; height:14px;
-      border-radius:6px;
-      border:1px solid rgba(255,255,255,.20);
-      box-shadow: 0 10px 20px rgba(0,0,0,.25);
-      flex:0 0 auto;
-      margin-top:2px;
+    .check-text strong { color: var(--c-txt); display: block; margin-bottom: 2px; }
+    .check-text small { color: var(--c-muted); font-family: var(--f-mono); font-size: .8rem; }
+
+    /* ══════════════════════════════════════════════
+       NOTICE BOXES
+    ══════════════════════════════════════════════ */
+    .notice {
+      padding: 16px 18px; border-radius: var(--r-md);
+      border: 1px solid var(--c-border);
+      background: rgba(40,255,180,.05);
+      margin-top: 14px;
     }
-    .legName{
-      color:var(--text);
-      font-weight:900;
-      font-size:13px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      max-width: 54ch;
+    .notice--success { border-color: rgba(40,255,180,.3); background: rgba(40,255,180,.07); }
+    .notice--warn { border-color: rgba(255,209,102,.3); background: rgba(255,209,102,.05); }
+    .notice strong { color: var(--c-neon); }
+    .notice--warn strong { color: var(--c-yellow); }
+    .notice p { color: var(--c-muted); font-size: .92rem; line-height: 1.7; margin-top: 6px; }
+
+    /* ══════════════════════════════════════════════
+       MONO BOX (address + buttons)
+    ══════════════════════════════════════════════ */
+    .mono-box {
+      margin-top: 12px; padding: 14px 16px;
+      border: 1px solid rgba(40,255,180,.15);
+      border-radius: var(--r-md);
+      background: rgba(2,10,6,.6);
+      display: flex; flex-wrap: wrap; gap: 12px;
+      align-items: center; justify-content: space-between;
     }
-    .legDesc{
-      color:var(--muted);
-      font-size:12px;
-      margin-top:3px;
-      max-width: 70ch;
+    .mono-addr {
+      font-family: var(--f-mono); font-size: .82rem;
+      color: var(--c-neon); word-break: break-all;
+      flex: 1 1 auto; min-width: 200px;
     }
-    .legPct{
-      font-family: var(--mono);
-      font-size:12px;
-      color:var(--text);
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      padding:6px 10px;
-      border-radius:999px;
-      white-space:nowrap;
-      margin-top:1px;
+    .mono-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .mini-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 8px 14px; border-radius: var(--r-pill);
+      border: 1px solid rgba(40,255,180,.18);
+      background: rgba(40,255,180,.06);
+      font-family: var(--f-mono); font-size: .78rem; color: var(--c-neon);
+      cursor: pointer; white-space: nowrap;
+      transition: background .15s, border-color .15s, transform .12s;
+    }
+    .mini-btn:hover { background: rgba(40,255,180,.12); border-color: rgba(40,255,180,.35); transform: translateY(-1px); }
+
+    /* ══════════════════════════════════════════════
+       TABLE
+    ══════════════════════════════════════════════ */
+    .table-wrap {
+      border-radius: var(--r-lg); overflow: hidden;
+      border: 1px solid rgba(40,255,180,.12);
+      background: rgba(4,15,9,.5);
+    }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 13px 16px; text-align: left; font-size: .9rem; }
+    th {
+      background: rgba(40,255,180,.06);
+      font-family: var(--f-mono); font-size: .73rem; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--c-muted);
+      border-bottom: 1px solid rgba(40,255,180,.1);
+    }
+    td { color: var(--c-muted); border-bottom: 1px solid rgba(40,255,180,.05); }
+    td strong { color: var(--c-txt); }
+    td .mono-val { font-family: var(--f-mono); color: var(--c-neon); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(40,255,180,.025); }
+
+    /* ══════════════════════════════════════════════
+       ALLOCATION CHART
+    ══════════════════════════════════════════════ */
+    .alloc-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start;
+    }
+    @media (max-width: 1000px) { .alloc-grid { grid-template-columns: 1fr; } }
+
+    .chart-box {
+      padding: 20px; border-radius: var(--r-lg);
+      border: 1px solid var(--c-border);
+      background: rgba(4,15,9,.6); box-shadow: var(--s-card);
+    }
+    .chart-box__header {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 10px; margin-bottom: 14px; flex-wrap: wrap;
+    }
+    .chart-box__title { font-family: var(--f-display); font-size: 1.3rem; }
+    .chart-badge {
+      font-family: var(--f-mono); font-size: .75rem;
+      padding: 6px 12px; border-radius: var(--r-pill);
+      border: 1px solid rgba(40,255,180,.18);
+      background: rgba(40,255,180,.06);
+      color: var(--c-neon);
+    }
+    #allocSvg { width: 100%; height: auto; display: block; }
+
+    /* SVG slice styles */
+    .slice {
+      stroke: rgba(0,0,0,.4); stroke-width: 2;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,.35));
+      transition: transform .2s ease, opacity .2s ease;
+    }
+    .slice:hover { transform: scale(1.02); opacity: .96; }
+    .call-line { stroke: rgba(255,255,255,.5); stroke-width: 1.5; }
+    .call-dot { fill: rgba(255,255,255,.9); }
+    .call-box { fill: rgba(4,15,9,.75); stroke: rgba(40,255,180,.2); stroke-width: 1.2; }
+    .call-text {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      fill: rgba(232,245,238,.96);
+      paint-order: stroke; stroke: rgba(0,0,0,.7); stroke-width: 4px; stroke-linejoin: round;
+      font-size: 13px; letter-spacing: -0.01em;
+    }
+    .call-sub {
+      font-family: 'DM Mono', monospace; font-weight: 500;
+      fill: rgba(40,255,180,.95);
+      paint-order: stroke; stroke: rgba(0,0,0,.7); stroke-width: 4px; stroke-linejoin: round;
+      font-size: 11.5px;
     }
 
-    .footer{
-      margin-top:22px;
-      padding:18px 16px;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius: var(--radius2);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-      text-align:center;
+    /* Legend */
+    .legend { display: flex; flex-direction: column; gap: 10px; }
+    .legend-item {
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+      padding: 13px 14px; border-radius: var(--r-md);
+      border: 1px solid rgba(40,255,180,.08);
+      background: rgba(4,15,9,.4);
+      transition: border-color .15s, background .15s;
     }
-    .cta{
-      display:inline-flex;
-      gap:10px;
-      align-items:center;
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid rgba(25,211,139,.35);
-      background: rgba(25,211,139,.12);
-      margin-top:12px;
-      color:var(--text);
+    .legend-item:hover { border-color: rgba(40,255,180,.2); background: rgba(40,255,180,.04); }
+    .legend-left { display: flex; gap: 10px; align-items: flex-start; min-width: 0; }
+    .legend-swatch {
+      width: 13px; height: 13px; border-radius: 5px;
+      border: 1px solid rgba(255,255,255,.2);
+      flex-shrink: 0; margin-top: 3px;
     }
-    .cta:hover{text-decoration:none; opacity:.96}
+    .legend-name { font-weight: 700; font-size: .88rem; color: var(--c-txt); }
+    .legend-desc { font-family: var(--f-mono); font-size: .75rem; color: var(--c-muted); margin-top: 3px; }
+    .legend-pct {
+      font-family: var(--f-mono); font-size: .78rem;
+      padding: 5px 11px; border-radius: var(--r-pill);
+      border: 1px solid rgba(40,255,180,.18);
+      background: rgba(40,255,180,.06);
+      color: var(--c-neon); white-space: nowrap; flex-shrink: 0;
+    }
 
-    @media print{
-      body{background:#fff !important; color:#000 !important}
-      body:before{display:none !important}
-      .topbar{display:none !important}
-      header, .card, .chartBox, table{box-shadow:none !important}
-      header, .card, .chartBox, .note, table{border:1px solid #ccc !important; background:#fff !important}
-      a{color:#000 !important; text-decoration:underline !important}
-      .muted,.faint,.small{color:#333 !important}
-      .big{color:#000 !important}
-      .cta{display:none !important}
-      .toast{display:none !important}
+    /* ══════════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════════ */
+    .doc-footer {
+      margin-top: 24px; padding: 28px 24px;
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-xl);
+      background: var(--g-card);
+      text-align: center;
+    }
+    .doc-footer__title {
+      font-family: var(--f-display); font-size: clamp(1.8rem, 3vw, 2.4rem);
+      letter-spacing: .02em; margin-bottom: 6px;
+    }
+    .doc-footer p { color: var(--c-muted); margin-bottom: 18px; }
+    .doc-footer__actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .doc-footer__back {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 20px; border-radius: var(--r-pill);
+      background: var(--g-neon); color: #021A0E;
+      font-family: var(--f-mono); font-size: .82rem; font-weight: 700;
+      transition: box-shadow .15s, transform .15s;
+    }
+    .doc-footer__back:hover { box-shadow: var(--s-neon); transform: translateY(-2px); color: #021A0E; }
+
+    /* ── Reveal animations ── */
+    .reveal {
+      opacity: 0; transform: translateY(14px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed; left: 50%; bottom: 22px;
+      transform: translateX(-50%);
+      padding: 11px 20px; border-radius: var(--r-md);
+      background: rgba(4,15,9,.96); border: 1px solid rgba(40,255,180,.25);
+      color: var(--c-txt); font-family: var(--f-mono); font-size: .85rem;
+      backdrop-filter: blur(16px); z-index: 9999;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 0 20px rgba(40,255,180,.1);
+      opacity: 0; pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+
+    /* ── Responsive topbar ── */
+    @media (max-width: 760px) {
+      .topbar__nav { display: none; }
+    }
+    @media (max-width: 500px) {
+      .doc-header__title { font-size: 2.5rem; }
+    }
+
+    /* ── Print ── */
+    @media print {
+      body { background: #fff !important; color: #000 !important; }
+      body::before, body::after, .bg-glow, #fx { display: none !important; }
+      .topbar { display: none !important; }
+      .card, .chart-box, .table-wrap, .notice, .doc-header { border: 1px solid #ccc !important; background: #fff !important; box-shadow: none !important; }
+      a { color: #000 !important; text-decoration: underline !important; }
+      .c-muted, .legend-desc { color: #444 !important; }
+      .card__big { color: #000 !important; }
+      #toast { display: none !important; }
     }
   </style>
 </head>
 
 <body>
-  <div class="toast" id="toast">Copied</div>
+  <div class="bg-glow" aria-hidden="true"></div>
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <div id="toast" aria-live="polite"></div>
 
-  <!-- Sticky Topbar -->
+  <!-- ══════════════════════════════════════════
+       TOPBAR
+  ══════════════════════════════════════════ -->
   <div class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">
-        <span class="brand-badge" aria-hidden="true"></span>
-        <div class="brand-title">BRBRT — Official Transparency (BRBRT-DOC-2026)</div>
+    <div class="topbar__inner">
+      <div class="topbar__brand">
+        <span class="topbar__dot" aria-hidden="true"></span>
+        <span class="topbar__title">BRBRT — Official Transparency (BRBRT-DOC-2026)</span>
       </div>
-      <div class="top-actions">
-        <a class="btn" href="#contract">Contract</a>
-        <a class="btn" href="#allocation">Allocation</a>
-        <a class="btn primary" href="#cex">CEX Pack</a>
-      </div>
+      <nav class="topbar__nav" aria-label="Document navigation">
+        <a class="topbar__link" href="#facts">Supply</a>
+        <a class="topbar__link" href="#contract">Contract</a>
+        <a class="topbar__link" href="#allocation">Allocation</a>
+        <a class="topbar__link" href="#locked">Lock</a>
+        <a class="topbar__link" href="#cex">CEX Pack</a>
+      </nav>
+      <a class="topbar__cta" href="index.html">← Back to Site</a>
     </div>
   </div>
 
+  <!-- ══════════════════════════════════════════
+       MAIN CONTENT
+  ══════════════════════════════════════════ -->
   <div class="wrap">
-    <header id="top">
-      <div class="kicker">
-        <span class="pill"><span class="dot"></span> Locked &amp; Verified</span>
-        <span class="pill">Classification: Professional Exchange Review</span>
-        <span class="pill">Purpose: Community Trust &amp; Market Clarity</span>
+
+    <!-- ── DOCUMENT HEADER ── -->
+    <header class="doc-header reveal" id="top">
+      <div class="doc-header__kicker">
+        <span class="kicker-pill"><span class="dot"></span>Locked & Verified</span>
+        <span class="kicker-pill">Classification: Professional Exchange Review</span>
+        <span class="kicker-pill">Purpose: Community Trust & Market Clarity</span>
       </div>
 
-      <h1>Token Supply &amp; Transparency Statement</h1>
-      <p class="sub">
-        Issued by <strong>BRBRT Team</strong> — Official, on-chain supply clarity and allocation structure (Institutional-grade summary for exchange due diligence).
+      <h1 class="doc-header__title">
+        Token Supply &<br><span>Transparency</span> Statement
+      </h1>
+
+      <p class="doc-header__sub">
+        Issued by <strong>BRBRT Team</strong> — Official, on-chain supply clarity and allocation structure.
+        Institutional-grade summary for exchange due diligence and community verification.
       </p>
 
-      <div class="meta">
-        <span>Date: <code>23/01/2026</code></span>
-        <span>Document Ref: <code>BRBRT-DOC-2026</code></span>
-        <span>Status: <code>Official</code></span>
-        <span>Contact: <code><a href="mailto:contact@brbrt.com">contact@brbrt.com</a></code></span>
+      <div class="doc-header__meta">
+        <span class="meta-chip">Date: <strong>23/01/2026</strong></span>
+        <span class="meta-chip">Ref: <strong>BRBRT-DOC-2026</strong></span>
+        <span class="meta-chip">Status: <strong>Official</strong></span>
+        <span class="meta-chip">Contact: <a href="mailto:contact@brbrt.com">contact@brbrt.com</a></span>
       </div>
 
-      <div class="nav" aria-label="On-page navigation">
-        <a href="#facts">Supply Facts</a>
-        <a href="#contract">Contract Disclosure</a>
-        <a href="#allocation">Supply Transparency</a>
-        <a href="#locked">Locked Tokens</a>
-        <a href="#cex">CEX Pack</a>
-      </div>
+      <nav class="doc-header__nav" aria-label="On-page navigation">
+        <a class="doc-nav-link" href="#facts">Supply Facts</a>
+        <a class="doc-nav-link" href="#contract">Contract Disclosure</a>
+        <a class="doc-nav-link" href="#allocation">Supply Allocation</a>
+        <a class="doc-nav-link" href="#locked">Locked Tokens</a>
+        <a class="doc-nav-link" href="#cex">CEX Pack</a>
+      </nav>
     </header>
 
-    <!-- Supply Facts -->
-    <section id="facts" class="grid" aria-label="Supply Facts">
-      <div class="card span-6">
-        <div class="label">Supply Facts — Non-Negotiable</div>
-        <div class="row"><span>Max Supply</span><strong class="mono">1,000,000</strong></div>
-        <div class="row"><span>Total Supply</span><strong class="mono">1,000,000</strong></div>
-        <div class="divider"></div>
-        <div class="note success">
-          <strong>The supply cannot increase.</strong> Everything is on-chain.
-        </div>
-      </div>
+    <!-- ══════════════════════════════════════
+         SUPPLY FACTS
+    ══════════════════════════════════════ -->
+    <section id="facts" class="section">
+      <div class="section__label">/ 01 — Supply Facts</div>
+      <div class="grid">
 
-      <div class="card span-6">
-        <div class="label">Security Protocol</div>
-        <div class="ok"><span class="tick">✓</span>
-          <div><strong>Minting Disabled</strong><br/><span class="small">Functionality permanently removed.</span></div>
-        </div>
-        <div class="ok"><span class="tick">✓</span>
-          <div><strong>No Hidden Supply</strong><br/><span class="small">100% visible on explorer.</span></div>
-        </div>
-        <div class="ok"><span class="tick">✓</span>
-          <div><strong>No Proxy / Upgrades</strong><br/><span class="small">Contract logic is immutable.</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contract Disclosure -->
-    <section id="contract" class="grid" aria-label="Contract Disclosure">
-      <div class="card span-12">
-        <h2>Contract Disclosure (Exchange-Ready)</h2>
-        <p class="small" style="margin:0">
-          Official references to the contract and security scanning resources for due diligence.
-        </p>
-        <div class="divider"></div>
-
-        <div class="note">
-          <div class="label">Contract Address (BSC)</div>
-          <div class="monoBox">
-            <div class="addr" id="addr">0xf97522ABEf762d28729E073019343b72C6e8D2C1</div>
-            <div style="display:flex; gap:8px; flex-wrap:wrap;">
-              <button class="miniBtn" type="button" onclick="copyText('0xf97522ABEf762d28729E073019343b72C6e8D2C1')">Copy Address</button>
-              <a class="miniBtn" href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1#tokenInfo" target="_blank" rel="noopener noreferrer">Open BscScan</a>
-              <a class="miniBtn" href="https://solidityscan.com/quickscan/0xf97522abef762d28729e073019343b72c6e8d2c1/bscscan/mainnet?ref=etherscan" target="_blank" rel="noopener noreferrer">Open SolidityScan</a>
-            </div>
-          </div>
-          <div class="small" style="margin-top:10px">
-            Contact: <a href="mailto:contact@brbrt.com">contact@brbrt.com</a>
+        <div class="card span-6 reveal">
+          <div class="card__label">Non-Negotiable</div>
+          <div class="card__title">Fixed Supply</div>
+          <div class="data-row"><span>Max Supply</span><strong>1,000,000 BRBRT</strong></div>
+          <div class="data-row"><span>Total Supply</span><strong>1,000,000 BRBRT</strong></div>
+          <div class="data-row"><span>Network</span><strong>BNB Chain (BEP-20)</strong></div>
+          <div class="divider"></div>
+          <div class="notice notice--success">
+            <strong>The supply cannot increase.</strong>
+            <p>Everything is verifiable on-chain. No hidden tokens, no proxy upgrades.</p>
           </div>
         </div>
 
-        <div class="divider"></div>
-
-        <div class="note warning">
-          <strong>Security Disclosure:</strong> Explorer proofs are public and verifiable. Automated scanners are informational only; exchanges may perform internal audits and additional checks.
-        </div>
-      </div>
-    </section>
-
-    <!-- Allocation -->
-    <section id="allocation" class="grid" aria-label="Supply Transparency Summary">
-      <div class="card span-12">
-        <h2>Supply Transparency Summary</h2>
-        <p class="small" style="margin:0">
-          Total Supply: <strong>1,000,000 BRBRT</strong>. Callouts are always inside the canvas (no clipped labels).
-        </p>
-        <div class="divider"></div>
-
-        <div class="alloc">
-          <div class="chartBox">
-            <div class="chartTop">
-              <div class="title">Allocation Donut (Clear Labels)</div>
-              <div class="badge">Responsive • No cut labels</div>
+        <div class="card span-6 reveal">
+          <div class="card__label">Security Protocol</div>
+          <div class="card__title">On-Chain Proofs</div>
+          <div class="check-item">
+            <div class="check-tick">✓</div>
+            <div class="check-text">
+              <strong>Minting Permanently Disabled</strong>
+              <small>Functionality removed — no new tokens can ever be created.</small>
             </div>
-            <svg id="allocSvg" role="img" aria-label="Allocation donut chart"></svg>
-            <div class="small" style="margin-top:10px">Export to PDF keeps the chart sharp (SVG).</div>
           </div>
-
-          <div class="legend">
-            <div class="legItem">
-              <div class="legLeft">
-                <span class="swatch" style="background:var(--c-locked)"></span>
-                <div>
-                  <div class="legName">Locked (PinkLock V2)</div>
-                  <div class="legDesc">On-chain secured lock (team cannot move/sell).</div>
-                </div>
-              </div>
-              <div class="legPct">27.99%</div>
+          <div class="check-item">
+            <div class="check-tick">✓</div>
+            <div class="check-text">
+              <strong>No Hidden Supply</strong>
+              <small>100% of supply visible and traceable on BscScan.</small>
             </div>
-
-            <div class="legItem">
-              <div class="legLeft">
-                <span class="swatch" style="background:var(--c-liquidity)"></span>
-                <div>
-                  <div class="legName">Listings &amp; Liquidity</div>
-                  <div class="legDesc">Reserved for CEX, market making, order book stability.</div>
-                </div>
-              </div>
-              <div class="legPct">27.99%</div>
+          </div>
+          <div class="check-item">
+            <div class="check-tick">✓</div>
+            <div class="check-text">
+              <strong>No Proxy / No Upgrades</strong>
+              <small>Contract logic is immutable — cannot be changed post-deployment.</small>
             </div>
-
-            <div class="legItem">
-              <div class="legLeft">
-                <span class="swatch" style="background:var(--c-infra)"></span>
-                <div>
-                  <div class="legName">Infrastructure</div>
-                  <div class="legDesc">Supportive web, content systems, future game (future launch).</div>
-                </div>
-              </div>
-              <div class="legPct">10.00%</div>
-            </div>
-
-            <div class="legItem">
-              <div class="legLeft">
-                <span class="swatch" style="background:var(--c-marketing)"></span>
-                <div>
-                  <div class="legName">Marketing</div>
-                  <div class="legDesc">Educational campaigns, partnerships, growth initiatives.</div>
-                </div>
-              </div>
-              <div class="legPct">5.00%</div>
-            </div>
-
-            <div class="legItem">
-              <div class="legLeft">
-                <span class="swatch" style="background:var(--c-team)"></span>
-                <div>
-                  <div class="legName">Team / DAO</div>
-                  <div class="legDesc">Long-term incentives, DAO experimentation phase, governance.</div>
-                </div>
-              </div>
-              <div class="legPct">3.66%</div>
-            </div>
-
-            <div class="legItem">
-              <div class="legLeft">
-                <span class="swatch" style="background:var(--c-public)"></span>
-                <div>
-                  <div class="legName">Public / Circulating</div>
-                  <div class="legDesc">Public supply in circulation.</div>
-                </div>
-              </div>
-              <div class="legPct">25.36%</div>
+          </div>
+          <div class="check-item">
+            <div class="check-tick">✓</div>
+            <div class="check-text">
+              <strong>Ownership Renounced</strong>
+              <small>No admin keys — verifiable via owner() on BscScan.</small>
             </div>
           </div>
         </div>
 
-        <div class="divider"></div>
-
-        <h2 style="margin-top:2px">Allocation Table (Auditable)</h2>
-        <table aria-label="Supply Transparency Table">
-          <thead>
-            <tr>
-              <th>Bucket</th>
-              <th>Allocation</th>
-              <th>Purpose / Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Locked (PinkLock V2)</td>
-              <td class="mono">27.99%</td>
-              <td>Tokens are mathematically locked and cannot be moved or sold by the team.</td>
-            </tr>
-            <tr>
-              <td>Listings &amp; Liquidity</td>
-              <td class="mono">27.99%</td>
-              <td>Reserved for CEX, market making, order book stability.</td>
-            </tr>
-            <tr>
-              <td>Infrastructure &amp; Development</td>
-              <td class="mono">10.00%</td>
-              <td>Supportive web, content systems, future game (future launch).</td>
-            </tr>
-            <tr>
-              <td>Marketing</td>
-              <td class="mono">5.00%</td>
-              <td>Education, awareness, partnerships, growth initiatives.</td>
-            </tr>
-            <tr>
-              <td>Team / DAO</td>
-              <td class="mono">3.66%</td>
-              <td>Long-term incentives, DAO experimentation phase, governance.</td>
-            </tr>
-            <tr>
-              <td>Public / Circulating</td>
-              <td class="mono">25.36%</td>
-              <td>Public supply in circulation.</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </section>
 
-    <!-- Locked -->
-    <section id="locked" class="grid" aria-label="Locked Tokens">
-      <div class="card span-12">
-        <h2>Locked Tokens</h2>
-        <div class="note success">
-          <strong>On-chain Lock Record:</strong>
-          <div class="monoBox" style="margin-top:10px;">
-            <div class="addr">https://pinksale.finance/pinklock/bsc/record/1437618</div>
-            <div style="display:flex; gap:8px; flex-wrap:wrap;">
-              <button class="miniBtn" type="button" onclick="copyText('https://pinksale.finance/pinklock/bsc/record/1437618')">Copy Link</button>
-              <a class="miniBtn" href="https://pinksale.finance/pinklock/bsc/record/1437618" target="_blank" rel="noopener noreferrer">Open Record</a>
+    <!-- ══════════════════════════════════════
+         CONTRACT DISCLOSURE
+    ══════════════════════════════════════ -->
+    <section id="contract" class="section">
+      <div class="section__label">/ 02 — Contract Disclosure</div>
+      <div class="grid">
+
+        <div class="card span-12 reveal">
+          <div class="card__label">Exchange-Ready</div>
+          <div class="card__title">Contract Disclosure</div>
+          <p>Official references to the contract and security scanning resources for due diligence. Always verify on-chain before any transaction.</p>
+
+          <div class="divider"></div>
+
+          <div class="notice notice--success">
+            <strong>Contract Address (BSC / BNB Chain)</strong>
+            <div class="mono-box">
+              <div class="mono-addr" id="addr">0xf97522ABEf762d28729E073019343b72C6e8D2C1</div>
+              <div class="mono-actions">
+                <button class="mini-btn" type="button" onclick="copyText('0xf97522ABEf762d28729E073019343b72C6e8D2C1')">Copy ⧉</button>
+                <a class="mini-btn" href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1#tokenInfo" target="_blank" rel="noopener">BscScan ↗</a>
+                <a class="mini-btn" href="https://solidityscan.com/quickscan/0xf97522abef762d28729e073019343b72c6e8d2c1/bscscan/mainnet?ref=etherscan" target="_blank" rel="noopener">SolidityScan ↗</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice notice--warn" style="margin-top:12px">
+            <strong>Security Disclosure</strong>
+            <p>Explorer proofs are public and verifiable. Automated scanners are informational only — exchanges may perform internal audits and additional checks at their discretion.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         ALLOCATION
+    ══════════════════════════════════════ -->
+    <section id="allocation" class="section">
+      <div class="section__label">/ 03 — Supply Transparency</div>
+      <div class="grid">
+
+        <div class="card span-12 reveal">
+          <div class="card__label">Full Breakdown</div>
+          <div class="card__title">Supply Allocation Summary</div>
+          <p>Total Supply: <strong style="color:var(--c-neon)">1,000,000 BRBRT</strong>. All allocations are final and verifiable on-chain.</p>
+
+          <div class="divider"></div>
+
+          <!-- Chart + Legend -->
+          <div class="alloc-grid">
+            <div class="chart-box">
+              <div class="chart-box__header">
+                <div class="chart-box__title">Allocation Donut</div>
+                <div class="chart-badge">SVG · Responsive · No clipped labels</div>
+              </div>
+              <svg id="allocSvg" role="img" aria-label="BRBRT Token Allocation Donut Chart"></svg>
+              <p style="font-family:var(--f-mono);font-size:.72rem;color:var(--c-muted);margin-top:10px">Export to PDF preserves vector quality.</p>
+            </div>
+
+            <div class="legend">
+              <div class="legend-item">
+                <div class="legend-left">
+                  <span class="legend-swatch" style="background:var(--c-locked)"></span>
+                  <div>
+                    <div class="legend-name">Locked (PinkLock V2)</div>
+                    <div class="legend-desc">On-chain secured. Team cannot move or sell.</div>
+                  </div>
+                </div>
+                <div class="legend-pct">27.99%</div>
+              </div>
+              <div class="legend-item">
+                <div class="legend-left">
+                  <span class="legend-swatch" style="background:var(--c-liquidity)"></span>
+                  <div>
+                    <div class="legend-name">Listings & Liquidity</div>
+                    <div class="legend-desc">Reserved for CEX, market making, order books.</div>
+                  </div>
+                </div>
+                <div class="legend-pct">27.99%</div>
+              </div>
+              <div class="legend-item">
+                <div class="legend-left">
+                  <span class="legend-swatch" style="background:var(--c-infra)"></span>
+                  <div>
+                    <div class="legend-name">Infrastructure</div>
+                    <div class="legend-desc">Supportive web, content systems, future game.</div>
+                  </div>
+                </div>
+                <div class="legend-pct">10.00%</div>
+              </div>
+              <div class="legend-item">
+                <div class="legend-left">
+                  <span class="legend-swatch" style="background:var(--c-marketing)"></span>
+                  <div>
+                    <div class="legend-name">Marketing</div>
+                    <div class="legend-desc">Education, awareness, partnerships, growth.</div>
+                  </div>
+                </div>
+                <div class="legend-pct">5.00%</div>
+              </div>
+              <div class="legend-item">
+                <div class="legend-left">
+                  <span class="legend-swatch" style="background:var(--c-team)"></span>
+                  <div>
+                    <div class="legend-name">Team / DAO</div>
+                    <div class="legend-desc">Long-term incentives, DAO, governance.</div>
+                  </div>
+                </div>
+                <div class="legend-pct">3.66%</div>
+              </div>
+              <div class="legend-item">
+                <div class="legend-left">
+                  <span class="legend-swatch" style="background:var(--c-public)"></span>
+                  <div>
+                    <div class="legend-name">Public / Circulating</div>
+                    <div class="legend-desc">Public supply currently in circulation.</div>
+                  </div>
+                </div>
+                <div class="legend-pct">25.36%</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider" style="margin-top:24px"></div>
+
+          <!-- Allocation table -->
+          <div class="card__label" style="margin-top:4px">Auditable Table</div>
+          <div class="table-wrap" style="margin-top:10px">
+            <table aria-label="Supply Transparency Table">
+              <thead>
+                <tr>
+                  <th>Bucket</th>
+                  <th>Allocation</th>
+                  <th>Purpose / Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Locked (PinkLock V2)</strong></td>
+                  <td><span class="mono-val">27.99%</span></td>
+                  <td>Tokens are mathematically locked and cannot be moved or sold by the team.</td>
+                </tr>
+                <tr>
+                  <td><strong>Listings & Liquidity</strong></td>
+                  <td><span class="mono-val">27.99%</span></td>
+                  <td>Reserved for CEX, market making, order book stability.</td>
+                </tr>
+                <tr>
+                  <td><strong>Infrastructure & Development</strong></td>
+                  <td><span class="mono-val">10.00%</span></td>
+                  <td>Supportive web, content systems, future game (future launch).</td>
+                </tr>
+                <tr>
+                  <td><strong>Marketing</strong></td>
+                  <td><span class="mono-val">5.00%</span></td>
+                  <td>Education, awareness, partnerships, growth initiatives.</td>
+                </tr>
+                <tr>
+                  <td><strong>Team / DAO</strong></td>
+                  <td><span class="mono-val">3.66%</span></td>
+                  <td>Long-term incentives, DAO experimentation phase, governance.</td>
+                </tr>
+                <tr>
+                  <td><strong>Public / Circulating</strong></td>
+                  <td><span class="mono-val">25.36%</span></td>
+                  <td>Public supply in circulation.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         LOCKED TOKENS
+    ══════════════════════════════════════ -->
+    <section id="locked" class="section">
+      <div class="section__label">/ 04 — Locked Tokens</div>
+      <div class="grid">
+
+        <div class="card span-12 reveal">
+          <div class="card__label">PinkLock V2 — On-Chain Proof</div>
+          <div class="card__title">Reserve Lock</div>
+
+          <div class="grid" style="margin-top:14px">
+            <div class="card span-4" style="background:rgba(40,255,180,.04)">
+              <div class="card__label">Amount Locked</div>
+              <div class="card__big">279,897</div>
+              <p style="font-family:var(--f-mono);font-size:.82rem;color:var(--c-muted)">BRBR tokens · 27.99%</p>
+            </div>
+            <div class="card span-4" style="background:rgba(40,255,180,.04)">
+              <div class="card__label">Unlock Date</div>
+              <div class="card__big">2030</div>
+              <p style="font-family:var(--f-mono);font-size:.82rem;color:var(--c-muted)">2030-01-01 (UTC)</p>
+            </div>
+            <div class="card span-4" style="background:rgba(40,255,180,.04)">
+              <div class="card__label">Protocol</div>
+              <div class="card__big" style="font-size:2rem">PinkLock</div>
+              <p style="font-family:var(--f-mono);font-size:.82rem;color:var(--c-muted)">Version 2 · BSC</p>
+            </div>
+          </div>
+
+          <div class="notice notice--success" style="margin-top:16px">
+            <strong>On-chain Lock Record</strong>
+            <div class="mono-box">
+              <div class="mono-addr">https://pinksale.finance/pinklock/bsc/record/1437618</div>
+              <div class="mono-actions">
+                <button class="mini-btn" type="button" onclick="copyText('https://pinksale.finance/pinklock/bsc/record/1437618')">Copy ⧉</button>
+                <a class="mini-btn" href="https://pinksale.finance/pinklock/bsc/record/1437618" target="_blank" rel="noopener">Open Record ↗</a>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
     </section>
 
-    <!-- CEX Pack -->
-    <section id="cex" class="grid" aria-label="CEX Pack">
-      <div class="card span-12">
-        <h2>CEX Transparency Pack</h2>
-        <div class="divider"></div>
-        <table aria-label="Exchange Due Diligence Table">
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Status</th>
-              <th>Verification</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Fixed Supply Proof</td>
-              <td><strong>1,000,000</strong> total / max</td>
-              <td>Supply Facts (Non-negotiable)</td>
-            </tr>
-            <tr>
-              <td>Contract Disclosure</td>
-              <td><strong>Provided</strong></td>
-              <td><a href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1#tokenInfo" target="_blank" rel="noopener noreferrer">BscScan Token Info</a></td>
-            </tr>
-            <tr>
-              <td>Security Scan Reference</td>
-              <td><strong>Provided</strong></td>
-              <td><a href="https://solidityscan.com/quickscan/0xf97522abef762d28729e073019343b72c6e8d2c1/bscscan/mainnet?ref=etherscan" target="_blank" rel="noopener noreferrer">SolidityScan Quickscan</a></td>
-            </tr>
-            <tr>
-              <td>PinkLock Proof</td>
-              <td><strong>27.99%</strong> locked</td>
-              <td><a href="https://pinksale.finance/pinklock/bsc/record/1437618" target="_blank" rel="noopener noreferrer">On-chain Record</a></td>
-            </tr>
-            <tr>
-              <td>Official Contact</td>
-              <td><strong>contact@brbrt.com</strong></td>
-              <td><a href="mailto:contact@brbrt.com">Email</a></td>
-            </tr>
-          </tbody>
-        </table>
+    <!-- ══════════════════════════════════════
+         CEX PACK
+    ══════════════════════════════════════ -->
+    <section id="cex" class="section">
+      <div class="section__label">/ 05 — CEX Pack</div>
+      <div class="grid">
+
+        <div class="card span-12 reveal">
+          <div class="card__label">Exchange Due Diligence</div>
+          <div class="card__title">CEX Transparency Pack</div>
+          <p>Complete verification package for exchange listing teams. All proofs are public, on-chain, and independently verifiable.</p>
+
+          <div class="divider"></div>
+
+          <div class="table-wrap">
+            <table aria-label="Exchange Due Diligence Table">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Status</th>
+                  <th>Verification</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Fixed Supply Proof</strong></td>
+                  <td><span class="mono-val">1,000,000</span> total / max</td>
+                  <td>Supply Facts — Non-negotiable</td>
+                </tr>
+                <tr>
+                  <td><strong>Contract Disclosure</strong></td>
+                  <td><strong>Provided</strong></td>
+                  <td><a href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1#tokenInfo" target="_blank" rel="noopener" style="color:var(--c-neon)">BscScan Token Info ↗</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Security Scan Reference</strong></td>
+                  <td><strong>Provided</strong></td>
+                  <td><a href="https://solidityscan.com/quickscan/0xf97522abef762d28729e073019343b72c6e8d2c1/bscscan/mainnet?ref=etherscan" target="_blank" rel="noopener" style="color:var(--c-neon)">SolidityScan Quickscan ↗</a></td>
+                </tr>
+                <tr>
+                  <td><strong>PinkLock Proof</strong></td>
+                  <td><span class="mono-val">27.99%</span> locked until 2030</td>
+                  <td><a href="https://pinksale.finance/pinklock/bsc/record/1437618" target="_blank" rel="noopener" style="color:var(--c-neon)">On-chain Record ↗</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Ownership</strong></td>
+                  <td><span class="mono-val" style="color:var(--c-neon)">Renounced</span></td>
+                  <td><a href="https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1#readContract" target="_blank" rel="noopener" style="color:var(--c-neon)">Verify owner() ↗</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Official Contact</strong></td>
+                  <td><strong>contact@brbrt.com</strong></td>
+                  <td><a href="mailto:contact@brbrt.com" style="color:var(--c-neon)">Send Email ↗</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <section class="footer" id="final">
-      <div style="font-weight:900; letter-spacing:-.02em; font-size:18px">Everything is on-chain. Everything is structured.</div>
-      <div class="muted" style="margin-top:6px">Nothing is hidden.</div>
-
-      <div class="monoBox" style="margin-top:14px; justify-content:center;">
-        <a class="miniBtn" href="https://brbrt.com" target="_blank" rel="noopener noreferrer">brbrt.com</a>
-        <button class="miniBtn" type="button" onclick="copyText('contact@brbrt.com')">Copy Email</button>
-        <button class="miniBtn" type="button" onclick="copyText('0xf97522ABEf762d28729E073019343b72C6e8D2C1')">Copy Address</button>
+    <!-- ── FOOTER ── -->
+    <footer class="doc-footer reveal" id="final">
+      <div class="doc-footer__title">Everything is on-chain.<br><span style="color:var(--c-neon)">Nothing is hidden.</span></div>
+      <p>All proofs are public, independent, and permanently verifiable.</p>
+      <div class="doc-footer__actions">
+        <a class="doc-footer__back" href="index.html">← Back to BRBRT</a>
+        <button class="mini-btn" type="button" onclick="copyText('contact@brbrt.com')" style="padding:10px 18px">Copy Email ⧉</button>
+        <button class="mini-btn" type="button" onclick="copyText('0xf97522ABEf762d28729E073019343b72C6e8D2C1')" style="padding:10px 18px">Copy Address ⧉</button>
       </div>
+      <p style="margin-top:16px;font-family:var(--f-mono);font-size:.75rem;color:var(--c-dim)">— BRBRT TEAM — brbrt.com —</p>
+    </footer>
 
-      <a class="cta" href="#top">Back to top →</a>
-      <div class="small" style="margin-top:10px">— BRBRT TEAM —</div>
-    </section>
-  </div>
+  </div><!-- /wrap -->
 
   <script>
-    // toast + copy
-    function toast(msg){
-      const t = document.getElementById("toast");
-      t.textContent = msg || "Copied";
-      t.style.display = "block";
-      clearTimeout(window.__toastTimer);
-      window.__toastTimer = setTimeout(()=> t.style.display="none", 1400);
+  /* ═══════════════════════════════════════════════
+     BRBRT Whitepaper JS
+     · Toast + copy
+     · Reveal on scroll
+     · Particles canvas
+     · Responsive SVG donut chart
+  ═══════════════════════════════════════════════ */
+
+  /* ── Toast ── */
+  let _toastTimer = null;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    if (!t) return;
+    t.textContent = msg || 'Copied';
+    t.style.opacity = '1';
+    t.style.transform = 'translateX(-50%) translateY(-4px)';
+    if (_toastTimer) clearTimeout(_toastTimer);
+    _toastTimer = setTimeout(() => {
+      t.style.opacity = '0';
+      t.style.transform = 'translateX(-50%) translateY(0)';
+    }, 1500);
+  }
+
+  async function copyText(txt) {
+    try { await navigator.clipboard.writeText(txt); }
+    catch {
+      const ta = document.createElement('textarea');
+      ta.value = txt;
+      Object.assign(ta.style, { position: 'fixed', left: '-9999px' });
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
     }
-    async function copyText(txt){
-      try{
-        await navigator.clipboard.writeText(txt);
-        toast("Copied");
-      }catch(e){
-        const ta = document.createElement("textarea");
-        ta.value = txt;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand("copy");
-        document.body.removeChild(ta);
-        toast("Copied");
-      }
-    }
+    showToast('Copied ✓');
+  }
 
-    // Responsive SVG chart renderer (fixes clipped callouts + margin issues)
-    (function(){
-      const svg = document.getElementById("allocSvg");
-      if(!svg) return;
+  /* ── Reveal on scroll ── */
+  function initReveal() {
+    const els = Array.from(document.querySelectorAll('.reveal'));
+    if (!('IntersectionObserver' in window)) { els.forEach(el => el.classList.add('in')); return; }
+    const io = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (!e.isIntersecting) return;
+        const delay = e.target.closest('.grid')
+          ? Array.from(e.target.parentElement.children).indexOf(e.target) * 70 : 0;
+        setTimeout(() => e.target.classList.add('in'), delay);
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.08 });
+    els.forEach(el => io.observe(el));
+  }
 
-      const css = getComputedStyle(document.documentElement);
-      const color = v => (css.getPropertyValue(v).trim() || "#19d38b");
+  /* ── Particles ── */
+  function initFX() {
+    const canvas = document.getElementById('fx');
+    if (!canvas) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { canvas.style.display = 'none'; return; }
+    const ctx = canvas.getContext('2d', { alpha: true });
+    let w = 0, h = 0, dpr = 1;
 
-      const data = [
-        { key:"Locked (PinkLock V2)", pct:27.99, col: color("--c-locked") },
-        { key:"Listings & Liquidity",  pct:27.99, col: color("--c-liquidity") },
-        { key:"Infrastructure",        pct:10.00, col: color("--c-infra") },
-        { key:"Marketing",             pct:5.00,  col: color("--c-marketing") },
-        { key:"Team / DAO",            pct:3.66,  col: color("--c-team") },
-        { key:"Public / Circulating",  pct:25.36, col: color("--c-public") },
-      ];
-      const total = data.reduce((a,b)=>a+b.pct,0);
+    const dots = Array.from({ length: 38 }, () => ({
+      x: 0, y: 0,
+      r: 0.4 + Math.random() * 1.2,
+      vx: -0.1 + Math.random() * 0.2,
+      vy: -0.08 + Math.random() * 0.16,
+      a: 0.07 + Math.random() * 0.15
+    }));
 
-      function el(tag){ return document.createElementNS("http://www.w3.org/2000/svg", tag); }
+    const resize = () => {
+      w = Math.max(1, window.innerWidth);
+      h = Math.max(1, window.innerHeight);
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      dots.forEach(p => { p.x = Math.random() * w; p.y = Math.random() * h; });
+    };
 
-      function clearSVG(){
-        while(svg.firstChild) svg.removeChild(svg.firstChild);
-      }
-
-      function render(){
-        // width breakpoint based on real rendered px
-        const wPx = svg.getBoundingClientRect().width || 760;
-
-        // Two modes: desktop (wide) / compact (mobile)
-        const compact = wPx < 560;
-
-        const W = compact ? 640 : 760;
-        const H = 520;
-
-        const cx = compact ? 320 : 380;
-        const cy = 260;
-
-        const R  = compact ? 155 : 170;
-        const r  = compact ? 98  : 108;
-
-        const callR = compact ? 190 : 205;
-
-        // IMPORTANT FIX:
-        // Put label columns far enough so label boxes NEVER go outside viewBox.
-        // leftX: must be >= boxW + margin + 10
-        // rightX: must be <= W - (boxW + margin + 10)
-        const boxW = compact ? 168 : 190;
-        const boxH = compact ? 42  : 44;
-
-        const margin = 18;
-        const leftX  = Math.max(boxW + margin + 10, compact ? 210 : 220);
-        const rightX = Math.min(W - (boxW + margin + 10), compact ? 430 : 540);
-
-        svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
-        svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
-
-        clearSVG();
-
-        // defs
-        const defs = el("defs");
-        defs.innerHTML = `
-          <radialGradient id="bgGlow" cx="42%" cy="28%" r="82%">
-            <stop offset="0%" stop-color="rgba(255,255,255,.16)"/>
-            <stop offset="55%" stop-color="rgba(255,255,255,.06)"/>
-            <stop offset="100%" stop-color="rgba(0,0,0,.12)"/>
-          </radialGradient>
-        `;
-        svg.appendChild(defs);
-
-        const glow = el("circle");
-        glow.setAttribute("cx", cx);
-        glow.setAttribute("cy", cy);
-        glow.setAttribute("r", R + 12);
-        glow.setAttribute("fill", "url(#bgGlow)");
-        glow.setAttribute("opacity", "0.80");
-        svg.appendChild(glow);
-
-        let angle = -Math.PI/2;
-        const labels = [];
-
-        data.forEach(d=>{
-          const a0 = angle;
-          const a1 = angle + (d.pct/total)*Math.PI*2;
-          angle = a1;
-
-          const largeArc = (a1-a0) > Math.PI ? 1 : 0;
-
-          const x0 = cx + R*Math.cos(a0), y0 = cy + R*Math.sin(a0);
-          const x1 = cx + R*Math.cos(a1), y1 = cy + R*Math.sin(a1);
-          const xi1 = cx + r*Math.cos(a1), yi1 = cy + r*Math.sin(a1);
-          const xi0 = cx + r*Math.cos(a0), yi0 = cy + r*Math.sin(a0);
-
-          const path = el("path");
-          path.setAttribute("class","slice");
-          path.style.transformOrigin = `${cx}px ${cy}px`;
-          path.setAttribute("fill", d.col);
-          path.setAttribute("d",
-            `M ${x0} ${y0}
-             A ${R} ${R} 0 ${largeArc} 1 ${x1} ${y1}
-             L ${xi1} ${yi1}
-             A ${r} ${r} 0 ${largeArc} 0 ${xi0} ${yi0}
-             Z`
-          );
-          svg.appendChild(path);
-
-          const mid = (a0+a1)/2;
-          const ax = cx + callR*Math.cos(mid);
-          const ay = cy + callR*Math.sin(mid);
-          const side = Math.cos(mid) >= 0 ? 1 : -1;
-
-          labels.push({ name:d.key, pct:d.pct, col:d.col, ax, ay, side, ty:ay });
-        });
-
-        // prevent overlap
-        const gap = compact ? 30 : 28;
-        const topBound = 72, bottomBound = 448;
-
-        function arrange(side){
-          const L = labels.filter(x=>x.side===side).sort((a,b)=>a.ty-b.ty);
-          for(let i=1;i<L.length;i++){
-            if(L[i].ty - L[i-1].ty < gap) L[i].ty = L[i-1].ty + gap;
-          }
-          for(let i=L.length-1;i>=0;i--){
-            if(L[i].ty > bottomBound) L[i].ty = bottomBound;
-            if(i>0 && L[i].ty - L[i-1].ty < gap) L[i-1].ty = L[i].ty - gap;
-          }
-          for(let i=0;i<L.length;i++){
-            if(L[i].ty < topBound) L[i].ty = topBound;
-            if(i>0 && L[i].ty - L[i-1].ty < gap) L[i].ty = L[i-1].ty + gap;
+    let raf = 0, running = true;
+    const draw = () => {
+      if (!running) return;
+      ctx.clearRect(0, 0, w, h);
+      for (let i = 0; i < dots.length; i++) {
+        for (let j = i + 1; j < dots.length; j++) {
+          const dx = dots[i].x - dots[j].x, dy = dots[i].y - dots[j].y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < 110) {
+            ctx.beginPath(); ctx.moveTo(dots[i].x, dots[i].y); ctx.lineTo(dots[j].x, dots[j].y);
+            ctx.strokeStyle = `rgba(40,255,180,${0.05 * (1 - dist/110)})`; ctx.lineWidth = 0.5; ctx.stroke();
           }
         }
-        arrange(-1); arrange(1);
-
-        // callouts
-        labels.forEach(l=>{
-          const x2 = (l.side===1) ? rightX : leftX;
-          const y2 = l.ty;
-
-          const bendX = (l.side===1) ? (x2 - 55) : (x2 + 55);
-
-          const line = el("path");
-          line.setAttribute("class","call-line");
-          line.setAttribute("fill","none");
-          line.setAttribute("d", `M ${l.ax} ${l.ay} L ${bendX} ${y2} L ${x2} ${y2}`);
-          svg.appendChild(line);
-
-          const dot = el("circle");
-          dot.setAttribute("class","call-dot");
-          dot.setAttribute("cx", l.ax);
-          dot.setAttribute("cy", l.ay);
-          dot.setAttribute("r", 3.3);
-          svg.appendChild(dot);
-
-          const bx = (l.side===1) ? (x2 + 10) : (x2 - boxW - 10);
-          const by = y2 - boxH/2;
-
-          const box = el("rect");
-          box.setAttribute("class","call-box");
-          box.setAttribute("x", bx);
-          box.setAttribute("y", by);
-          box.setAttribute("rx", 12);
-          box.setAttribute("ry", 12);
-          box.setAttribute("width", boxW);
-          box.setAttribute("height", boxH);
-          svg.appendChild(box);
-
-          const chip = el("rect");
-          chip.setAttribute("x", bx + 10);
-          chip.setAttribute("y", by + (compact ? 15 : 16));
-          chip.setAttribute("width", 10);
-          chip.setAttribute("height", 10);
-          chip.setAttribute("rx", 4);
-          chip.setAttribute("ry", 4);
-          chip.setAttribute("fill", l.col);
-          chip.setAttribute("stroke", "rgba(255,255,255,.20)");
-          chip.setAttribute("stroke-width", "1");
-          svg.appendChild(chip);
-
-          const tx = bx + 26;
-
-          const tName = el("text");
-          tName.setAttribute("class","call-text");
-          tName.setAttribute("x", tx);
-          tName.setAttribute("y", y2 - 6);
-          tName.setAttribute("text-anchor","start");
-          tName.setAttribute("dominant-baseline","middle");
-          tName.textContent = l.name;
-          svg.appendChild(tName);
-
-          const tPct = el("text");
-          tPct.setAttribute("class","call-sub");
-          tPct.setAttribute("x", tx);
-          tPct.setAttribute("y", y2 + 12);
-          tPct.setAttribute("text-anchor","start");
-          tPct.setAttribute("dominant-baseline","middle");
-          tPct.textContent = `${l.pct.toFixed(2)}%`;
-          svg.appendChild(tPct);
-        });
-
-        // center
-        const center = el("circle");
-        center.setAttribute("cx", cx);
-        center.setAttribute("cy", cy);
-        center.setAttribute("r", r-8);
-        center.setAttribute("fill", "rgba(0,0,0,.55)");
-        center.setAttribute("stroke", "rgba(255,255,255,.12)");
-        center.setAttribute("stroke-width", "2");
-        svg.appendChild(center);
-
-        const t1 = el("text");
-        t1.setAttribute("x", cx);
-        t1.setAttribute("y", cy - 10);
-        t1.setAttribute("text-anchor","middle");
-        t1.setAttribute("dominant-baseline","middle");
-        t1.setAttribute("class","call-text");
-        t1.setAttribute("style","font-size:14px");
-        t1.textContent = "Total Supply";
-        svg.appendChild(t1);
-
-        const t2 = el("text");
-        t2.setAttribute("x", cx);
-        t2.setAttribute("y", cy + 12);
-        t2.setAttribute("text-anchor","middle");
-        t2.setAttribute("dominant-baseline","middle");
-        t2.setAttribute("class","call-sub");
-        t2.setAttribute("style","font-size:13px");
-        t2.textContent = "1,000,000 BRBRT";
-        svg.appendChild(t2);
-
-        const ring = el("circle");
-        ring.setAttribute("cx", cx);
-        ring.setAttribute("cy", cy);
-        ring.setAttribute("r", R);
-        ring.setAttribute("fill","none");
-        ring.setAttribute("stroke","rgba(255,255,255,.12)");
-        ring.setAttribute("stroke-width","2");
-        svg.appendChild(ring);
       }
+      dots.forEach(p => {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < -10) p.x = w + 10; if (p.x > w + 10) p.x = -10;
+        if (p.y < -10) p.y = h + 10; if (p.y > h + 10) p.y = -10;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(40,255,180,${p.a})`; ctx.fill();
+      });
+      raf = requestAnimationFrame(draw);
+    };
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) { running = false; if (raf) cancelAnimationFrame(raf); }
+      else { running = true; raf = requestAnimationFrame(draw); }
+    });
+    resize(); raf = requestAnimationFrame(draw);
+    window.addEventListener('resize', () => requestAnimationFrame(resize), { passive: true });
+  }
 
-      // render now + on resize
-      render();
-      const ro = new ResizeObserver(()=> render());
-      ro.observe(svg);
-      window.addEventListener("orientationchange", render);
-    })();
+  /* ── Responsive SVG donut chart ── */
+  (function() {
+    const svg = document.getElementById('allocSvg');
+    if (!svg) return;
+
+    const css = getComputedStyle(document.documentElement);
+    const cv = v => css.getPropertyValue(v).trim() || '#28FFB4';
+
+    const data = [
+      { key: 'Locked (PinkLock V2)', pct: 27.99, col: cv('--c-locked') },
+      { key: 'Listings & Liquidity',  pct: 27.99, col: cv('--c-liquidity') },
+      { key: 'Infrastructure',        pct: 10.00, col: cv('--c-infra') },
+      { key: 'Marketing',             pct: 5.00,  col: cv('--c-marketing') },
+      { key: 'Team / DAO',            pct: 3.66,  col: cv('--c-team') },
+      { key: 'Public / Circulating',  pct: 25.36, col: cv('--c-public') },
+    ];
+    const total = data.reduce((a, b) => a + b.pct, 0);
+
+    const el = tag => document.createElementNS('http://www.w3.org/2000/svg', tag);
+
+    function render() {
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+      const wPx = svg.getBoundingClientRect().width || 760;
+      const compact = wPx < 540;
+
+      const W = compact ? 620 : 760;
+      const H = 510;
+      const cx = compact ? 310 : 380;
+      const cy = 255;
+      const R  = compact ? 148 : 165;
+      const r  = compact ? 93  : 104;
+      const callR = compact ? 182 : 198;
+
+      const boxW = compact ? 164 : 186;
+      const boxH = 42;
+      const margin = 16;
+      const leftX  = Math.max(boxW + margin + 8, compact ? 200 : 215);
+      const rightX = Math.min(W - (boxW + margin + 8), compact ? 420 : 535);
+
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+
+      // defs: radial glow
+      const defs = el('defs');
+      defs.innerHTML = `
+        <radialGradient id="bgGlowWP" cx="42%" cy="28%" r="82%">
+          <stop offset="0%" stop-color="rgba(40,255,180,.14)"/>
+          <stop offset="55%" stop-color="rgba(40,255,180,.05)"/>
+          <stop offset="100%" stop-color="rgba(0,0,0,.12)"/>
+        </radialGradient>
+      `;
+      svg.appendChild(defs);
+
+      const glow = el('circle');
+      glow.setAttribute('cx', cx); glow.setAttribute('cy', cy);
+      glow.setAttribute('r', R + 14); glow.setAttribute('fill', 'url(#bgGlowWP)');
+      glow.setAttribute('opacity', '0.75');
+      svg.appendChild(glow);
+
+      let angle = -Math.PI / 2;
+      const labels = [];
+
+      data.forEach(d => {
+        const a0 = angle;
+        const a1 = angle + (d.pct / total) * Math.PI * 2;
+        angle = a1;
+        const largeArc = (a1 - a0) > Math.PI ? 1 : 0;
+        const x0 = cx + R*Math.cos(a0), y0 = cy + R*Math.sin(a0);
+        const x1 = cx + R*Math.cos(a1), y1 = cy + R*Math.sin(a1);
+        const xi1 = cx + r*Math.cos(a1), yi1 = cy + r*Math.sin(a1);
+        const xi0 = cx + r*Math.cos(a0), yi0 = cy + r*Math.sin(a0);
+
+        const path = el('path');
+        path.setAttribute('class', 'slice');
+        path.style.transformOrigin = `${cx}px ${cy}px`;
+        path.setAttribute('fill', d.col);
+        path.setAttribute('d',
+          `M ${x0} ${y0} A ${R} ${R} 0 ${largeArc} 1 ${x1} ${y1}
+           L ${xi1} ${yi1} A ${r} ${r} 0 ${largeArc} 0 ${xi0} ${yi0} Z`);
+        svg.appendChild(path);
+
+        const mid = (a0 + a1) / 2;
+        const ax = cx + callR * Math.cos(mid);
+        const ay = cy + callR * Math.sin(mid);
+        const side = Math.cos(mid) >= 0 ? 1 : -1;
+        labels.push({ name: d.key, pct: d.pct, col: d.col, ax, ay, side, ty: ay });
+      });
+
+      // anti-overlap
+      const gap = compact ? 29 : 27;
+      const topB = 68, botB = 442;
+      function arrange(side) {
+        const L = labels.filter(x => x.side === side).sort((a, b) => a.ty - b.ty);
+        for (let i = 1; i < L.length; i++) if (L[i].ty - L[i-1].ty < gap) L[i].ty = L[i-1].ty + gap;
+        for (let i = L.length-1; i >= 0; i--) {
+          if (L[i].ty > botB) L[i].ty = botB;
+          if (i > 0 && L[i].ty - L[i-1].ty < gap) L[i-1].ty = L[i].ty - gap;
+        }
+        for (let i = 0; i < L.length; i++) {
+          if (L[i].ty < topB) L[i].ty = topB;
+          if (i > 0 && L[i].ty - L[i-1].ty < gap) L[i].ty = L[i-1].ty + gap;
+        }
+      }
+      arrange(-1); arrange(1);
+
+      labels.forEach(l => {
+        const x2 = (l.side === 1) ? rightX : leftX;
+        const y2 = l.ty;
+        const bendX = (l.side === 1) ? (x2 - 52) : (x2 + 52);
+
+        const line = el('path');
+        line.setAttribute('class', 'call-line');
+        line.setAttribute('fill', 'none');
+        line.setAttribute('d', `M ${l.ax} ${l.ay} L ${bendX} ${y2} L ${x2} ${y2}`);
+        svg.appendChild(line);
+
+        const dot = el('circle');
+        dot.setAttribute('class', 'call-dot');
+        dot.setAttribute('cx', l.ax); dot.setAttribute('cy', l.ay); dot.setAttribute('r', 3);
+        svg.appendChild(dot);
+
+        const bx = (l.side === 1) ? (x2 + 8) : (x2 - boxW - 8);
+        const by = y2 - boxH / 2;
+
+        const box = el('rect');
+        box.setAttribute('class', 'call-box');
+        box.setAttribute('x', bx); box.setAttribute('y', by);
+        box.setAttribute('rx', 11); box.setAttribute('ry', 11);
+        box.setAttribute('width', boxW); box.setAttribute('height', boxH);
+        svg.appendChild(box);
+
+        const chip = el('rect');
+        chip.setAttribute('x', bx + 9); chip.setAttribute('y', by + 16);
+        chip.setAttribute('width', 9); chip.setAttribute('height', 9);
+        chip.setAttribute('rx', 3); chip.setAttribute('ry', 3);
+        chip.setAttribute('fill', l.col);
+        chip.setAttribute('stroke', 'rgba(255,255,255,.2)'); chip.setAttribute('stroke-width', '1');
+        svg.appendChild(chip);
+
+        const tx = bx + 24;
+        const tName = el('text');
+        tName.setAttribute('class', 'call-text');
+        tName.setAttribute('x', tx); tName.setAttribute('y', y2 - 7);
+        tName.setAttribute('text-anchor', 'start');
+        tName.setAttribute('dominant-baseline', 'middle');
+        tName.textContent = l.name;
+        svg.appendChild(tName);
+
+        const tPct = el('text');
+        tPct.setAttribute('class', 'call-sub');
+        tPct.setAttribute('x', tx); tPct.setAttribute('y', y2 + 11);
+        tPct.setAttribute('text-anchor', 'start');
+        tPct.setAttribute('dominant-baseline', 'middle');
+        tPct.textContent = `${l.pct.toFixed(2)}%`;
+        svg.appendChild(tPct);
+      });
+
+      // center hole
+      const center = el('circle');
+      center.setAttribute('cx', cx); center.setAttribute('cy', cy);
+      center.setAttribute('r', r - 7);
+      center.setAttribute('fill', 'rgba(2,10,6,.72)');
+      center.setAttribute('stroke', 'rgba(40,255,180,.15)');
+      center.setAttribute('stroke-width', '1.5');
+      svg.appendChild(center);
+
+      const t1 = el('text');
+      t1.setAttribute('x', cx); t1.setAttribute('y', cy - 10);
+      t1.setAttribute('text-anchor', 'middle'); t1.setAttribute('dominant-baseline', 'middle');
+      t1.setAttribute('class', 'call-text'); t1.setAttribute('style', 'font-size:13px');
+      t1.textContent = 'Total Supply';
+      svg.appendChild(t1);
+
+      const t2 = el('text');
+      t2.setAttribute('x', cx); t2.setAttribute('y', cy + 11);
+      t2.setAttribute('text-anchor', 'middle'); t2.setAttribute('dominant-baseline', 'middle');
+      t2.setAttribute('class', 'call-sub'); t2.setAttribute('style', 'font-size:11.5px');
+      t2.textContent = '1,000,000 BRBRT';
+      svg.appendChild(t2);
+
+      const ring = el('circle');
+      ring.setAttribute('cx', cx); ring.setAttribute('cy', cy);
+      ring.setAttribute('r', R);
+      ring.setAttribute('fill', 'none');
+      ring.setAttribute('stroke', 'rgba(40,255,180,.10)');
+      ring.setAttribute('stroke-width', '1.5');
+      svg.appendChild(ring);
+    }
+
+    render();
+    const ro = new ResizeObserver(() => render());
+    ro.observe(svg);
+    window.addEventListener('orientationchange', render);
+  })();
+
+  /* ── Init ── */
+  document.addEventListener('DOMContentLoaded', () => {
+    initReveal();
+    initFX();
+  });
   </script>
 </body>
 </html>
