@@ -1,80 +1,112 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800;900&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Bebas+Neue&display=swap" rel="stylesheet">
+
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#07110D" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#020A06" />
+  <meta name="color-scheme" content="dark" />
+
   <title>BRBRT — Community & Association</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <header class="nav">
-    <div class="nav__inner">
-      <a class="brand" href="index.html">
-        <span class="brand__mark" aria-hidden="true"></span>
-        <span class="brand__name">BRBRT</span>
-      </a>
-      <nav class="nav__links">
-        <a href="index.html#story">Story</a>
-        <a href="index.html#roadmap">Roadmap</a>
-        <a href="whitepaper.html">Whitepaper</a>
-      </nav>
-      <div class="nav__actions">
-        <a class="btn btn--ghost" href="index.html">Home</a>
-        <a class="btn btn--primary" href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">Links ↗</a>
-      </div>
-    </div>
-  </header>
+  <meta name="description" content="BRBRT is building a community narrative that supports awareness and positive action. Anti-bullying, youth empowerment, mental health support." />
 
-  <main style="padding-top:92px">
-    <section class="section">
-      <div class="container">
-        <div class="section__head">
-          <h2>Youth-Focused Mission (Community-Led)</h2>
-          <p class="muted">
-            BRBRT is building a community narrative that supports awareness and positive action.
-            This page explains the direction and values — not financial outcomes.
-          </p>
-        </div>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/logo-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/logo-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/logo-180.png">
 
-        <div class="grid grid--2">
-          <article class="card">
-            <h3>What we stand for</h3>
-            <ul class="bullets">
-              <li>Anti-bullying awareness</li>
-              <li>Mental health support messaging</li>
-              <li>Youth empowerment & dignity</li>
-              <li>Family unity & protection</li>
-            </ul>
-          </article>
+  <style>
+    /* ═══════════════════════════════════════════════════
+       BRBRT ASSOCIATION PAGE
+       Fully synced with main site design system
+       Bebas Neue · Syne · DM Mono · #28FFB4 neon
+    ═══════════════════════════════════════════════════ */
+    :root {
+      --c-black:   #020A06;
+      --c-deep:    #040F09;
+      --c-dark:    #071410;
+      --c-border:  rgba(40,255,180,0.12);
+      --c-border2: rgba(255,255,255,0.07);
 
-          <article class="card">
-            <h3>Community-first approach</h3>
-            <p>
-              We focus on transparent progress: public links, verifiable locks, and honest communication.
-              We do not make profit promises. Community trust comes from proof and consistency.
-            </p>
-          </article>
+      --c-neon:    #28FFB4;
+      --c-neon2:   #00E89A;
+      --c-neon3:   #00C47C;
+      --c-neon4:   #006B4A;
 
-          <article class="card">
-            <h3>Contact</h3>
-            <p>For partnership ideas, outreach, or support resources:</p>
-            <p class="mono">contact@brbrt.com</p>
-          </article>
+      --c-txt:     #E8F5EE;
+      --c-muted:   #7FA893;
+      --c-dim:     #3D5A4A;
 
-          <article class="card">
-            <h3>Official links</h3>
-            <ul class="bullets">
-              <li><a href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">Linktree</a></li>
-              <li><a href="https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1#readContract" target="_blank" rel="noopener">Ownership (BscScan)</a></li>
-              <li><a href="https://www.pinksale.finance/pinklock/bsc/record/1437018" target="_blank" rel="noopener">Reserve Lock (PinkLock)</a></li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-  </main>
+      --c-yellow:  #FFD166;
 
-  <script defer src="script.js"></script>
-</body>
-</html>
+      --g-neon:  linear-gradient(135deg, #28FFB4, #00C47C);
+      --g-card:  linear-gradient(160deg, rgba(10,26,18,.72), rgba(6,12,10,.55));
+
+      --s-neon:  0 0 30px rgba(40,255,180,.20), 0 0 80px rgba(40,255,180,.08);
+      --s-card:  0 20px 60px rgba(0,0,0,.45), 0 1px 0 rgba(40,255,180,.08) inset;
+
+      --r-sm:   10px;
+      --r-md:   16px;
+      --r-lg:   22px;
+      --r-xl:   30px;
+      --r-pill: 999px;
+
+      --f-display: 'Bebas Neue', 'Syne', sans-serif;
+      --f-ui:      'Syne', ui-sans-serif, system-ui, sans-serif;
+      --f-mono:    'DM Mono', ui-monospace, 'SF Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    html, body { height: 100%; }
+
+    body {
+      font-family: var(--f-ui);
+      font-size: 16px;
+      color: var(--c-txt);
+      background: var(--c-black);
+      overflow-x: hidden;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      cursor: none;
+    }
+
+    /* Noise */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none; z-index: 1;
+      opacity: .028;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Scanlines */
+    body::after {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none; z-index: 2;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.03) 2px, rgba(0,0,0,.03) 4px);
+      opacity: .4;
+    }
+
+    /* Background glow */
+    .bg-glow {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background:
+        radial-gradient(900px 600px at 10% 10%, rgba(40,255,180,.09), transparent 60%),
+        radial-gradient(700px 500px at 90% 15%, rgba(34,199,255,.05), transparent 60%),
+        radial-gradient(600px 600px at 50% 90%, rgba(40,255,180,.05), transparent 60%);
+    }
+
+    /* Canvas */
+    #fx {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0; opacity: .38;
+    }
+
+    /* Custom cursor */
+    #cursor {
+      position: fixed; pointer-events: none; z-index: 9999;
+      top: 0; left: 0; transform: translate(-50%,-50%);
+      width: 36px; height: 36px;
+      border: 1.5px solid rgba(40,255,180,.55);
