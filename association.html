@@ -110,3 +110,840 @@
       top: 0; left: 0; transform: translate(-50%,-50%);
       width: 36px; height: 36px;
       border: 1.5px solid rgba(40,255,180,.55);
+      border-radius: 50%;
+      transition: width .2s ease, height .2s ease, border-color .2s ease, background .15s ease;
+      mix-blend-mode: screen;
+    }
+    #cursor.hover { width: 54px; height: 54px; border-color: var(--c-neon); background: rgba(40,255,180,.06); }
+    .cursor__dot {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 4px; height: 4px; border-radius: 50%; background: var(--c-neon);
+    }
+    #cursorTrail {
+      position: fixed; pointer-events: none; z-index: 9998;
+      top: 0; left: 0; transform: translate(-50%,-50%);
+      width: 8px; height: 8px;
+      background: rgba(40,255,180,.3); border-radius: 50%;
+      transition: left .08s ease, top .08s ease;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; height: auto; display: block; }
+    button { font-family: inherit; cursor: none; border: none; background: none; }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      backdrop-filter: blur(20px) saturate(1.6);
+      -webkit-backdrop-filter: blur(20px) saturate(1.6);
+      background: linear-gradient(180deg, rgba(2,10,6,.92), rgba(2,10,6,.72));
+      border-bottom: 1px solid rgba(40,255,180,.08);
+      transition: border-color .3s ease;
+    }
+    .nav.scrolled { border-bottom-color: rgba(40,255,180,.15); }
+    .nav__inner {
+      width: min(1140px, calc(100% - 48px));
+      margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0; gap: 16px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; position: relative; }
+    .brand__ring {
+      position: absolute; left: -4px; top: -4px;
+      width: 44px; height: 44px;
+      border: 1px solid rgba(40,255,180,.25); border-radius: 50%;
+      animation: ringPulse 3s ease-in-out infinite;
+    }
+    @keyframes ringPulse {
+      0%,100% { transform: scale(1); opacity: .4; }
+      50% { transform: scale(1.12); opacity: .8; }
+    }
+    .brand__logo { border-radius: 12px; position: relative; z-index: 1; }
+    .brand__name {
+      display: block; font-family: var(--f-display); font-size: 1.5rem;
+      letter-spacing: .06em; line-height: 1;
+    }
+    .brand__sub { display: block; font-family: var(--f-mono); font-size: .72rem; color: var(--c-muted); margin-top: 2px; }
+
+    .nav__links { display: flex; gap: 4px; align-items: center; }
+    .nav__link {
+      padding: 8px 12px; border-radius: var(--r-sm);
+      font-size: .9rem; color: rgba(232,245,238,.75);
+      transition: color .15s, background .15s;
+    }
+    .nav__link:hover { color: var(--c-neon); background: rgba(40,255,180,.06); }
+    .nav__actions { display: flex; align-items: center; gap: 10px; }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 18px; border-radius: var(--r-md);
+      border: 1px solid var(--c-border2);
+      background: rgba(10,26,18,.4); color: var(--c-txt);
+      font-family: var(--f-ui); font-size: .9rem; font-weight: 600;
+      cursor: none; transition: transform .15s ease, border-color .15s ease;
+      position: relative; overflow: hidden;
+    }
+    .btn:hover { transform: translateY(-2px); border-color: rgba(40,255,180,.3); color: var(--c-txt); }
+    .btn--primary {
+      background: var(--g-neon); color: #021A0E; border-color: transparent; font-weight: 700;
+      box-shadow: 0 8px 30px rgba(40,255,180,.18);
+    }
+    .btn--primary:hover { box-shadow: 0 12px 40px rgba(40,255,180,.32); color: #021A0E; }
+    .btn--ghost { background: rgba(10,18,14,.35); }
+
+    .hamburger {
+      display: none; width: 44px; height: 44px; border-radius: var(--r-md);
+      border: 1px solid var(--c-border2); background: rgba(10,18,14,.35);
+      flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+      cursor: none;
+    }
+    .hamburger span {
+      display: block; width: 20px; height: 1.5px;
+      background: rgba(232,245,238,.8); border-radius: 2px;
+    }
+
+    .mobile { border-top: 1px solid rgba(40,255,180,.06); background: rgba(2,10,6,.98); }
+    .mobile__panel {
+      width: min(1140px, calc(100% - 48px)); margin: 0 auto;
+      padding: 14px 0 20px;
+      display: grid; grid-template-columns: 1fr; gap: 8px;
+    }
+    .mobile__panel a {
+      padding: 12px 14px; border-radius: var(--r-md);
+      background: rgba(10,26,18,.55); border: 1px solid var(--c-border2);
+      font-size: .95rem;
+    }
+    .mobile__cta {
+      background: var(--g-neon) !important;
+      color: #021A0E !important; font-weight: 700;
+      border-color: transparent !important; text-align: center;
+    }
+
+    /* ── LAYOUT ── */
+    .container { width: min(1140px, calc(100% - 48px)); margin: 0 auto; }
+
+    /* ── HERO ── */
+    .page-hero {
+      position: relative; padding: 130px 0 80px;
+      overflow: hidden; z-index: 3;
+    }
+    .page-hero__grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(40,255,180,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(40,255,180,.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridDrift 20s linear infinite;
+      opacity: .5;
+    }
+    @keyframes gridDrift {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(60px); }
+    }
+    .page-hero__orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(90px); mix-blend-mode: screen; pointer-events: none;
+    }
+    .page-hero__orb--1 {
+      width: 600px; height: 600px; top: -200px; left: -180px;
+      background: radial-gradient(circle, rgba(40,255,180,.55), transparent 65%);
+      opacity: .14; animation: orbFloat 14s ease-in-out infinite;
+    }
+    .page-hero__orb--2 {
+      width: 400px; height: 400px; top: 0; right: -100px;
+      background: radial-gradient(circle, rgba(34,199,255,.5), transparent 65%);
+      opacity: .10; animation: orbFloat 18s ease-in-out infinite reverse;
+    }
+    @keyframes orbFloat {
+      0%,100% { transform: translate(0,0) scale(1); }
+      50% { transform: translate(30px,-20px) scale(1.04); }
+    }
+
+    .page-hero__inner { position: relative; z-index: 2; }
+
+    .page-hero__status {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 9px 16px; border-radius: var(--r-pill);
+      background: rgba(10,26,18,.6); border: 1px solid rgba(40,255,180,.18);
+      backdrop-filter: blur(12px); font-family: var(--f-mono); font-size: .78rem;
+      color: var(--c-muted); margin-bottom: 24px;
+    }
+    .status-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--c-neon);
+      box-shadow: 0 0 8px var(--c-neon);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 8px var(--c-neon); }
+      50% { box-shadow: 0 0 18px var(--c-neon), 0 0 36px rgba(40,255,180,.3); }
+    }
+
+    .page-hero__title {
+      font-family: var(--f-display);
+      font-size: clamp(4rem, 9vw + 1rem, 8.5rem);
+      line-height: .95; letter-spacing: -.01em; margin-bottom: 22px;
+    }
+    .page-hero__title--pre {
+      display: block; font-size: clamp(1.1rem, 2vw, 1.8rem);
+      font-family: var(--f-ui); font-weight: 400; color: var(--c-muted);
+      letter-spacing: .12em; text-transform: uppercase; margin-bottom: 4px;
+    }
+    .page-hero__title--accent {
+      display: block;
+      background: var(--g-neon);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 0 28px rgba(40,255,180,.2));
+    }
+    .page-hero__sub {
+      max-width: 640px; font-size: clamp(.95rem, 1.3vw, 1.15rem);
+      color: rgba(232,245,238,.75); line-height: 1.75; margin-bottom: 32px;
+    }
+    .page-hero__cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* ── TICKER ── */
+    .ticker {
+      position: relative; overflow: hidden; z-index: 5;
+      padding: 13px 0;
+      border-top: 1px solid rgba(40,255,180,.1);
+      border-bottom: 1px solid rgba(40,255,180,.1);
+      background: rgba(4,15,9,.8);
+    }
+    .ticker__track {
+      display: flex; align-items: center; gap: 26px;
+      width: max-content;
+      animation: tickerScroll 26s linear infinite;
+      font-family: var(--f-display); font-size: .95rem; letter-spacing: .08em;
+      color: var(--c-muted);
+    }
+    .ticker:hover .ticker__track { animation-play-state: paused; }
+    .ticker__dot { color: var(--c-neon); font-size: .65rem; }
+    @keyframes tickerScroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── SECTIONS ── */
+    .section { padding: 90px 0; position: relative; z-index: 3; }
+    .section--dark { background: rgba(4,10,8,.45); }
+
+    .section__label {
+      display: inline-block; font-family: var(--f-mono); font-size: .75rem;
+      color: var(--c-neon); letter-spacing: .18em; text-transform: uppercase; margin-bottom: 12px;
+    }
+    .section__title {
+      font-family: var(--f-display);
+      font-size: clamp(2.5rem, 4.5vw, 4rem);
+      line-height: 1; letter-spacing: -.01em; margin-bottom: 14px;
+    }
+    .section__title span { color: var(--c-neon); }
+    .section__sub { max-width: 620px; color: var(--c-muted); font-size: 1rem; line-height: 1.75; }
+
+    .divider { height: 1px; background: rgba(40,255,180,.08); margin: 18px 0; }
+
+    /* ── GRID ── */
+    .grid { display: grid; gap: 14px; }
+    .grid--2 { grid-template-columns: repeat(2, 1fr); }
+    .grid--3 { grid-template-columns: repeat(3, 1fr); }
+    .grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+    /* ── CARDS ── */
+    .card {
+      padding: clamp(20px, 2.5vw, 30px);
+      border-radius: var(--r-lg);
+      background: var(--g-card);
+      border: 1px solid var(--c-border);
+      box-shadow: var(--s-card);
+      position: relative; overflow: hidden;
+      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+    }
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--g-neon); transform: scaleX(0); transform-origin: left;
+      transition: transform .35s ease;
+    }
+    .card:hover { transform: translateY(-5px); border-color: rgba(40,255,180,.24); box-shadow: var(--s-neon), var(--s-card); }
+    .card:hover::before { transform: scaleX(1); }
+
+    .card__num { font-family: var(--f-display); font-size: 3rem; color: var(--c-neon); opacity: .2; line-height: 1; margin-bottom: 10px; }
+    .card__icon { font-size: 2rem; margin-bottom: 14px; display: block; }
+    .card__title { font-family: var(--f-display); font-size: 1.8rem; letter-spacing: .03em; margin-bottom: 12px; }
+    .card p { color: var(--c-muted); line-height: 1.75; font-size: .95rem; }
+    .card__line {
+      position: absolute; bottom: 0; left: 0; width: 100%; height: 1px;
+      background: linear-gradient(90deg, var(--c-neon4), transparent);
+    }
+
+    /* ── VALUE PILLARS ── */
+    .pillar {
+      display: flex; flex-direction: column;
+      padding: clamp(20px, 2.5vw, 28px);
+      border-radius: var(--r-lg);
+      background: var(--g-card);
+      border: 1px solid var(--c-border);
+      box-shadow: var(--s-card);
+      position: relative; overflow: hidden;
+      transition: transform .2s ease, border-color .2s ease;
+    }
+    .pillar:hover { transform: translateY(-4px); border-color: rgba(40,255,180,.22); }
+    .pillar::after {
+      content: ''; position: absolute; inset: 0; border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(40,255,180,.35), transparent 50%, rgba(0,196,124,.2));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      pointer-events: none; opacity: .85;
+    }
+    .pillar__icon { font-size: 2.4rem; margin-bottom: 16px; }
+    .pillar__title { font-family: var(--f-display); font-size: 1.6rem; margin-bottom: 10px; }
+    .pillar__text { color: var(--c-muted); font-size: .92rem; line-height: 1.75; flex: 1; }
+    .pillar__tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 14px; padding: 6px 12px; border-radius: var(--r-pill);
+      border: 1px solid rgba(40,255,180,.18); background: rgba(40,255,180,.06);
+      font-family: var(--f-mono); font-size: .75rem; color: var(--c-neon);
+      align-self: flex-start;
+    }
+
+    /* ── CHECKLIST ── */
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+    .checklist li {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 12px 14px; border-radius: var(--r-md);
+      background: rgba(4,15,9,.5); border: 1px solid rgba(40,255,180,.08);
+      font-size: .92rem; color: var(--c-muted); line-height: 1.6;
+      transition: border-color .15s, background .15s;
+    }
+    .checklist li:hover { border-color: rgba(40,255,180,.2); background: rgba(40,255,180,.04); }
+    .checklist li .tick {
+      width: 22px; height: 22px; border-radius: 7px;
+      background: rgba(40,255,180,.1); border: 1px solid rgba(40,255,180,.35);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--c-neon); font-size: .8rem; font-weight: 900;
+      flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* ── CONTACT CARD ── */
+    .contact-card {
+      padding: clamp(24px, 3vw, 36px);
+      border-radius: var(--r-xl);
+      background: var(--g-card);
+      border: 1px solid var(--c-border);
+      box-shadow: var(--s-card);
+      position: relative; overflow: hidden;
+    }
+    .contact-card::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(700px 350px at 10% 0%, rgba(40,255,180,.12), transparent 55%),
+        radial-gradient(600px 300px at 90% 100%, rgba(34,199,255,.07), transparent 55%);
+    }
+    .contact-card > * { position: relative; z-index: 1; }
+
+    .contact-title { font-family: var(--f-display); font-size: clamp(2rem, 3.5vw, 3rem); margin-bottom: 10px; }
+    .contact-sub { color: var(--c-muted); font-size: 1rem; line-height: 1.7; max-width: 560px; margin-bottom: 24px; }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 680px) { .contact-grid { grid-template-columns: 1fr; } }
+
+    .contact-item {
+      padding: 18px 20px; border-radius: var(--r-lg);
+      background: rgba(4,15,9,.6); border: 1px solid rgba(40,255,180,.1);
+      transition: border-color .15s, background .15s;
+    }
+    .contact-item:hover { border-color: rgba(40,255,180,.25); background: rgba(40,255,180,.04); }
+    .contact-item__label { font-family: var(--f-mono); font-size: .72rem; color: var(--c-muted); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 8px; }
+    .contact-item__val { font-weight: 700; font-size: .95rem; color: var(--c-txt); }
+    .contact-item__val a { color: var(--c-neon); }
+    .contact-item__val a:hover { text-decoration: underline; }
+
+    /* ── LINKS STRIP ── */
+    .links-strip { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .link-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 18px; border-radius: var(--r-pill);
+      border: 1px solid rgba(40,255,180,.18);
+      background: rgba(40,255,180,.06);
+      font-family: var(--f-mono); font-size: .82rem; color: var(--c-neon);
+      transition: background .15s, border-color .15s, transform .12s;
+      cursor: none;
+    }
+    .link-chip:hover { background: rgba(40,255,180,.12); border-color: rgba(40,255,180,.35); transform: translateY(-1px); }
+
+    /* ── NOTICE ── */
+    .notice {
+      padding: 16px 20px; border-radius: var(--r-md);
+      border: 1px solid rgba(255,209,102,.2);
+      background: rgba(255,209,102,.04);
+      display: flex; gap: 14px; align-items: flex-start; margin-top: 20px;
+    }
+    .notice__icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+    .notice p { color: var(--c-muted); font-size: .9rem; line-height: 1.7; }
+    .notice strong { color: var(--c-yellow); }
+
+    /* ── STAT STRIP ── */
+    .stat-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 20px; }
+    .stat-item {
+      padding: 20px 18px; border-radius: var(--r-lg);
+      background: rgba(4,15,9,.6); border: 1px solid var(--c-border);
+      text-align: center; transition: transform .18s ease, border-color .18s ease;
+    }
+    .stat-item:hover { transform: translateY(-4px); border-color: rgba(40,255,180,.25); }
+    .stat-item__val {
+      font-family: var(--f-display); font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      color: var(--c-neon); line-height: 1; margin-bottom: 6px;
+    }
+    .stat-item__label { font-family: var(--f-mono); font-size: .75rem; color: var(--c-muted); letter-spacing: .1em; text-transform: uppercase; }
+
+    /* ── FOOTER ── */
+    .footer {
+      padding: 60px 0; margin-top: 20px;
+      border-top: 1px solid rgba(40,255,180,.06);
+      background: linear-gradient(180deg, transparent, rgba(2,6,4,.8));
+      position: relative; z-index: 3;
+    }
+    .footer__inner { display: flex; align-items: flex-start; justify-content: space-between; gap: 40px; }
+    .footer__brand { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+    .footer__name { font-family: var(--f-display); font-size: 1.6rem; letter-spacing: .05em; }
+    .footer__tag { font-family: var(--f-mono); font-size: .72rem; color: var(--c-muted); margin-top: 2px; }
+    .footer__small { max-width: 420px; line-height: 1.7; font-family: var(--f-mono); font-size: .82rem; color: var(--c-muted); }
+    .footer__right { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+    .footer__links { display: flex; gap: 14px; flex-wrap: wrap; justify-content: flex-end; }
+    .footer__links a { font-size: .88rem; color: var(--c-muted); transition: color .15s; }
+    .footer__links a:hover { color: var(--c-neon); }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(16px);
+      transition: opacity .65s ease, transform .65s ease;
+      will-change: opacity, transform;
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed; left: 50%; bottom: 22px;
+      transform: translateX(-50%) translateY(0);
+      padding: 11px 20px; border-radius: var(--r-md);
+      background: rgba(4,15,9,.96); border: 1px solid rgba(40,255,180,.25);
+      color: var(--c-txt); font-family: var(--f-mono); font-size: .85rem;
+      backdrop-filter: blur(16px); z-index: 9999;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+      opacity: 0; pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .nav__links { display: none; }
+      .hamburger { display: flex; }
+      .grid--2, .grid--3, .grid--4 { grid-template-columns: 1fr; }
+      .stat-strip { grid-template-columns: repeat(2, 1fr); }
+      .footer__inner { flex-direction: column; }
+      .footer__right { align-items: flex-start; }
+    }
+    @media (max-width: 500px) {
+      .page-hero__title { font-size: clamp(3rem, 14vw, 4.5rem); }
+      .stat-strip { grid-template-columns: 1fr 1fr; }
+      .page-hero__cta { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      .page-hero__grid { display: none; }
+      .reveal { transition: none; opacity: 1; transform: none; }
+      #fx, #cursor, #cursorTrail { display: none; }
+      body { cursor: auto; }
+      button, a { cursor: pointer; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg-glow" aria-hidden="true"></div>
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <div id="cursor" aria-hidden="true"><div class="cursor__dot"></div></div>
+  <div id="cursorTrail" aria-hidden="true"></div>
+  <div id="toast" aria-live="polite"></div>
+
+  <!-- NAV -->
+  <header class="nav" role="banner" id="nav">
+    <div class="nav__inner">
+      <a class="brand" href="index.html" aria-label="BRBRT home">
+        <div class="brand__ring" aria-hidden="true"></div>
+        <img class="brand__logo" src="assets/logo-64.png" width="36" height="36" alt="BRBRT logo" decoding="async" />
+        <div>
+          <span class="brand__name">BRBRT</span>
+          <span class="brand__sub">BNB Chain</span>
+        </div>
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="index.html#story" class="nav__link">Story</a>
+        <a href="index.html#token" class="nav__link">Token</a>
+        <a href="index.html#roadmap" class="nav__link">Roadmap</a>
+        <a href="whitepaper.html" class="nav__link">Whitepaper</a>
+        <a href="index.html" class="nav__link">Home</a>
+      </nav>
+      <div class="nav__actions">
+        <a class="btn btn--ghost" href="index.html">← Home</a>
+        <a class="btn btn--primary" href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">Links ↗</a>
+        <button id="menuBtn" class="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div id="mobileMenu" class="mobile" aria-hidden="true" hidden>
+      <div class="mobile__panel">
+        <a href="index.html#story">Story</a>
+        <a href="index.html#token">Token</a>
+        <a href="index.html#roadmap">Roadmap</a>
+        <a href="whitepaper.html">Whitepaper</a>
+        <a href="index.html">Home</a>
+        <a class="mobile__cta" href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">Official Links ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero" aria-label="Community and Association hero">
+      <div class="page-hero__grid" aria-hidden="true"></div>
+      <div class="page-hero__orb page-hero__orb--1" aria-hidden="true"></div>
+      <div class="page-hero__orb page-hero__orb--2" aria-hidden="true"></div>
+      <div class="container page-hero__inner">
+        <div class="page-hero__status reveal">
+          <span class="status-dot"></span>
+          <span style="font-family:var(--f-mono);font-size:.78rem">COMMUNITY-LED MISSION</span>
+          <span style="color:var(--c-dim)">·</span>
+          <span style="font-family:var(--f-mono);font-size:.78rem;color:var(--c-neon)">NOT FINANCIAL ADVICE</span>
+        </div>
+        <h1 class="page-hero__title reveal">
+          <span class="page-hero__title--pre">Built on</span>
+          <span style="color:var(--c-txt);display:block;font-family:var(--f-display)">Community</span>
+          <span class="page-hero__title--accent">& Association</span>
+        </h1>
+        <p class="page-hero__sub reveal">
+          BRBRT is building a community narrative that supports awareness and positive action.
+          This page explains our direction and values — not financial outcomes.
+          Everything we do is grounded in transparency, dignity, and real-world purpose.
+        </p>
+        <div class="page-hero__cta reveal">
+          <a class="btn btn--primary" href="#mission" style="padding:14px 24px;border-radius:18px;font-size:1rem">Explore the Mission →</a>
+          <a class="btn btn--ghost" href="https://linktr.ee/BRBRT" target="_blank" rel="noopener" style="padding:14px 24px;border-radius:18px;font-size:1rem">Official Links ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TICKER -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track">
+        <span>ANTI-BULLYING</span><span class="ticker__dot">◆</span>
+        <span>YOUTH EMPOWERMENT</span><span class="ticker__dot">◆</span>
+        <span>MENTAL HEALTH AWARENESS</span><span class="ticker__dot">◆</span>
+        <span>FAMILY UNITY</span><span class="ticker__dot">◆</span>
+        <span>COMMUNITY FIRST</span><span class="ticker__dot">◆</span>
+        <span>TRANSPARENCY</span><span class="ticker__dot">◆</span>
+        <span>DIGNITY</span><span class="ticker__dot">◆</span>
+        <span>REAL STORY</span><span class="ticker__dot">◆</span>
+        <span>ANTI-BULLYING</span><span class="ticker__dot">◆</span>
+        <span>YOUTH EMPOWERMENT</span><span class="ticker__dot">◆</span>
+        <span>MENTAL HEALTH AWARENESS</span><span class="ticker__dot">◆</span>
+        <span>FAMILY UNITY</span><span class="ticker__dot">◆</span>
+        <span>COMMUNITY FIRST</span><span class="ticker__dot">◆</span>
+        <span>TRANSPARENCY</span><span class="ticker__dot">◆</span>
+        <span>DIGNITY</span><span class="ticker__dot">◆</span>
+        <span>REAL STORY</span><span class="ticker__dot">◆</span>
+      </div>
+    </div>
+
+    <!-- WHAT WE STAND FOR -->
+    <section id="mission" class="section">
+      <div class="container">
+        <div class="section__label reveal">/ 01 — Mission</div>
+        <div class="section__title reveal">What we <span>stand for</span></div>
+        <p class="section__sub reveal">A mission rooted in lived experience. BRBRT exists to turn a real story into real impact — building awareness, dignity, and support for the next generation.</p>
+        <div class="grid grid--4" style="margin-top:36px">
+          <div class="pillar reveal">
+            <div class="pillar__icon">⚡</div>
+            <div class="pillar__title">Anti-Bullying</div>
+            <p class="pillar__text">Raising awareness around moral harassment, bullying, and the long-term impact on young people's lives and mental health.</p>
+            <div class="pillar__tag">Core Mission</div>
+          </div>
+          <div class="pillar reveal">
+            <div class="pillar__icon">🧠</div>
+            <div class="pillar__title">Mental Health</div>
+            <p class="pillar__text">Supporting mental health awareness messaging and creating safe spaces for youth to express themselves without judgment.</p>
+            <div class="pillar__tag">Priority</div>
+          </div>
+          <div class="pillar reveal">
+            <div class="pillar__icon">🌱</div>
+            <div class="pillar__title">Youth Dignity</div>
+            <p class="pillar__text">Every young person deserves to grow up with dignity, respect, and protection from abuse in all its forms.</p>
+            <div class="pillar__tag">Foundation</div>
+          </div>
+          <div class="pillar reveal">
+            <div class="pillar__icon">🏡</div>
+            <div class="pillar__title">Family Unity</div>
+            <p class="pillar__text">Strengthening family bonds and community support systems to create a safer, more connected world for everyone.</p>
+            <div class="pillar__tag">Community</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMMUNITY APPROACH -->
+    <section id="approach" class="section section--dark">
+      <div class="container">
+        <div class="section__label reveal">/ 02 — Approach</div>
+        <div class="section__title reveal">Community-first <span>approach</span></div>
+        <div class="grid grid--2" style="margin-top:36px;align-items:start">
+          <div class="card reveal">
+            <div class="card__icon">🔍</div>
+            <div class="card__title">Transparent Progress</div>
+            <p>We focus on verifiable, on-chain proof — not hype. Public links, verified locks, and honest communication are the pillars of how we operate.</p>
+            <div class="divider"></div>
+            <ul class="checklist">
+              <li><span class="tick">✓</span>On-chain ownership renounced</li>
+              <li><span class="tick">✓</span>Reserve locked until 2030 (PinkLock V2)</li>
+              <li><span class="tick">✓</span>All links public & independently verifiable</li>
+              <li><span class="tick">✓</span>No hidden wallets or secret allocations</li>
+            </ul>
+            <div class="card__line" aria-hidden="true"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div class="card reveal">
+              <div class="card__icon">🚫</div>
+              <div class="card__title">No Profit Promises</div>
+              <p>BRBRT does not promise profits, returns, or financial outcomes of any kind. Community trust is built through consistent action and on-chain proof — not marketing claims.</p>
+              <div class="notice" style="margin-top:14px">
+                <span class="notice__icon">⚠</span>
+                <p><strong>NFA / DYOR</strong> — This is a meme token with a mission-driven story. Always do your own research before interacting with any crypto asset.</p>
+              </div>
+            </div>
+            <div class="card reveal">
+              <div class="card__icon">📡</div>
+              <div class="card__title">Consistency & Proof</div>
+              <p>Community trust comes from repetition of honest communication and proof-backed actions. We publish progress reports, maintain public locks, and verify everything on-chain.</p>
+              <div class="card__line" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="section">
+      <div class="container">
+        <div class="section__label reveal">/ 03 — By the Numbers</div>
+        <div class="section__title reveal">Proof in <span>numbers</span></div>
+        <div class="stat-strip reveal">
+          <div class="stat-item"><div class="stat-item__val">1M</div><div class="stat-item__label">Fixed Supply</div></div>
+          <div class="stat-item"><div class="stat-item__val">27.99%</div><div class="stat-item__label">Locked Tokens</div></div>
+          <div class="stat-item"><div class="stat-item__val">2030</div><div class="stat-item__label">Lock Unlock Date</div></div>
+          <div class="stat-item"><div class="stat-item__val">0</div><div class="stat-item__label">Hidden Wallets</div></div>
+        </div>
+        <div class="grid grid--3" style="margin-top:14px">
+          <div class="card reveal">
+            <div class="card__num">01</div>
+            <div class="card__title">Real Story</div>
+            <p>BRBRT is inspired by lived experiences of bullying and the journey to rebuild with dignity. This is not a fictional narrative — it's real.</p>
+            <div class="card__line" aria-hidden="true"></div>
+          </div>
+          <div class="card reveal">
+            <div class="card__num">02</div>
+            <div class="card__title">Real Mission</div>
+            <p>Awareness content, educational campaigns, and anti-bullying outreach. Every action is community-guided and community-funded.</p>
+            <div class="card__line" aria-hidden="true"></div>
+          </div>
+          <div class="card reveal">
+            <div class="card__num">03</div>
+            <div class="card__title">Real Proof</div>
+            <p>Ownership renounced. Supply locked. Links public. Nothing hidden — everything verifiable by anyone, at any time, on-chain.</p>
+            <div class="card__line" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT & LINKS -->
+    <section id="contact" class="section section--dark">
+      <div class="container">
+        <div class="section__label reveal">/ 04 — Contact & Links</div>
+        <div class="contact-card reveal">
+          <div class="contact-title">Get in Touch</div>
+          <p class="contact-sub">For partnership ideas, outreach opportunities, awareness collaboration, or support resources — reach out through official channels only.</p>
+          <div class="contact-grid">
+            <div class="contact-item">
+              <div class="contact-item__label">Official Email</div>
+              <div class="contact-item__val"><a href="mailto:contact@brbrt.com">contact@brbrt.com</a></div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item__label">All Official Links</div>
+              <div class="contact-item__val"><a href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">linktr.ee/BRBRT ↗</a></div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item__label">X / Twitter</div>
+              <div class="contact-item__val"><a href="https://x.com/BRBRToken" target="_blank" rel="noreferrer">@BRBRToken ↗</a></div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item__label">Instagram</div>
+              <div class="contact-item__val"><a href="https://www.instagram.com/brbrtcoin/" target="_blank" rel="noreferrer">@brbrtcoin ↗</a></div>
+            </div>
+          </div>
+          <div class="divider" style="margin-top:22px"></div>
+          <div style="font-family:var(--f-mono);font-size:.75rem;color:var(--c-muted);margin-bottom:12px;letter-spacing:.1em;text-transform:uppercase">On-chain verification</div>
+          <div class="links-strip">
+            <a class="link-chip" href="https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1#readContract" target="_blank" rel="noopener">Ownership (BscScan) ↗</a>
+            <a class="link-chip" href="https://www.pinksale.finance/pinklock/bsc/record/1437018" target="_blank" rel="noopener">Reserve Lock (PinkLock) ↗</a>
+            <a class="link-chip" href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener">Contract (BscScan) ↗</a>
+            <button class="link-chip" type="button" onclick="copyAddr()">Copy Contract ⧉</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer" role="contentinfo">
+      <div class="container footer__inner">
+        <div class="footer__left">
+          <div class="footer__brand">
+            <img src="assets/logo-64.png" alt="BRBRT logo" width="40" height="40" loading="lazy" decoding="async" style="border-radius:12px" />
+            <div>
+              <div class="footer__name">BRBRT</div>
+              <div class="footer__tag">Strength • Dignity • Awareness</div>
+            </div>
+          </div>
+          <p class="footer__small">© <span id="year"></span> BRBRT. All rights reserved.<br>Informational only. No financial advice. NFA / DYOR.</p>
+        </div>
+        <div class="footer__right">
+          <nav class="footer__links" aria-label="Footer links">
+            <a href="index.html">Home</a>
+            <a href="whitepaper.html">Whitepaper</a>
+            <a href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener">BscScan</a>
+            <a href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc" target="_blank" rel="noopener">PancakeSwap</a>
+            <a href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">Linktree</a>
+            <a href="https://x.com/BRBRToken" target="_blank" rel="noreferrer">X</a>
+          </nav>
+          <div style="display:flex;gap:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.05)">
+            <a href="privacy.html" style="font-size:.85rem;color:var(--c-muted)">Privacy</a>
+            <a href="terms.html" style="font-size:.85rem;color:var(--c-muted)">Terms</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+  (() => {
+    'use strict';
+    const $ = q => document.querySelector(q);
+    const $$ = q => Array.from(document.querySelectorAll(q));
+    const CONTRACT = '0xf97522ABEf762d28729E073019343b72C6e8D2C1';
+    const reduceMotion = !!window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+
+    const yr = $('#year'); if (yr) yr.textContent = new Date().getFullYear();
+
+    let _tt = null;
+    function flashToast(msg) {
+      const t = $('#toast'); if (!t) return;
+      t.textContent = msg;
+      t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(-4px)';
+      if (_tt) clearTimeout(_tt);
+      _tt = setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(0)'; }, 1600);
+    }
+
+    async function copyText(txt) {
+      try { await navigator.clipboard.writeText(txt); }
+      catch {
+        const ta = document.createElement('textarea'); ta.value = txt;
+        Object.assign(ta.style, { position: 'fixed', left: '-9999px' });
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+      }
+      flashToast('Copied ✓');
+    }
+    window.copyAddr = () => copyText(CONTRACT);
+
+    const nav = $('#nav');
+    if (nav) { const upd = () => nav.classList.toggle('scrolled', window.scrollY > 40); window.addEventListener('scroll', upd, { passive:true }); upd(); }
+
+    const menuBtn = $('#menuBtn'), mobile = $('#mobileMenu');
+    if (menuBtn && mobile) {
+      const close = () => { menuBtn.setAttribute('aria-expanded','false'); mobile.setAttribute('aria-hidden','true'); mobile.hidden = true; };
+      const open  = () => { menuBtn.setAttribute('aria-expanded','true'); mobile.setAttribute('aria-hidden','false'); mobile.hidden = false; };
+      close();
+      menuBtn.addEventListener('click', () => menuBtn.getAttribute('aria-expanded')==='true' ? close() : open());
+      $$('#mobileMenu a').forEach(a => a.addEventListener('click', close));
+      document.addEventListener('keydown', e => { if (e.key==='Escape') close(); });
+      window.addEventListener('resize', () => { if (window.innerWidth > 900) close(); }, { passive:true });
+    }
+
+    const track = document.querySelector('.ticker__track');
+    if (track) document.addEventListener('visibilitychange', () => { track.style.animationPlayState = document.hidden ? 'paused' : 'running'; });
+
+    function initReveal() {
+      const els = $$('.reveal'); if (!els.length) return;
+      if (!('IntersectionObserver' in window)) { els.forEach(el => el.classList.add('in')); return; }
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          const delay = e.target.closest('.grid, .stat-strip') ? Array.from(e.target.parentElement.children).indexOf(e.target) * 75 : 0;
+          setTimeout(() => e.target.classList.add('in'), delay);
+          io.unobserve(e.target);
+        });
+      }, { threshold: 0.09 });
+      els.forEach(el => io.observe(el));
+    }
+
+    function initCursor() {
+      if (reduceMotion) return;
+      const cursor = $('#cursor'), trail = $('#cursorTrail');
+      if (!cursor || !trail) return;
+      let mx = -100, my = -100, tx = -100, ty = -100;
+      document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx+'px'; cursor.style.top = my+'px'; });
+      const lerp = (a,b,t) => a+(b-a)*t;
+      const anim = () => { tx=lerp(tx,mx,0.12); ty=lerp(ty,my,0.12); trail.style.left=tx+'px'; trail.style.top=ty+'px'; requestAnimationFrame(anim); };
+      requestAnimationFrame(anim);
+      const hov = 'a, button, .pillar, .card, .link-chip, .contact-item';
+      document.addEventListener('mouseover', e => { if (e.target.closest(hov)) cursor.classList.add('hover'); });
+      document.addEventListener('mouseout',  e => { if (e.target.closest(hov)) cursor.classList.remove('hover'); });
+      document.addEventListener('mouseleave', () => { cursor.style.opacity='0'; trail.style.opacity='0'; });
+      document.addEventListener('mouseenter', () => { cursor.style.opacity='1'; trail.style.opacity='1'; });
+    }
+
+    function initFX() {
+      const canvas = $('#fx'); if (!canvas || reduceMotion) return;
+      const ctx = canvas.getContext('2d', { alpha:true });
+      let w=0, h=0, dpr=1;
+      const dots = Array.from({ length:36 }, () => ({ x:0,y:0, r:.4+Math.random()*1.3, vx:-.1+Math.random()*.2, vy:-.08+Math.random()*.16, a:.07+Math.random()*.14 }));
+      const resize = () => {
+        w=Math.max(1,window.innerWidth); h=Math.max(1,window.innerHeight); dpr=Math.min(2,window.devicePixelRatio||1);
+        canvas.width=Math.round(w*dpr); canvas.height=Math.round(h*dpr);
+        canvas.style.width=w+'px'; canvas.style.height=h+'px';
+        ctx.setTransform(dpr,0,0,dpr,0,0);
+        dots.forEach(p => { p.x=Math.random()*w; p.y=Math.random()*h; });
+      };
+      let raf=0, running=true;
+      const draw = () => {
+        if (!running) return;
+        ctx.clearRect(0,0,w,h);
+        for (let i=0;i<dots.length;i++) for (let j=i+1;j<dots.length;j++) {
+          const dx=dots[i].x-dots[j].x, dy=dots[i].y-dots[j].y, dist=Math.sqrt(dx*dx+dy*dy);
+          if (dist<110) { ctx.beginPath(); ctx.moveTo(dots[i].x,dots[i].y); ctx.lineTo(dots[j].x,dots[j].y); ctx.strokeStyle=`rgba(40,255,180,${.05*(1-dist/110)})`; ctx.lineWidth=.5; ctx.stroke(); }
+        }
+        dots.forEach(p => {
+          p.x+=p.vx; p.y+=p.vy;
+          if (p.x<-10) p.x=w+10; if (p.x>w+10) p.x=-10; if (p.y<-10) p.y=h+10; if (p.y>h+10) p.y=-10;
+          ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fillStyle=`rgba(40,255,180,${p.a})`; ctx.fill();
+        });
+        raf=requestAnimationFrame(draw);
+      };
+      document.addEventListener('visibilitychange', () => { if (document.hidden){running=false;if(raf)cancelAnimationFrame(raf);}else{running=true;raf=requestAnimationFrame(draw);} });
+      resize(); raf=requestAnimationFrame(draw);
+      window.addEventListener('resize', ()=>requestAnimationFrame(resize), { passive:true });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => { initReveal(); initCursor(); initFX(); });
+  })();
+  </script>
+</body>
+</html>
