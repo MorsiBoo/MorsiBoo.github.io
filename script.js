@@ -121,7 +121,7 @@
     const io = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (!e.isIntersecting) return;
-        const delay = e.target.closest(".story__grid,.proofGrid,.roadmapGrid,.tokenGrid,.buySteps")
+        const delay = e.target.closest(".story__grid,.proofGrid,.roadmapGrid,.tokenGrid,.buySteps,.nx-acronym,.nx-chapters,.nx-rules")
           ? Array.from(e.target.parentElement.children).indexOf(e.target) * 80 : 0;
         setTimeout(() => e.target.classList.add("in"), delay);
         io.unobserve(e.target);
@@ -325,32 +325,57 @@
     window.addEventListener("resize", tune, { passive: true });
   }
 
-  /* ─── AI CHATBOT ─────────────────────────────────────────────── */
-  const BRBRT_CONTEXT = `You are the BRBRT AI Assistant — a helpful, friendly guide for the BRBRT meme token project on BNB Chain.
+  /* ─── BRBRT GUIDE (FAQ CHAT) ─────────────────────────────────────
+     Honest by design: answers come from the fixed list below.
+     Nothing the visitor types is sent anywhere. It stays in the browser.
+     ─────────────────────────────────────────────────────────────── */
+  const has = (t, words) => words.some(w => t.includes(w));
 
-BRBRT Project Facts:
-- Token: BRBRT (ticker: BRBR) on BNB Chain (BEP-20)
-- Contract: 0xf97522ABEf762d28729E073019343b72C6e8D2C1
-- Buy on: PancakeSwap (https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc)
-- Verify on: BscScan (https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1)
-- Official links: https://linktr.ee/BRBRT
-- Contact email: contact@brbrt.com
-- Social: X (@BRBRToken), Instagram (@brbrtcoin)
+  const HELP_REPLY = "You are not alone. In France: call 3018 (harassment and cyberharassment, 7 days a week, 9am–11pm), 3114 (suicide prevention, 24/7), or 112 if you are in immediate danger. Outside France, call your local emergency number. BRBRT is not a support service, but these people are trained to help you. 💚";
 
-Mission: Community-driven meme token inspired by a real story of bullying, resilience, and personal growth. The mission is awareness, dignity, and youth mental health support.
+  function getGuideReply(text) {
+    const t = text.toLowerCase();
 
-Transparency:
-- Ownership renounced on-chain (verifiable on BscScan)
-- Reserve Lock: 279,897.5221 BRBR via PinkLock V2 until 2030-01-01
-- Lock record: https://www.pinksale.finance/pinklock/bsc/record/1437018
+    if (has(t, ["harass", "bully", "bullied", "suicide", "suicid", "kill myself", "hurt myself", "self-harm", "self harm", "depress", "want to die", "end my life", "harcel", "harcèl"]))
+      return HELP_REPLY;
 
-Roadmap: Foundations (complete) → Community Growth (in progress) → Impact → Sustainability
+    if (has(t, ["safe", "rug", "scam", "trust", "risk", "legit"]))
+      return "Honest answer: ownership is renounced and 27.99% of the supply is locked until 1 January 2030 (PinkLock). But the founder also holds about 46.65% in unlocked reserve wallets (as published in the Transparency Statement), liquidity is very small, and meme tokens can lose all their value. Verify everything on BscScan. NFA / DYOR 🔐";
 
-IMPORTANT: BRBRT makes NO promises of profit. Always add "NFA / DYOR" to financial questions. Never give financial advice.
-Respond in English. Be concise, warm, helpful. Keep answers under 3 paragraphs.`;
+    if (has(t, ["price", "moon", "pump", "profit", "invest", "x100", "x10", "rich", "worth", "go up"]))
+      return "No one can tell you the price will go up, and BRBRT never promises it. BRBR gives no right to profits, revenue or anything else. Only use money you can afford to lose completely. NFA / DYOR";
 
-  let chatHistory = [];
-  let chatOpen    = false;
+    if (has(t, ["buy", "pancake", "swap", "purchase"]))
+      return "BRBR trades on PancakeSwap (BNB Chain), contract " + CONTRACT + ". Before anything: liquidity is very small, so even a small trade moves the price a lot, and you could lose everything. BRBRT makes no promises of profit. Always verify the contract on BscScan. NFA / DYOR";
+
+    if (has(t, ["contract", "address", "ca "]) || t === "ca")
+      return "Official contract: " + CONTRACT + " (BNB Chain, BEP-20). Always verify it on BscScan before any transaction. BRBRT never contacts anyone first by private message.";
+
+    if (has(t, ["lock", "pinklock", "renounc", "owner"]))
+      return "Ownership of the contract is renounced, so no one can change its code. 279,897.5221 BRBR (27.99%) are locked on PinkLock V2 until 1 January 2030. You can verify both on-chain from the Transparency section.";
+
+    if (has(t, ["club", "gym", "sport", "fitness", "training"]))
+      return "BRBRT Clubs are a vision: affordable, coached gyms with a mind programme, built on the five values. They do not exist yet. The plan starts digital, and each step opens only when it is legally and financially ready. Club money would never go to token holders.";
+
+    if (has(t, ["association", "charity", "non-profit", "nonprofit", "donat"]))
+      return "The BRBRT association is in preparation and not yet registered. It will carry the anti-bullying and mental health mission, funded by donations and grants, never by token sales.";
+
+    if (has(t, ["name", "stand for", "meaning", "acronym", "letters"]))
+      return "BRBRT stands for Bravery, Resilience, Brotherhood, Respect, Triumph: the path from being hurt to standing tall again.";
+
+    if (has(t, ["roadmap", "plan", "next", "phase", "future"]))
+      return "Roadmap: Phase 1 Foundations ✓ → Phase 2 Groundwork & Digital Club (next) → Phase 3 First Studio → Phase 4 Flagship & Network. Each phase opens only when its gate is met.";
+
+    if (has(t, ["mission", "what is", "story", "why", "about"]))
+      return "BRBRT comes from the founder's real story: harassment, then the gym that helped him rebuild his strength and mental health. The mission is awareness, dignity and support for young people. 💚";
+
+    if (has(t, ["contact", "team", "email", "founder", "who"]))
+      return "BRBRT is run by its founder. Reach out at " + EMAIL + " or linktr.ee/BRBRT, and follow @BRBRToken on X and @brbrtcoin on Instagram.";
+
+    return "I'm a simple FAQ guide, not a live AI. Ask me about the story, BRBRT Clubs, the association, the token, transparency or the roadmap. For anything else, write to " + EMAIL + ".";
+  }
+
+  let chatOpen = false;
 
   function initChatbot() {
     const toggle   = $("#chatbotToggle");
@@ -374,33 +399,17 @@ Respond in English. Be concise, warm, helpful. Keep answers under 3 paragraphs.`
     input?.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(input.value.trim()); } });
     sendBtn?.addEventListener("click", () => { sfxClick(); sendMessage(input?.value.trim() || ""); });
 
-    async function sendMessage(text) {
+    function sendMessage(text) {
       if (!text) return;
       if (input) input.value = "";
       $$("#chatbotMessages .chatbot__suggestions").forEach(s => s.remove());
       appendMsg(text, "user");
       sfxClick();
       const typingId = appendTyping();
-      chatHistory.push({ role: "user", content: text });
-
-      try {
-        const response = await fetch("https://api.anthropic.com/v1/messages", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "anthropic-dangerous-direct-browser-access": "true" },
-          body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 512, system: BRBRT_CONTEXT, messages: chatHistory })
-        });
+      setTimeout(() => {
         removeTyping(typingId);
-        if (!response.ok) throw new Error("API error " + response.status);
-        const data = await response.json();
-        const reply = data.content?.[0]?.text || "Sorry, I couldn't get a response. Please try again!";
-        chatHistory.push({ role: "assistant", content: reply });
-        appendMsg(reply, "bot");
-      } catch {
-        removeTyping(typingId);
-        const fallback = getFallbackReply(text);
-        chatHistory.push({ role: "assistant", content: fallback });
-        appendMsg(fallback, "bot");
-      }
+        appendMsg(getGuideReply(text), "bot");
+      }, 350);
     }
 
     function appendMsg(text, role) {
@@ -419,23 +428,6 @@ Respond in English. Be concise, warm, helpful. Keep answers under 3 paragraphs.`
 
     function removeTyping(id) { $("#" + id)?.remove(); }
     function scrollToBottom() { if (msgs) msgs.scrollTop = msgs.scrollHeight; }
-
-    function getFallbackReply(text) {
-      const t = text.toLowerCase();
-      if (t.includes("buy") || t.includes("pancake"))
-        return "To buy BRBRT: get BNB on BNB Chain, then use PancakeSwap with contract 0xf97522ABEf762d28729E073019343b72C6e8D2C1. Always verify on BscScan first! NFA / DYOR 🔍";
-      if (t.includes("contract") || t.includes("address"))
-        return "Official contract: 0xf97522ABEf762d28729E073019343b72C6e8D2C1 (BNB Chain). Always verify on BscScan before any transaction!";
-      if (t.includes("safe") || t.includes("rug") || t.includes("trust"))
-        return "BRBRT prioritizes transparency: ownership is renounced on-chain, and 279,897 BRBR are locked via PinkLock V2 until 2030. Verify everything on BscScan. NFA / DYOR 🔐";
-      if (t.includes("mission") || t.includes("what is") || t.includes("story"))
-        return "BRBRT is inspired by a real story of bullying and resilience. The mission is awareness around youth mental health, dignity, and anti-bullying — community-first, transparency-first. 💚";
-      if (t.includes("roadmap") || t.includes("plan"))
-        return "Roadmap: Phase 1 Foundations ✓ → Phase 2 Community Growth (in progress) → Phase 3 Impact Hub → Phase 4 Sustainability. Follow @BRBRToken on X for updates!";
-      if (t.includes("contact") || t.includes("team") || t.includes("email"))
-        return "Reach the team at contact@brbrt.com or linktr.ee/BRBRT. Follow @BRBRToken on X and @brbrtcoin on Instagram!";
-      return "I'm here to help with everything BRBRT! Ask me about how to buy, the mission, transparency proofs, or the roadmap. What would you like to know? 💚";
-    }
   }
 
   /* ─── YEAR ───────────────────────────────────────────────────── */
