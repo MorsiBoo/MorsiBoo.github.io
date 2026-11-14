@@ -11,7 +11,7 @@
   <meta name="color-scheme" content="dark" />
 
   <title>BRBRT Crypto Project - Strength • Dignity • Awareness (BNB Chain)</title>
-  <meta name="description" content="BRBRT is a community-driven meme token on BNB Chain inspired by a real story of bullying, resilience and personal growth. Transparency-first. No promises of profit. NFA." />
+  <meta name="description" content="BRBRT is a community-driven meme token on BNB Chain born from a real story of harassment and resilience, and the vision of BRBRT Clubs: places to rebuild body and mind. Transparency-first. No promises of profit. NFA." />
 
   <link rel="canonical" href="https://brbrt.com/" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/logo-180.png">
 
   <meta property="og:title" content="BRBRT — Strength • Dignity • Awareness" />
-  <meta property="og:description" content="A community-driven meme token on BNB Chain. Transparency-first. No promises of profit. NFA." />
+  <meta property="og:description" content="A real story of harassment and resilience, a community on BNB Chain, and the vision of BRBRT Clubs. Transparency-first. No promises of profit. NFA." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://brbrt.com/" />
   <meta property="og:image" content="https://brbrt.com/assets/og-brbrt.jpg" />
@@ -48,6 +48,74 @@
 
   <link rel="preload" href="style.css" as="style" />
   <link rel="stylesheet" href="style.css" />
+
+  <!-- ============================================================
+       BRBRT UPDATE — extra components.
+       Colours are inherited from style.css (no new palette):
+       accents only come from your existing classes
+       (.text--accent, .tag--green, .tag--yellow).
+       ============================================================ -->
+  <style>
+    .nx-anchor{position:relative;top:-90px;height:0;overflow:hidden}
+
+    /* Story chapters (timeline) */
+    .nx-chapters{position:relative;display:grid;gap:18px;margin:44px 0 56px;padding-left:34px}
+    .nx-chapters::before{content:"";position:absolute;left:10px;top:10px;bottom:10px;width:1px;background:linear-gradient(to bottom,rgba(255,255,255,.55),rgba(255,255,255,.04))}
+    .nx-chapter{position:relative;padding:22px 24px;border:1px solid rgba(255,255,255,.08);border-radius:18px;background:rgba(255,255,255,.025);transition:transform .35s ease,border-color .35s ease}
+    .nx-chapter:hover{transform:translateX(6px);border-color:rgba(255,255,255,.2)}
+    .nx-dot{position:absolute;left:-29px;top:28px;width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.9);box-shadow:0 0 0 4px rgba(255,255,255,.06),0 0 18px rgba(255,255,255,.55)}
+    .nx-chapter__num{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.12em;opacity:.6}
+    .nx-chapter h3{margin:4px 0 6px;font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.2rem,2.4vw,1.6rem)}
+    .nx-chapter p{margin:0;opacity:.8;line-height:1.65;max-width:62ch}
+
+    /* Big statement line */
+    .nx-statement{margin:0 0 56px;font-family:'Syne',sans-serif;font-weight:900;font-size:clamp(1.7rem,5vw,3.4rem);line-height:1.05;letter-spacing:-.02em;text-transform:uppercase}
+    .nx-statement span{display:block}
+
+    /* Acronym */
+    .nx-acronym{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:40px}
+    .nx-letterCard{position:relative;padding:22px 18px 22px;border:1px solid rgba(255,255,255,.08);border-radius:18px;background:rgba(255,255,255,.025);overflow:hidden;transition:transform .35s ease,border-color .35s ease}
+    .nx-letterCard:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.22)}
+    .nx-letterCard::after{content:"";position:absolute;inset:auto -40% -60% -40%;height:70%;background:radial-gradient(closest-side,rgba(255,255,255,.07),transparent);pointer-events:none}
+    .nx-letter{display:block;font-family:'Bebas Neue',sans-serif;font-size:clamp(4.2rem,9vw,7.5rem);line-height:.85}
+    .nx-word{display:block;margin-top:12px;font-family:'Syne',sans-serif;font-weight:800;font-size:1.02rem;letter-spacing:.05em;text-transform:uppercase}
+    .nx-letterCard p{margin:8px 0 0;font-size:.92rem;line-height:1.55;opacity:.75}
+
+    /* Honest status strip */
+    .nx-status{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;margin-top:36px;border:1px solid rgba(255,255,255,.08);border-radius:18px;overflow:hidden;background:rgba(255,255,255,.08)}
+    .nx-status__item{padding:18px 20px;background:rgba(2,10,6,.92)}
+    .nx-status__label{display:block;margin-bottom:6px;opacity:.6}
+    .nx-status__val{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;line-height:1.35}
+
+    /* Is / isn't lists */
+    .nx-list{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:12px}
+    .nx-list li{display:flex;gap:12px;align-items:flex-start;line-height:1.55}
+    .nx-list li > span:first-child{flex:0 0 auto;font-family:'DM Mono',monospace;margin-top:1px}
+    .nx-note{margin-top:16px;opacity:.6}
+
+    /* Build rules */
+    .nx-rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:22px}
+
+    /* Roadmap gates */
+    .nx-gate{display:flex;gap:10px;align-items:flex-start;margin-top:16px;padding-top:14px;border-top:1px dashed rgba(255,255,255,.16);line-height:1.5}
+    .nx-diamond{flex:0 0 auto;width:9px;height:9px;margin-top:5px;transform:rotate(45deg);border:1px solid rgba(255,255,255,.75)}
+
+    @media (max-width:980px){
+      .nx-acronym{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .nx-acronym .nx-letterCard:last-child{grid-column:1/-1}
+      .nx-status{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .nx-rules{grid-template-columns:1fr}
+    }
+    @media (max-width:520px){
+      .nx-status{grid-template-columns:1fr}
+      .nx-chapters{padding-left:28px}
+      .nx-dot{left:-23px}
+    }
+    @media (prefers-reduced-motion:reduce){
+      .nx-chapter,.nx-letterCard{transition:none}
+      .nx-chapter:hover,.nx-letterCard:hover{transform:none}
+    }
+  </style>
 </head>
 
 <body>
@@ -81,7 +149,7 @@
 
       <nav class="nav__links" aria-label="Primary">
         <a href="#story" class="nav__link">Story</a>
-        <a href="#token" class="nav__link">Token</a>
+        <a href="#project" class="nav__link">Project</a>
         <a href="#transparency" class="nav__link">Transparency</a>
         <a href="#roadmap" class="nav__link">Roadmap</a>
         <a href="whitepaper.html" class="nav__link">Whitepaper</a>
@@ -95,8 +163,8 @@
         <button id="soundBtn" class="btn btn--ghost btn--sm" type="button" aria-pressed="false" aria-label="Toggle sound">
           <span class="btn__icon" aria-hidden="true">🔊</span>
         </button>
-        <a class="btn btn--primary" href="#buy">
-          Buy BRBRT
+        <a class="btn btn--primary" href="#project">
+          The Plan
           <span class="btn__arrow" aria-hidden="true">→</span>
         </a>
         <button id="menuBtn" class="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
@@ -109,16 +177,20 @@
     <div id="mobileMenu" class="mobile" aria-hidden="true" hidden>
       <div class="mobile__panel">
         <a href="#story">Story</a>
+        <a href="#name">The Name</a>
+        <a href="#project">BRBRT Clubs</a>
+        <a href="#build">How It's Built</a>
         <a href="#token">Token</a>
         <a href="#transparency">Transparency</a>
         <a href="#roadmap">Roadmap</a>
+        <a href="#join">Join</a>
         <a href="whitepaper.html">Whitepaper</a>
         <a href="association.html">Association</a>
         <a href="https://x.com/BRBRToken" target="_blank" rel="noreferrer">X / Twitter</a>
         <a href="https://www.instagram.com/brbrtcoin/" target="_blank" rel="noreferrer">Instagram</a>
         <a href="https://linktr.ee/BRBRT" target="_blank" rel="noreferrer">Linktree</a>
         <a href="mailto:contact@brbrt.com">contact@brbrt.com</a>
-        <a class="mobile__cta" href="#buy">How to Buy →</a>
+        <a class="mobile__cta" href="#project">Discover the plan →</a>
       </div>
     </div>
   </header>
@@ -159,18 +231,19 @@
         </h1>
 
         <p class="hero__sub reveal">
-          BRBRT is a community-driven meme token built on a real story — turning pain into purpose,
-          silence into strength, and lived experience into a global awareness movement.
+          A real story of harassment, silence, and the gym that brought strength back.
+          BRBRT turns it into a community, an association, and a plan: <strong>BRBRT Clubs</strong>,
+          places where anyone can rebuild body and mind.
           <span class="badge">NFA • DYOR</span>
         </p>
 
         <div class="hero__cta reveal">
-          <a class="btn btn--primary btn--lg" href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc" target="_blank" rel="noopener">
-            <span>Buy on PancakeSwap</span>
-            <span class="btn__arrow">↗</span>
+          <a class="btn btn--primary btn--lg" href="#project">
+            <span>Discover BRBRT Clubs</span>
+            <span class="btn__arrow">→</span>
           </a>
-          <a class="btn btn--outline btn--lg" href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener">
-            BscScan Explorer ↗
+          <a class="btn btn--outline btn--lg" href="#story">
+            The True Story
           </a>
           <button class="btn btn--ghost btn--lg" id="copyCA" type="button" data-copy="0xf97522ABEf762d28729E073019343b72C6e8D2C1">
             Copy Contract ⧉
@@ -211,22 +284,22 @@
     <!-- TICKER -->
     <div class="ticker" aria-hidden="true">
       <div class="ticker__track">
-        <span>STRENGTH</span><span class="ticker__dot">◆</span>
-        <span>DIGNITY</span><span class="ticker__dot">◆</span>
-        <span>AWARENESS</span><span class="ticker__dot">◆</span>
-        <span>BNB CHAIN</span><span class="ticker__dot">◆</span>
-        <span>COMMUNITY FIRST</span><span class="ticker__dot">◆</span>
+        <span>BRAVERY</span><span class="ticker__dot">◆</span>
+        <span>RESILIENCE</span><span class="ticker__dot">◆</span>
+        <span>BROTHERHOOD</span><span class="ticker__dot">◆</span>
+        <span>RESPECT</span><span class="ticker__dot">◆</span>
+        <span>TRIUMPH</span><span class="ticker__dot">◆</span>
+        <span>REAL STORY</span><span class="ticker__dot">◆</span>
         <span>TRANSPARENCY ON-CHAIN</span><span class="ticker__dot">◆</span>
         <span>NO FALSE PROMISES</span><span class="ticker__dot">◆</span>
+        <span>BRAVERY</span><span class="ticker__dot">◆</span>
+        <span>RESILIENCE</span><span class="ticker__dot">◆</span>
+        <span>BROTHERHOOD</span><span class="ticker__dot">◆</span>
+        <span>RESPECT</span><span class="ticker__dot">◆</span>
+        <span>TRIUMPH</span><span class="ticker__dot">◆</span>
         <span>REAL STORY</span><span class="ticker__dot">◆</span>
-        <span>STRENGTH</span><span class="ticker__dot">◆</span>
-        <span>DIGNITY</span><span class="ticker__dot">◆</span>
-        <span>AWARENESS</span><span class="ticker__dot">◆</span>
-        <span>BNB CHAIN</span><span class="ticker__dot">◆</span>
-        <span>COMMUNITY FIRST</span><span class="ticker__dot">◆</span>
         <span>TRANSPARENCY ON-CHAIN</span><span class="ticker__dot">◆</span>
         <span>NO FALSE PROMISES</span><span class="ticker__dot">◆</span>
-        <span>REAL STORY</span><span class="ticker__dot">◆</span>
       </div>
     </div>
 
@@ -234,11 +307,45 @@
     <section id="story" class="section">
       <div class="container">
         <div class="section__head reveal">
-          <div class="section__label mono">/ 01 — ORIGIN</div>
+          <div class="section__label mono">/ 01 — THE TRUE STORY</div>
           <h2>Why BRBRT <span class="text--accent">exists</span></h2>
-          <p>A real story can become a real mission. BRBRT is inspired by lived experiences of bullying,
-          silence, and the choice to rebuild with dignity — turning pain into awareness and community action.</p>
+          <p>BRBRT was not born in a whitepaper. It was born from harassment, from silence,
+          and from the place that gave its founder his strength back: the gym.</p>
         </div>
+
+        <div class="nx-chapters">
+          <article class="nx-chapter reveal">
+            <span class="nx-dot" aria-hidden="true"></span>
+            <div class="nx-chapter__num">Chapter 01</div>
+            <h3>Silence</h3>
+            <p>It started with harassment: the kind that wears you down and makes you feel alone with it.</p>
+          </article>
+          <article class="nx-chapter reveal">
+            <span class="nx-dot" aria-hidden="true"></span>
+            <div class="nx-chapter__num">Chapter 02</div>
+            <h3>The gym</h3>
+            <p>Training became the place to rebuild. Strength first, then confidence, then mental health.</p>
+          </article>
+          <article class="nx-chapter reveal">
+            <span class="nx-dot" aria-hidden="true"></span>
+            <div class="nx-chapter__num">Chapter 03</div>
+            <h3>The choice</h3>
+            <p>Instead of staying silent, the founder chose to turn that story into a mission:
+            speak up, protect the next generation, rebuild with dignity.</p>
+          </article>
+          <article class="nx-chapter reveal">
+            <span class="nx-dot" aria-hidden="true"></span>
+            <div class="nx-chapter__num">Chapter 04</div>
+            <h3>BRBRT</h3>
+            <p>A community, an association and a token born from that story, and now a plan to build
+            places where others can rebuild too.</p>
+          </article>
+        </div>
+
+        <p class="nx-statement reveal">
+          <span>Pain into purpose.</span>
+          <span class="text--accent">Silence into strength.</span>
+        </p>
 
         <div class="story__grid">
           <article class="storyCard reveal">
@@ -269,9 +376,10 @@
           <div class="split__left">
             <div class="section__label mono">/ TOKEN REVEAL</div>
             <h2>A cinematic <span class="text--accent">identity</span></h2>
-            <p>Clean, modern, and future-forward. This is BRBRT: strength, dignity, awareness — forged from lived experience.</p>
+            <p>Strength, dignity, awareness, forged from lived experience. Every letter of BRBRT carries a value,
+            and every value is a promise about how this project behaves.</p>
             <div class="btnRow">
-              <a class="btn btn--primary" href="https://linktr.ee/BRBRT" target="_blank" rel="noopener">Official Links ↗</a>
+              <a class="btn btn--primary" href="#name">The Five Values ↓</a>
               <a class="btn btn--outline" href="whitepaper.html">Read Whitepaper</a>
             </div>
           </div>
@@ -288,16 +396,192 @@
       </div>
     </section>
 
-    <!-- TOKEN -->
-    <section id="token" class="section section--dark">
+    <!-- THE NAME -->
+    <section id="name" class="section section--dark">
       <div class="container">
         <div class="section__head reveal">
-          <div class="section__label mono">/ 02 — TOKEN</div>
-          <h2>Token <span class="text--accent">Info</span></h2>
-          <p>Use official links only. Verify contract addresses on-chain. Always DYOR.</p>
+          <div class="section__label mono">/ 02 — THE NAME</div>
+          <h2>Five letters. <span class="text--accent">Five values.</span></h2>
+          <p>BRBRT is not a random ticker. It is the path from being hurt to standing tall again.</p>
+        </div>
+
+        <div class="nx-acronym">
+          <article class="nx-letterCard reveal">
+            <span class="nx-letter text--accent">B</span>
+            <span class="nx-word">Bravery</span>
+            <p>The courage to walk in the first time, and to speak up.</p>
+          </article>
+          <article class="nx-letterCard reveal">
+            <span class="nx-letter text--accent">R</span>
+            <span class="nx-word">Resilience</span>
+            <p>Falling, getting back up, and coming back stronger.</p>
+          </article>
+          <article class="nx-letterCard reveal">
+            <span class="nx-letter text--accent">B</span>
+            <span class="nx-word">Brotherhood</span>
+            <p>No one trains alone. No one fights alone.</p>
+          </article>
+          <article class="nx-letterCard reveal">
+            <span class="nx-letter text--accent">R</span>
+            <span class="nx-word">Respect</span>
+            <p>For every body, every story and every journey.</p>
+          </article>
+          <article class="nx-letterCard reveal">
+            <span class="nx-letter text--accent">T</span>
+            <span class="nx-word">Triumph</span>
+            <p>Earned together, one session at a time.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE PROJECT -->
+    <section id="project" class="section">
+      <div class="container">
+        <div class="section__head reveal">
+          <div class="section__label mono">/ 03 — THE PROJECT</div>
+          <h2>BRBRT <span class="text--accent">Clubs</span></h2>
+          <p>Places where people rebuild strength in body and mind: affordable, coached,
+          and built on the five values. What saved one person, made available to many.</p>
+        </div>
+
+        <div class="noticeBox reveal">
+          <strong class="text--accent">A vision, not an announcement</strong>
+          <span>BRBRT Clubs do not exist yet. They will be built step by step, and each step opens only when it is legally and financially ready.</span>
+        </div>
+
+        <div class="story__grid" style="margin-top:28px">
+          <article class="storyCard reveal">
+            <div class="storyCard__num mono">01</div>
+            <div class="storyCard__icon" aria-hidden="true">🏋️</div>
+            <h3>Strength for everyone</h3>
+            <p>A training floor and group classes at a price people can actually pay.</p>
+            <div class="storyCard__line" aria-hidden="true"></div>
+          </article>
+          <article class="storyCard reveal">
+            <div class="storyCard__num mono">02</div>
+            <div class="storyCard__icon" aria-hidden="true">🧭</div>
+            <h3>Coaching included</h3>
+            <p>Qualified coaches on the floor at no extra fee, because no one should train alone.</p>
+            <div class="storyCard__line" aria-hidden="true"></div>
+          </article>
+          <article class="storyCard reveal">
+            <div class="storyCard__num mono">03</div>
+            <div class="storyCard__icon" aria-hidden="true">🧠</div>
+            <h3>Mind programme</h3>
+            <p>Awareness sessions led by licensed psychologists. The anti-bullying mission, inside every club.</p>
+            <div class="storyCard__line" aria-hidden="true"></div>
+          </article>
+          <article class="storyCard reveal">
+            <div class="storyCard__num mono">04</div>
+            <div class="storyCard__icon" aria-hidden="true">🥗</div>
+            <h3>Healthy kitchen</h3>
+            <p>A healthy restaurant open to the public: real food for training and for everyday life.</p>
+            <div class="storyCard__line" aria-hidden="true"></div>
+          </article>
+          <article class="storyCard reveal">
+            <div class="storyCard__num mono">05</div>
+            <div class="storyCard__icon" aria-hidden="true">🌊</div>
+            <h3>Recover like an athlete</h3>
+            <p>Pool and sauna in flagship clubs, once a first studio has proven it can pay its own way.</p>
+            <div class="storyCard__line" aria-hidden="true"></div>
+          </article>
+          <article class="storyCard reveal">
+            <div class="storyCard__num mono">06</div>
+            <div class="storyCard__icon" aria-hidden="true">🛡️</div>
+            <h3>Brotherhood, visible</h3>
+            <p>Challenges, badges, member votes, and anti-harassment support you can see on every wall.</p>
+            <div class="storyCard__line" aria-hidden="true"></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT'S BUILT -->
+    <section id="build" class="section section--dark">
+      <div class="container">
+        <div class="section__head reveal">
+          <div class="section__label mono">/ 04 — HOW IT'S BUILT</div>
+          <h2>Three pieces. <span class="text--accent">One mission.</span></h2>
+          <p>Each piece has one job. Keeping them separate is what keeps BRBRT honest, and legal.</p>
+        </div>
+
+        <div class="proofGrid">
+          <div class="proofCard reveal">
+            <div class="proofCard__icon" aria-hidden="true">🤝</div>
+            <h3>The Association</h3>
+            <p>Carries the mission: anti-bullying awareness, mental health talks, youth and school programmes.
+            Funded by donations and grants.</p>
+            <a class="proofCard__link chip" href="association.html">Association page ↗</a>
+          </div>
+          <div class="proofCard reveal">
+            <div class="proofCard__icon" aria-hidden="true">🏛️</div>
+            <h3>The Clubs Company</h3>
+            <p>Runs the clubs: premises, qualified coaches, the kitchen, memberships priced in euros.
+            Funded like a real business, through founders, partners and regulated crowdfunding.</p>
+          </div>
+          <div class="proofCard reveal">
+            <div class="proofCard__icon" aria-hidden="true">🪙</div>
+            <h3>The Token</h3>
+            <p>Access and loyalty for the community: perks, passes and votes.
+            Never a share of club revenue, never a promise of value.</p>
+            <a class="proofCard__link chip" href="#token">What BRBR is ↓</a>
+          </div>
+        </div>
+
+        <div class="nx-rules">
+          <div class="noticeBox reveal">
+            <strong class="text--accent">Rule 01</strong>
+            <span>Club money never flows to token holders.</span>
+          </div>
+          <div class="noticeBox reveal">
+            <strong class="text--accent">Rule 02</strong>
+            <span>The token never funds the clubs directly.</span>
+          </div>
+          <div class="noticeBox reveal">
+            <strong class="text--accent">Rule 03</strong>
+            <span>Every token utility launches only after legal review.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOKEN -->
+    <section id="token" class="section">
+      <div class="container">
+        <div class="section__head reveal">
+          <div class="section__label mono">/ 05 — TOKEN</div>
+          <h2>What BRBR <span class="text--accent">is, and isn't</span></h2>
+          <p>A token for belonging, not for speculation. Use official links only and verify everything on-chain.</p>
         </div>
 
         <div class="tokenGrid">
+          <div class="tokenPanel reveal">
+            <div class="tokenPanel__header">
+              <span class="mono small tag--green">● BRBR IS</span>
+              <span class="mono small">Planned utilities</span>
+            </div>
+            <ul class="nx-list">
+              <li><span class="tag--green">✓</span><span>A community voice: votes on the next city, programmes and menus.</span></li>
+              <li><span class="tag--green">✓</span><span>A stake-to-train pass: lock BRBR in a contract you control, get access, unlock anytime and get every token back.</span></li>
+              <li><span class="tag--green">✓</span><span>Member perks at partner gyms and future BRBRT Clubs.</span></li>
+              <li><span class="tag--green">✓</span><span>Proof that you stand with the movement.</span></li>
+            </ul>
+            <p class="nx-note mono small">Each utility goes live only after legal review. Workout points earned in clubs stay in the app and are never exchanged for BRBR.</p>
+          </div>
+
+          <div class="tokenPanel reveal">
+            <div class="tokenPanel__header">
+              <span class="mono small tag--yellow">✕ BRBR IS NOT</span>
+            </div>
+            <ul class="nx-list">
+              <li><span class="tag--yellow">✕</span><span>An investment, or a share of any company.</span></li>
+              <li><span class="tag--yellow">✕</span><span>A claim on club revenue, profits or buybacks.</span></li>
+              <li><span class="tag--yellow">✕</span><span>A promise of price, listing or return.</span></li>
+              <li><span class="tag--yellow">✕</span><span>A way to fund the clubs.</span></li>
+            </ul>
+          </div>
+
           <div class="tokenPanel reveal">
             <div class="tokenPanel__header">
               <span class="mono small tag--green">● OFFICIAL</span>
@@ -328,7 +612,9 @@
               <span class="mono small tag--yellow">⚠ DISCLAIMER</span>
             </div>
             <p class="muted">BRBRT is a meme token with a mission-driven story. This website is informational only.
-            We do not promise profits, returns, or financial outcomes.</p>
+            We do not promise profits, returns, or financial outcomes. Liquidity is currently small, so any trade can move the price sharply.</p>
+            <!-- LEGAL NOTE: if a lawyer confirms this page counts as a MiCA marketing communication,
+                 insert here the exact disclaimer wording required by Article 7 of Regulation (EU) 2023/1114. -->
             <div class="noticeBox">
               <strong class="text--accent">NFA / DYOR</strong>
               <span>Always verify links and contract addresses before interacting with any token.</span>
@@ -339,10 +625,10 @@
     </section>
 
     <!-- TRANSPARENCY -->
-    <section id="transparency" class="section">
+    <section id="transparency" class="section section--dark">
       <div class="container">
         <div class="section__head reveal">
-          <div class="section__label mono">/ 03 — PROOF</div>
+          <div class="section__label mono">/ 06 — PROOF</div>
           <h2>Radical <span class="text--accent">Transparency</span></h2>
           <p>On-chain proof, public links, and full accountability. Verify everything yourself.</p>
         </div>
@@ -375,6 +661,25 @@
             <p class="mono small muted" style="margin-top:10px">Protected from scrapers.</p>
           </div>
         </div>
+
+        <div class="nx-status reveal" aria-label="Honest status">
+          <div class="nx-status__item">
+            <span class="nx-status__label mono small">Ownership</span>
+            <span class="nx-status__val tag--green">Renounced ✓</span>
+          </div>
+          <div class="nx-status__item">
+            <span class="nx-status__label mono small">Reserve</span>
+            <span class="nx-status__val">27.99% locked until 2030</span>
+          </div>
+          <div class="nx-status__item">
+            <span class="nx-status__label mono small">Fundraising</span>
+            <span class="nx-status__val">None through the token</span>
+          </div>
+          <div class="nx-status__item">
+            <span class="nx-status__label mono small">Liquidity</span>
+            <span class="nx-status__val tag--yellow">Small: trades move the price</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -391,9 +696,9 @@
 
       <div class="container">
         <div class="section__head reveal">
-          <div class="section__label mono">/ 04 — ROADMAP</div>
+          <div class="section__label mono">/ 07 — ROADMAP</div>
           <h2>The <span class="text--accent">Path</span> Forward</h2>
-          <p>Clear steps. Community-first. Proof on-chain where possible.</p>
+          <p>Each phase opens only when its gate is met. No shortcuts, no hype.</p>
         </div>
 
         <div class="roadmapGrid">
@@ -410,76 +715,82 @@
           </div>
           <div class="roadmapCard reveal">
             <div class="roadmapCard__phase mono">Phase 02</div>
-            <h3>Community Growth</h3>
+            <h3>Groundwork & Digital Club</h3>
             <ul class="roadmapList">
-              <li>Weekly story drops (cinematic clips, awareness posts)</li>
-              <li>Community events & moderation tools</li>
-              <li>Partnership outreach (youth awareness & creators)</li>
-              <li>Public progress reports</li>
+              <li>Weekly story drops and awareness content</li>
+              <li>Legal structure: clubs company + association, token model reviewed by a lawyer</li>
+              <li>Online programmes with qualified coaches, challenges and badges</li>
+              <li>First partner gyms and a waitlist for the first studio</li>
             </ul>
-            <div class="roadmapCard__status tag--yellow mono small">→ In Progress</div>
+            <div class="nx-gate mono small"><span class="nx-diamond" aria-hidden="true"></span><span>Gate: legal opinion, funding secured, and a waitlist of 300–500 members</span></div>
+            <div class="roadmapCard__status tag--yellow mono small">→ Next</div>
           </div>
           <div class="roadmapCard reveal">
             <div class="roadmapCard__phase mono">Phase 03</div>
-            <h3>Impact</h3>
+            <h3>First Studio</h3>
             <ul class="roadmapList">
-              <li>Launch "Supportive Web" hub resources</li>
-              <li>Association page + early initiatives</li>
-              <li>Content series: real scenes → animated episodes</li>
-              <li>Transparent funding goals</li>
+              <li>Training floor with group coaching included</li>
+              <li>Mind sessions led by licensed psychologists</li>
+              <li>Memberships in euros, optional BRBR perks via a licensed provider</li>
+              <li>Anti-harassment support visible in the club</li>
             </ul>
+            <div class="nx-gate mono small"><span class="nx-diamond" aria-hidden="true"></span><span>Gate: the first studio pays its own way</span></div>
             <div class="roadmapCard__status tag--muted mono small">◌ Upcoming</div>
           </div>
           <div class="roadmapCard reveal">
             <div class="roadmapCard__phase mono">Phase 04</div>
-            <h3>Sustainability</h3>
+            <h3>Flagship & Network</h3>
             <ul class="roadmapList">
-              <li>Long-term community governance discussion</li>
-              <li>Expand global awareness campaigns</li>
-              <li>Maintain verifiable transparency standard</li>
-              <li>Iterate website performance & accessibility</li>
+              <li>Pool with qualified lifeguards, and a sauna</li>
+              <li>Healthy restaurant open to the public</li>
+              <li>More cities, through our own clubs or partners</li>
+              <li>Association programmes in schools</li>
             </ul>
-            <div class="roadmapCard__status tag--muted mono small">◌ Upcoming</div>
+            <div class="roadmapCard__status tag--muted mono small">◌ Vision</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- HOW TO BUY -->
-    <section id="buy" class="section">
+    <!-- JOIN -->
+    <div id="buy" class="nx-anchor" aria-hidden="true"></div>
+    <section id="join" class="section">
       <div class="container">
         <div class="section__head reveal">
-          <div class="section__label mono">/ 05 — BUY</div>
-          <h2>How to <span class="text--accent">Buy</span></h2>
-          <p>Three simple steps. Always verify contract addresses before interacting.</p>
+          <div class="section__label mono">/ 08 — JOIN</div>
+          <h2>Be part of <span class="text--accent">the build</span></h2>
+          <p>The strongest way to support BRBRT costs nothing: carry the story further.</p>
         </div>
 
         <div class="buySteps">
           <div class="buyStep reveal">
             <div class="buyStep__num mono">01</div>
-            <h3>Get BNB</h3>
-            <p>Acquire BNB on BNB Chain — needed for gas fees and token swaps on PancakeSwap.</p>
+            <h3>Follow the story</h3>
+            <p>Weekly story drops, awareness posts and every step of the build, in public.</p>
+            <a class="chip" href="https://x.com/BRBRToken" target="_blank" rel="noreferrer">X ↗</a>
+            <a class="chip" href="https://www.instagram.com/brbrtcoin/" target="_blank" rel="noreferrer">Instagram ↗</a>
           </div>
           <div class="buyStep__connector" aria-hidden="true">→</div>
           <div class="buyStep reveal">
             <div class="buyStep__num mono">02</div>
-            <h3>Open PancakeSwap</h3>
-            <p>Navigate to the official PancakeSwap link and paste the BRBRT contract address.</p>
-            <a class="chip" href="https://pancakeswap.finance/swap?outputCurrency=0xf97522ABEf762d28729E073019343b72C6e8D2C1&chain=bsc" target="_blank" rel="noopener">Swap ↗</a>
+            <h3>Share yours</h3>
+            <p>Been through harassment? Your story can help someone else stand back up. You are not alone.</p>
+            <a class="chip" href="#contact">Contact us ↓</a>
           </div>
           <div class="buyStep__connector" aria-hidden="true">→</div>
           <div class="buyStep reveal">
             <div class="buyStep__num mono">03</div>
-            <h3>Verify On-Chain</h3>
-            <p>Always confirm the contract address on BscScan before confirming any transaction.</p>
-            <a class="chip" href="https://bscscan.com/token/0xf97522ABEF762d28729E073019343b72C6e8D2C1" target="_blank" rel="noopener">Explorer ↗</a>
+            <h3>Build with us</h3>
+            <p>Coaches, gyms, psychologists, schools: let's open the first BRBRT spaces together.</p>
+            <a class="chip" href="#contact">Partner with us ↓</a>
           </div>
         </div>
 
         <div class="warningBox reveal">
           <span class="tag--yellow mono">⚠ REMINDER</span>
           <p>BRBRT makes no promises of profit. This website is informational only.
-          Always do your own research (DYOR) before interacting with any crypto asset.</p>
+          Always do your own research (DYOR) before interacting with any crypto asset.
+          BRBRT never sells "presales" or "listings" through private messages: ignore anyone who offers them.</p>
         </div>
       </div>
     </section>
@@ -511,12 +822,13 @@
             <img src="assets/logo-64.png" alt="BRBRT logo" width="40" height="40" loading="lazy" decoding="async" />
             <div>
               <div class="footer__name">BRBRT</div>
-              <div class="footer__tag mono small">Strength • Dignity • Awareness</div>
+              <div class="footer__tag mono small">Bravery • Resilience • Brotherhood • Respect • Triumph</div>
             </div>
           </div>
           <p class="footer__small muted mono small">
             © <span id="year"></span> BRBRT. All rights reserved.<br>
-            Informational only. No financial advice. NFA / DYOR.
+            Informational only. No financial advice. NFA / DYOR.<br>
+            BRBRT Clubs are a project vision and do not exist yet.
           </p>
         </div>
         <div class="footer__right">
