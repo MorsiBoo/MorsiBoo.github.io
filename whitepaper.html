@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#020A06" />
   <title>BRBRT — Token Supply & Transparency Statement (Official)</title>
-  <meta name="description" content="BRBRT official Token Supply & Transparency Statement. Fixed supply proof, allocations, PinkLock record, contract disclosure, and CEX transparency pack." />
+  <meta name="description" content="BRBRT Token Supply & Transparency Statement, self-published by the founder: fixed supply, allocations, PinkLock record, contract disclosure and honest risk notes. Not a MiCA white paper." />
   <meta name="robots" content="index,follow,max-image-preview:large" />
 
   <link rel="icon" type="image/png" sizes="32x32" href="assets/logo-32.png">
@@ -545,6 +545,14 @@
       .doc-header__title { font-size: 2.5rem; }
     }
 
+    /* ── Phone fixes (Nov 2026): keep the topbar button on screen, let wide tables scroll ── */
+    .topbar__brand, .topbar__title { min-width: 0; }
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    @media (max-width: 500px) {
+      .topbar__title { font-size: 1rem; }
+      .topbar__cta { padding: 8px 12px; }
+    }
+
     /* ── Print ── */
     @media print {
       body { background: #fff !important; color: #000 !important; }
@@ -571,14 +579,15 @@
     <div class="topbar__inner">
       <div class="topbar__brand">
         <span class="topbar__dot" aria-hidden="true"></span>
-        <span class="topbar__title">BRBRT — Official Transparency (BRBRT-DOC-2026)</span>
+        <span class="topbar__title">BRBRT — Transparency Statement (BRBRT-DOC-2026)</span>
       </div>
       <nav class="topbar__nav" aria-label="Document navigation">
+        <a class="topbar__link" href="#about">About</a>
         <a class="topbar__link" href="#facts">Supply</a>
         <a class="topbar__link" href="#contract">Contract</a>
         <a class="topbar__link" href="#allocation">Allocation</a>
         <a class="topbar__link" href="#locked">Lock</a>
-        <a class="topbar__link" href="#cex">CEX Pack</a>
+        <a class="topbar__link" href="#cex">Checklist</a>
       </nav>
       <a class="topbar__cta" href="index.html">← Back to Site</a>
     </div>
@@ -592,9 +601,9 @@
     <!-- ── DOCUMENT HEADER ── -->
     <header class="doc-header reveal" id="top">
       <div class="doc-header__kicker">
-        <span class="kicker-pill"><span class="dot"></span>Locked & Verified</span>
-        <span class="kicker-pill">Classification: Professional Exchange Review</span>
-        <span class="kicker-pill">Purpose: Community Trust & Market Clarity</span>
+        <span class="kicker-pill"><span class="dot"></span>Self-published by the founder</span>
+        <span class="kicker-pill">Not a professional audit</span>
+        <span class="kicker-pill">Not a MiCA white paper</span>
       </div>
 
       <h1 class="doc-header__title">
@@ -602,25 +611,81 @@
       </h1>
 
       <p class="doc-header__sub">
-        Issued by <strong>BRBRT Team</strong> — Official, on-chain supply clarity and allocation structure.
-        Institutional-grade summary for exchange due diligence and community verification.
+        Issued by <strong>the founder of BRBRT</strong>. A plain summary of the token's supply, allocations and on-chain proofs,
+        so anyone can verify them independently. Revised on 14 November 2026 to add honest risk disclosures.
       </p>
 
       <div class="doc-header__meta">
-        <span class="meta-chip">Date: <strong>23/01/2026</strong></span>
+        <span class="meta-chip">Issued: <strong>23/01/2026</strong></span>
+        <span class="meta-chip">Revised: <strong>14/11/2026</strong></span>
         <span class="meta-chip">Ref: <strong>BRBRT-DOC-2026</strong></span>
-        <span class="meta-chip">Status: <strong>Official</strong></span>
+        <span class="meta-chip">Status: <strong>Self-published</strong></span>
         <span class="meta-chip">Contact: <a href="mailto:contact@brbrt.com">contact@brbrt.com</a></span>
       </div>
 
       <nav class="doc-header__nav" aria-label="On-page navigation">
+        <a class="doc-nav-link" href="#about">About This Document</a>
         <a class="doc-nav-link" href="#facts">Supply Facts</a>
         <a class="doc-nav-link" href="#contract">Contract Disclosure</a>
         <a class="doc-nav-link" href="#allocation">Supply Allocation</a>
         <a class="doc-nav-link" href="#locked">Locked Tokens</a>
-        <a class="doc-nav-link" href="#cex">CEX Pack</a>
+        <a class="doc-nav-link" href="#cex">Verification Checklist</a>
       </nav>
     </header>
+
+    <!-- ══════════════════════════════════════
+         ABOUT THIS DOCUMENT
+    ══════════════════════════════════════ -->
+    <section id="about" class="section">
+      <div class="section__label">/ 00 — About This Document</div>
+      <div class="grid">
+
+        <div class="card span-12 reveal">
+          <div class="card__label">Read First</div>
+          <div class="card__title">What this document is, and isn't</div>
+          <div class="check-item">
+            <div class="check-tick">✓</div>
+            <div class="check-text">
+              <strong>A transparency statement</strong>
+              <small>Written and published by the founder of BRBRT to show the supply, allocations and on-chain proofs.</small>
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-tick" style="color:var(--c-yellow);border-color:rgba(255,209,102,.35);background:rgba(255,209,102,.08)">✕</div>
+            <div class="check-text">
+              <strong>Not a MiCA crypto-asset white paper</strong>
+              <small>No white paper under the EU MiCA regulation has been notified for BRBR.</small>
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-tick" style="color:var(--c-yellow);border-color:rgba(255,209,102,.35);background:rgba(255,209,102,.08)">✕</div>
+            <div class="check-text">
+              <strong>Not audited</strong>
+              <small>No professional firm has audited the contract or this document. Automated scans are informational only.</small>
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-tick" style="color:var(--c-yellow);border-color:rgba(255,209,102,.35);background:rgba(255,209,102,.08)">✕</div>
+            <div class="check-text">
+              <strong>Not reviewed by any authority</strong>
+              <small>Nothing here has been reviewed or approved by the AMF or any other authority.</small>
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-tick" style="color:var(--c-yellow);border-color:rgba(255,209,102,.35);background:rgba(255,209,102,.08)">✕</div>
+            <div class="check-text">
+              <strong>Not an offer, not advice</strong>
+              <small>BRBR gives no right to profits, revenue or anything else. Nothing here is financial advice. NFA / DYOR.</small>
+            </div>
+          </div>
+          <div class="notice notice--warn">
+            <strong>Current risks</strong>
+            <p>BRBR liquidity is currently very small, so trades can move the price sharply. Up to 46.65% of the supply (the founder reserves set at issue) sits in unlocked wallets controlled by the founder (see Supply Allocation). Meme tokens can lose all their value.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
 
     <!-- ══════════════════════════════════════
          SUPPLY FACTS
@@ -632,24 +697,25 @@
         <div class="card span-6 reveal">
           <div class="card__label">Non-Negotiable</div>
           <div class="card__title">Fixed Supply</div>
-          <div class="data-row"><span>Max Supply</span><strong>1,000,000 BRBRT</strong></div>
-          <div class="data-row"><span>Total Supply</span><strong>1,000,000 BRBRT</strong></div>
+          <div class="data-row"><span>Max Supply</span><strong>1,000,000 BRBR</strong></div>
+          <div class="data-row"><span>Total Supply</span><strong>1,000,000 BRBR</strong></div>
           <div class="data-row"><span>Network</span><strong>BNB Chain (BEP-20)</strong></div>
+          <div class="data-row"><span>Symbol (on-chain)</span><strong>BRBR</strong></div>
           <div class="divider"></div>
           <div class="notice notice--success">
             <strong>The supply cannot increase.</strong>
-            <p>Everything is verifiable on-chain. No hidden tokens, no proxy upgrades.</p>
+            <p>No mint function, no proxy, ownership renounced. Verify it yourself on BscScan.</p>
           </div>
         </div>
 
         <div class="card span-6 reveal">
-          <div class="card__label">Security Protocol</div>
+          <div class="card__label">On-Chain Checks</div>
           <div class="card__title">On-Chain Proofs</div>
           <div class="check-item">
             <div class="check-tick">✓</div>
             <div class="check-text">
-              <strong>Minting Permanently Disabled</strong>
-              <small>Functionality removed — no new tokens can ever be created.</small>
+              <strong>No Mint Function</strong>
+              <small>There is no function to create new tokens, and ownership is renounced.</small>
             </div>
           </div>
           <div class="check-item">
@@ -686,7 +752,7 @@
       <div class="grid">
 
         <div class="card span-12 reveal">
-          <div class="card__label">Exchange-Ready</div>
+          <div class="card__label">Verify It Yourself</div>
           <div class="card__title">Contract Disclosure</div>
           <p>Official references to the contract and security scanning resources for due diligence. Always verify on-chain before any transaction.</p>
 
@@ -706,7 +772,7 @@
 
           <div class="notice notice--warn" style="margin-top:12px">
             <strong>Security Disclosure</strong>
-            <p>Explorer proofs are public and verifiable. Automated scanners are informational only — exchanges may perform internal audits and additional checks at their discretion.</p>
+            <p>Explorer proofs are public and verifiable. Automated scanners are informational only, and their results can differ: for example, Dedaub's scan flags guarded transfer functions as warnings. No professional audit has been done. Review the verified source code on BscScan before interacting.</p>
           </div>
         </div>
 
@@ -723,7 +789,7 @@
         <div class="card span-12 reveal">
           <div class="card__label">Full Breakdown</div>
           <div class="card__title">Supply Allocation Summary</div>
-          <p>Total Supply: <strong style="color:var(--c-neon)">1,000,000 BRBRT</strong>. All allocations are final and verifiable on-chain.</p>
+          <p>Total Supply: <strong style="color:var(--c-neon)">1,000,000 BRBR</strong>. Allocations as set at issue (23 January 2026). Only the PinkLock portion is locked. The other reserves were allocated to the founder and are not locked: verify current balances on BscScan.</p>
 
           <div class="divider"></div>
 
@@ -732,10 +798,10 @@
             <div class="chart-box">
               <div class="chart-box__header">
                 <div class="chart-box__title">Allocation Donut</div>
-                <div class="chart-badge">SVG · Responsive · No clipped labels</div>
+                <div class="chart-badge">At issue · 23/01/2026</div>
               </div>
-              <svg id="allocSvg" role="img" aria-label="BRBRT Token Allocation Donut Chart"></svg>
-              <p style="font-family:var(--f-mono);font-size:.72rem;color:var(--c-muted);margin-top:10px">Export to PDF preserves vector quality.</p>
+              <svg id="allocSvg" role="img" aria-label="BRBR Token Allocation Donut Chart"></svg>
+              <p style="font-family:var(--f-mono);font-size:.72rem;color:var(--c-muted);margin-top:10px">Shares as set at issue. Verify current balances on BscScan.</p>
             </div>
 
             <div class="legend">
@@ -744,7 +810,7 @@
                   <span class="legend-swatch" style="background:var(--c-locked)"></span>
                   <div>
                     <div class="legend-name">Locked (PinkLock V2)</div>
-                    <div class="legend-desc">On-chain secured. Team cannot move or sell.</div>
+                    <div class="legend-desc">Locked until 1 January 2030. Cannot be moved or sold before then.</div>
                   </div>
                 </div>
                 <div class="legend-pct">27.99%</div>
@@ -754,7 +820,7 @@
                   <span class="legend-swatch" style="background:var(--c-liquidity)"></span>
                   <div>
                     <div class="legend-name">Listings & Liquidity</div>
-                    <div class="legend-desc">Reserved for CEX, market making, order books.</div>
+                    <div class="legend-desc">Founder reserve, not locked. For possible future liquidity or listings; nothing is planned or promised.</div>
                   </div>
                 </div>
                 <div class="legend-pct">27.99%</div>
@@ -764,7 +830,7 @@
                   <span class="legend-swatch" style="background:var(--c-infra)"></span>
                   <div>
                     <div class="legend-name">Infrastructure</div>
-                    <div class="legend-desc">Supportive web, content systems, future game.</div>
+                    <div class="legend-desc">Founder reserve, not locked. Planned uses: supportive web, content systems, future game.</div>
                   </div>
                 </div>
                 <div class="legend-pct">10.00%</div>
@@ -774,7 +840,7 @@
                   <span class="legend-swatch" style="background:var(--c-marketing)"></span>
                   <div>
                     <div class="legend-name">Marketing</div>
-                    <div class="legend-desc">Education, awareness, partnerships, growth.</div>
+                    <div class="legend-desc">Founder reserve, not locked. Planned uses: education, awareness, partnerships.</div>
                   </div>
                 </div>
                 <div class="legend-pct">5.00%</div>
@@ -784,7 +850,7 @@
                   <span class="legend-swatch" style="background:var(--c-team)"></span>
                   <div>
                     <div class="legend-name">Team / DAO</div>
-                    <div class="legend-desc">Long-term incentives, DAO, governance.</div>
+                    <div class="legend-desc">Founder reserve, not locked. No DAO exists today.</div>
                   </div>
                 </div>
                 <div class="legend-pct">3.66%</div>
@@ -794,12 +860,17 @@
                   <span class="legend-swatch" style="background:var(--c-public)"></span>
                   <div>
                     <div class="legend-name">Public / Circulating</div>
-                    <div class="legend-desc">Public supply currently in circulation.</div>
+                    <div class="legend-desc">Public supply in circulation at issue.</div>
                   </div>
                 </div>
                 <div class="legend-pct">25.36%</div>
               </div>
             </div>
+          </div>
+
+          <div class="notice notice--warn" style="margin-top:20px">
+            <strong>Founder reserves: 46.65% not locked</strong>
+            <p>Listings &amp; Liquidity (27.99%), Infrastructure (10%), Marketing (5%) and Team / DAO (3.66%) were allocated at issue to wallets controlled by the founder. They are not locked and could be moved or sold. Current balances may differ: check them on BscScan. We disclose this openly so you can judge for yourself.</p>
           </div>
 
           <div class="divider" style="margin-top:24px"></div>
@@ -819,32 +890,32 @@
                 <tr>
                   <td><strong>Locked (PinkLock V2)</strong></td>
                   <td><span class="mono-val">27.99%</span></td>
-                  <td>Tokens are mathematically locked and cannot be moved or sold by the team.</td>
+                  <td>Locked on PinkLock until 1 January 2030. Cannot be moved or sold before then.</td>
                 </tr>
                 <tr>
                   <td><strong>Listings & Liquidity</strong></td>
                   <td><span class="mono-val">27.99%</span></td>
-                  <td>Reserved for CEX, market making, order book stability.</td>
+                  <td>Founder reserve, not locked. Possible future liquidity or listings; nothing is planned or promised.</td>
                 </tr>
                 <tr>
                   <td><strong>Infrastructure & Development</strong></td>
                   <td><span class="mono-val">10.00%</span></td>
-                  <td>Supportive web, content systems, future game (future launch).</td>
+                  <td>Founder reserve, not locked. Planned uses: supportive web, content systems, future game.</td>
                 </tr>
                 <tr>
                   <td><strong>Marketing</strong></td>
                   <td><span class="mono-val">5.00%</span></td>
-                  <td>Education, awareness, partnerships, growth initiatives.</td>
+                  <td>Founder reserve, not locked. Planned uses: education, awareness, partnerships.</td>
                 </tr>
                 <tr>
                   <td><strong>Team / DAO</strong></td>
                   <td><span class="mono-val">3.66%</span></td>
-                  <td>Long-term incentives, DAO experimentation phase, governance.</td>
+                  <td>Founder reserve, not locked. No DAO exists today.</td>
                 </tr>
                 <tr>
                   <td><strong>Public / Circulating</strong></td>
                   <td><span class="mono-val">25.36%</span></td>
-                  <td>Public supply in circulation.</td>
+                  <td>Public supply in circulation at issue.</td>
                 </tr>
               </tbody>
             </table>
@@ -883,6 +954,8 @@
             </div>
           </div>
 
+          <!-- CHECK: the homepage links PinkLock record 1437018, this page links 1437618.
+               Open both and keep the one that shows BRBR, 279,897.52 locked until 2030-01-01, on every page. -->
           <div class="notice notice--success" style="margin-top:16px">
             <strong>On-chain Lock Record</strong>
             <div class="mono-box">
@@ -899,21 +972,21 @@
     </section>
 
     <!-- ══════════════════════════════════════
-         CEX PACK
+         VERIFICATION CHECKLIST
     ══════════════════════════════════════ -->
     <section id="cex" class="section">
-      <div class="section__label">/ 05 — CEX Pack</div>
+      <div class="section__label">/ 05 — Verification Checklist</div>
       <div class="grid">
 
         <div class="card span-12 reveal">
-          <div class="card__label">Exchange Due Diligence</div>
-          <div class="card__title">CEX Transparency Pack</div>
-          <p>Complete verification package for exchange listing teams. All proofs are public, on-chain, and independently verifiable.</p>
+          <div class="card__label">Due Diligence</div>
+          <div class="card__title">Verification Checklist</div>
+          <p>Everything anyone needs to check BRBR independently, whether community members, partners or platforms. The good and the bad, side by side.</p>
 
           <div class="divider"></div>
 
           <div class="table-wrap">
-            <table aria-label="Exchange Due Diligence Table">
+            <table aria-label="Verification Checklist Table">
               <thead>
                 <tr>
                   <th>Item</th>
@@ -948,6 +1021,26 @@
                   <td><a href="https://bscscan.com/address/0xf97522ABEf762d28729E073019343b72C6e8D2C1#readContract" target="_blank" rel="noopener" style="color:var(--c-neon)">Verify owner() ↗</a></td>
                 </tr>
                 <tr>
+                  <td><strong>Founder Reserves</strong></td>
+                  <td><span class="mono-val" style="color:var(--c-yellow)">46.65%</span> not locked</td>
+                  <td>See Supply Allocation</td>
+                </tr>
+                <tr>
+                  <td><strong>Liquidity</strong></td>
+                  <td><span class="mono-val" style="color:var(--c-yellow)">Very small</span></td>
+                  <td>Check the live pools on GeckoTerminal or DexScreener</td>
+                </tr>
+                <tr>
+                  <td><strong>Professional Audit</strong></td>
+                  <td><strong>None</strong></td>
+                  <td>Automated scans only (see Contract Disclosure)</td>
+                </tr>
+                <tr>
+                  <td><strong>MiCA White Paper</strong></td>
+                  <td><strong>Not prepared</strong></td>
+                  <td>Generally required before admission to trading on an EU platform</td>
+                </tr>
+                <tr>
                   <td><strong>Official Contact</strong></td>
                   <td><strong>contact@brbrt.com</strong></td>
                   <td><a href="mailto:contact@brbrt.com" style="color:var(--c-neon)">Send Email ↗</a></td>
@@ -962,14 +1055,14 @@
 
     <!-- ── FOOTER ── -->
     <footer class="doc-footer reveal" id="final">
-      <div class="doc-footer__title">Everything is on-chain.<br><span style="color:var(--c-neon)">Nothing is hidden.</span></div>
-      <p>All proofs are public, independent, and permanently verifiable.</p>
+      <div class="doc-footer__title">Verify everything.<br><span style="color:var(--c-neon)">The good and the risks.</span></div>
+      <p>All on-chain proofs are public, and the risks are disclosed. Check everything yourself before interacting.</p>
       <div class="doc-footer__actions">
         <a class="doc-footer__back" href="index.html">← Back to BRBRT</a>
         <button class="mini-btn" type="button" onclick="copyText('contact@brbrt.com')" style="padding:10px 18px">Copy Email ⧉</button>
         <button class="mini-btn" type="button" onclick="copyText('0xf97522ABEf762d28729E073019343b72C6e8D2C1')" style="padding:10px 18px">Copy Address ⧉</button>
       </div>
-      <p style="margin-top:16px;font-family:var(--f-mono);font-size:.75rem;color:var(--c-dim)">— BRBRT TEAM — brbrt.com —</p>
+      <p style="margin-top:16px;font-family:var(--f-mono);font-size:.75rem;color:var(--c-dim)">— BRBRT · brbrt.com —</p>
     </footer>
 
   </div><!-- /wrap -->
@@ -1261,7 +1354,7 @@
       t2.setAttribute('x', cx); t2.setAttribute('y', cy + 11);
       t2.setAttribute('text-anchor', 'middle'); t2.setAttribute('dominant-baseline', 'middle');
       t2.setAttribute('class', 'call-sub'); t2.setAttribute('style', 'font-size:11.5px');
-      t2.textContent = '1,000,000 BRBRT';
+      t2.textContent = '1,000,000 BRBR';
       svg.appendChild(t2);
 
       const ring = el('circle');
