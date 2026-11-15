@@ -11,7 +11,7 @@
   <meta name="color-scheme" content="dark" />
 
   <title>BRBRT Crypto Project - Strength • Dignity • Awareness (BNB Chain)</title>
-  <meta name="description" content="BRBRT is a community-driven meme token on BNB Chain born from a real story of harassment and resilience, and the vision of BRBRT Clubs: places to rebuild body and mind. Transparency-first. No promises of profit. NFA." />
+  <meta name="description" content="BRBRT is a community-driven meme token on BNB Chain born from a real story of harassment and resilience, and the vision of BRBRT Gym: a place to rebuild body and mind. Transparency-first. No promises of profit. NFA." />
 
   <link rel="canonical" href="https://brbrt.com/" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/logo-180.png">
 
   <meta property="og:title" content="BRBRT — Strength • Dignity • Awareness" />
-  <meta property="og:description" content="A real story of harassment and resilience, a community on BNB Chain, and the vision of BRBRT Clubs. Transparency-first. No promises of profit. NFA." />
+  <meta property="og:description" content="A real story of harassment and resilience, a community on BNB Chain, and the vision of BRBRT Gym. Transparency-first. No promises of profit. NFA." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://brbrt.com/" />
   <meta property="og:image" content="https://brbrt.com/assets/og-brbrt.jpg" />
@@ -49,73 +49,6 @@
   <link rel="preload" href="style.css" as="style" />
   <link rel="stylesheet" href="style.css" />
 
-  <!-- ============================================================
-       BRBRT UPDATE — extra components.
-       Colours are inherited from style.css (no new palette):
-       accents only come from your existing classes
-       (.text--accent, .tag--green, .tag--yellow).
-       ============================================================ -->
-  <style>
-    .nx-anchor{position:relative;top:-90px;height:0;overflow:hidden}
-
-    /* Story chapters (timeline) */
-    .nx-chapters{position:relative;display:grid;gap:18px;margin:44px 0 56px;padding-left:34px}
-    .nx-chapters::before{content:"";position:absolute;left:10px;top:10px;bottom:10px;width:1px;background:linear-gradient(to bottom,rgba(255,255,255,.55),rgba(255,255,255,.04))}
-    .nx-chapter{position:relative;padding:22px 24px;border:1px solid rgba(255,255,255,.08);border-radius:18px;background:rgba(255,255,255,.025);transition:transform .35s ease,border-color .35s ease}
-    .nx-chapter:hover{transform:translateX(6px);border-color:rgba(255,255,255,.2)}
-    .nx-dot{position:absolute;left:-29px;top:28px;width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.9);box-shadow:0 0 0 4px rgba(255,255,255,.06),0 0 18px rgba(255,255,255,.55)}
-    .nx-chapter__num{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.12em;opacity:.6}
-    .nx-chapter h3{margin:4px 0 6px;font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.2rem,2.4vw,1.6rem)}
-    .nx-chapter p{margin:0;opacity:.8;line-height:1.65;max-width:62ch}
-
-    /* Big statement line */
-    .nx-statement{margin:0 0 56px;font-family:'Syne',sans-serif;font-weight:900;font-size:clamp(1.7rem,5vw,3.4rem);line-height:1.05;letter-spacing:-.02em;text-transform:uppercase}
-    .nx-statement span{display:block}
-
-    /* Acronym */
-    .nx-acronym{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:40px}
-    .nx-letterCard{position:relative;padding:22px 18px 22px;border:1px solid rgba(255,255,255,.08);border-radius:18px;background:rgba(255,255,255,.025);overflow:hidden;transition:transform .35s ease,border-color .35s ease}
-    .nx-letterCard:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.22)}
-    .nx-letterCard::after{content:"";position:absolute;inset:auto -40% -60% -40%;height:70%;background:radial-gradient(closest-side,rgba(255,255,255,.07),transparent);pointer-events:none}
-    .nx-letter{display:block;font-family:'Bebas Neue',sans-serif;font-size:clamp(4.2rem,9vw,7.5rem);line-height:.85}
-    .nx-word{display:block;margin-top:12px;font-family:'Syne',sans-serif;font-weight:800;font-size:1.02rem;letter-spacing:.05em;text-transform:uppercase}
-    .nx-letterCard p{margin:8px 0 0;font-size:.92rem;line-height:1.55;opacity:.75}
-
-    /* Honest status strip */
-    .nx-status{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;margin-top:36px;border:1px solid rgba(255,255,255,.08);border-radius:18px;overflow:hidden;background:rgba(255,255,255,.08)}
-    .nx-status__item{padding:18px 20px;background:rgba(2,10,6,.92)}
-    .nx-status__label{display:block;margin-bottom:6px;opacity:.6}
-    .nx-status__val{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;line-height:1.35}
-
-    /* Is / isn't lists */
-    .nx-list{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:12px}
-    .nx-list li{display:flex;gap:12px;align-items:flex-start;line-height:1.55}
-    .nx-list li > span:first-child{flex:0 0 auto;font-family:'DM Mono',monospace;margin-top:1px}
-    .nx-note{margin-top:16px;opacity:.6}
-
-    /* Build rules */
-    .nx-rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:22px}
-
-    /* Roadmap gates */
-    .nx-gate{display:flex;gap:10px;align-items:flex-start;margin-top:16px;padding-top:14px;border-top:1px dashed rgba(255,255,255,.16);line-height:1.5}
-    .nx-diamond{flex:0 0 auto;width:9px;height:9px;margin-top:5px;transform:rotate(45deg);border:1px solid rgba(255,255,255,.75)}
-
-    @media (max-width:980px){
-      .nx-acronym{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .nx-acronym .nx-letterCard:last-child{grid-column:1/-1}
-      .nx-status{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .nx-rules{grid-template-columns:1fr}
-    }
-    @media (max-width:520px){
-      .nx-status{grid-template-columns:1fr}
-      .nx-chapters{padding-left:28px}
-      .nx-dot{left:-23px}
-    }
-    @media (prefers-reduced-motion:reduce){
-      .nx-chapter,.nx-letterCard{transition:none}
-      .nx-chapter:hover,.nx-letterCard:hover{transform:none}
-    }
-  </style>
 </head>
 
 <body>
@@ -150,6 +83,7 @@
       <nav class="nav__links" aria-label="Primary">
         <a href="#story" class="nav__link">Story</a>
         <a href="#project" class="nav__link">Project</a>
+        <a href="gym-3d.html" class="nav__link">3D</a>
         <a href="#transparency" class="nav__link">Transparency</a>
         <a href="#roadmap" class="nav__link">Roadmap</a>
         <a href="whitepaper.html" class="nav__link">Whitepaper</a>
@@ -178,7 +112,8 @@
       <div class="mobile__panel">
         <a href="#story">Story</a>
         <a href="#name">The Name</a>
-        <a href="#project">BRBRT Clubs</a>
+        <a href="#project">BRBRT Gym</a>
+        <a href="gym-3d.html">3D Concept</a>
         <a href="#build">How It's Built</a>
         <a href="#token">Token</a>
         <a href="#transparency">Transparency</a>
@@ -232,14 +167,14 @@
 
         <p class="hero__sub reveal">
           A real story of harassment, silence, and the gym that brought strength back.
-          BRBRT turns it into a community, an association, and a plan: <strong>BRBRT Clubs</strong>,
-          places where anyone can rebuild body and mind.
+          BRBRT turns it into a community, an association, and a plan: <strong>BRBRT Gym</strong>,
+          a place where anyone can rebuild body and mind.
           <span class="badge">NFA • DYOR</span>
         </p>
 
         <div class="hero__cta reveal">
           <a class="btn btn--primary btn--lg" href="#project">
-            <span>Discover BRBRT Clubs</span>
+            <span>Discover BRBRT Gym</span>
             <span class="btn__arrow">→</span>
           </a>
           <a class="btn btn--outline btn--lg" href="#story">
@@ -440,14 +375,14 @@
       <div class="container">
         <div class="section__head reveal">
           <div class="section__label mono">/ 03 — THE PROJECT</div>
-          <h2>BRBRT <span class="text--accent">Clubs</span></h2>
-          <p>Places where people rebuild strength in body and mind: affordable, coached,
+          <h2>BRBRT <span class="text--accent">Gym</span></h2>
+          <p>A place where people rebuild strength in body and mind: affordable, coached,
           and built on the five values. What saved one person, made available to many.</p>
         </div>
 
         <div class="noticeBox reveal">
           <strong class="text--accent">A vision, not an announcement</strong>
-          <span>BRBRT Clubs do not exist yet. They will be built step by step, and each step opens only when it is legally and financially ready.</span>
+          <span>BRBRT Gym does not exist yet. It will be built step by step, and each step opens only when it is legally and financially ready.</span>
         </div>
 
         <div class="story__grid" style="margin-top:28px">
@@ -469,7 +404,7 @@
             <div class="storyCard__num mono">03</div>
             <div class="storyCard__icon" aria-hidden="true">🧠</div>
             <h3>Mind programme</h3>
-            <p>Awareness sessions led by licensed psychologists. The anti-bullying mission, inside every club.</p>
+            <p>Awareness sessions led by licensed psychologists. The anti-bullying mission, inside every BRBRT Gym.</p>
             <div class="storyCard__line" aria-hidden="true"></div>
           </article>
           <article class="storyCard reveal">
@@ -483,7 +418,7 @@
             <div class="storyCard__num mono">05</div>
             <div class="storyCard__icon" aria-hidden="true">🌊</div>
             <h3>Recover like an athlete</h3>
-            <p>Pool and sauna in flagship clubs, once a first studio has proven it can pay its own way.</p>
+            <p>Pool and sauna in a flagship BRBRT Gym, once a first studio has proven it can pay its own way.</p>
             <div class="storyCard__line" aria-hidden="true"></div>
           </article>
           <article class="storyCard reveal">
@@ -493,6 +428,15 @@
             <p>Challenges, badges, member votes, and anti-harassment support you can see on every wall.</p>
             <div class="storyCard__line" aria-hidden="true"></div>
           </article>
+        </div>
+
+        <!-- 3D concept -->
+        <div class="noticeBox reveal" style="margin-top:28px">
+          <strong class="text--accent">See it in 3D</strong>
+          <span>Walk through a concept of a first BRBRT Gym: parking, kids club, health studios, pool, gym and a glass restaurant on top. A concept visualisation, not a building that exists yet.</span>
+        </div>
+        <div class="reveal" style="margin-top:16px;display:flex;flex-wrap:wrap;gap:12px">
+          <a class="btn btn--primary btn--lg" href="gym-3d.html">Explore the 3D concept →</a>
         </div>
       </div>
     </section>
@@ -516,15 +460,15 @@
           </div>
           <div class="proofCard reveal">
             <div class="proofCard__icon" aria-hidden="true">🏛️</div>
-            <h3>The Clubs Company</h3>
-            <p>Runs the clubs: premises, qualified coaches, the kitchen, memberships priced in euros.
+            <h3>The Gym Company</h3>
+            <p>Runs the gym: premises, qualified coaches, the kitchen, memberships priced in euros.
             Funded like a real business, through founders, partners and regulated crowdfunding.</p>
           </div>
           <div class="proofCard reveal">
             <div class="proofCard__icon" aria-hidden="true">🪙</div>
             <h3>The Token</h3>
             <p>Access and loyalty for the community: perks, passes and votes.
-            Never a share of club revenue, never a promise of value.</p>
+            Never a share of gym revenue, never a promise of value.</p>
             <a class="proofCard__link chip" href="#token">What BRBR is ↓</a>
           </div>
         </div>
@@ -532,11 +476,11 @@
         <div class="nx-rules">
           <div class="noticeBox reveal">
             <strong class="text--accent">Rule 01</strong>
-            <span>Club money never flows to token holders.</span>
+            <span>Gym money never flows to token holders.</span>
           </div>
           <div class="noticeBox reveal">
             <strong class="text--accent">Rule 02</strong>
-            <span>The token never funds the clubs directly.</span>
+            <span>The token never funds the gym directly.</span>
           </div>
           <div class="noticeBox reveal">
             <strong class="text--accent">Rule 03</strong>
@@ -564,10 +508,10 @@
             <ul class="nx-list">
               <li><span class="tag--green">✓</span><span>A community voice: votes on the next city, programmes and menus.</span></li>
               <li><span class="tag--green">✓</span><span>A stake-to-train pass: lock BRBR in a contract you control, get access, unlock anytime and get every token back.</span></li>
-              <li><span class="tag--green">✓</span><span>Member perks at partner gyms and future BRBRT Clubs.</span></li>
+              <li><span class="tag--green">✓</span><span>Member perks at partner gyms and a future BRBRT Gym.</span></li>
               <li><span class="tag--green">✓</span><span>Proof that you stand with the movement.</span></li>
             </ul>
-            <p class="nx-note mono small">Each utility goes live only after legal review. Workout points earned in clubs stay in the app and are never exchanged for BRBR.</p>
+            <p class="nx-note mono small">Each utility goes live only after legal review. Workout points earned at the gym stay in the app and are never exchanged for BRBR.</p>
           </div>
 
           <div class="tokenPanel reveal">
@@ -576,9 +520,9 @@
             </div>
             <ul class="nx-list">
               <li><span class="tag--yellow">✕</span><span>An investment, or a share of any company.</span></li>
-              <li><span class="tag--yellow">✕</span><span>A claim on club revenue, profits or buybacks.</span></li>
+              <li><span class="tag--yellow">✕</span><span>A claim on gym revenue, profits or buybacks.</span></li>
               <li><span class="tag--yellow">✕</span><span>A promise of price, listing or return.</span></li>
-              <li><span class="tag--yellow">✕</span><span>A way to fund the clubs.</span></li>
+              <li><span class="tag--yellow">✕</span><span>A way to fund the gym.</span></li>
             </ul>
           </div>
 
@@ -718,7 +662,7 @@
             <h3>Groundwork & Digital Club</h3>
             <ul class="roadmapList">
               <li>Weekly story drops and awareness content</li>
-              <li>Legal structure: clubs company + association, token model reviewed by a lawyer</li>
+              <li>Legal structure: gym company + association, token model reviewed by a lawyer</li>
               <li>Online programmes with qualified coaches, challenges and badges</li>
               <li>First partner gyms and a waitlist for the first studio</li>
             </ul>
@@ -732,7 +676,7 @@
               <li>Training floor with group coaching included</li>
               <li>Mind sessions led by licensed psychologists</li>
               <li>Memberships in euros, optional BRBR perks via a licensed provider</li>
-              <li>Anti-harassment support visible in the club</li>
+              <li>Anti-harassment support visible in the gym</li>
             </ul>
             <div class="nx-gate mono small"><span class="nx-diamond" aria-hidden="true"></span><span>Gate: the first studio pays its own way</span></div>
             <div class="roadmapCard__status tag--muted mono small">◌ Upcoming</div>
@@ -743,7 +687,7 @@
             <ul class="roadmapList">
               <li>Pool with qualified lifeguards, and a sauna</li>
               <li>Healthy restaurant open to the public</li>
-              <li>More cities, through our own clubs or partners</li>
+              <li>More cities, through our own gyms or partners</li>
               <li>Association programmes in schools</li>
             </ul>
             <div class="roadmapCard__status tag--muted mono small">◌ Vision</div>
@@ -828,7 +772,7 @@
           <p class="footer__small muted mono small">
             © <span id="year"></span> BRBRT. All rights reserved.<br>
             Informational only. No financial advice. NFA / DYOR.<br>
-            BRBRT Clubs are a project vision and do not exist yet.
+            BRBRT Gym is a project vision and does not exist yet.
           </p>
         </div>
         <div class="footer__right">
@@ -851,12 +795,12 @@
     </footer>
   </main>
 
-  <!-- AI CHATBOT -->
-  <div id="chatbotWidget" class="chatbot" role="region" aria-label="BRBRT AI Assistant">
-    <button id="chatbotToggle" class="chatbot__toggle" type="button" aria-expanded="false" aria-controls="chatbotPanel" aria-label="Open BRBRT AI Chat">
+  <!-- BRBRT GUIDE (FAQ) -->
+  <div id="chatbotWidget" class="chatbot" role="region" aria-label="BRBRT Guide">
+    <button id="chatbotToggle" class="chatbot__toggle" type="button" aria-expanded="false" aria-controls="chatbotPanel" aria-label="Open the BRBRT Guide">
       <div class="chatbot__pulse" aria-hidden="true"></div>
-      <span class="chatbot__icon" aria-hidden="true">🤖</span>
-      <span class="chatbot__label">AI</span>
+      <span class="chatbot__icon" aria-hidden="true">💬</span>
+      <span class="chatbot__label">FAQ</span>
     </button>
 
     <div id="chatbotPanel" class="chatbot__panel" hidden aria-hidden="true">
@@ -866,34 +810,34 @@
           <div class="chatbot__online" aria-hidden="true"></div>
         </div>
         <div>
-          <div class="chatbot__name">BRBRT AI</div>
-          <div class="chatbot__status mono small tag--green">● Online — Ask me anything</div>
+          <div class="chatbot__name">BRBRT Guide</div>
+          <div class="chatbot__status mono small tag--green">● Quick answers about BRBRT</div>
         </div>
-        <button class="chatbot__close" id="chatbotClose" type="button" aria-label="Close chat">✕</button>
+        <button class="chatbot__close" id="chatbotClose" type="button" aria-label="Close the guide">✕</button>
       </div>
 
-      <div class="chatbot__messages" id="chatbotMessages" role="log" aria-live="polite" aria-label="Chat messages">
+      <div class="chatbot__messages" id="chatbotMessages" role="log" aria-live="polite" aria-label="Guide messages">
         <div class="chatbot__msg chatbot__msg--bot">
           <div class="chatbot__bubble">
-            👋 Hey! I'm the <strong>BRBRT AI Assistant</strong>.<br>
-            Ask me about the token, how to buy, the mission, or anything else about BRBRT!
+            👋 Hi! I'm the <strong>BRBRT Guide</strong>, a simple FAQ.<br>
+            Ask me about the story, BRBRT Gym, the token or how to stay safe.
           </div>
         </div>
         <div class="chatbot__suggestions">
           <button class="chatbot__suggest" type="button">What is BRBRT?</button>
-          <button class="chatbot__suggest" type="button">How do I buy?</button>
+          <button class="chatbot__suggest" type="button">What is BRBRT Gym?</button>
           <button class="chatbot__suggest" type="button">Is it safe?</button>
           <button class="chatbot__suggest" type="button">What's the mission?</button>
         </div>
       </div>
 
       <div class="chatbot__input">
-        <input id="chatbotInput" type="text" placeholder="Ask anything about BRBRT…" autocomplete="off" maxlength="300" />
-        <button id="chatbotSend" type="button" aria-label="Send message">
+        <input id="chatbotInput" type="text" placeholder="Ask a question about BRBRT…" autocomplete="off" maxlength="300" aria-label="Your question" />
+        <button id="chatbotSend" type="button" aria-label="Send question">
           <span aria-hidden="true">→</span>
         </button>
       </div>
-      <div class="chatbot__footer mono small muted">Powered by Claude AI · BRBRT data only</div>
+      <div class="chatbot__footer mono small muted">FAQ guide · What you type stays in your browser</div>
     </div>
   </div>
 
